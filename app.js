@@ -758,15 +758,87 @@ function closePricingOverlay() {
   document.getElementById('pricingOverlay').style.display = 'none';
 }
 
+let selectedPlan = 'pro';
+
 function selectPricingPlan(plan) {
   if (plan === 'free') {
     closePricingOverlay();
-  } else if (plan === 'pro') {
-    // Switch to Credit Card 3D Simulator screen
-    document.getElementById('pricingTierScreen').style.display = 'none';
-    document.getElementById('checkoutScreen').style.display = 'grid';
+    return;
+  }
+  selectedPlan = plan;
+  
+  const totalDueEl = document.getElementById('checkoutTotalCost');
+  const planLabelEl = document.getElementById('checkoutPlanLabel');
+  const planCostEl = document.getElementById('checkoutPlanCost');
+  const orderTitleEl = document.getElementById('checkoutOrderTitle');
+  
+  const cardSubmitBtn = document.getElementById('cardSubmitBtn');
+  const upiSubmitBtn = document.getElementById('upiSubmitBtn');
+  
+  const costStr = plan === 'standard' ? "$3.99" : "$9.99";
+  const nameStr = plan === 'standard' ? "Standard Explorer (Monthly)" : "Pro Explorer (Monthly)";
+  const titleStr = plan === 'standard' ? "Order Summary (Standard Plan)" : "Order Summary (Pro Plan)";
+  
+  if (totalDueEl) totalDueEl.textContent = costStr;
+  if (planLabelEl) planLabelEl.textContent = nameStr;
+  if (planCostEl) planCostEl.textContent = costStr;
+  if (orderTitleEl) orderTitleEl.textContent = titleStr;
+  
+  if (cardSubmitBtn) cardSubmitBtn.textContent = `Authorize ${costStr} Purchase`;
+  if (upiSubmitBtn) upiSubmitBtn.textContent = `Verify & Pay ${costStr}`;
+  
+  // Reset payment method tabs back to card
+  switchPaymentMethod('card');
+  
+  // Switch to Credit Card 3D Simulator screen
+  document.getElementById('pricingTierScreen').style.display = 'none';
+  document.getElementById('checkoutScreen').style.display = 'grid';
+}
+
+function switchPaymentMethod(method) {
+  const cardVis = document.getElementById('cardVisualizer');
+  const upiVis = document.getElementById('upiVisualizer');
+  const cardForm = document.getElementById('cardPaymentForm');
+  const upiForm = document.getElementById('upiPaymentForm');
+  
+  const tabCard = document.getElementById('tabPayCard');
+  const tabUpi = document.getElementById('tabPayUpi');
+  
+  if (method === 'card') {
+    if (cardVis) cardVis.style.display = 'block';
+    if (upiVis) upiVis.style.display = 'none';
+    if (cardForm) cardForm.style.display = 'flex';
+    if (upiForm) upiForm.style.display = 'none';
+    
+    if (tabCard) {
+      tabCard.style.background = 'rgba(59,127,255,0.2)';
+      tabCard.style.color = '#6dabff';
+      tabCard.style.fontWeight = '700';
+    }
+    if (tabUpi) {
+      tabUpi.style.background = 'transparent';
+      tabUpi.style.color = 'var(--text-secondary)';
+      tabUpi.style.fontWeight = '600';
+    }
+  } else if (method === 'upi') {
+    if (cardVis) cardVis.style.display = 'none';
+    if (upiVis) upiVis.style.display = 'block';
+    if (cardForm) cardForm.style.display = 'none';
+    if (upiForm) upiForm.style.display = 'flex';
+    
+    if (tabCard) {
+      tabCard.style.background = 'transparent';
+      tabCard.style.color = 'var(--text-secondary)';
+      tabCard.style.fontWeight = '600';
+    }
+    if (tabUpi) {
+      tabUpi.style.background = 'rgba(59,127,255,0.2)';
+      tabUpi.style.color = '#6dabff';
+      tabUpi.style.fontWeight = '700';
+    }
   }
 }
+window.switchPaymentMethod = switchPaymentMethod;
 
 function cancelCheckout() {
   document.getElementById('pricingTierScreen').style.display = 'flex';
@@ -830,11 +902,19 @@ function processPremiumPayment() {
   if (!currentUser) return;
   
   // Trigger cool success animation
-  showNotification("Processing card securely...", "info");
+  showNotification("Processing payment securely...", "info");
   
   setTimeout(() => {
-    currentUser.isPremium = true;
-    currentUser.membershipTier = "Pro Explorer";
+    if (selectedPlan === 'standard') {
+      currentUser.isPremium = false;
+      currentUser.membershipTier = "Standard Explorer";
+      showNotification("Standard Explorer Unlocked! Access all temples and Tiers 1-3.", "success");
+    } else {
+      currentUser.isPremium = true;
+      currentUser.membershipTier = "Pro Explorer";
+      showNotification("Pro Explorer Unlocked! Welcome to global discovery.", "success");
+    }
+    
     saveUserSession();
     updateHeaderUserBadge();
     syncUserJournalData();
@@ -847,13 +927,11 @@ function processPremiumPayment() {
       navigateCountry(activeCountryId);
     }
     
-    showNotification("Pro Access Unlocked! Welcome to global discovery.", "success");
-    
-    // Refresh city view if active to unlock hidden gems
+    // Refresh city view if active to unlock standard/pro gems
     if (activeCityId) {
       navigateCity(activeCityId);
     }
-  }, 3500);
+  }, 2500);
 }
 
 // ================= TEMPLE NAVIGATION & FILTERING =================
@@ -899,17 +977,39 @@ function plotCurrentTempleFilter() {
   }
   activeMarkers.forEach(m => map.removeLayer(m));
   activeMarkers = [];
+  
+  const tierName = currentUser ? currentUser.membershipTier : "Free Explorer";
+  const isFree = !tierName.includes("Standard") && !tierName.includes("Pro") && !tierName.includes("Admin");
+  
+  let plottedCount = 0;
   temples.forEach(t => {
     if (!t.lat || !t.lng) return;
-    const color = t.isCharDham ? '#FFD700' : t.isJyotirlinga ? '#FF8C00' : '#ffa940';
+    plottedCount++;
+    const isLocked = isFree && (plottedCount > 3);
+    
+    let color;
+    if (isLocked) {
+      color = '#3b82f6'; // locked pin color
+    } else {
+      color = t.isCharDham ? '#FFD700' : t.isJyotirlinga ? '#FF8C00' : '#ffa940';
+    }
+    
     const marker = L.circleMarker([t.lat, t.lng], {
       radius: 8, fillColor: color, color: '#fff', weight: 2, opacity: 1, fillOpacity: 0.9
     }).addTo(map);
-    marker.bindPopup(`<b>${t.name}</b><br>${t.state || ''}`);
+    
+    if (isLocked) {
+      marker.bindPopup(`<b>${t.name} (🔒 Locked)</b><br>Upgrade to Standard or Pro to unlock all pilgrimage sights!`);
+      marker.on('click', () => {
+        openPricingOverlay();
+      });
+    } else {
+      marker.bindPopup(`<b>${t.name}</b><br>${t.state || ''}`);
+    }
     activeMarkers.push(marker);
   });
   if (temples.length > 0) map.setView([20.5937, 78.9629], 5);
-  showNotification(`📍 Plotted ${temples.length} temples on map!`, 'success');
+  showNotification(`📍 Plotted temples on map!`, 'success');
 }
 
 function getFilteredTemples(filter) {
@@ -921,12 +1021,6 @@ function getFilteredTemples(filter) {
   } else if (filter === 'jyotirlinga') {
     temples = temples.filter(t => t.isJyotirlinga);
   }
-  
-  // Free version limits: "dont show all temples and all char dham in free version show two or three only"
-  if (!currentUser || !currentUser.isPremium) {
-    temples = temples.slice(0, 3);
-  }
-  
   return temples;
 }
 
@@ -939,22 +1033,37 @@ function renderTemplesList(filter) {
     container.innerHTML = '<p style="color:var(--text-secondary);text-align:center;padding:20px;">No temples found.</p>';
     return;
   }
+  
+  const tierName = currentUser ? currentUser.membershipTier : "Free Explorer";
+  const isFree = !tierName.includes("Standard") && !tierName.includes("Pro") && !tierName.includes("Admin");
+  
   const byState = {};
   temples.forEach(t => {
     const state = t.state || 'Other';
     if (!byState[state]) byState[state] = [];
     byState[state].push(t);
   });
+  
+  let renderedCount = 0;
   Object.keys(byState).sort().forEach(state => {
     const stateHeader = document.createElement('div');
     stateHeader.style.cssText = 'padding:8px 12px;margin:12px 0 6px;background:rgba(255,140,0,0.1);border-left:3px solid #ffa940;border-radius:4px;font-weight:700;color:#ffa940;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;';
     stateHeader.textContent = state;
     container.appendChild(stateHeader);
+    
     byState[state].sort((a, b) => b.fameScore - a.fameScore).forEach(temple => {
+      renderedCount++;
+      const isLocked = isFree && (renderedCount > 3);
+      
       const badges = [];
       if (temple.isCharDham) badges.push('<span style="font-size:0.6rem;background:rgba(255,215,0,0.2);color:#FFD700;border:1px solid rgba(255,215,0,0.4);padding:2px 6px;border-radius:10px;">🕍 Char Dham</span>');
       if (temple.isJyotirlinga) badges.push('<span style="font-size:0.6rem;background:rgba(255,140,0,0.2);color:#FF8C00;border:1px solid rgba(255,140,0,0.4);padding:2px 6px;border-radius:10px;">🔱 Jyotirlinga</span>');
       if (temple.isUnesco) badges.push('<span style="font-size:0.6rem;background:rgba(30,144,255,0.2);color:#1E90FF;border:1px solid rgba(30,144,255,0.4);padding:2px 6px;border-radius:10px;">🏛️ UNESCO</span>');
+      
+      if (isLocked) {
+        badges.push('<span style="font-size:0.6rem;background:rgba(255,215,0,0.15);color:#ffd700;border:1px solid rgba(255,215,0,0.3);padding:2px 6px;border-radius:10px;font-weight:700;"><i data-lucide="lock" style="width:8px;display:inline-block;vertical-align:middle;margin-right:2px;"></i> PRO/STANDARD locked</span>');
+      }
+      
       const scoreColor = temple.fameScore >= 90 ? '#FF0000' : temple.fameScore >= 70 ? '#FF8C00' : '#FFD700';
       const el = document.createElement('div');
       el.style.cssText = 'display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,140,0,0.15);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all 0.2s;';
@@ -969,7 +1078,12 @@ function renderTemplesList(filter) {
         </div>
         <div style="font-size:0.75rem;font-weight:700;color:${scoreColor};flex-shrink:0;">${temple.fameScore}</div>
       `;
-      if (temple.lat && temple.lng) {
+      
+      if (isLocked) {
+        el.onclick = () => {
+          openPricingOverlay();
+        };
+      } else if (temple.lat && temple.lng) {
         el.onclick = () => {
           map.flyTo([temple.lat, temple.lng], 16, { animate: true, duration: 1.5 });
           plotSinglePoiMarker(temple);
@@ -979,6 +1093,7 @@ function renderTemplesList(filter) {
       container.appendChild(el);
     });
   });
+  lucide.createIcons();
 }
 
 // ================= AUTO-PLOT MAP TOGGLE =================
@@ -1057,6 +1172,7 @@ function initMap() {
     geocoder: L.Control.Geocoder.nominatim(),
     // Keep it tucked in the top right
     position: 'topright',
+    createMarker: function() { return null; }, // Disable duplicate routing markers
     lineOptions: {
       styles: [
         { color: '#0f172a', opacity: 0.35, weight: 11 }, // outer soft border shadow
@@ -2298,8 +2414,10 @@ function syncUserJournalData() {
   document.getElementById('journalUserName').textContent = currentUser.name;
   document.getElementById('journalUserTier').textContent = currentUser.membershipTier;
   
-  if (currentUser.isPremium) {
-    document.getElementById('journalUserTier').style.color = '#ffd700';
+  if (currentUser.membershipTier === "Pro Explorer" || currentUser.membershipTier.includes("Admin")) {
+    document.getElementById('journalUserTier').style.color = '#ffd700'; // gold
+  } else if (currentUser.membershipTier === "Standard Explorer") {
+    document.getElementById('journalUserTier').style.color = '#ffa940'; // orange
   } else {
     document.getElementById('journalUserTier').style.color = 'var(--text-secondary)';
   }
@@ -2834,6 +2952,8 @@ function calculateAndDisplayRoute() {
       opacity: 0.95
     }).addTo(map);
     
+    activeRouteCoordinates = arcPoints.map(p => L.latLng(p[0], p[1]));
+    
     const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
     map.fitBounds(bounds, { padding: [50, 50], animate: true });
     
@@ -2863,6 +2983,8 @@ function calculateAndDisplayRoute() {
     });
     
     customRouteLine = L.featureGroup([trackBase, trackDashes]).addTo(map);
+    
+    activeRouteCoordinates = trackPoints.map(p => L.latLng(p[0], p[1]));
     
     const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
     map.fitBounds(bounds, { padding: [50, 50], animate: true });
