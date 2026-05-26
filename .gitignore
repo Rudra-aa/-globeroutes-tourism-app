@@ -2,3 +2,8 @@
 node_modules/
 server/.env
 scratch/
+secure_auth_modal.html
+*.mp4
+*.mov
+__pycache__/
+*.pyc

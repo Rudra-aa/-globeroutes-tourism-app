@@ -913,12 +913,21 @@ function plotCurrentTempleFilter() {
 }
 
 function getFilteredTemples(filter) {
-  const allTemples = window.SEED_ATTRACTIONS.filter(a =>
+  let temples = window.SEED_ATTRACTIONS.filter(a =>
     a.countryId === 'india' && a.category === 'temple'
   );
-  if (filter === 'chardham') return allTemples.filter(t => t.isCharDham);
-  if (filter === 'jyotirlinga') return allTemples.filter(t => t.isJyotirlinga);
-  return allTemples;
+  if (filter === 'chardham') {
+    temples = temples.filter(t => t.isCharDham);
+  } else if (filter === 'jyotirlinga') {
+    temples = temples.filter(t => t.isJyotirlinga);
+  }
+  
+  // Free version limits: "dont show all temples and all char dham in free version show two or three only"
+  if (!currentUser || !currentUser.isPremium) {
+    temples = temples.slice(0, 3);
+  }
+  
+  return temples;
 }
 
 function renderTemplesList(filter) {
@@ -1102,9 +1111,8 @@ function plotPOIMarkers(pois, mode = 'city') {
   const isCountryMode = mode === 'country';
   
   pois.forEach((poi, idx) => {
-    // Check if free user is looking at a premium locked (Blue Tier) gem
-    const isBlueGem = poi.fameTier === 'blue';
-    const isLockedForFree = isBlueGem && (!currentUser || !currentUser.isPremium);
+    // Check if free user is looking at a premium locked gem
+    const isLockedForFree = isAttractionLocked(poi.fameTier, poi.category === 'temple');
     
     // In country overview mode, size by fame tier
     const tierSizeMap = { red: 22, orange: 18, yellow: 15, green: 12, blue: 11 };
@@ -1538,8 +1546,7 @@ function renderPOIsSidebar(pois) {
   }
   
   pois.forEach(poi => {
-    const isBlueGem = poi.fameTier === 'blue';
-    const isLocked = isBlueGem && (!currentUser || !currentUser.isPremium);
+    const isLocked = isAttractionLocked(poi.fameTier, poi.category === 'temple');
     
     const card = document.createElement('div');
     card.className = `city-card glass`;
@@ -1553,8 +1560,8 @@ function renderPOIsSidebar(pois) {
       card.innerHTML = `
         <div class="city-thumbnail" style="background-image:url('https://images.unsplash.com/photo-1506461883276-594a12b11cf3?auto=format&fit=crop&w=60&q=80');flex-shrink:0;filter:blur(4px);"></div>
         <div style="flex:1;filter:blur(3px);pointer-events:none;min-width:0;">
-          <h4 style="font-size:0.95rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[Hidden Local Gem]</h4>
-          <p style="font-size:0.75rem;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Local secrets hidden from plain sight...</p>
+          <h4 style="font-size:0.95rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[Premium Landmark]</h4>
+          <p style="font-size:0.75rem;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Unlock Pro to explore all landmarks...</p>
         </div>
         <div style="padding:4px 8px;background:rgba(255,215,0,0.15);border:1px solid #ffd700;border-radius:6px;font-size:0.7rem;color:#ffd700;font-weight:bold;display:flex;align-items:center;gap:4px;flex-shrink:0;">
           <i data-lucide="lock" style="width:12px;"></i> PRO
@@ -1639,11 +1646,41 @@ function handleTravelHop(currentCityId, countryId) {
   navigateCity(destination.id);
 }
 
+function isAttractionLocked(fameTier, isTemple = false) {
+  const tierName = currentUser ? currentUser.membershipTier : "Free Explorer";
+  const isPro = tierName.includes("Pro") || tierName.includes("Admin");
+  const isStandard = tierName.includes("Standard");
+  
+  if (isPro) {
+    return false;
+  }
+  
+  if (isStandard) {
+    // Standard plan has full access to all temples/Char Dhams!
+    if (isTemple) {
+      return false;
+    }
+    // Access Red, Yellow, Orange
+    const allowedTiers = ['red', 'orange', 'yellow'];
+    if (allowedTiers.includes(fameTier)) {
+      return false;
+    }
+    return true; // Green and Blue remain locked
+  }
+  
+  // Free plan: Red only!
+  if (fameTier === 'red') {
+    return false;
+  }
+  return true;
+}
+window.isAttractionLocked = isAttractionLocked;
+
 // ================= FILTER SERVICES =================
 
 function toggleTierFilter(tier) {
-  // Premium block check for Blue Tier filters
-  if (tier === 'blue' && (!currentUser || !currentUser.isPremium)) {
+  // Premium block check for non-accessible filters depending on user tier
+  if (isAttractionLocked(tier, false)) {
     openPricingOverlay();
     return;
   }
@@ -1793,8 +1830,7 @@ function handleGlobalSearch(query) {
   // Search preseeded Attractions (check Premium gates)
   window.SEED_ATTRACTIONS.forEach(a => {
     if (a.name.toLowerCase().includes(normQuery)) {
-      const isBlue = a.fameTier === 'blue';
-      const isLocked = isBlue && (!currentUser || !currentUser.isPremium);
+      const isLocked = isAttractionLocked(a.fameTier, a.category === 'temple');
       const labelPrefix = isLocked ? '🔒' : '📍';
       
       results.push({ 
@@ -1937,8 +1973,8 @@ function showPoiDetails(poiId) {
   
   if (!poi) return;
   
-  // Restrict Hidden Gems to Pro users
-  if (poi.fameTier === 'blue' && (!currentUser || !currentUser.isPremium)) {
+  // Restrict Orange, Yellow, Green, and Blue Gems to Pro users
+  if (poi.fameTier !== 'red' && (!currentUser || !currentUser.isPremium)) {
     openPricingOverlay();
     return;
   }
@@ -2495,6 +2531,8 @@ let endDebounce = null;
 let activeRouteCoordinates = null;
 let currentTravelMode = 'road';
 let customRouteLine = null;
+let routeStartMarker = null;
+let routeEndMarker = null;
 
 window.addEventListener('DOMContentLoaded', () => {
   const startInput = document.getElementById('routeStartInput');
@@ -2569,14 +2607,20 @@ function renderSuggestions(data, type) {
       input.value = place.display_name.split(',')[0];
       if (type === 'start') {
         routeStartLatLng = L.latLng(place.lat, place.lon);
+        if (routeStartMarker) {
+          map.removeLayer(routeStartMarker);
+        }
+        routeStartMarker = L.marker(routeStartLatLng).addTo(map).bindPopup("Start: " + place.display_name.split(',')[0]).openPopup();
       } else {
         routeEndLatLng = L.latLng(place.lat, place.lon);
+        if (routeEndMarker) {
+          map.removeLayer(routeEndMarker);
+        }
+        routeEndMarker = L.marker(routeEndLatLng).addTo(map).bindPopup("Destination: " + place.display_name.split(',')[0]).openPopup();
       }
       container.style.display = 'none';
       
-      // Plot a temp marker to show selection
       if (typeof map !== 'undefined' && map) {
-        L.marker([place.lat, place.lon]).addTo(map).bindPopup(place.display_name.split(',')[0]).openPopup();
         map.setView([place.lat, place.lon], 14, { animate: true });
       }
     };
@@ -2618,6 +2662,69 @@ let amenityMarkers = [];
 function clearAmenityMarkers() {
   amenityMarkers.forEach(m => map.removeLayer(m));
   amenityMarkers = [];
+}
+
+function clearCustomRouteLine() {
+  if (customRouteLine) {
+    map.removeLayer(customRouteLine);
+    customRouteLine = null;
+  }
+}
+window.clearCustomRouteLine = clearCustomRouteLine;
+
+function clearRoutingPlanner() {
+  const startInput = document.getElementById('routeStartInput');
+  const endInput = document.getElementById('routeEndInput');
+  if (startInput) startInput.value = '';
+  if (endInput) endInput.value = '';
+  
+  routeStartLatLng = null;
+  routeEndLatLng = null;
+  
+  if (routeStartMarker) {
+    map.removeLayer(routeStartMarker);
+    routeStartMarker = null;
+  }
+  if (routeEndMarker) {
+    map.removeLayer(routeEndMarker);
+    routeEndMarker = null;
+  }
+  
+  clearCustomRouteLine();
+  if (routingControl) {
+    routingControl.setWaypoints([]);
+  }
+  
+  clearAmenityMarkers();
+  activeRouteCoordinates = null;
+  
+  const statsContainer = document.getElementById('routeStatsContainer');
+  if (statsContainer) {
+    statsContainer.innerHTML = '';
+    statsContainer.style.display = 'none';
+  }
+  
+  showNotification("Route planner and map markers reset successfully.", "info");
+}
+window.clearRoutingPlanner = clearRoutingPlanner;
+
+function getRoadRoutePoints(latlng1, latlng2) {
+  const points = [];
+  const steps = 40;
+  const lat1 = latlng1.lat;
+  const lng1 = latlng1.lng;
+  const lat2 = latlng2.lat;
+  const lng2 = latlng2.lng;
+  
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const baseLat = lat1 + (lat2 - lat1) * t;
+    const baseLng = lng1 + (lng2 - lng1) * t;
+    // Mild road winding effect (different from train winding)
+    const offset = Math.sin(t * Math.PI * 4) * 0.015;
+    points.push([baseLat + offset, baseLng - offset]);
+  }
+  return points;
 }
 
 function getFlightArcPoints(latlng1, latlng2) {
@@ -2677,11 +2784,41 @@ function calculateAndDisplayRoute() {
   clearAmenityMarkers();
   
   if (currentTravelMode === 'road') {
+    showNotification("Mapping road travel route...", "info");
+    const roadPoints = getRoadRoutePoints(routeStartLatLng, routeEndLatLng);
+    
+    // Draw solid premium blue route line with inner glowing dash
+    const roadBase = L.polyline(roadPoints, {
+      color: '#1e3a8a',
+      weight: 6,
+      opacity: 0.7
+    });
+    
+    const roadInner = L.polyline(roadPoints, {
+      color: '#3b82f6',
+      weight: 3,
+      opacity: 0.95
+    });
+    
+    customRouteLine = L.featureGroup([roadBase, roadInner]).addTo(map);
+    
+    activeRouteCoordinates = roadPoints.map(p => L.latLng(p[0], p[1]));
+    
+    const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
+    map.fitBounds(bounds, { padding: [50, 50], animate: true });
+    
+    // Road time calculation at 90 km/h (average driving speed)
+    const distanceMeters = routeStartLatLng.distanceTo(routeEndLatLng) * 1.15; // 15% winding factor
+    const timeSeconds = (distanceMeters / 1000) / 90 * 3600;
+    updateRouteStats(distanceMeters, timeSeconds);
+    generateAmenitiesAlongRoute(activeRouteCoordinates);
+    
     if (routingControl) {
-      showNotification("Calculating road route and highway amenities...", "info");
-      routingControl.setWaypoints([routeStartLatLng, routeEndLatLng]);
-    } else {
-      showNotification("Routing engine not ready.", "warning");
+      try {
+        routingControl.setWaypoints([routeStartLatLng, routeEndLatLng]);
+      } catch (e) {
+        console.warn("Leaflet Routing Machine failed, using simulated route:", e);
+      }
     }
   } else if (currentTravelMode === 'flight') {
     if (routingControl) routingControl.setWaypoints([]); // clear road line
@@ -2875,6 +3012,7 @@ function toggleRoutePlannerPanel() {
     btn.style.color = '#00f2ff';
     btn.style.textShadow = '0 0 8px rgba(0, 242, 255, 0.4)';
     showNotification("Hidden Route Planner Panel", "info");
+    clearRoutingPlanner();
   }
 }
 window.toggleRoutePlannerPanel = toggleRoutePlannerPanel;
