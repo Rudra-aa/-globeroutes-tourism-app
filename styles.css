@@ -894,8 +894,14 @@ header.glass-header.collapsed .nav-toggle-handle i {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .pricing-card {
@@ -1431,8 +1437,9 @@ header.glass-header.collapsed .nav-toggle-handle i {
   animation: dashAnimation 20s linear infinite;
 }
 
-/* Hide default LRM inputs but keep directions */
-.leaflet-routing-geocoders {
+/* Hide default LRM inputs and itinerary directions box completely */
+.leaflet-routing-geocoders,
+.leaflet-routing-container {
   display: none !important;
 }
 

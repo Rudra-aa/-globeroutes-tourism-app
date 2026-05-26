@@ -1173,6 +1173,8 @@ function initMap() {
     // Keep it tucked in the top right
     position: 'topright',
     createMarker: function() { return null; }, // Disable duplicate routing markers
+    show: false, // Hide turn-by-turn text box on map completely
+    addWaypoints: false, // Disable dragging to add intermediate waypoints
     lineOptions: {
       styles: [
         { color: '#0f172a', opacity: 0.35, weight: 11 }, // outer soft border shadow
@@ -1191,6 +1193,7 @@ function initMap() {
   }).addTo(map);
 
   routingControl.on('routesfound', function(e) {
+    if (currentTravelMode !== 'road') return; // Bypass Leaflet Routing Machine updates if not in road travel mode
     const routes = e.routes;
     const summary = routes[0].summary;
     activeRouteCoordinates = routes[0].coordinates;
@@ -2651,6 +2654,8 @@ let currentTravelMode = 'road';
 let customRouteLine = null;
 let routeStartMarker = null;
 let routeEndMarker = null;
+let routeStartCountry = "";
+let routeEndCountry = "";
 
 window.addEventListener('DOMContentLoaded', () => {
   const startInput = document.getElementById('routeStartInput');
@@ -2723,13 +2728,18 @@ function renderSuggestions(data, type) {
     el.textContent = place.display_name;
     el.onclick = () => {
       input.value = place.display_name.split(',')[0];
+      const parts = place.display_name.split(',');
+      const countryName = parts[parts.length - 1].trim();
+      
       if (type === 'start') {
+        routeStartCountry = countryName;
         routeStartLatLng = L.latLng(place.lat, place.lon);
         if (routeStartMarker) {
           map.removeLayer(routeStartMarker);
         }
         routeStartMarker = L.marker(routeStartLatLng).addTo(map).bindPopup("Start: " + place.display_name.split(',')[0]).openPopup();
       } else {
+        routeEndCountry = countryName;
         routeEndLatLng = L.latLng(place.lat, place.lon);
         if (routeEndMarker) {
           map.removeLayer(routeEndMarker);
@@ -2798,6 +2808,8 @@ function clearRoutingPlanner() {
   
   routeStartLatLng = null;
   routeEndLatLng = null;
+  routeStartCountry = "";
+  routeEndCountry = "";
   
   if (routeStartMarker) {
     map.removeLayer(routeStartMarker);
@@ -2892,6 +2904,84 @@ function getTrainRoutePoints(latlng1, latlng2) {
   return points;
 }
 
+function getCountryGroup(country) {
+  if (!country) return null;
+  const c = country.toLowerCase().trim();
+  
+  // North America
+  if (c.includes("united states") || c.includes("usa") || c.includes("canada") || c.includes("mexico")) {
+    return "north_america";
+  }
+  
+  // Europe
+  const europeans = ["france", "italy", "spain", "germany", "united kingdom", "uk", "netherlands", 
+                     "belgium", "switzerland", "austria", "portugal", "greece", "poland", "sweden", 
+                     "norway", "finland", "ireland", "denmark", "croatia", "monaco", "andorra",
+                     "san marino", "vatican", "luxembourg", "czech", "slovakia", "hungary", 
+                     "romania", "bulgaria", "slovenia", "estonia", "latvia", "lithuania", "ukraine",
+                     "belarus", "moldova", "albania", "serbia", "montenegro", "kosovo", "macedonia",
+                     "bosnia", "iceland", "malta", "cyprus"];
+  for (let eur of europeans) {
+    if (c.includes(eur)) return "europe";
+  }
+  
+  // South America
+  const southAmericans = ["brazil", "argentina", "chile", "colombia", "peru", "ecuador", "venezuela", "bolivia", "paraguay", "uruguay"];
+  for (let sa of southAmericans) {
+    if (c.includes(sa)) return "south_america";
+  }
+  
+  // Isolated island nations / regions
+  const isolatedIslands = ["japan", "australia", "new zealand", "madagascar", "sri lanka", 
+                           "philippines", "taiwan", "iceland", "hawaii", "greenland", "indonesia"];
+  for (let isl of isolatedIslands) {
+    if (c.includes(isl)) return "isolated_" + isl;
+  }
+  
+  return c; // otherwise return the country name itself
+}
+
+function checkRouteFeasibility(mode, startCountry, endCountry, startLatLng, endLatLng) {
+  if (mode === 'flight') return { possible: true };
+  
+  // If countries are missing, fallback to coordinate/distance checks
+  if (!startCountry || !endCountry) {
+    const distanceMeters = startLatLng.distanceTo(endLatLng);
+    if (distanceMeters > 3500000) { // Over 3500km usually signifies oceans or massive continental separation
+      return {
+        possible: false,
+        reason: `Intercontinental travel by ${mode === 'road' ? 'Road' : 'Train'} is impossible across this distance. Please switch to Airways ✈️.`
+      };
+    }
+    return { possible: true };
+  }
+  
+  const g1 = getCountryGroup(startCountry);
+  const g2 = getCountryGroup(endCountry);
+  
+  if (g1 === g2) return { possible: true };
+  
+  // UK and Europe is possible via Channel Tunnel
+  if ((g1 === 'europe' && g2.includes('united kingdom')) || (g2 === 'europe' && g1.includes('united kingdom'))) {
+    return { possible: true };
+  }
+  
+  // If either is an isolated island, land transit is impossible
+  if (g1.startsWith("isolated_") || g2.startsWith("isolated_")) {
+    const islandName = g1.startsWith("isolated_") ? startCountry : endCountry;
+    return {
+      possible: false,
+      reason: `Land travel by ${mode === 'road' ? 'Road' : 'Train'} is impossible because ${islandName} is an island with no road or rail bridges.`
+    };
+  }
+  
+  // Different continental regions
+  return {
+    possible: false,
+    reason: `Transit by ${mode === 'road' ? 'Road' : 'Train'} is impossible between ${startCountry} and ${endCountry} due to lack of contiguous railway or road connections. Please switch to Airways ✈️.`
+  };
+}
+
 function calculateAndDisplayRoute() {
   if (!routeStartLatLng || !routeEndLatLng) {
     showNotification("Please select both a start and destination from the autocomplete suggestions.", "warning");
@@ -2900,6 +2990,29 @@ function calculateAndDisplayRoute() {
   
   clearCustomRouteLine();
   clearAmenityMarkers();
+  
+  const feasibility = checkRouteFeasibility(currentTravelMode, routeStartCountry, routeEndCountry, routeStartLatLng, routeEndLatLng);
+  if (!feasibility.possible) {
+    showNotification(feasibility.reason, "warning");
+    
+    activeRouteCoordinates = null;
+    if (routingControl) {
+      try {
+        routingControl.setWaypoints([]);
+      } catch (e) {}
+    }
+    
+    const statsContainer = document.getElementById('routeStatsContainer');
+    if (statsContainer) {
+      statsContainer.innerHTML = `
+        <div style="background:rgba(255, 59, 48, 0.1); border:1px solid rgba(255, 59, 48, 0.3); padding:12px; border-radius:8px; margin-top:8px; font-size:0.8rem; line-height:1.4; color:#ff453a;">
+          ⚠️ <b>Route Impossible:</b> ${feasibility.reason}
+        </div>
+      `;
+      statsContainer.style.display = 'block';
+    }
+    return;
+  }
   
   if (currentTravelMode === 'road') {
     showNotification("Mapping road travel route...", "info");

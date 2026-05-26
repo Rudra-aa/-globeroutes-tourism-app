@@ -204,6 +204,14 @@
 
       <!-- PRICING TIERS SELECTION SCREEN -->
       <div id="pricingTierScreen" style="display: flex; flex-direction: column; gap: 30px;">
+        <!-- Back Button -->
+        <div style="display: flex; justify-content: flex-start; margin-bottom: -10px;">
+          <button class="btn btn-secondary" onclick="closePricingOverlay()"
+            style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; font-size: 0.85rem; border-radius: 30px; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: var(--text-primary); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            <i data-lucide="arrow-left" style="width: 15px; height: 15px; stroke-width: 2.5; color: var(--tier-blue);"></i> Back to Map
+          </button>
+        </div>
+
         <div class="pricing-title-area">
           <h2 style="font-size: 2.2rem; font-family: 'Outfit'; margin-bottom: 10px;">Choose Your Exploration Plan</h2>
           <p style="color: var(--text-secondary);">Unlock the full grid of world travel, detailed maps, and local hidden
