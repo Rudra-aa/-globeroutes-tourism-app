@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://globeroutes-tourism-app.vercel.app/sitemap.xml
