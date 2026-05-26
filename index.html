@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globeroutes — World Tourism & Hidden Gems Explorer</title>
+  <meta name="description"
+    content="Discover every tourism destination on Earth — from Eiffel Tower to secret hidden gems in small towns. Explore 195 countries city by city.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tabler Icons & Google Fonts for Auth Modal -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ===================================================
+       DESIGN TOKENS — Light & Dark Mode
+    =================================================== */
+    :root {
+      --font-body: 'Inter', sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --transition: all 0.3s ease;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+
+      /* Tier colors (same in both modes) */
+      --tier-red: #ef4444;
+      --tier-orange: #f97316;
+      --tier-yellow: #eab308;
+      --tier-green: #22c55e;
+      --tier-blue: #3b82f6;
+    }
+
+    [data-theme="dark"] {
+      --bg-base: #050a14;
+      --bg-surface: #0d1520;
+      --bg-card: rgba(13, 21, 32, 0.8);
+      --bg-hover: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(255, 255, 255, 0.2);
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b9ab0;
+      --text-muted: #5a6980;
+      --glass-bg: rgba(13, 21, 32, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      --glow-blue: 0 0 40px rgba(59, 130, 246, 0.3);
+      --nav-bg: rgba(5, 10, 20, 0.9);
+      --hero-overlay: linear-gradient(135deg, rgba(2, 6, 15, 0.78) 0%, rgba(5, 12, 28, 0.55) 40%, rgba(2, 6, 15, 0.82) 100%);
+      --section-bg: var(--bg-base);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f5f7fa;
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-hover: rgba(0, 0, 0, 0.04);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-active: rgba(0, 0, 0, 0.2);
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --text-muted: #9ca3af;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(0, 0, 0, 0.1);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      --glow-blue: 0 0 40px rgba(59, 130, 246, 0.15);
+      --nav-bg: rgba(245, 247, 250, 0.95);
+      --hero-overlay: linear-gradient(135deg, rgba(20, 30, 60, 0.72) 0%, rgba(10, 20, 50, 0.45) 40%, rgba(20, 30, 60, 0.78) 100%);
+      --section-bg: var(--bg-base);
+    }
+
+    /* ===================================================
+       GLOBAL RESET & BASE
+    =================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    /* ===================================================
+       UTILITY CLASSES
+    =================================================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-premium {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1.5px solid var(--border-active);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--tier-blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--tier-blue);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ===================================================
+       NAVBAR
+    =================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .navbar-logo .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navbar-logo span {
+      color: var(--tier-blue);
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: var(--bg-hover);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-primary);
+      background: var(--bg-card);
+    }
+
+    /* ===================================================
+       HERO SECTION
+    =================================================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 68px;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg-image {
+      animation: kenBurns 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes kenBurns {
+      0% {
+        transform: scale(1.04) translate(0, 0);
+      }
+
+      33% {
+        transform: scale(1.10) translate(-1%, 0.5%);
+      }
+
+      66% {
+        transform: scale(1.08) translate(1%, -0.5%);
+      }
+
+      100% {
+        transform: scale(1.04) translate(0, 0);
+      }
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #ffffff;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(230, 240, 255, 0.92);
+      line-height: 1.7;
+      max-width: 480px;
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      padding-top: 8px;
+    }
+
+    .hero-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: rgba(200, 220, 255, 0.85);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    /* ===================================================
+       COLORFUL GLOBE  
+    =================================================== */
+    .globe-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .globe-ring-outer {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+
+    .globe-ring-mid {
+      position: absolute;
+      width: 370px;
+      height: 370px;
+      border-radius: 50%;
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      animation: ringPulse 3s ease-in-out infinite 0.5s;
+    }
+
+    @keyframes ringPulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+    }
+
+    /* VIDEO GLOBE */
+    .globe-video-wrap {
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow:
+        0 0 0 1px rgba(59, 130, 246, 0.2),
+        0 0 60px rgba(59, 130, 246, 0.55),
+        0 0 120px rgba(99, 102, 241, 0.35),
+        0 0 200px rgba(59, 130, 246, 0.15);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .globe-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .globe-video-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(120, 190, 255, 0.18) 0%, transparent 55%),
+        radial-gradient(circle at 78% 78%, rgba(0, 0, 0, 0.35) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    /* The map band that scrolls */
+    .globe-map-band {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      animation: globeSpin 18s linear infinite;
+    }
+
+    /* SVG world map continents using real-ish shapes */
+    .globe-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    @keyframes globeSpin {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Top atmosphere glow */
+    .globe-atmosphere {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(100, 180, 255, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(30, 100, 200, 0.2) 0%, transparent 50%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* 3D shading overlay */
+    .globe-shading {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.8) 0%, transparent 55%),
+        radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.08) 0%, transparent 45%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Clouds layer */
+    .globe-clouds {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      animation: globeSpin 25s linear infinite;
+      z-index: 1;
+    }
+
+    /* ===================================================
+       FEATURES SECTION
+    =================================================== */
+    .section {
+      padding: 100px 0;
+      background: var(--section-bg);
+    }
+
+    .section.alt {
+      background: var(--bg-surface);
+    }
+
+    /* ===================================================
+       POLISHED SECTION BACKGROUND IMAGES
+       ph.avif  → Features + Fame Tiers  (blue-teal accent)
+       prem.avif → About + Pricing + Footer (indigo accent)
+    =================================================== */
+
+    .section-bg-ph,
+    .section-bg-prem {
+      position: relative;
+      background: none !important;
+      /* NO overflow:hidden — it clips ::before pseudo-elements */
+    }
+
+    /* ph.avif — visible background with dark overlay */
+    .section-bg-ph::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('bg/ph.avif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll;
+      /* Bright enough to see, dark enough to keep text readable */
+      filter: brightness(0.45) saturate(0.85);
+      z-index: 0;
+    }
+
+    .section-bg-ph::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /*
+        Vertical vignette: fully opaque at top & bottom edges
+        matching the page bg (#050a14), transparent in the center.
+        This makes the image fade IN from the top and fade OUT at
+        the bottom — no hard partition between sections.
+      */
+      background: linear-gradient(to bottom,
+          #050a14 0%,
+          rgba(5, 10, 20, 0.85) 10%,
+          rgba(5, 10, 20, 0.50) 25%,
+          rgba(4, 8, 18, 0.38) 50%,
+          rgba(5, 10, 20, 0.50) 75%,
+          rgba(5, 10, 20, 0.88) 90%,
+          #050a14 100%);
+      z-index: 1;
+    }
+
+    .section-bg-ph>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* prem.avif — visible background with indigo overlay */
+    .section-bg-prem::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('bg/prem.avif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll;
+      filter: brightness(0.40) saturate(0.80);
+      z-index: 0;
+    }
+
+    .section-bg-prem::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          #050a14 0%,
+          rgba(5, 10, 20, 0.85) 10%,
+          rgba(5, 10, 20, 0.48) 25%,
+          rgba(4, 8, 18, 0.36) 50%,
+          rgba(5, 10, 20, 0.48) 75%,
+          rgba(5, 10, 20, 0.88) 90%,
+          #050a14 100%);
+      z-index: 1;
+    }
+
+    .section-bg-prem>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── Headings & body text inside image sections ── */
+    .section-bg-ph .section-title,
+    .section-bg-prem .section-title {
+      color: #eef4ff;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+    }
+
+    .section-bg-ph .section-sub,
+    .section-bg-prem .section-sub {
+      color: rgba(175, 205, 245, 0.90);
+    }
+
+    .section-bg-ph .section-tag,
+    .section-bg-prem .section-tag {
+      background: rgba(50, 110, 230, 0.16);
+      color: #82b8f5;
+      border-color: rgba(100, 155, 245, 0.32);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* ── Feature cards ── */
+    .section-bg-ph .feature-card {
+      background: rgba(7, 14, 40, 0.72);
+      border: 1px solid rgba(70, 115, 200, 0.20);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.40),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .section-bg-ph .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(90, 150, 255, 0.38);
+      box-shadow:
+        0 14px 48px rgba(0, 0, 0, 0.50),
+        0 0 0 1px rgba(90, 150, 255, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    .section-bg-ph .feature-card h3 {
+      color: #e4eeff;
+    }
+
+    .section-bg-ph .feature-card p {
+      color: rgba(155, 188, 232, 0.88);
+      line-height: 1.65;
+    }
+
+    .section-bg-ph .feature-card-img::after {
+      background: linear-gradient(to bottom, transparent, rgba(7, 14, 40, 0.88));
+    }
+
+    /* ── Tier rows ── */
+    .section-bg-ph .tier-row {
+      background: rgba(7, 14, 40, 0.70);
+      border: 1px solid rgba(70, 115, 200, 0.18);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.30);
+    }
+
+    .section-bg-ph .tier-row:hover {
+      transform: translateX(8px);
+      border-color: rgba(90, 150, 255, 0.30);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.40);
+    }
+
+    .section-bg-ph .tier-name {
+      color: #e4eeff;
+    }
+
+    .section-bg-ph .tier-desc {
+      color: rgba(155, 188, 232, 0.85);
+    }
+
+    .section-bg-ph .tier-examples {
+      color: rgba(120, 160, 215, 0.65);
+    }
+
+    .section-bg-ph .tier-count {
+      color: rgba(130, 170, 230, 0.72);
+    }
+
+    /* ── About section ── */
+    .section-bg-prem .section-title,
+    .section-bg-prem h2.section-title {
+      color: #eef4ff;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+    }
+
+    .section-bg-prem .mission-point-text h4 {
+      color: #ddeeff;
+      font-weight: 700;
+    }
+
+    .section-bg-prem .mission-point-text p {
+      color: rgba(155, 188, 232, 0.88);
+    }
+
+    .section-bg-prem .about-floating-card {
+      background: rgba(7, 14, 42, 0.88);
+      border: 1px solid rgba(75, 125, 220, 0.22);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.50);
+    }
+
+    .section-bg-prem .about-floating-card .card-num {
+      color: #60a5fa;
+    }
+
+    .section-bg-prem .about-floating-card .card-label {
+      color: rgba(145, 182, 232, 0.80);
+    }
+
+    /* ── Pricing cards ── */
+    .section-bg-prem .pricing-card {
+      background: rgba(7, 14, 42, 0.76);
+      border: 1px solid rgba(75, 120, 210, 0.20);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 4px 32px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .section-bg-prem .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(95, 150, 255, 0.32);
+      box-shadow: 0 14px 48px rgba(0, 0, 0, 0.55);
+    }
+
+    .section-bg-prem .pricing-card.featured {
+      background: linear-gradient(155deg,
+          rgba(14, 26, 64, 0.84) 0%,
+          rgba(22, 40, 90, 0.84) 100%);
+      border-color: rgba(245, 158, 11, 0.32);
+      box-shadow:
+        0 4px 40px rgba(0, 0, 0, 0.50),
+        0 0 0 1px rgba(245, 158, 11, 0.10),
+        inset 0 1px 0 rgba(245, 158, 11, 0.07);
+    }
+
+    .section-bg-prem .plan-name {
+      color: #eef4ff;
+    }
+
+    .section-bg-prem .plan-desc {
+      color: rgba(150, 184, 230, 0.85);
+    }
+
+    .section-bg-prem .plan-feature {
+      color: rgba(155, 188, 232, 0.88);
+    }
+
+    .section-bg-prem .plan-feature.locked {
+      color: rgba(110, 145, 200, 0.45);
+    }
+
+    .section-bg-prem .price-amount {
+      color: #eef4ff;
+    }
+
+    .section-bg-prem .price-period {
+      color: rgba(135, 172, 225, 0.75);
+    }
+
+    .section-bg-prem .btn-outline {
+      border-color: rgba(110, 165, 255, 0.40);
+      color: #b8d4ff;
+      background: rgba(25, 55, 120, 0.15);
+    }
+
+    .section-bg-prem .btn-outline:hover {
+      background: rgba(35, 75, 155, 0.28);
+      border-color: rgba(130, 185, 255, 0.55);
+      color: #ffffff;
+    }
+
+    .stats-band-img {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #162f7a 0%, #2c1a6e 100%) !important;
+    }
+
+    .stats-band-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('bg/ph.avif');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+      filter: brightness(0.35) saturate(0.75);
+      mix-blend-mode: luminosity;
+    }
+
+    .stats-band-img>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-band-img .stat-number {
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.50);
+    }
+
+    .footer-bg-prem {
+      position: relative;
+      background: none !important;
+      border-top: none;
+      /* no hard line — gradient handles the blend */
+    }
+
+    .footer-bg-prem::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('bg/prem.avif');
+      background-size: cover;
+      background-position: top center;
+      z-index: 0;
+      filter: brightness(0.35) saturate(0.70);
+    }
+
+    .footer-bg-prem::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* Fade in from the top (matching the page bg), solid at bottom */
+      background: linear-gradient(to bottom,
+          #050a14 0%,
+          rgba(5, 10, 20, 0.82) 12%,
+          rgba(4, 8, 18, 0.70) 40%,
+          rgba(4, 8, 18, 0.78) 100%);
+      z-index: 1;
+    }
+
+    .footer-bg-prem>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-bg-prem .footer-brand h3 {
+      color: #e0ecff;
+    }
+
+    .footer-bg-prem .footer-brand p {
+      color: rgba(145, 178, 225, 0.78);
+    }
+
+    .footer-bg-prem .footer-col h4 {
+      color: rgba(105, 150, 220, 0.72);
+      letter-spacing: 0.07em;
+    }
+
+    .footer-bg-prem .footer-col li a {
+      color: rgba(150, 182, 228, 0.74);
+    }
+
+    .footer-bg-prem .footer-col li a:hover {
+      color: #c5dcff;
+    }
+
+    .footer-bg-prem .footer-bottom {
+      color: rgba(105, 140, 200, 0.58);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-active);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .feature-card-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--bg-card));
+    }
+
+    .feature-card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .icon-blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--tier-blue);
+    }
+
+    .icon-orange {
+      background: rgba(249, 115, 22, 0.15);
+      color: var(--tier-orange);
+    }
+
+    .icon-green {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--tier-green);
+    }
+
+    .icon-purple {
+      background: rgba(139, 92, 246, 0.15);
+      color: #8b5cf6;
+    }
+
+    .icon-red {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--tier-red);
+    }
+
+    .icon-yellow {
+      background: rgba(234, 179, 8, 0.15);
+      color: var(--tier-yellow);
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================================================
+       TIER SHOWCASE
+    =================================================== */
+    .tier-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tier-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: var(--transition);
+    }
+
+    .tier-row:hover {
+      transform: translateX(6px);
+      border-color: var(--border-active);
+    }
+
+    .tier-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tier-info {
+      flex: 1;
+    }
+
+    .tier-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .tier-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .tier-examples {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-style: italic;
+    }
+
+    .tier-count {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ===================================================
+       ABOUT SECTION
+    =================================================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .about-image-stack {
+      position: relative;
+      height: 480px;
+    }
+
+    .about-img-primary {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 75%;
+      height: 350px;
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      box-shadow: var(--shadow);
+    }
+
+    .about-img-secondary {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60%;
+      height: 220px;
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      border: 4px solid var(--bg-base);
+      box-shadow: var(--shadow);
+    }
+
+    .about-floating-card {
+      position: absolute;
+      top: 200px;
+      left: 0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      z-index: 10;
+    }
+
+    .about-floating-card .card-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--tier-blue);
+    }
+
+    .about-floating-card .card-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mission-points {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .mission-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .mission-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mission-point-text h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .mission-point-text p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===================================================
+       STATS SECTION
+    =================================================== */
+    .stats-band {
+      padding: 60px 0;
+      background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-block {
+      color: white;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 900;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    /* ===================================================
+       PRICING SECTION
+    =================================================== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      transition: var(--transition);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 0 60px rgba(59, 130, 246, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-label {
+      position: absolute;
+      top: 20px;
+      right: -28px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 36px;
+      transform: rotate(45deg);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .plan-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .plan-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-primary);
+    }
+
+    .price-period {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .plan-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .plan-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .plan-feature .feat-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .plan-feature.locked {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+
+    /* ===================================================
+       AUTHENTICATION MODAL
+    =================================================== */
+    .auth-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+    }
+
+    .auth-overlay.show {
+      display: flex;
+    }
+
+    .auth-modal {
+      width: 100%;
+      max-width: 460px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .auth-header {
+      padding: 32px 36px 24px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .auth-logo .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .auth-sub {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      border-bottom: 2px solid transparent;
+    }
+
+    .auth-tab.active {
+      color: var(--tier-blue);
+      border-bottom-color: var(--tier-blue);
+    }
+
+    .auth-body {
+      padding: 28px 36px 32px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--tier-blue);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .auth-admin-hint {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      font-size: 0.8rem;
+      color: var(--tier-blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .form-panel {
+      display: none;
+    }
+
+    .form-panel.active {
+      display: block;
+    }
+
+    .auth-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: var(--bg-hover);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* ===================================================
+       NOTIFICATION TOAST
+    =================================================== */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 9999;
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      max-width: 360px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success .toast-dot {
+      background: var(--tier-green);
+    }
+
+    .toast.error .toast-dot {
+      background: var(--tier-red);
+    }
+
+    .toast-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--tier-blue);
+      flex-shrink: 0;
+    }
+
+    /* ===================================================
+       FOOTER
+    =================================================== */
+    .footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col li a {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .footer-col li a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ===================================================
+       RESPONSIVE
+    =================================================== */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        max-width: 100%;
+      }
+
+      .hero-cta-group {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .globe-container {
+        display: none;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image-stack {
+        display: none;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .navbar-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============== NAVBAR ============== -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <div class="logo-icon">
+        <i data-lucide="compass" style="width: 20px; height: 20px; stroke: white; stroke-width: 2.5;"></i>
+      </div>
+      Globe<span>trotter</span>
+    </div>
+
+    <ul class="navbar-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#tiers">Fame Tiers</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+
+    <div class="navbar-actions">
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
+        <i data-lucide="moon" style="width: 18px; height: 18px;" id="themeIcon"></i>
+      </button>
+      <button class="btn btn-ghost" onclick="openAuth('login')" style="padding: 9px 18px; font-size: 0.85rem;">Sign
+        In</button>
+      <a href="explorer.html" class="btn btn-primary" style="padding: 9px 20px; font-size: 0.85rem;">
+        Launch Explorer <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- ============== HERO ============== -->
+  <section class="hero" id="home">
+    <div class="hero-media">
+      <!-- Hero background: Thailand beach paradise -->
+      <div class="hero-bg-image" id="heroBgEl" style="
+        position: absolute;
+        inset: 0;
+        background-image: url('hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      "></div>
+      <script>
+        // If local hero-bg.jpg doesn't load, fall back to Unsplash Thailand beach
+        (function () {
+          var img = new Image();
+          img.onload = function () { /* local file loaded, do nothing */ };
+          img.onerror = function () {
+            document.getElementById('heroBgEl').style.backgroundImage =
+              "url('https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?auto=format&fit=crop&w=1920&q=90')";
+          };
+          img.src = 'hero-bg.jpg';
+        })();
+      </script>
+      <div class="hero-overlay"></div>
+      <!-- Subtle animated shimmer on water for life -->
+      <div
+        style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(2,10,30,0.65) 100%);pointer-events:none;z-index:1;">
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-inner">
+        <!-- LEFT TEXT SIDE -->
+        <div class="hero-left">
+          <span class="badge badge-blue"
+            style="background:rgba(59,130,246,0.22);color:#93c5fd;border-color:rgba(147,197,253,0.4);backdrop-filter:blur(8px);text-shadow:none;font-weight:700;">
+            <i data-lucide="globe" style="width: 13px; height: 13px;"></i>
+            195 Countries · All Cities
+          </span>
+
+          <h1 class="hero-title">
+            Explore Every<br>
+            <span>Corner of Earth</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            From the Eiffel Tower to a secret café alley in Samarkand —
+            Globetrotter maps every tourism spot on the planet, ranked by fame from iconic to hidden.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="explorer.html" class="btn btn-primary"
+              style="padding: 14px 30px; font-size: 1rem; box-shadow: 0 8px 32px rgba(59,130,246,0.55);">
+              <i data-lucide="map" style="width: 18px; height: 18px;"></i>
+              Open Explorer
+            </a>
+            <button class="btn btn-outline" onclick="openAuth('register')"
+              style="padding: 14px 30px; font-size: 1rem; color: white; border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); text-shadow: 0 1px 8px rgba(0,0,0,0.6);">
+              Create Account
+            </button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">195+</span>
+              <span class="hero-stat-label">Countries</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">10K+</span>
+              <span class="hero-stat-label">Cities</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-num">5</span>
+              <span class="hero-stat-label">Fame Tiers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT GLOBE SIDE -->
+        <div class="globe-container">
+          <div class="globe-ring-outer"></div>
+          <div class="globe-ring-mid"></div>
+          <div class="globe-video-wrap">
+            <!-- Rotating Earth globe — local user video -->
+            <video autoplay muted loop playsinline id="globeVid"
+              poster="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80">
+              <!-- Primary: User's local rotating globe video -->
+              <source src="bg/ghoomta_hua_globe_of_earthmp_.mp4" type="video/mp4">
+              <!-- Fallback: Pixabay Earth rotation -->
+              <source src="https://cdn.pixabay.com/video/2016/01/06/1916-150626618_large.mp4" type="video/mp4">
+              <!-- Fallback 2: Mixkit Earth -->
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-white-earth-rotating-in-space-35-large.mp4"
+                type="video/mp4">
+            </video>
+            <div class="globe-video-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== FEATURES SECTION ============== -->
+  <section class="section section-bg-ph" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+          Features
+        </div>
+        <h2 class="section-title">Built for True Wanderers</h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          Every feature is designed to help you discover the world in full depth — from UNESCO wonders to that one
+          waterfall nobody knows about.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-red">
+              <i data-lucide="map-pin" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>5-Tier Fame Ranking</h3>
+            <p>Attractions are color-graded from globally iconic red-tier wonders down to blue-tier hidden local secrets
+              — see at a glance how popular a spot is.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-blue">
+              <i data-lucide="git-branch" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>City-by-City Travel Mode</h3>
+            <p>Hop through cities in sequence within a country. Each hop reveals new tourism spots, regional cuisine
+              tips, and local transit guides.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-green">
+              <i data-lucide="cpu" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Infinite City Synthesis</h3>
+            <p>Search any city on Earth — even tiny towns. The engine procedurally generates realistic POIs with
+              coordinates, descriptions, and ratings.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-orange">
+              <i data-lucide="book-open" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Personal Travel Journal</h3>
+            <p>Check in at landmarks you've visited and build your travel timeline. Earn pathfinder badges and track
+              your world exploration progress.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-purple">
+              <i data-lucide="search" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Global Smart Search</h3>
+            <p>Instantly search across all countries, cities, and attractions with autocomplete. Filter by tier,
+              category, and entry cost on the fly.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-yellow">
+              <i data-lucide="layers" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Live Interactive Map</h3>
+            <p>Color-coded markers on a real Leaflet map show all attractions in a city. Click any marker to get full
+              attraction details, hours & tips.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== FAME TIERS SECTION ============== -->
+  <section class="section section-bg-ph" id="tiers">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+        <div>
+          <div class="section-tag">
+            <i data-lucide="bar-chart-2" style="width: 13px; height: 13px;"></i>
+            Discovery Ranking System
+          </div>
+          <h2 class="section-title">From World Icons<br>to Hidden Secrets</h2>
+          <p class="section-sub">
+            Every attraction on Globetrotter is scored and color-coded by its global fame level. Free users access tiers
+            1–4. Pro users unlock all 5, including the rarest hidden gems.
+          </p>
+        </div>
+
+        <div class="tier-showcase">
+          <div class="tier-row">
+            <div class="tier-dot" style="background: #ef4444; box-shadow: 0 0 10px rgba(239,68,68,0.5);"></div>
+            <div class="tier-info">
+              <div class="tier-name">Tier 1 — World Icons</div>
+              <div class="tier-desc">Globally recognized, must-see monuments</div>
+              <div class="tier-examples">Eiffel Tower · Taj Mahal · Colosseum · Great Wall</div>
+            </div>
+            <div class="tier-count">Free</div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-dot" style="background: #f97316; box-shadow: 0 0 10px rgba(249,115,22,0.5);"></div>
+            <div class="tier-info">
+              <div class="tier-name">Tier 2 — National Landmarks</div>
+              <div class="tier-desc">Famous within their country and region</div>
+              <div class="tier-examples">Amer Fort · Versailles Gardens · Lake Bled</div>
+            </div>
+            <div class="tier-count">Free</div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-dot" style="background: #eab308; box-shadow: 0 0 10px rgba(234,179,8,0.5);"></div>
+            <div class="tier-info">
+              <div class="tier-name">Tier 3 — Regional Stars</div>
+              <div class="tier-desc">Beloved by locals and regional travelers</div>
+              <div class="tier-examples">Montmartre Steps · Mysore Palace Gardens</div>
+            </div>
+            <div class="tier-count">Free</div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-dot" style="background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.5);"></div>
+            <div class="tier-info">
+              <div class="tier-name">Tier 4 — Locally Famous</div>
+              <div class="tier-desc">Well-known in their city or district</div>
+              <div class="tier-examples">Rue Crémieux · Meiji Shrine side trails</div>
+            </div>
+            <div class="tier-count">Free</div>
+          </div>
+
+          <div class="tier-row" style="border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.06);">
+            <div class="tier-dot" style="background: #3b82f6; box-shadow: 0 0 10px rgba(59,130,246,0.6);"></div>
+            <div class="tier-info">
+              <div class="tier-name">Tier 5 — Hidden Gems</div>
+              <div class="tier-desc">Secret spots almost no tourist knows</div>
+              <div class="tier-examples">Unnamed viewpoints · Alley shrines · Cave pools</div>
+            </div>
+            <div class="tier-count" style="color: var(--tier-blue);">
+              <i data-lucide="lock" style="width: 14px; height: 14px;"></i> Pro
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== STATS BAND ============== -->
+  <div class="stats-band stats-band-img">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-block">
+          <span class="stat-number">195+</span>
+          <span class="stat-label">Countries Covered</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">10K+</span>
+          <span class="stat-label">Cities Discoverable</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">50K+</span>
+          <span class="stat-label">Attractions Mapped</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">AI-Generated POIs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============== ABOUT SECTION ============== -->
+  <section class="section section-bg-prem" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-tag">
+            <i data-lucide="info" style="width: 13px; height: 13px;"></i>
+            About Globetrotter
+          </div>
+          <h2 class="section-title">What Is Globetrotter?</h2>
+          <p class="section-sub">
+            Globetrotter is a comprehensive world tourism mapping platform built for people who want to explore
+            everything — not just what shows up on the first Google search.
+          </p>
+
+          <div class="mission-points">
+            <div class="mission-point">
+              <div class="mission-icon icon-blue">
+                <i data-lucide="target" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div class="mission-point-text">
+                <h4>Our Mission</h4>
+                <p>To map every single tourism-worthy location on Earth — from the Eiffel Tower to an unnamed waterfall
+                  in a village no one has heard of.</p>
+              </div>
+            </div>
+
+            <div class="mission-point">
+              <div class="mission-icon icon-green">
+                <i data-lucide="globe-2" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div class="mission-point-text">
+                <h4>Complete Coverage</h4>
+                <p>We cover all 195 countries, every major and minor city, and use procedural AI to synthesize realistic
+                  POIs for locations with limited data.</p>
+              </div>
+            </div>
+
+            <div class="mission-point">
+              <div class="mission-icon icon-orange">
+                <i data-lucide="shield" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div class="mission-point-text">
+                <h4>Built for Developers & Travelers</h4>
+                <p>Globetrotter is built with a developer-friendly architecture. Admin access, tiered content, and
+                  modular data make it easy to extend and customize.</p>
+              </div>
+            </div>
+
+            <div class="mission-point">
+              <div class="mission-icon icon-purple">
+                <i data-lucide="zap" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div class="mission-point-text">
+                <h4>Real-Time Generation</h4>
+                <p>Search any city — even tiny obscure towns — and the platform generates realistic tourism spots, map
+                  coordinates, entry fees, and descriptions instantly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-image-stack">
+          <img class="about-img-primary"
+            src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80"
+            alt="Paris tourism">
+          <img class="about-img-secondary"
+            src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80"
+            alt="Japan tourism">
+          <div class="about-floating-card">
+            <div class="card-num">50K+</div>
+            <div class="card-label">Attractions Mapped</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== PRICING SECTION ============== -->
+  <section class="section section-bg-prem" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <i data-lucide="credit-card" style="width: 13px; height: 13px;"></i>
+          Pricing
+        </div>
+        <h2 class="section-title">Choose Your Plan</h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          Start free with flagship countries. Upgrade to Pro for the full world — including Tier 5 hidden gems.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Free Plan -->
+        <div class="pricing-card">
+          <div>
+            <div class="plan-name">Free Explorer</div>
+            <div class="plan-desc">Perfect for casual travel planning and exploration.</div>
+          </div>
+          <div class="plan-price">
+            <span class="price-amount">$0</span>
+            <span class="price-period">/month</span>
+          </div>
+          <div class="plan-features">
+            <div class="plan-feature">
+              <i data-lucide="check" class="feat-icon" style="color: #22c55e;"></i>
+              Access to France & India flagship data
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="check" class="feat-icon" style="color: #22c55e;"></i>
+              Tier 1–4 attractions (Red, Orange, Yellow, Green)
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="check" class="feat-icon" style="color: #22c55e;"></i>
+              Interactive map with color-coded markers
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="check" class="feat-icon" style="color: #22c55e;"></i>
+              Personal travel journal & check-ins
+            </div>
+            <div class="plan-feature locked">
+              <i data-lucide="x" class="feat-icon" style="color: #ef4444;"></i>
+              All premium countries (Japan, USA, Egypt…)
+            </div>
+            <div class="plan-feature locked">
+              <i data-lucide="x" class="feat-icon" style="color: #ef4444;"></i>
+              Tier 5 Blue Hidden Gems
+            </div>
+          </div>
+          <a href="explorer.html" class="btn btn-outline" style="justify-content: center;">
+            Start for Free
+          </a>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="pricing-card featured">
+          <div class="featured-label">POPULAR</div>
+          <div>
+            <div class="plan-name" style="color: #f59e0b;">Pro Explorer</div>
+            <div class="plan-desc">For the serious pathfinder exploring every corner of Earth.</div>
+          </div>
+          <div class="plan-price">
+            <span class="price-amount" style="color: #f59e0b;">$9.99</span>
+            <span class="price-period">/month</span>
+          </div>
+          <div class="plan-features">
+            <div class="plan-feature">
+              <i data-lucide="sparkles" class="feat-icon" style="color: #f59e0b;"></i>
+              All 195 countries unlocked (Japan, USA, Egypt…)
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="sparkles" class="feat-icon" style="color: #f59e0b;"></i>
+              Full Tier 5 Blue Hidden Gems access
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="sparkles" class="feat-icon" style="color: #f59e0b;"></i>
+              Infinite AI-generated city POIs
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="sparkles" class="feat-icon" style="color: #f59e0b;"></i>
+              Unlimited city-by-city routing hops
+            </div>
+            <div class="plan-feature">
+              <i data-lucide="sparkles" class="feat-icon" style="color: #f59e0b;"></i>
+              Priority map data & no restrictions
+            </div>
+          </div>
+          <button class="btn btn-premium" onclick="openAuth('register')" style="justify-content: center; width: 100%;">
+            <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+            Get Pro Access
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer footer-bg-prem">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom: 12px;">
+            <div class="logo-icon">
+              <i data-lucide="compass" style="width: 18px; height: 18px; stroke: white; stroke-width: 2.5;"></i>
+            </div>
+            Globe<span>trotter</span>
+          </div>
+          <p>The world's most comprehensive tourism mapping platform. From iconic wonders to hidden gems — every city,
+            every tier.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#tiers">Fame Tiers</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="explorer.html">Launch App</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Globetrotter Travel Technologies. All rights reserved.</span>
+        <span>Built for explorers, by explorers.</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============== AUTH MODAL ============== -->
+  <div class="auth-overlay auth-scene" id="authOverlay" onclick="if(event.target===this) closeAuth()">
+    <div class="auth-wrap" style="position: relative;">
+      <!-- Close Button -->
+      <button onclick="closeAuth()" style="position: absolute; right: 16px; top: 16px; background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.4); font-size: 18px; z-index: 20; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+        <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+      </button>
+
+      <div class="modal">
+        <div class="modal-top-bar"></div>
+        <div class="modal-inner">
+
+          <div class="brand">
+            <div class="brand-icon">
+              <i class="ti ti-compass" style="font-size:20px;color:#fff;" aria-hidden="true"></i>
+            </div>
+            <span class="brand-name">Globe<span>trotter</span></span>
+          </div>
+
+          <div class="heading" id="modalHeading">Welcome back</div>
+          <div class="subtext" id="modalSub">Sign in to continue your exploration journey</div>
+
+          <div class="tabs">
+            <div class="tab active" id="tabLogin" onclick="switchTab('login')">Sign in</div>
+            <div class="tab" id="tabRegister" onclick="switchTab('register')">Create account</div>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <div class="form-panel active" id="panelLogin">
+            <div class="security-badge">
+              <i class="ti ti-shield-check" aria-hidden="true"></i>
+              <span>Admin access: use <strong style="font-family:'DM Mono',monospace;font-size:11.5px;">rudratheadmin@123</strong> as your email for elevated privileges.</span>
+            </div>
+
+            <form onsubmit="event.preventDefault(); handleLandingLogin();">
+              <div class="field">
+                <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
+                <div class="input-wrap">
+                  <i class="ti ti-mail field-icon" aria-hidden="true"></i>
+                  <input type="email" id="loginEmailLanding" placeholder="your@email.com" autocomplete="username" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
+                <div class="input-wrap">
+                  <i class="ti ti-lock field-icon" aria-hidden="true"></i>
+                  <input type="password" id="loginPassLanding" placeholder="••••••••" autocomplete="current-password" required>
+                </div>
+              </div>
+
+              <button class="btn-submit" type="submit" style="margin-top: 20px;">
+                Sign in &amp; launch explorer
+              </button>
+            </form>
+          </div>
+
+          <!-- REGISTER FORM -->
+          <div class="form-panel" id="panelRegister">
+            <form onsubmit="event.preventDefault(); handleLandingRegister();">
+              <div class="field">
+                <label><i class="ti ti-user" aria-hidden="true"></i> Full name</label>
+                <div class="input-wrap">
+                  <i class="ti ti-user field-icon" aria-hidden="true"></i>
+                  <input type="text" id="regNameLanding" placeholder="Marco Polo" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
+                <div class="input-wrap">
+                  <i class="ti ti-mail field-icon" aria-hidden="true"></i>
+                  <input type="email" id="regEmailLanding" placeholder="marco@explores.com" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
+                <div class="input-wrap">
+                  <i class="ti ti-lock field-icon" aria-hidden="true"></i>
+                  <input type="password" id="regPassLanding" placeholder="Min. 8 characters" required>
+                </div>
+              </div>
+
+              <button class="btn-submit" type="submit" style="margin-top: 20px;">
+                Create account &amp; explore
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============== TOAST ============== -->
+  <div class="toast" id="toast">
+    <span class="toast-dot"></span>
+    <span id="toastMsg"></span>
+  </div>
+
+
+  <!-- ============== SCRIPTS ============== -->
+  <script>
+    // Init Lucide icons
+    lucide.createIcons();
+
+
+    // ---- THEME ----
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+      lucide.createIcons();
+      localStorage.setItem('gt_theme', isDark ? 'light' : 'dark');
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('gt_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    if (savedTheme === 'light') {
+      document.getElementById('themeIcon').setAttribute('data-lucide', 'sun');
+      lucide.createIcons();
+    }
+
+    // ---- AUTH MODAL ----
+    function openAuth(tab = 'login') {
+      document.getElementById('authOverlay').classList.add('show');
+      switchTab(tab);
+    }
+
+    function closeAuth() {
+      document.getElementById('authOverlay').classList.remove('show');
+    }
+
+    function switchTab(tab) {
+      document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+      document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+      document.getElementById('panelLogin').classList.toggle('active', tab === 'login');
+      document.getElementById('panelRegister').classList.toggle('active', tab === 'register');
+      
+      const heading = document.getElementById('modalHeading');
+      const sub = document.getElementById('modalSub');
+      if (heading) heading.textContent = tab === 'login' ? 'Welcome back' : 'Create your account';
+      if (sub) sub.textContent = tab === 'login'
+        ? 'Sign in to continue your exploration journey'
+        : 'Join thousands of globetrotters worldwide';
+    }
+
+    function handleLandingLogin() {
+      const email = document.getElementById('loginEmailLanding').value.trim();
+      if (!email) { showToast('Please enter your email.', 'error'); return; }
+
+      const isAdmin = email.toLowerCase().includes('admin') || email.toLowerCase().includes('rudratheadmin123');
+      const name = isAdmin ? 'Rudra The Admin' : (email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1));
+
+      const user = {
+        name, email,
+        isPremium: isAdmin,
+        membershipTier: isAdmin ? 'Pro Explorer (Admin)' : 'Free Explorer',
+        visitedPois: [],
+        travelHops: 0
+      };
+      localStorage.setItem('globetrotter_user', JSON.stringify(user));
+      showToast(isAdmin ? '🎉 Admin access granted! Redirecting...' : `Welcome, ${name}! Launching explorer...`, 'success');
+      setTimeout(() => { window.location.href = 'explorer.html'; }, 1200);
+    }
+
+    function handleLandingRegister() {
+      const name = document.getElementById('regNameLanding').value.trim();
+      const email = document.getElementById('regEmailLanding').value.trim();
+      if (!name || !email) { showToast('Please fill in all fields.', 'error'); return; }
+
+      const isAdmin = email.toLowerCase().includes('admin') || email.toLowerCase().includes('rudratheadmin123') || name.toLowerCase().includes('admin') || name.toLowerCase().includes('rudratheadmin123');
+      const user = {
+        name: isAdmin ? 'Rudra The Admin' : name,
+        email,
+        isPremium: isAdmin,
+        membershipTier: isAdmin ? 'Pro Explorer (Admin)' : 'Free Explorer',
+        visitedPois: [],
+        travelHops: 0
+      };
+      localStorage.setItem('globetrotter_user', JSON.stringify(user));
+      showToast(isAdmin ? '🎉 Admin access granted! Redirecting...' : `Account created! Welcome, ${name}! Launching...`, 'success');
+      setTimeout(() => { window.location.href = 'explorer.html'; }, 1200);
+    }
+
+    // ---- TOAST ----
+    let toastTimer;
+    function showToast(msg, type = 'info') {
+      clearTimeout(toastTimer);
+      const t = document.getElementById('toast');
+      t.className = `toast ${type}`;
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // ---- SMOOTH SCROLL for hash links ----
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globetrotter — World Tourism & Hidden Gems Explorer</title>
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        
+  <!-- Leaflet Routing Machine & Geocoder CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  
+  <!-- Custom Design System Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Tabler Icons & Google Fonts for Auth Modal -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- ================= AUTHENTICATION PORTAL OVERLAY ================= -->
+  <div id="authOverlay" class="auth-page auth-scene" style="z-index: 9999;">
+    <div class="bg-image"></div>
+    <div class="vignette"></div>
+    <div class="noise"></div>
+
+    <div id="toastMsg" class="toast"></div>
+
+    <div class="auth-wrap">
+      <div class="modal">
+        <div class="modal-top-bar"></div>
+        <div class="modal-inner">
+
+          <div class="brand">
+            <div class="brand-icon">
+              <i class="ti ti-compass" style="font-size:20px;color:#fff;" aria-hidden="true"></i>
+            </div>
+            <span class="brand-name">Globe<span>trotter</span></span>
+          </div>
+
+          <div class="heading" id="modalHeading">Welcome back</div>
+          <div class="subtext" id="modalSub">Sign in to continue your exploration journey</div>
+
+          <div class="tabs">
+            <div class="tab active" id="tabLogin" onclick="switchAuthMode('login')">Sign in</div>
+            <div class="tab" id="tabReg" onclick="switchAuthMode('register')">Create account</div>
+          </div>
+
+          <!-- LOGIN -->
+          <div class="form-panel active" id="panelLogin">
+            <div class="security-badge">
+              <i class="ti ti-shield-check" aria-hidden="true"></i>
+              <span>Admin access: use <strong style="font-family:'DM Mono',monospace;font-size:11.5px;">rudratheadmin@123</strong> as your email for elevated privileges.</span>
+            </div>
+
+            <form onsubmit="event.preventDefault(); handleLogin();">
+              <div class="field">
+                <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
+                <div class="input-wrap">
+                  <i class="ti ti-mail field-icon" aria-hidden="true"></i>
+                  <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="username" spellcheck="false" required value="traveler@world.com">
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
+                <div class="input-wrap">
+                  <i class="ti ti-lock field-icon" aria-hidden="true"></i>
+                  <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" required value="password123">
+                  <button class="toggle-pass" type="button" onclick="toggleVis('loginPass', this)" aria-label="Show password">
+                    <i class="ti ti-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="captcha-row" id="captchaLogin" onclick="toggleCaptcha('captchaLogin')">
+                <div class="captcha-box"><i class="ti ti-check" style="display:none;"></i></div>
+                <span class="captcha-label">I'm not a robot</span>
+                <span class="captcha-logo">reCAPTCHA<br>Privacy · Terms</span>
+              </div>
+
+              <div class="attempts-warning" id="attemptsWarn"></div>
+
+              <button class="btn-submit" type="submit" id="loginBtn">
+                Sign in &amp; launch explorer
+              </button>
+            </form>
+          </div>
+
+          <!-- REGISTER -->
+          <div class="form-panel" id="panelReg">
+            <form onsubmit="event.preventDefault(); handleRegister();">
+              <div class="field">
+                <label><i class="ti ti-user" aria-hidden="true"></i> Full name</label>
+                <div class="input-wrap">
+                  <i class="ti ti-user field-icon" aria-hidden="true"></i>
+                  <input type="text" id="regName" placeholder="Marco Polo" autocomplete="name" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
+                <div class="input-wrap">
+                  <i class="ti ti-mail field-icon" aria-hidden="true"></i>
+                  <input type="email" id="regEmail" placeholder="marco@explores.com" autocomplete="username" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
+                <div class="input-wrap">
+                  <i class="ti ti-lock field-icon" aria-hidden="true"></i>
+                  <input type="password" id="regPass" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)" required>
+                  <button class="toggle-pass" type="button" onclick="toggleVis('regPass', this)" aria-label="Show password">
+                    <i class="ti ti-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="strength-bar" id="strengthBar">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <div class="strength-label" id="strengthLabel"></div>
+              </div>
+
+              <div class="field">
+                <label><i class="ti ti-lock-check" aria-hidden="true"></i> Confirm password</label>
+                <div class="input-wrap">
+                  <i class="ti ti-lock-check field-icon" aria-hidden="true"></i>
+                  <input type="password" id="regConfirm" placeholder="Repeat password" autocomplete="new-password" required>
+                  <button class="toggle-pass" type="button" onclick="toggleVis('regConfirm', this)" aria-label="Show password">
+                    <i class="ti ti-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="captcha-row" id="captchaReg" onclick="toggleCaptcha('captchaReg')">
+                <div class="captcha-box"><i class="ti ti-check" style="display:none;"></i></div>
+                <span class="captcha-label">I'm not a robot</span>
+                <span class="captcha-logo">reCAPTCHA<br>Privacy · Terms</span>
+              </div>
+
+              <button class="btn-submit" type="submit" id="regBtn">
+                Create account &amp; explore
+              </button>
+            </form>
+          </div>
+
+          <div class="footer-links">
+            <a href="#">Forgot password?</a>
+            <a href="#">Privacy policy</a>
+            <a href="#">Terms of use</a>
+          </div>
+
+          <div class="lock-row">
+            <i class="ti ti-lock" aria-hidden="true"></i>
+            256-bit AES encrypted · TLS 1.3 · Rate-limited
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PRICING & CHECKOUT SYSTEM OVERLAY ================= -->
+  <div id="pricingOverlay" class="pricing-page">
+    <div class="pricing-container">
+      
+      <!-- PRICING TIERS SELECTION SCREEN -->
+      <div id="pricingTierScreen" style="display: flex; flex-direction: column; gap: 30px;">
+        <div class="pricing-title-area">
+          <h2 style="font-size: 2.2rem; font-family: 'Outfit'; margin-bottom: 10px;">Choose Your Exploration Plan</h2>
+          <p style="color: var(--text-secondary);">Unlock the full grid of world travel, detailed maps, and local hidden gems.</p>
+        </div>
+        
+        <div class="pricing-grid">
+          <!-- STARTER FREE PLAN -->
+          <div class="pricing-card glass">
+            <div>
+              <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Free Explorer</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem;">Perfect for casual neighborhood walks and basic planning.</p>
+            </div>
+            <div class="price-text">$0<span>/month</span></div>
+            <ul class="benefits-list">
+              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Access to France and India</li>
+              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Red, Orange, Yellow, Green Tiers</li>
+              <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x" style="color: var(--tier-red); width: 18px;"></i> Pro Premium Countries</li>
+              <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x" style="color: var(--tier-red); width: 18px;"></i> Blue Tier 5 Hidden Gems</li>
+              <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x" style="color: var(--tier-red); width: 18px;"></i> Unlimited City Journeys</li>
+            </ul>
+            <button class="btn btn-secondary" onclick="selectPricingPlan('free')" style="padding: 12px;">Current Active Plan</button>
+          </div>
+          
+          <!-- PREMIUM PRO EXPLORER PLAN -->
+          <div class="pricing-card glass premium-card">
+            <div class="premium-ribbon">POPULAR</div>
+            <div>
+              <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: #ffd700;">Pro Explorer</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem;">For the true pathfinder exploring global horizons.</p>
+            </div>
+            <div class="price-text" style="color: #ffd700;">$9.99<span>/month</span></div>
+            <ul class="benefits-list">
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Unlimited country access (Japan, USA, Egypt+)</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Fully unlock **Blue Tier 5 Hidden Gems**</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Infinite Procedural City Generation</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Infinite city-by-city routing hops</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Premium printable travel journal PDF</li>
+            </ul>
+            <button class="btn btn-premium" onclick="selectPricingPlan('pro')" style="padding: 12px;">Upgrade to Pro Explorer</button>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <span style="color: var(--text-secondary); cursor: pointer;" onclick="closePricingOverlay()">Keep Free Plan & Return</span>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE 3D CREDIT CARD CHECKOUT SCREEN -->
+      <div id="checkoutScreen" class="checkout-view glass" style="margin: 0 auto;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 1.4rem; font-family: 'Outfit'; margin-bottom: 12px;">Order Summary</h3>
+            <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border: 1px solid var(--border-glass);">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span>Pro Explorer (Monthly)</span>
+                <span>$9.99</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
+                <span>Total Due</span>
+                <span style="color: #ffd700;">$9.99</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Card Visualizer -->
+          <div class="card-simulator-container" style="margin: 20px 0;">
+            <div id="creditCard3d" class="credit-card-3d">
+              <!-- Front of Card -->
+              <div class="card-face card-front">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="card-chip"></div>
+                  <span style="font-weight: bold; font-style: italic;">VISA</span>
+                </div>
+                <div id="visaCardNumber" class="card-number-display">•••• •••• •••• ••••</div>
+                <div class="card-details-row">
+                  <div>
+                    <div style="font-size: 7px; color: #ccc;">CARDHOLDER</div>
+                    <div id="visaCardHolder" style="font-size: 11px;">EXPLORER</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 7px; color: #ccc;">EXPIRES</div>
+                    <div id="visaCardExpiry" style="font-size: 11px;">MM/YY</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Back of Card -->
+              <div class="card-face card-back">
+                <div class="card-strip"></div>
+                <div id="visaCardCvv" class="card-cvv-stripe">123</div>
+                <div style="padding: 0 20px; font-size: 8px; color: #aaa; text-align: center;">
+                  Authorized signature required. Secure simulation.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Input Form -->
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <h3 style="font-size: 1.2rem; font-family: 'Outfit';">Payment Details</h3>
+          <form id="paymentForm" onsubmit="event.preventDefault(); processPremiumPayment();">
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19" required
+                     oninput="syncCardInput('number')" onfocus="setCardFlip(false)">
+            </div>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="cardHolder">Cardholder Name</label>
+              <input type="text" id="cardHolder" class="form-control" placeholder="MARCO POLO" required
+                     oninput="syncCardInput('holder')" onfocus="setCardFlip(false)">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+              <div class="form-group">
+                <label for="cardExpiry">Expiration Date</label>
+                <input type="text" id="cardExpiry" class="form-control" placeholder="12/28" maxlength="5" required
+                       oninput="syncCardInput('expiry')" onfocus="setCardFlip(false)">
+              </div>
+              <div class="form-group">
+                <label for="cardCvv">CVV</label>
+                <input type="password" id="cardCvv" class="form-control" placeholder="•••" maxlength="3" required
+                       oninput="syncCardInput('cvv')" onfocus="setCardFlip(true)" onblur="setCardFlip(false)">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-premium" style="width: 100%; padding: 14px;">Authorize $9.99 Purchase</button>
+          </form>
+          <div style="text-align: center;">
+            <span style="color: var(--text-secondary); cursor: pointer; font-size: 0.85rem;" onclick="cancelCheckout()">← Back to plans</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= APP FLOATING HEADER & SEARCH ================= -->
+  <header class="glass-header">
+    <div class="logo">
+      <i data-lucide="compass" style="stroke-width: 2.5; color: var(--tier-blue);"></i>
+      Globe<span>trotter</span>
+    </div>
+    
+    <div class="search-container">
+      <i data-lucide="search" class="search-icon" style="width: 20px;"></i>
+      <input type="text" id="globalSearchInput" class="search-input" placeholder="Search country, city or hidden gem..." oninput="handleGlobalSearch(this.value)">
+      <div id="searchAutocomplete" class="autocomplete-dropdown glass"></div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <!-- Link back to Marketing Landing Website -->
+      <button id="viewLandingBtn" class="btn btn-secondary" onclick="showLandingWebsite()" style="padding: 8px 14px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px;">
+        <i data-lucide="home" style="width: 16px;"></i> Website
+      </button>
+
+      <!-- Route Planner Toggle Button -->
+      <button id="toggleRoutePlannerBtn" class="btn btn-secondary" onclick="toggleRoutePlannerPanel()" style="padding: 8px 14px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(0, 242, 255, 0.4); background: rgba(0, 242, 255, 0.08); color: #00f2ff; font-weight: 700; text-shadow: 0 0 8px rgba(0, 242, 255, 0.4); transition: all 0.3s;" title="Toggle Route Planner Panel">
+        <i data-lucide="navigation" style="width: 16px;"></i> Route Planner
+      </button>
+
+      <div id="premiumBadgeArea">
+        <button id="upgradeHeaderBtn" class="btn btn-premium" onclick="openPricingOverlay()" style="padding: 8px 16px; font-size: 0.85rem;">
+          <i data-lucide="sparkles" style="width: 16px;"></i> Pro Upgrade
+        </button>
+      </div>
+      <div class="user-badge glass" onclick="togglePersonalTravelLog()">
+        <div id="userBadgeAvatar" class="user-avatar">T</div>
+        <div style="display: flex; flex-direction: column; text-align: left;">
+          <span id="userBadgeName" style="font-size: 0.85rem; font-weight: 600;">Traveler</span>
+          <span id="userBadgeTier" style="font-size: 0.7rem; color: var(--text-secondary);">Free Explorer</span>
+        </div>
+      </div>
+
+      <!-- Quick Session Logout Button -->
+      <button class="btn btn-secondary" onclick="handleLogout()" style="padding: 10px; border-radius: 50%; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 59, 48, 0.3); color: var(--tier-red); background: rgba(255, 59, 48, 0.05);" title="Sign Out">
+        <i data-lucide="log-out" style="width: 18px;"></i>
+      </button>
+    </div>
+
+    <!-- Slidable Toggle Handle Tab -->
+    <div class="nav-toggle-handle" onclick="toggleNavbarCollapse(event)" title="Toggle Navigation Bar">
+      <i data-lucide="chevron-up" id="navToggleChevron"></i>
+    </div>
+  </header>
+
+  <!-- ================= APP MAIN MULTI-PANEL SYSTEM ================= -->
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR CONTAINER -->
+    <div class="sidebar">
+      <!-- Slidable Sidebar Toggle Handle Tab -->
+      <div class="sidebar-toggle-handle" onclick="toggleSidebarCollapse(event)" title="Toggle Sidebar">
+        <i data-lucide="chevron-left" id="sidebarToggleChevron"></i>
+      </div>
+      
+      <!-- VIEW 1: HOME/DASHBOARD VIEW -->
+      <div id="panelHome" class="panel active">
+        <!-- Global Stats counters -->
+        <div class="glass" style="padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center;">
+          <div>
+            <div style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-blue);">5</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary);">Flagship Countries</div>
+          </div>
+          <div>
+            <div style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-orange);">12+</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary);">Preseeded Cities</div>
+          </div>
+          <div style="grid-column: span 2; border-top: 1px solid var(--border-glass); padding-top: 12px; margin-top: 4px;">
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--tier-green);"><i data-lucide="globe" style="width: 14px; vertical-align: middle; margin-right: 4px;"></i> 10,000+ Infinite Cities Coverable</div>
+          </div>
+        </div>
+
+        <!-- Continental Destination Picker -->
+        <div class="glass" style="padding: 20px;">
+          <h3 style="font-size: 1.1rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="map" style="color: var(--tier-blue); width: 20px;"></i> Select Flagship Country
+          </h3>
+          <!-- Quick-access special modes -->
+          <div style="display:flex;gap:8px;margin-bottom:14px;">
+            <button onclick="navigateTemples('all')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 6px;border-radius:10px;border:1px solid rgba(255,165,0,0.35);background:rgba(255,140,0,0.1);color:#ffa940;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,140,0,0.2)'" onmouseout="this.style.background='rgba(255,140,0,0.1)'">
+              🛕 Temples
+            </button>
+            <button onclick="navigateTemples('chardham')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 6px;border-radius:10px;border:1px solid rgba(255,215,0,0.35);background:rgba(255,215,0,0.08);color:#ffd700;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,215,0,0.18)'" onmouseout="this.style.background='rgba(255,215,0,0.08)'">
+              🕉️ Char Dham
+            </button>
+          </div>
+
+          <!-- Attraction Filtering Tiers Legend / Instruction Box -->
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass); border-radius: 12px; padding: 12px; margin-bottom: 16px;">
+            <div style="font-size: 0.78rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="info" style="width: 14px; color: var(--tier-blue);"></i> Map Legend: Filter Attractions
+            </div>
+            <div style="font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.3;">
+              Attractions are color-coded by their level of significance. Select a country below to explore its cities and filter by these tiers:
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px;">
+              <div style="display: flex; align-items: center; font-size: 0.72rem; color: white;">
+                <span class="legend-color-dot legend-red" style="margin-right: 6px; width: 8px; height: 8px; flex-shrink: 0;"></span>
+                <span>World Icons</span>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 0.72rem; color: white;">
+                <span class="legend-color-dot legend-orange" style="margin-right: 6px; width: 8px; height: 8px; flex-shrink: 0;"></span>
+                <span>National Landmarks</span>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 0.72rem; color: white;">
+                <span class="legend-color-dot legend-yellow" style="margin-right: 6px; width: 8px; height: 8px; flex-shrink: 0;"></span>
+                <span>Regional Stars</span>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 0.72rem; color: white;">
+                <span class="legend-color-dot legend-green" style="margin-right: 6px; width: 8px; height: 8px; flex-shrink: 0;"></span>
+                <span>Locally Famous</span>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 0.72rem; color: white; grid-column: span 2;">
+                <span class="legend-color-dot legend-blue" style="margin-right: 6px; width: 8px; height: 8px; flex-shrink: 0;"></span>
+                <span>Hidden Gems (Exclusive to Premium <i data-lucide="lock" style="width: 10px; color: #ffd700; display: inline; vertical-align: middle;"></i>)</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;" id="flagshipCountriesList">
+            <!-- Injected via JavaScript dynamically -->
+          </div>
+        </div>
+
+        <!-- Spotlights of Hidden Gems -->
+        <div id="homeSpotlightCard" class="glass" style="padding: 20px; cursor: pointer; transition: var(--transition-smooth);" onclick="showSpotlightPOIDetails()">
+          <h4 style="font-size: 0.8rem; color: #ffd700; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="sparkles" style="width: 14px;"></i> Daily Hidden Gem Spot
+          </h4>
+          <div id="spotlightImage" style="height: 120px; border-radius: 8px; background-size: cover; background-position: center; margin-bottom: 12px;"></div>
+          <h3 id="spotlightName" style="font-size: 1.1rem; margin-bottom: 6px;">Otagi Nenbutsu-ji</h3>
+          <p id="spotlightTagline" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;"></p>
+        </div>
+      </div>
+
+      <!-- VIEW 2: TEMPLES & PILGRIMAGE PANEL -->
+      <div id="panelTemples" class="panel">
+        <button class="btn btn-secondary" onclick="navigateHome()" style="align-self: flex-start; padding: 6px 12px; font-size: 0.8rem;">
+          <i data-lucide="arrow-left" style="width: 16px;"></i> Back
+        </button>
+
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, rgba(255,140,0,0.15), rgba(255,69,0,0.1)); border: 1px solid rgba(255,140,0,0.25); border-radius: 14px; padding: 18px;">
+          <div style="font-size: 1.6rem; margin-bottom: 6px;">🛕</div>
+          <h2 style="font-family:'Outfit'; font-size: 1.4rem; margin-bottom: 4px; color: #ffa940;">India Temple Explorer</h2>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">All temples organized city-wise. Filter by Char Dham Yatra, Jyotirlingas, or browse all.</p>
+        </div>
+
+        <!-- Tab Switcher -->
+        <div style="display:flex; gap:6px; background:rgba(255,255,255,0.04); padding:5px; border-radius:10px; border:1px solid var(--border-glass);">
+          <button id="tabAll" onclick="switchTempleTab('all')" style="flex:1; padding:8px 4px; border-radius:7px; border:none; font-size:0.75rem; font-weight:700; cursor:pointer; transition:all 0.2s; background:rgba(255,140,0,0.3); color:#ffa940;">All Temples</button>
+          <button id="tabCharDham" onclick="switchTempleTab('chardham')" style="flex:1; padding:8px 4px; border-radius:7px; border:none; font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.2s; background:transparent; color:var(--text-secondary);">🕉️ Char Dham</button>
+          <button id="tabJyotirlinga" onclick="switchTempleTab('jyotirlinga')" style="flex:1; padding:8px 4px; border-radius:7px; border:none; font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.2s; background:transparent; color:var(--text-secondary);">🔱 Jyotirlinga</button>
+        </div>
+
+        <!-- Map plot button -->
+        <button onclick="plotCurrentTempleFilter()" style="display:flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:9px; border-radius:10px; border:1px solid rgba(255,140,0,0.3); background:rgba(255,140,0,0.08); color:#ffa940; font-size:0.8rem; font-weight:600; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,140,0,0.18)'" onmouseout="this.style.background='rgba(255,140,0,0.08)'">
+          <i data-lucide="map-pin" style="width:14px;"></i> Show All on Map
+        </button>
+
+        <!-- Temple list grouped by state/city -->
+        <div id="templeListContainer" style="display:flex; flex-direction:column; gap:10px;">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- VIEW 3: COUNTRY DETAIL HUB VIEW -->
+      <div id="panelCountry" class="panel">
+        <button class="btn btn-secondary" onclick="navigateHome()" style="align-self: flex-start; padding: 6px 12px; font-size: 0.8rem;">
+          <i data-lucide="arrow-left" style="width: 16px;"></i> Back to Globe
+        </button>
+
+        <div class="country-header-card">
+          <div id="countryHeaderBg" class="country-header-bg"></div>
+          <div class="country-header-content">
+            <div id="countryHeaderFlag" style="font-size: 2rem; margin-bottom: 4px;">🇫🇷</div>
+            <h2 id="countryHeaderName" style="font-size: 1.8rem; font-family: 'Outfit';">France</h2>
+            <div style="display: flex; gap: 10px; margin-top: 6px;">
+              <span id="countryHeaderCapital" class="country-badge-stat">Capital: Paris</span>
+              <span id="countryHeaderPois" class="country-badge-stat">18 Attractions</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass" style="padding: 16px;">
+          <p id="countryHeaderDesc" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;"></p>
+        </div>
+
+        <!-- India Specific Filter Options -->
+        <div id="indiaFilterOptions" style="display: none; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; border: 1px solid var(--border-glass); margin-bottom: 20px; margin-top: 15px;">
+          <h3 style="font-size: 0.9rem; margin-bottom: 10px; color: var(--text-secondary);">How would you like to explore India?</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button onclick="setIndiaViewMode('state')" id="btnStateWise" style="flex:1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--tier-blue); background: rgba(30,144,255,0.1); color: var(--tier-blue); cursor: pointer; font-weight: 600; transition: all 0.2s;">
+              🗺️ Explore State-wise
+            </button>
+            <button onclick="setIndiaViewMode('city')" id="btnCityWise" style="flex:1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--tier-green); background: rgba(50,205,50,0.1); color: var(--tier-green); cursor: pointer; font-weight: 600; transition: all 0.2s;">
+              🏙️ Explore City-wise
+            </button>
+            <button onclick="setIndiaViewMode('top_hits')" id="btnTopHits" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--tier-red); background: rgba(255,0,0,0.1); color: var(--tier-red); cursor: pointer; font-weight: 600; transition: all 0.2s;">
+              ⭐ Top Highlights (For International Travelers)
+            </button>
+          </div>
+        </div>
+
+        <!-- Premium Warning Overlay Container for Country Hub -->
+        <div id="countryPoisContainer" style="position: relative; display: flex; flex-direction: column; gap: 14px;">
+          <h3 style="font-size: 1.1rem; font-weight: 600;">Explore Key Cities</h3>
+          <div id="countryCitiesList" class="city-list">
+            <!-- Injected via JavaScript dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: CITY-BY-CITY EXPLORER VIEW -->
+      <div id="panelCity" class="panel">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button id="cityBackButton" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">
+            <i data-lucide="arrow-left" style="width: 16px;"></i> Back
+          </button>
+          
+          <!-- Quick jump to next city button representing Travel Mode -->
+          <button id="cityTravelModeBtn" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem; background: linear-gradient(135deg, var(--tier-orange), var(--tier-red)); border:none;">
+            Next City Hop <i data-lucide="arrow-right" style="width: 16px;"></i>
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div id="cityDetailThumbnail" class="city-thumbnail" style="width: 70px; height: 70px;"></div>
+          <div>
+            <h2 id="cityDetailName" style="font-size: 1.6rem; font-family: 'Outfit';">Paris</h2>
+            <p id="cityDetailTagline" style="font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">The City of Light</p>
+          </div>
+        </div>
+
+        <!-- Interactive Filtering Controls Inside Active City -->
+        <div class="glass filter-box">
+          <div class="filter-title">
+            <span>Filter Attractions</span>
+            <span style="font-size: 0.75rem; color: var(--text-secondary); cursor: pointer;" onclick="resetSidebarFilters()">Reset</span>
+          </div>
+
+          <div class="legend-toggle-list">
+            <div class="legend-item active" onclick="toggleTierFilter('red')">
+              <div><span class="legend-color-dot legend-red"></span>World Icons</div>
+              <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
+            </div>
+            <div class="legend-item active" onclick="toggleTierFilter('orange')">
+              <div><span class="legend-color-dot legend-orange"></span>National Landmarks</div>
+              <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
+            </div>
+            <div class="legend-item active" onclick="toggleTierFilter('yellow')">
+              <div><span class="legend-color-dot legend-yellow"></span>Regional Stars</div>
+              <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
+            </div>
+            <div class="legend-item active" onclick="toggleTierFilter('green')">
+              <div><span class="legend-color-dot legend-green"></span>Locally Famous</div>
+              <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
+            </div>
+            <div class="legend-item active" id="blueLegendFilter" onclick="toggleTierFilter('blue')">
+              <div>
+                <span class="legend-color-dot legend-blue"></span>Hidden Gems 
+                <i data-lucide="lock" class="premium-lock-icon" style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
+              </div>
+              <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
+            </div>
+          </div>
+
+          <div class="category-chips">
+            <div class="category-chip active" onclick="toggleCategoryFilter('all', this)">All Types</div>
+            <div class="category-chip" onclick="toggleCategoryFilter('landmark', this)">Iconic</div>
+            <div class="category-chip" onclick="toggleCategoryFilter('history', this)">History</div>
+            <div class="category-chip" onclick="toggleCategoryFilter('nature', this)">Nature</div>
+            <div class="category-chip" onclick="toggleCategoryFilter('culture', this)">Culture</div>
+            <div class="category-chip" onclick="toggleCategoryFilter('temple', this)">🛕 Temples</div>
+            <div class="category-chip" onclick="toggleCategoryFilter('hidden_gem', this)">Secrets</div>
+          </div>
+        </div>
+
+        <!-- Attraction List Area -->
+        <div style="display: flex; flex-direction: column; gap: 12px;" id="cityPoisList">
+          <!-- Injected via JavaScript dynamically -->
+        </div>
+      </div>
+
+      <!-- VIEW 4: PERSONAL TRAVEL JOURNAL VIEW -->
+      <div id="panelJournal" class="panel">
+        <button class="btn btn-secondary" onclick="navigateHome()" style="align-self: flex-start; padding: 6px 12px; font-size: 0.8rem;">
+          <i data-lucide="arrow-left" style="width: 16px;"></i> Close Log
+        </button>
+
+        <div style="text-align: center; padding: 10px 0;">
+          <div class="user-avatar" style="width: 60px; height: 60px; margin: 0 auto 12px auto; font-size: 1.8rem;" id="journalAvatar">T</div>
+          <h2 id="journalUserName" style="font-size: 1.5rem; font-family: 'Outfit';">Traveler</h2>
+          <p id="journalUserTier" style="font-size: 0.85rem; color: #ffd700;">Free Explorer</p>
+        </div>
+
+        <!-- Achievements & Badging System -->
+        <div class="glass" style="padding: 20px;">
+          <h3 style="font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="award" style="color: #ffd700; width: 18px;"></i> Pathfinder Achievements
+          </h3>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="journalBadges">
+            <!-- Interactive badges injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Visited places logs -->
+        <div class="glass" style="padding: 20px;">
+          <h3 style="font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="navigation" style="color: var(--tier-blue); width: 18px;"></i> My Visited Sights (<span id="visitedCount">0</span>)
+          </h3>
+          <div id="visitedTimeline" class="timeline-list">
+            <!-- Visited elements injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Sign Out Action -->
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn btn-secondary" onclick="handleLogout()" style="width: 100%; border: 1px solid rgba(255, 59, 48, 0.4); color: #ff453a; background: rgba(255, 59, 48, 0.05); padding: 12px;">
+            <i data-lucide="log-out" style="width: 18px;"></i> Sign Out Session
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT MAP PANEL -->
+    <div class="map-viewport">
+      <div id="map"></div>
+
+      <!-- ── Map Auto-Plot Toggle ── -->
+      <div id="autoPlotToggle" class="map-toggle-pill glass" onclick="toggleAutoPlot()" title="Toggle automatic map plotting when selecting a country or city">
+        <div id="autoPlotDot" class="toggle-dot toggle-dot-on"></div>
+        <span id="autoPlotLabel" style="font-size:0.72rem;font-weight:600;letter-spacing:0.02em;white-space:nowrap;">Auto-Plot ON</span>
+        <i data-lucide="map-pin" style="width:13px;opacity:0.7;"></i>
+      </div>
+
+      <!-- ── Custom Routing UI ── -->
+      <div id="customRoutingPanel" class="glass" style="position:absolute; top:95px; right:20px; z-index:999; width:320px; padding:15px; border-radius:12px; display:none; flex-direction:column; gap:10px; box-shadow:0 8px 32px rgba(0,0,0,0.4); background:var(--glass-bg);">
+        <h4 style="margin:0; font-size:1rem; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
+          <i data-lucide="navigation" style="width:16px;"></i> Directions & Road Planner
+        </h4>
+        
+        <div style="position:relative;">
+          <input type="text" id="routeStartInput" class="form-input" placeholder="Start location..." autocomplete="off" style="width:100%; padding:10px; font-size:0.85rem; border-radius:8px; border:1px solid var(--border-active); background:rgba(0,0,0,0.3); color:white;">
+          <div id="routeStartSuggestions" class="suggestions-dropdown glass" style="display:none; position:absolute; top:100%; left:0; width:100%; max-height:200px; overflow-y:auto; z-index:1001; margin-top:4px; border-radius:8px; background:var(--bg-surface);"></div>
+        </div>
+
+        <div style="position:relative;">
+          <input type="text" id="routeEndInput" class="form-input" placeholder="Destination..." autocomplete="off" style="width:100%; padding:10px; font-size:0.85rem; border-radius:8px; border:1px solid var(--border-active); background:rgba(0,0,0,0.3); color:white;">
+          <div id="routeEndSuggestions" class="suggestions-dropdown glass" style="display:none; position:absolute; top:100%; left:0; width:100%; max-height:200px; overflow-y:auto; z-index:1001; margin-top:4px; border-radius:8px; background:var(--bg-surface);"></div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px;">
+          <label style="font-size:0.75rem; color:var(--text-secondary); font-weight:600; white-space:nowrap;">Transport:</label>
+          <select id="routeTravelMode" class="form-input" style="flex:1; padding:6px; font-size:0.8rem; border-radius:6px; background:rgba(0,0,0,0.3); color:white; border:1px solid var(--border-active); height:30px;" onchange="onTravelModeChange(this.value)">
+            <option value="road">🚗 By Road (Directions)</option>
+            <option value="train">🚂 By Train (Railways)</option>
+            <option value="flight">✈️ By Flight (Airways)</option>
+          </select>
+        </div>
+
+        <div>
+          <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600; margin-bottom:5px;">Show Along Route:</div>
+          <div style="display:flex; justify-content:space-between; gap:6px; background:rgba(0,0,0,0.2); padding:6px; border-radius:8px; border:1px solid var(--border-glass);">
+            <label style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:0.68rem; color:white; cursor:pointer; font-weight:600; text-align:center;">
+              <input type="checkbox" id="toggleRestAmenities" onchange="onAmenityToggleChange()" style="margin:0;" checked>
+              <span>🏨 Rest</span>
+            </label>
+            <label style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:0.68rem; color:white; cursor:pointer; font-weight:600; text-align:center;">
+              <input type="checkbox" id="toggleFuelAmenities" onchange="onAmenityToggleChange()" style="margin:0;" checked>
+              <span>⛽ Fuel</span>
+            </label>
+            <label style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:0.68rem; color:white; cursor:pointer; font-weight:600; text-align:center;">
+              <input type="checkbox" id="toggleEvAmenities" onchange="onAmenityToggleChange()" style="margin:0;" checked>
+              <span>⚡ Charge</span>
+            </label>
+          </div>
+        </div>
+
+        <button id="startRoutingBtn" class="btn btn-primary" style="width:100%; padding:10px; font-size:0.9rem; justify-content:center; border-radius:8px; margin-top:2px;">
+          <i data-lucide="map" style="width:16px;"></i> Get Directions
+        </button>
+
+        <div id="routeStatsContainer" style="display:none; margin-top:2px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ATTRACTION DETAILS MODAL OVERLAY ================= -->
+  <div id="poiDetailsModal" class="overlay-modal" onclick="if(event.target === this) closePoiDetails();">
+    <div class="poi-details-card glass">
+      
+      <!-- Top banner image gallery -->
+      <div id="poiDetailGallery" class="poi-gallery">
+        <div class="poi-close" onclick="closePoiDetails()"><i data-lucide="x" style="width: 20px;"></i></div>
+        <div class="poi-header-gradient"></div>
+        <div style="position: absolute; bottom: 20px; left: 30px;">
+          <div id="poiDetailTierBadge" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+            World Famous
+          </div>
+          <h2 id="poiDetailName" style="font-size: 2.2rem; font-family: 'Outfit'; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Taj Mahal</h2>
+        </div>
+      </div>
+
+      <!-- Scrollable body elements -->
+      <div class="poi-body">
+        
+        <!-- Quick Meta Info Cards -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+          <div class="glass" style="padding: 12px; text-align: center;">
+            <i data-lucide="ticket" style="color: var(--tier-green); width: 20px; margin-bottom: 4px;"></i>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">ENTRY FEE</div>
+            <div id="poiDetailFee" style="font-size: 0.85rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Free</div>
+          </div>
+          <div class="glass" style="padding: 12px; text-align: center;">
+            <i data-lucide="clock" style="color: var(--tier-blue); width: 20px; margin-bottom: 4px;"></i>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">HOURS</div>
+            <div id="poiDetailHours" style="font-size: 0.85rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">24/7</div>
+          </div>
+          <div class="glass" style="padding: 12px; text-align: center;">
+            <i data-lucide="sun" style="color: var(--tier-orange); width: 20px; margin-bottom: 4px;"></i>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">BEST SEASON</div>
+            <div id="poiDetailSeason" style="font-size: 0.85rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Winter</div>
+          </div>
+          <div class="glass" style="padding: 12px; text-align: center;">
+            <i data-lucide="hourglass" style="color: var(--tier-yellow); width: 20px; margin-bottom: 4px;"></i>
+            <div style="font-size: 0.7rem; color: var(--text-secondary);">TIME NEEDED</div>
+            <div id="poiDetailTime" style="font-size: 0.85rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">1 Hour</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+          <!-- Left descriptions -->
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div id="poiDetailDescArea">
+              <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-muted);">Overview</h4>
+              <p id="poiDetailDescription" style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5;"></p>
+            </div>
+            
+            <div id="poiDetailReviewsArea">
+              <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-muted);">What Travelers Say</h4>
+              <div id="poiDetailReviews" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Reviews injected via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right sidebar control elements inside popup -->
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="glass" style="padding: 16px; text-align: center; display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">EXPLORER RATING</div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <i data-lucide="star" style="fill: #ffd700; stroke: #ffd700; width: 20px;"></i>
+                <span id="poiDetailRating" style="font-size: 1.5rem; font-weight: 800; font-family: 'Outfit';">4.9</span>
+              </div>
+              <div id="poiDetailUnescoBadge" style="display: none; padding: 4px 8px; background: rgba(52, 199, 89, 0.15); border: 1px solid var(--tier-green); border-radius: 8px; font-size: 0.75rem; color: var(--tier-green); font-weight: 600;">
+                UNESCO Site
+              </div>
+            </div>
+
+            <button id="poiCheckInBtn" class="btn btn-primary" onclick="handleCheckInPOI()">
+              <i data-lucide="check-circle" style="width: 18px;"></i> Mark as Visited
+            </button>
+            
+            <!-- Link to plot directly on map and center coordinate -->
+            <button class="btn btn-secondary" onclick="centerPOIOnMap()">
+              <i data-lucide="map-pin" style="width: 18px;"></i> Plot on Map
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LEAFLET MAP JAVASCRIPT DEPENDENCIES ================= -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+          
+  <!-- Leaflet Routing Machine & Geocoder JS -->
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  
+  <!-- Main Data Seed & Infinite Generative Script -->
+  <script src="data.js"></script>
+  
+  <!-- Core Logic, Router Gates & Checkout Controller -->
+  <script src="app.js"></script>
+
+</body>
+</html>
