@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://globeroutes.co/sitemap.xml
+Sitemap: https://globeroutes.com/sitemap.xml
