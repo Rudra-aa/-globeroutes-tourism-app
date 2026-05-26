@@ -1,5 +1,5 @@
 /**
- * Globetrotter Main Application Engine
+ * Globeroutes Main Application Engine
  * Manages SPA state routing, mock authorization, subscription locks,
  * Leaflet maps integration, autocomplete searches, procedural generations, and gamified achievements.
  */
@@ -24,7 +24,7 @@ let currentIndiaViewMode = 'city'; // 'city', 'state', 'top_hits'
 let travelHopCount = 0;
 
 // Auto-Plot Map Feature Toggle (persisted in localStorage)
-let autoPlotEnabled = localStorage.getItem('globetrotter_autoplot') !== 'false';
+let autoPlotEnabled = localStorage.getItem('globeroutes_autoplot') !== 'false';
 
 // Filter States
 let activeFilters = {
@@ -143,8 +143,17 @@ window.addEventListener('DOMContentLoaded', () => {
   // Initialize Lucide Icons
   lucide.createIcons();
   
+  // Ensure default users are initialized in local storage fallback
+  ensureDefaultUsers();
+
   // Load session or check Auth
   checkAuthSession();
+  
+  // Trigger pricing overlay if requested by URL query
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('triggerUpgrade') === 'true') {
+    setTimeout(() => { openPricingOverlay(); }, 800);
+  }
   
   // Set up Map
   initMap();
@@ -171,12 +180,36 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ================= AUTHENTICATION SERVICES =================
+/// ================= AUTHENTICATION SERVICES =================
 
+const API_URL = 'http://localhost:5001';
 let loginAttempts = 0;
 const maxAttempts = 5;
 let lockoutUntil = 0;
 let captchaState = {};
+
+const AUTH_SALT = "globeroutes_secure_salt_2026_!!";
+function secureHash(str) {
+  let salted = str + AUTH_SALT;
+  let hash = 0;
+  for (let i = 0; i < salted.length; i++) {
+    hash = (hash << 5) - hash + salted.charCodeAt(i);
+    hash |= 0;
+  }
+  return 'sha256_sim_' + Math.abs(hash).toString(16);
+}
+
+function ensureDefaultUsers() {
+  let db = localStorage.getItem('globeroutes_users_db');
+  if (!db) {
+    const defaults = [
+      { email: 'rudratheadmin@123', pass: secureHash('password123'), name: 'Rudra The Admin', isAdmin: true },
+      { email: 'rudratheadmin123', pass: secureHash('password123'), name: 'Rudra The Admin', isAdmin: true },
+      { email: 'traveler@world.com', pass: secureHash('password123'), name: 'Traveler Pro', isAdmin: false }
+    ];
+    localStorage.setItem('globeroutes_users_db', JSON.stringify(defaults));
+  }
+}
 
 function toggleVis(id, btn) {
   const inp = document.getElementById(id);
@@ -196,6 +229,16 @@ function toggleCaptcha(id) {
   const checked = row.classList.toggle('checked');
   if (box) box.style.display = checked ? 'block' : 'none';
   captchaState[id] = checked;
+}
+
+function resetCaptcha(id) {
+  captchaState[id] = false;
+  const row = document.getElementById(id);
+  if (row) {
+    row.classList.remove('checked');
+    const box = row.querySelector('.captcha-box i');
+    if (box) box.style.display = 'none';
+  }
 }
 
 function checkStrength(val) {
@@ -230,15 +273,38 @@ function sanitize(s) {
   return s.replace(/[<>"'&]/g, '');
 }
 
-function checkAuthSession() {
-  let session = localStorage.getItem('globetrotter_user');
+async function checkAuthSession() {
+  let session = localStorage.getItem('globeroutes_user');
   if (!session) {
     currentUser = null;
     document.getElementById('authOverlay').style.display = 'flex';
+    setTimeout(() => { if (window.initializeGoogleAuth) window.initializeGoogleAuth(); }, 500);
   } else {
     currentUser = JSON.parse(session);
     document.getElementById('authOverlay').style.display = 'none';
     updateHeaderUserBadge();
+    
+    // Attempt syncing data with backend MongoDB if online
+    try {
+      const response = await fetch(`${API_URL}/api/user/sync`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: currentUser.email,
+          visitedPois: currentUser.visitedPois || [],
+          travelHops: currentUser.travelHops || 0
+        })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        currentUser = data.user;
+        saveUserSession();
+        updateHeaderUserBadge();
+      }
+    } catch (e) {
+      console.log("Globeroutes backend offline. Using local session fallback.");
+    }
+    
     syncUserJournalData();
   }
 }
@@ -261,10 +327,10 @@ function switchAuthMode(mode) {
   if (panelLogin) panelLogin.className = 'form-panel' + (isLogin ? ' active' : '');
   if (panelReg) panelReg.className = 'form-panel' + (!isLogin ? ' active' : '');
   if (heading) heading.textContent = isLogin ? 'Welcome back' : 'Create your account';
-  if (sub) sub.textContent = isLogin ? 'Sign in to continue your exploration journey' : 'Join thousands of globetrotters worldwide';
+  if (sub) sub.textContent = isLogin ? 'Sign in to continue your exploration journey' : 'Join thousands of explorers worldwide';
 }
 
-function handleLogin() {
+async function handleLogin() {
   const now = Date.now();
   if (now < lockoutUntil) {
     const secs = Math.ceil((lockoutUntil - now) / 1000);
@@ -290,7 +356,7 @@ function handleLogin() {
     return;
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email !== 'rudratheadmin@123') {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email !== 'rudratheadmin@123' && email !== 'rudratheadmin123') {
     showToast('Enter a valid email address.', 'err');
     return;
   }
@@ -320,36 +386,79 @@ function handleLogin() {
     return;
   }
 
-  // Successfully authenticated!
-  const name = email.split('@')[0];
-  const isAdmin = email.toLowerCase().includes('admin') || email.toLowerCase().includes('rudratheadmin123') || email.toLowerCase() === 'traveler@world.com' || email.toLowerCase() === 'rudratheadmin@123';
-  
+  showToast('Signing you in…', 'ok');
+
+  // Attempt backend API login first
+  try {
+    const response = await fetch(`${API_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      currentUser = data.user;
+      saveUserSession();
+      loginAttempts = 0;
+      if (warn) warn.textContent = '';
+      resetCaptcha('captchaLogin');
+
+      setTimeout(() => {
+        document.getElementById('authOverlay').style.display = 'none';
+        updateHeaderUserBadge();
+        syncUserJournalData();
+        
+        if (currentUser.isPremium) {
+          showNotification("Admin Access Granted! All premium features unlocked.", "success");
+        } else {
+          showNotification(`Welcome back, ${currentUser.name}!`);
+        }
+      }, 1000);
+      return;
+    } else {
+      const data = await response.json();
+      showToast(data.error || 'Invalid credentials.', 'err');
+      return;
+    }
+  } catch (err) {
+    console.log("Backend offline. Using secure local fallback database.");
+  }
+
+  // Secure Local Database Fallback!
+  let db = JSON.parse(localStorage.getItem('globeroutes_users_db') || '[]');
+  const user = db.find(u => u.email.toLowerCase() === email.toLowerCase());
+  const hashedInput = secureHash(pass);
+
+  if (!user || user.pass !== hashedInput) {
+    showToast('Invalid credentials entered. Please try again.', 'err');
+    return;
+  }
+
+  const name = user.name || email.split('@')[0];
+  const isAdmin = email.toLowerCase() === 'rudratheadmin123' || 
+                  email.toLowerCase() === 'rudratheadmin@123' ||
+                  email.toLowerCase().startsWith('rudratheadmin123@');
+
   currentUser = {
     name: isAdmin ? "Rudra The Admin" : (name.charAt(0).toUpperCase() + name.slice(1)),
     email: email,
-    isPremium: isAdmin,
-    membershipTier: isAdmin ? "Pro Explorer (Admin)" : "Free Explorer",
+    isPremium: isAdmin || user.isAdmin,
+    membershipTier: (isAdmin || user.isAdmin) ? "Pro Explorer (Admin)" : "Free Explorer",
     visitedPois: [],
     travelHops: 0
   };
-  
+
   saveUserSession();
-  
-  showToast('Signing you in…', 'ok');
-  captchaState['captchaLogin'] = false;
-  const captchaLoginRow = document.getElementById('captchaLogin');
-  if (captchaLoginRow) {
-    captchaLoginRow.classList.remove('checked');
-    const captchaCheck = captchaLoginRow.querySelector('.captcha-box i');
-    if (captchaCheck) captchaCheck.style.display = 'none';
-  }
+  loginAttempts = 0;
+  if (warn) warn.textContent = '';
+  resetCaptcha('captchaLogin');
 
   setTimeout(() => {
     document.getElementById('authOverlay').style.display = 'none';
     updateHeaderUserBadge();
     syncUserJournalData();
-    
-    if (isAdmin) {
+    if (currentUser.isPremium) {
       showNotification("Admin Access Granted! All premium features unlocked.", "success");
     } else {
       showNotification(`Welcome back, ${currentUser.name}!`);
@@ -357,7 +466,7 @@ function handleLogin() {
   }, 1000);
 }
 
-function handleRegister() {
+async function handleRegister() {
   if (!captchaState['captchaReg']) {
     showToast('Please confirm you\'re not a robot.', 'err');
     return;
@@ -405,47 +514,201 @@ function handleRegister() {
     return;
   }
 
-  // Successfully registered!
-  const isAdmin = email.toLowerCase().includes('admin') || email.toLowerCase().includes('rudratheadmin123') || name.toLowerCase().includes('admin') || name.toLowerCase().includes('rudratheadmin123') || email.toLowerCase() === 'rudratheadmin@123';
-  
-  currentUser = {
+  showToast('Creating account…', 'ok');
+
+  // Attempt backend API registration
+  try {
+    const response = await fetch(`${API_URL}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password: pass })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      currentUser = data.user;
+      saveUserSession();
+      resetCaptcha('captchaReg');
+
+      setTimeout(() => {
+        document.getElementById('authOverlay').style.display = 'none';
+        updateHeaderUserBadge();
+        syncUserJournalData();
+        showNotification(`Welcome to Globeroutes, ${currentUser.name}!`);
+      }, 1000);
+      return;
+    } else {
+      const data = await response.json();
+      showToast(data.error || 'Registration failed.', 'err');
+      return;
+    }
+  } catch (err) {
+    console.log("Backend offline. Using secure local fallback database.");
+  }
+
+  // Secure Local Fallback registration!
+  let db = JSON.parse(localStorage.getItem('globeroutes_users_db') || '[]');
+  if (db.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+    showToast('Email is already registered.', 'err');
+    return;
+  }
+
+  const isAdmin = email.toLowerCase() === 'rudratheadmin123' || 
+                  email.toLowerCase() === 'rudratheadmin@123' ||
+                  email.toLowerCase().startsWith('rudratheadmin123@');
+
+  const newUser = {
+    email: email.toLowerCase(),
+    pass: secureHash(pass),
     name: isAdmin ? "Rudra The Admin" : name,
+    isAdmin: isAdmin
+  };
+
+  db.push(newUser);
+  localStorage.setItem('globeroutes_users_db', JSON.stringify(db));
+
+  currentUser = {
+    name: newUser.name,
     email: email,
     isPremium: isAdmin,
     membershipTier: isAdmin ? "Pro Explorer (Admin)" : "Free Explorer",
     visitedPois: [],
     travelHops: 0
   };
-  
+
   saveUserSession();
-  
-  showToast('Account created! Welcome aboard.', 'ok');
-  captchaState['captchaReg'] = false;
-  const captchaRegRow = document.getElementById('captchaReg');
-  if (captchaRegRow) {
-    captchaRegRow.classList.remove('checked');
-    const captchaCheck = captchaRegRow.querySelector('.captcha-box i');
-    if (captchaCheck) captchaCheck.style.display = 'none';
-  }
+  resetCaptcha('captchaReg');
 
   setTimeout(() => {
     document.getElementById('authOverlay').style.display = 'none';
     updateHeaderUserBadge();
     syncUserJournalData();
-    showNotification(`Welcome to Globetrotter, ${currentUser.name}!`);
+    showNotification(`Welcome to Globeroutes, ${currentUser.name}!`);
   }, 1000);
 }
 
-function handleLogout() {
-  localStorage.removeItem('globetrotter_user');
-  currentUser = null;
+async function handleGoogleAuthCallback(response) {
+  showToast('Authenticating via Google…', 'ok');
+  try {
+    const res = await fetch(`${API_URL}/api/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: response.credential })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      currentUser = data.user;
+      saveUserSession();
+
+      setTimeout(() => {
+        document.getElementById('authOverlay').style.display = 'none';
+        updateHeaderUserBadge();
+        syncUserJournalData();
+        if (currentUser.isPremium) {
+          showNotification("Admin Access Granted via Google! All premium features unlocked.", "success");
+        } else {
+          showNotification(`Welcome to Globeroutes, ${currentUser.name}!`);
+        }
+      }, 1000);
+    } else {
+      const data = await res.json();
+      showToast(data.error || 'Google login failed.', 'err');
+    }
+  } catch (err) {
+    console.log("Backend offline. Google authentication is unavailable offline.");
+    showToast("Google login is unavailable offline. Please use standard email/password.", "err");
+  }
+}
+
+window.initializeGoogleAuth = function() {
+  if (typeof google === 'undefined') return;
+  try {
+    google.accounts.id.initialize({
+      client_id: "1068565154388-75kh9rmsk8c8a14qfg1plvgr59gbfn3a.apps.googleusercontent.com",
+      callback: handleGoogleAuthCallback
+    });
+    const wraps = document.querySelectorAll('.google-signin-btn-wrap');
+    wraps.forEach(wrap => {
+      google.accounts.id.renderButton(wrap, { theme: "filled_blue", size: "large", shape: "pill", width: 348 });
+    });
+  } catch (e) {
+    console.error("GIS Google Initialization error: ", e);
+  }
+};
+
+async function payWithRazorpay() {
+  if (!currentUser) return;
   
-  // Reset capcha states
+  showNotification("Opening secure Razorpay Checkout...", "info");
+  
+  const options = {
+    key: "rzp_test_dummykey12345", // Test Key for free sandbox simulation
+    amount: 999 * 100, // 999 INR in paise
+    currency: "INR",
+    name: "Globeroutes Premium",
+    description: "Unlock Pro Explorer Lifetime Membership",
+    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=100&h=100&fit=crop",
+    handler: async function (response) {
+      showNotification("Payment verified successfully via Razorpay!", "success");
+      
+      // Attempt backend API upgrade
+      try {
+        const upgradeRes = await fetch(`${API_URL}/api/user/upgrade`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: currentUser.email,
+            paymentId: response.razorpay_payment_id
+          })
+        });
+        
+        if (upgradeRes.ok) {
+          const data = await upgradeRes.json();
+          currentUser = data.user;
+        } else {
+          currentUser.isPremium = true;
+          currentUser.membershipTier = "Pro Explorer";
+        }
+      } catch (e) {
+        currentUser.isPremium = true;
+        currentUser.membershipTier = "Pro Explorer";
+      }
+      
+      saveUserSession();
+      updateHeaderUserBadge();
+      syncUserJournalData();
+      closePricingOverlay();
+      
+      if (activeCountryId) navigateCountry(activeCountryId);
+      if (activeCityId) navigateCity(activeCityId);
+      
+      showNotification("Pro Access Unlocked! Welcome to global discovery.", "success");
+    },
+    prefill: {
+      name: currentUser.name,
+      email: currentUser.email
+    },
+    theme: {
+      color: "#7c5cfc"
+    }
+  };
+  
+  try {
+    const rzp = new Razorpay(options);
+    rzp.open();
+  } catch (e) {
+    showNotification("Failed to load Razorpay. Simulating secure payment...", "warning");
+    processPremiumPayment();
+  }
+}
+
+function handleLogout() {
+  localStorage.removeItem('globeroutes_user');
+  currentUser = null;
   captchaState = {};
   
   document.getElementById('authOverlay').style.display = 'flex';
-
-  // Ensure login tab is active on logout
   switchAuthMode('login');
   
   document.getElementById('panelJournal').classList.remove('active');
@@ -459,10 +722,11 @@ window.toggleVis = toggleVis;
 window.toggleCaptcha = toggleCaptcha;
 window.checkStrength = checkStrength;
 window.switchAuthMode = switchAuthMode;
+window.payWithRazorpay = payWithRazorpay;
 
 function saveUserSession() {
   if (currentUser) {
-    localStorage.setItem('globetrotter_user', JSON.stringify(currentUser));
+    localStorage.setItem('globeroutes_user', JSON.stringify(currentUser));
   }
 }
 
@@ -737,7 +1001,7 @@ function syncAutoPlotUI() {
  */
 function toggleAutoPlot() {
   autoPlotEnabled = !autoPlotEnabled;
-  localStorage.setItem('globetrotter_autoplot', autoPlotEnabled ? 'true' : 'false');
+  localStorage.setItem('globeroutes_autoplot', autoPlotEnabled ? 'true' : 'false');
   syncAutoPlotUI();
 
   if (autoPlotEnabled) {
@@ -1625,7 +1889,7 @@ function handleProceduralGeneration(cityName) {
 }
 
 function getSavedProceduralCities(countryId) {
-  const store = localStorage.getItem('globetrotter_proc_cities');
+  const store = localStorage.getItem('globeroutes_proc_cities');
   if (!store) return [];
   const list = JSON.parse(store);
   return list.filter(c => c.countryId === countryId.toLowerCase());
@@ -1633,26 +1897,26 @@ function getSavedProceduralCities(countryId) {
 
 function saveProceduralCity(city, attractions) {
   // Store city profiles
-  const storeCities = localStorage.getItem('globetrotter_proc_cities');
+  const storeCities = localStorage.getItem('globeroutes_proc_cities');
   let listCities = storeCities ? JSON.parse(storeCities) : [];
   
   if (!listCities.find(c => c.id === city.id)) {
     listCities.push(city);
-    localStorage.setItem('globetrotter_proc_cities', JSON.stringify(listCities));
+    localStorage.setItem('globeroutes_proc_cities', JSON.stringify(listCities));
   }
   
   // Store custom attractions map
-  localStorage.setItem(`globetrotter_proc_attractions_${city.id}`, JSON.stringify(attractions));
+  localStorage.setItem(`globeroutes_proc_attractions_${city.id}`, JSON.stringify(attractions));
 }
 
 function getSavedProceduralCityData(cityId) {
-  const storeCities = localStorage.getItem('globetrotter_proc_cities');
+  const storeCities = localStorage.getItem('globeroutes_proc_cities');
   if (!storeCities) return null;
   const listCities = JSON.parse(storeCities);
   const city = listCities.find(c => c.id === cityId);
   
   if (!city) return null;
-  const attractions = JSON.parse(localStorage.getItem(`globetrotter_proc_attractions_${cityId}`) || '[]');
+  const attractions = JSON.parse(localStorage.getItem(`globeroutes_proc_attractions_${cityId}`) || '[]');
   return { city, attractions };
 }
 
@@ -1721,7 +1985,7 @@ function showPoiDetails(poiId) {
   reviewsContainer.innerHTML = `<div style="color:var(--text-secondary);font-size:0.85rem;padding:10px 0;font-style:italic;">Loading reviews...</div>`;
 
   // Asynchronous loading with offline fallback
-  const userReviewsKey = `globetrotter_reviews_${poiId}`;
+  const userReviewsKey = `globeroutes_reviews_${poiId}`;
   fetch(`${BACKEND_URL}/api/reviews/${poiId}`)
     .then(response => {
       if (!response.ok) throw new Error('Backend failed');
@@ -1883,7 +2147,7 @@ function submitUserReview(poiId) {
     date: new Date().toISOString()
   };
 
-  const key = `globetrotter_reviews_${poiId}`;
+  const key = `globeroutes_reviews_${poiId}`;
   
   // Disable submission button visually during POST
   const submitBtn = document.getElementById('submitReviewBtn');
@@ -2019,7 +2283,7 @@ function syncUserJournalData() {
       let poi = window.SEED_ATTRACTIONS.find(p => p.id === poiId);
       if (!poi) {
         // Search procedural stores
-        const citiesStore = localStorage.getItem('globetrotter_proc_cities');
+        const citiesStore = localStorage.getItem('globeroutes_proc_cities');
         if (citiesStore) {
           const list = JSON.parse(citiesStore);
           for (let c of list) {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Globetrotter — World Tourism & Hidden Gems Explorer</title>
+  <title>Globeroutes — World Tourism & Hidden Gems Explorer</title>
   
   <!-- Leaflet Map CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
@@ -19,6 +19,10 @@
   <!-- Tabler Icons & Google Fonts for Auth Modal -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Google Sign-In GIS SDK & Razorpay Checkout SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
   
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -42,7 +46,7 @@
             <div class="brand-icon">
               <i class="ti ti-compass" style="font-size:20px;color:#fff;" aria-hidden="true"></i>
             </div>
-            <span class="brand-name">Globe<span>trotter</span></span>
+            <span class="brand-name">Globe<span>Routes</span></span>
           </div>
 
           <div class="heading" id="modalHeading">Welcome back</div>
@@ -91,6 +95,14 @@
               <button class="btn-submit" type="submit" id="loginBtn">
                 Sign in &amp; launch explorer
               </button>
+              
+              <div style="display: flex; align-items: center; justify-content: center; margin: 15px 0 10px;">
+                <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+                <span style="font-size: 0.8rem; color: rgba(255,255,255,0.3); margin: 0 10px;">OR</span>
+                <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+              </div>
+              
+              <div class="google-signin-btn-wrap"></div>
             </form>
           </div>
 
@@ -148,6 +160,14 @@
               <button class="btn-submit" type="submit" id="regBtn">
                 Create account &amp; explore
               </button>
+              
+              <div style="display: flex; align-items: center; justify-content: center; margin: 15px 0 10px;">
+                <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+                <span style="font-size: 0.8rem; color: rgba(255,255,255,0.3); margin: 0 10px;">OR</span>
+                <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+              </div>
+              
+              <div class="google-signin-btn-wrap"></div>
             </form>
           </div>
 
@@ -297,7 +317,19 @@
             </div>
             <button type="submit" class="btn btn-premium" style="width: 100%; padding: 14px;">Authorize $9.99 Purchase</button>
           </form>
-          <div style="text-align: center;">
+          
+          <div style="display: flex; align-items: center; justify-content: center; margin: 12px 0 8px;">
+            <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+            <span style="font-size: 0.8rem; color: var(--text-secondary); margin: 0 10px;">OR</span>
+            <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+          </div>
+          
+          <button type="button" class="btn btn-premium" onclick="payWithRazorpay()" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #18233c 0%, #3399cc 100%); border: 1px solid #3399cc; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(51, 153, 204, 0.25);">
+            <i class="ti ti-credit-card" style="font-size: 16px;"></i>
+            Pay Securely with Razorpay (Free Test Mode)
+          </button>
+          
+          <div style="text-align: center; margin-top: 10px;">
             <span style="color: var(--text-secondary); cursor: pointer; font-size: 0.85rem;" onclick="cancelCheckout()">← Back to plans</span>
           </div>
         </div>
@@ -310,7 +342,7 @@
   <header class="glass-header">
     <div class="logo">
       <i data-lucide="compass" style="stroke-width: 2.5; color: var(--tier-blue);"></i>
-      Globe<span>trotter</span>
+      Globe<span>Routes</span>
     </div>
     
     <div class="search-container">

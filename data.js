@@ -1,5 +1,5 @@
 /**
- * Globetrotter Database & Synthesizer Engine
+ * Globeroutes Database & Synthesizer Engine
  * Contains pre-seeded structured datasets for 5 flagship countries,
  * and an intelligent procedural generator to generate infinite cities/POIs on the fly.
  */

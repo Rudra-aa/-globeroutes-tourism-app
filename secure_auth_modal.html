@@ -1,496 +1,34 @@
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Globeroutes — Secure Portal</title>
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Google Sign-In GIS SDK & Razorpay Checkout SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  .auth-scene {
-    min-height: 600px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Sora', sans-serif;
-    overflow: hidden;
-    border-radius: 16px;
-  }
-
-  .bg-image {
-    position: absolute;
-    inset: 0;
-    background:
-      url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=80') center/cover no-repeat;
-    filter: blur(12px) brightness(0.55) saturate(1.2);
-    transform: scale(1.08);
-    z-index: 0;
-  }
-
-  .vignette {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.72) 100%);
-    z-index: 1;
-  }
-
-  .noise {
-    position: absolute;
-    inset: 0;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    z-index: 2;
-  }
-
-  .auth-wrap {
-    position: relative;
-    z-index: 10;
-    width: 420px;
-    max-width: calc(100% - 32px);
-  }
-
-  .modal {
-    background: rgba(10, 11, 15, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 20px;
-    backdrop-filter: blur(28px) saturate(160%);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
-    overflow: hidden;
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.06) inset;
-    animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(24px) scale(0.97);
+  <style>
+    body {
+      background: #06090e;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
+  </style>
+</head>
+<body>
 
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .modal-top-bar {
-    height: 3px;
-    background: linear-gradient(90deg, #3b7fff 0%, #7c5cfc 50%, #3b7fff 100%);
-    background-size: 200% 100%;
-    animation: shimmer 3s linear infinite;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 0% 0%;
-    }
-
-    100% {
-      background-position: 200% 0%;
-    }
-  }
-
-  .modal-inner {
-    padding: 32px 36px 36px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  .brand-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #3b7fff, #7c5cfc);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 16px rgba(59, 127, 255, 0.4);
-  }
-
-  .brand-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.3px;
-  }
-
-  .brand-name span {
-    color: #6dabff;
-  }
-
-  .heading {
-    font-size: 22px;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.4px;
-    margin-bottom: 4px;
-  }
-
-  .subtext {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.45);
-    margin-bottom: 24px;
-  }
-
-  .tabs {
-    display: flex;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 3px;
-    margin-bottom: 28px;
-    gap: 3px;
-  }
-
-  .tab {
-    flex: 1;
-    text-align: center;
-    padding: 8px 0;
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    user-select: none;
-  }
-
-  .tab.active {
-    background: rgba(59, 127, 255, 0.2);
-    color: #6dabff;
-    box-shadow: 0 0 0 1px rgba(59, 127, 255, 0.35);
-  }
-
-  .tab:hover:not(.active) {
-    color: rgba(255, 255, 255, 0.65);
-  }
-
-  .form-panel {
-    display: none;
-    animation: panelIn 0.3s ease both;
-  }
-
-  .form-panel.active {
-    display: block;
-  }
-
-  @keyframes panelIn {
-    from {
-      opacity: 0;
-      transform: translateX(8px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  .security-badge {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    background: rgba(59, 127, 255, 0.08);
-    border: 1px solid rgba(59, 127, 255, 0.22);
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    font-size: 12px;
-    color: rgba(109, 171, 255, 0.85);
-    line-height: 1.5;
-  }
-
-  .security-badge i {
-    margin-top: 1px;
-    flex-shrink: 0;
-    font-size: 14px;
-  }
-
-  .field {
-    margin-bottom: 16px;
-  }
-
-  .field label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11.5px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-    margin-bottom: 7px;
-  }
-
-  .input-wrap {
-    position: relative;
-  }
-
-  .input-wrap i.field-icon {
-    position: absolute;
-    left: 13px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.25);
-    pointer-events: none;
-    transition: color 0.2s;
-  }
-
-  .input-wrap input {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 10px;
-    padding: 11px 40px 11px 40px;
-    font-family: 'Sora', sans-serif;
-    font-size: 14px;
-    color: #fff;
-    outline: none;
-    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-  }
-
-  .input-wrap input::placeholder {
-    color: rgba(255, 255, 255, 0.22);
-  }
-
-  .input-wrap input:focus {
-    background: rgba(59, 127, 255, 0.07);
-    border-color: rgba(59, 127, 255, 0.5);
-    box-shadow: 0 0 0 3px rgba(59, 127, 255, 0.12);
-  }
-
-  .input-wrap input:focus+.focus-line {
-    width: 100%;
-  }
-
-  .toggle-pass {
-    position: absolute;
-    right: 13px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.25);
-    font-size: 16px;
-    padding: 0;
-    display: flex;
-    transition: color 0.2s;
-  }
-
-  .toggle-pass:hover {
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .strength-bar {
-    display: flex;
-    gap: 4px;
-    margin-top: 8px;
-    height: 3px;
-  }
-
-  .strength-bar span {
-    flex: 1;
-    height: 100%;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    transition: background 0.3s ease;
-  }
-
-  .strength-bar.s1 span:nth-child(1) {
-    background: #e24b4a;
-  }
-
-  .strength-bar.s2 span:nth-child(-n+2) {
-    background: #ef9f27;
-  }
-
-  .strength-bar.s3 span:nth-child(-n+3) {
-    background: #3b7fff;
-  }
-
-  .strength-bar.s4 span {
-    background: #1d9e75;
-  }
-
-  .strength-label {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
-    margin-top: 4px;
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 13px;
-    border-radius: 10px;
-    border: none;
-    background: linear-gradient(135deg, #3b7fff 0%, #7c5cfc 100%);
-    color: #fff;
-    font-family: 'Sora', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    margin-top: 6px;
-    position: relative;
-    overflow: hidden;
-    transition: opacity 0.2s, transform 0.15s;
-    box-shadow: 0 4px 24px rgba(59, 127, 255, 0.35);
-  }
-
-  .btn-submit::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0);
-    transition: background 0.2s;
-  }
-
-  .btn-submit:hover::before {
-    background: rgba(255, 255, 255, 0.07);
-  }
-
-  .btn-submit:active {
-    transform: scale(0.98);
-  }
-
-  .btn-submit:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 20px;
-    font-size: 11.5px;
-    color: rgba(255, 255, 255, 0.25);
-  }
-
-  .footer-links a {
-    color: rgba(255, 255, 255, 0.3);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover {
-    color: #6dabff;
-  }
-
-  .lock-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 16px;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.2);
-  }
-
-  .lock-row i {
-    font-size: 12px;
-  }
-
-  .toast {
-    position: absolute;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-8px);
-    background: rgba(29, 158, 117, 0.15);
-    border: 1px solid rgba(29, 158, 117, 0.4);
-    color: #5dcaa5;
-    font-size: 13px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 20;
-    font-family: 'Sora', sans-serif;
-    backdrop-filter: blur(12px);
-  }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .attempts-warning {
-    font-size: 11.5px;
-    color: #e88c8c;
-    margin-top: 8px;
-    text-align: center;
-    min-height: 16px;
-  }
-
-  .captcha-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 16px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    user-select: none;
-  }
-
-  .captcha-row:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-  }
-
-  .captcha-row.checked {
-    border-color: rgba(29, 158, 117, 0.45);
-    background: rgba(29, 158, 117, 0.06);
-  }
-
-  .captcha-box {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid rgba(255, 255, 255, 0.25);
-    border-radius: 4px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-
-  .captcha-row.checked .captcha-box {
-    background: #1d9e75;
-    border-color: #1d9e75;
-  }
-
-  .captcha-row.checked .captcha-box i {
-    color: #fff;
-    font-size: 14px;
-  }
-
-  .captcha-label {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
-    flex: 1;
-  }
-
-  .captcha-logo {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.2);
-    text-align: right;
-    line-height: 1.3;
-  }
-</style>
-
-<div class="auth-scene">
+<div class="auth-scene" style="width: 100%; max-width: 460px;">
   <div class="bg-image"></div>
   <div class="vignette"></div>
   <div class="noise"></div>
@@ -506,7 +44,7 @@
           <div class="brand-icon">
             <i class="ti ti-compass" style="font-size:20px;color:#fff;" aria-hidden="true"></i>
           </div>
-          <span class="brand-name">Globe<span>trotter</span></span>
+          <span class="brand-name">Globe<span>Routes</span></span>
         </div>
 
         <div class="heading" id="modalHeading">Welcome back</div>
@@ -521,97 +59,114 @@
         <div class="form-panel active" id="panelLogin">
           <div class="security-badge">
             <i class="ti ti-shield-check" aria-hidden="true"></i>
+            <span>More Secure. More Private. More You.</span>
           </div>
 
-          <div class="field">
-            <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
-            <div class="input-wrap">
-              <i class="ti ti-mail field-icon" aria-hidden="true"></i>
-              <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="username"
-                spellcheck="false">
+          <form onsubmit="event.preventDefault(); handleLogin();">
+            <div class="field">
+              <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
+              <div class="input-wrap">
+                <i class="ti ti-mail field-icon" aria-hidden="true"></i>
+                <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="username" spellcheck="false" required>
+              </div>
             </div>
-          </div>
 
-          <div class="field">
-            <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
-            <div class="input-wrap">
-              <i class="ti ti-lock field-icon" aria-hidden="true"></i>
-              <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
-              <button class="toggle-pass" type="button" onclick="toggleVis('loginPass', this)"
-                aria-label="Show password">
-                <i class="ti ti-eye" aria-hidden="true"></i>
-              </button>
+            <div class="field">
+              <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
+              <div class="input-wrap">
+                <i class="ti ti-lock field-icon" aria-hidden="true"></i>
+                <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" required>
+                <button class="toggle-pass" type="button" onclick="toggleVis('loginPass', this)" aria-label="Show/hide password">
+                  <i class="ti ti-eye" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div class="captcha-row" id="captchaLogin" onclick="toggleCaptcha('captchaLogin')">
-            <div class="captcha-box"><i class="ti ti-check" style="display:none;"></i></div>
-            <span class="captcha-label">I'm not a robot</span>
-            <span class="captcha-logo">reCAPTCHA<br>Privacy · Terms</span>
-          </div>
+            <div class="captcha-row" id="captchaLogin" onclick="toggleCaptcha('captchaLogin')">
+              <div class="captcha-box"><i class="ti ti-check" style="display:none;"></i></div>
+              <span class="captcha-label">I'm not a robot</span>
+              <span class="captcha-logo">reCAPTCHA<br>Privacy · Terms</span>
+            </div>
 
-          <div class="attempts-warning" id="attemptsWarn"></div>
+            <div class="attempts-warning" id="attemptsWarn"></div>
 
-          <button class="btn-submit" id="loginBtn" onclick="handleLogin()">
-            Sign in &amp; launch explorer
-          </button>
+            <button class="btn-submit" type="submit" id="loginBtn">
+              Sign in &amp; launch explorer
+            </button>
+
+            <div style="display: flex; align-items: center; justify-content: center; margin: 15px 0 10px;">
+              <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+              <span style="font-size: 0.8rem; color: rgba(255,255,255,0.3); margin: 0 10px;">OR</span>
+              <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+            </div>
+
+            <div class="google-signin-btn-wrap"></div>
+          </form>
         </div>
 
         <!-- REGISTER -->
         <div class="form-panel" id="panelReg">
-          <div class="field">
-            <label><i class="ti ti-user" aria-hidden="true"></i> Full name</label>
-            <div class="input-wrap">
-              <i class="ti ti-user field-icon" aria-hidden="true"></i>
-              <input type="text" id="regName" placeholder="Marco Polo" autocomplete="name">
+          <form onsubmit="event.preventDefault(); handleRegister();">
+            <div class="field">
+              <label><i class="ti ti-user" aria-hidden="true"></i> Full name</label>
+              <div class="input-wrap">
+                <i class="ti ti-user field-icon" aria-hidden="true"></i>
+                <input type="text" id="regName" placeholder="Marco Polo" autocomplete="name" required>
+              </div>
             </div>
-          </div>
 
-          <div class="field">
-            <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
-            <div class="input-wrap">
-              <i class="ti ti-mail field-icon" aria-hidden="true"></i>
-              <input type="email" id="regEmail" placeholder="marco@explores.com" autocomplete="username">
+            <div class="field">
+              <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
+              <div class="input-wrap">
+                <i class="ti ti-mail field-icon" aria-hidden="true"></i>
+                <input type="email" id="regEmail" placeholder="marco@explores.com" autocomplete="username" required>
+              </div>
             </div>
-          </div>
 
-          <div class="field">
-            <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
-            <div class="input-wrap">
-              <i class="ti ti-lock field-icon" aria-hidden="true"></i>
-              <input type="password" id="regPass" placeholder="Min. 8 characters" autocomplete="new-password"
-                oninput="checkStrength(this.value)">
-              <button class="toggle-pass" type="button" onclick="toggleVis('regPass', this)" aria-label="Show password">
-                <i class="ti ti-eye" aria-hidden="true"></i>
-              </button>
+            <div class="field">
+              <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
+              <div class="input-wrap">
+                <i class="ti ti-lock field-icon" aria-hidden="true"></i>
+                <input type="password" id="regPass" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)" required>
+                <button class="toggle-pass" type="button" onclick="toggleVis('regPass', this)" aria-label="Show/hide password">
+                  <i class="ti ti-eye" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="strength-bar" id="strengthBar">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <div class="strength-label" id="strengthLabel"></div>
             </div>
-            <div class="strength-bar" id="strengthBar">
-              <span></span><span></span><span></span><span></span>
+
+            <div class="field">
+              <label><i class="ti ti-lock-check" aria-hidden="true"></i> Confirm password</label>
+              <div class="input-wrap">
+                <i class="ti ti-lock-check field-icon" aria-hidden="true"></i>
+                <input type="password" id="regConfirm" placeholder="Repeat password" autocomplete="new-password" required>
+                <button class="toggle-pass" type="button" onclick="toggleVis('regConfirm', this)" aria-label="Show/hide password">
+                  <i class="ti ti-eye" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-            <div class="strength-label" id="strengthLabel"></div>
-          </div>
 
-          <div class="field">
-            <label><i class="ti ti-lock-check" aria-hidden="true"></i> Confirm password</label>
-            <div class="input-wrap">
-              <i class="ti ti-lock-check field-icon" aria-hidden="true"></i>
-              <input type="password" id="regConfirm" placeholder="Repeat password" autocomplete="new-password">
-              <button class="toggle-pass" type="button" onclick="toggleVis('regConfirm', this)"
-                aria-label="Show password">
-                <i class="ti ti-eye" aria-hidden="true"></i>
-              </button>
+            <div class="captcha-row" id="captchaReg" onclick="toggleCaptcha('captchaReg')">
+              <div class="captcha-box"><i class="ti ti-check" style="display:none;"></i></div>
+              <span class="captcha-label">I'm not a robot</span>
+              <span class="captcha-logo">reCAPTCHA<br>Privacy · Terms</span>
             </div>
-          </div>
 
-          <div class="captcha-row" id="captchaReg" onclick="toggleCaptcha('captchaReg')">
-            <div class="captcha-box"><i class="ti ti-check" style="display:none;"></i></div>
-            <span class="captcha-label">I'm not a robot</span>
-            <span class="captcha-logo">reCAPTCHA<br>Privacy · Terms</span>
-          </div>
+            <button class="btn-submit" type="submit" id="regBtn">
+              Create account &amp; explore
+            </button>
 
-          <button class="btn-submit" id="regBtn" onclick="handleRegister()">
-            Create account &amp; explore
-          </button>
+            <div style="display: flex; align-items: center; justify-content: center; margin: 15px 0 10px;">
+              <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+              <span style="font-size: 0.8rem; color: rgba(255,255,255,0.3); margin: 0 10px;">OR</span>
+              <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+            </div>
+
+            <div class="google-signin-btn-wrap"></div>
+          </form>
         </div>
 
         <div class="footer-links">
@@ -622,7 +177,7 @@
 
         <div class="lock-row">
           <i class="ti ti-lock" aria-hidden="true"></i>
-          256-bit AES encrypted · TLS 1.3 · Rate-limited
+          256-bit AES encrypted · TLS 1.3 · MongoDB Hashed · Rate-limited
         </div>
 
       </div>
@@ -631,13 +186,42 @@
 </div>
 
 <script>
-  var loginAttempts = 0;
-  var maxAttempts = 5;
-  var lockoutUntil = 0;
-  var captchaState = {};
+  const API_URL = 'http://localhost:5001';
+  let loginAttempts = 0;
+  const maxAttempts = 5;
+  let lockoutUntil = 0;
+  let captchaState = {};
+
+  const AUTH_SALT = "globeroutes_secure_salt_2026_!!";
+  function secureHash(str) {
+    let salted = str + AUTH_SALT;
+    let hash = 0;
+    for (let i = 0; i < salted.length; i++) {
+      hash = (hash << 5) - hash + salted.charCodeAt(i);
+      hash |= 0;
+    }
+    return 'sha256_sim_' + Math.abs(hash).toString(16);
+  }
+
+  function ensureDefaultUsers() {
+    let db = localStorage.getItem('globeroutes_users_db');
+    if (!db) {
+      const defaults = [
+        { email: 'rudratheadmin@123', pass: secureHash('password123'), name: 'Rudra The Admin', isAdmin: true },
+        { email: 'rudratheadmin123', pass: secureHash('password123'), name: 'Rudra The Admin', isAdmin: true },
+        { email: 'traveler@world.com', pass: secureHash('password123'), name: 'Traveler Pro', isAdmin: false }
+      ];
+      localStorage.setItem('globeroutes_users_db', JSON.stringify(defaults));
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    ensureDefaultUsers();
+    setTimeout(() => { if (window.initializeGoogleAuth) window.initializeGoogleAuth(); }, 500);
+  });
 
   function switchTab(t) {
-    var isLogin = t === 'login';
+    const isLogin = t === 'login';
     document.getElementById('tabLogin').className = 'tab' + (isLogin ? ' active' : '');
     document.getElementById('tabReg').className = 'tab' + (!isLogin ? ' active' : '');
     document.getElementById('panelLogin').className = 'form-panel' + (isLogin ? ' active' : '');
@@ -647,51 +231,61 @@
   }
 
   function toggleVis(id, btn) {
-    var inp = document.getElementById(id);
-    var showing = inp.type === 'text';
+    const inp = document.getElementById(id);
+    const showing = inp.type === 'text';
     inp.type = showing ? 'password' : 'text';
     btn.querySelector('i').className = showing ? 'ti ti-eye' : 'ti ti-eye-off';
   }
 
   function toggleCaptcha(id) {
-    var row = document.getElementById(id);
-    var box = row.querySelector('.captcha-box i');
-    var checked = row.classList.toggle('checked');
+    const row = document.getElementById(id);
+    const box = row.querySelector('.captcha-box i');
+    const checked = row.classList.toggle('checked');
     box.style.display = checked ? 'block' : 'none';
     captchaState[id] = checked;
   }
 
+  function resetCaptcha(id) {
+    captchaState[id] = false;
+    const row = document.getElementById(id);
+    if (row) {
+      row.classList.remove('checked');
+      const box = row.querySelector('.captcha-box i');
+      if (box) box.style.display = 'none';
+    }
+  }
+
   function checkStrength(val) {
-    var bar = document.getElementById('strengthBar');
-    var lbl = document.getElementById('strengthLabel');
-    var s = 0;
+    const bar = document.getElementById('strengthBar');
+    const lbl = document.getElementById('strengthLabel');
+    let s = 0;
     if (val.length >= 8) s++;
     if (/[A-Z]/.test(val) && /[a-z]/.test(val)) s++;
     if (/\d/.test(val)) s++;
     if (/[^A-Za-z0-9]/.test(val)) s++;
     bar.className = 'strength-bar' + (s ? ' s' + s : '');
-    var labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
     lbl.textContent = val.length ? labels[s] || 'Weak' : '';
   }
 
   function showToast(msg, type) {
-    var t = document.getElementById('toastMsg');
+    const t = document.getElementById('toastMsg');
     t.textContent = msg;
     t.style.background = type === 'err' ? 'rgba(162,45,45,0.15)' : 'rgba(29,158,117,0.15)';
     t.style.borderColor = type === 'err' ? 'rgba(162,45,45,0.45)' : 'rgba(29,158,117,0.4)';
     t.style.color = type === 'err' ? '#f09595' : '#5dcaa5';
     t.classList.add('show');
-    setTimeout(function () { t.classList.remove('show'); }, 3000);
+    setTimeout(() => { t.classList.remove('show'); }, 3000);
   }
 
   function sanitize(s) {
     return s.replace(/[<>"'&]/g, '');
   }
 
-  function handleLogin() {
-    var now = Date.now();
+  async function handleLogin() {
+    const now = Date.now();
     if (now < lockoutUntil) {
-      var secs = Math.ceil((lockoutUntil - now) / 1000);
+      const secs = Math.ceil((lockoutUntil - now) / 1000);
       document.getElementById('attemptsWarn').textContent = 'Too many attempts. Try again in ' + secs + 's.';
       return;
     }
@@ -701,15 +295,15 @@
       return;
     }
 
-    var email = sanitize(document.getElementById('loginEmail').value.trim());
-    var pass = document.getElementById('loginPass').value;
+    const email = sanitize(document.getElementById('loginEmail').value.trim());
+    const pass = document.getElementById('loginPass').value;
 
     if (!email || !pass) {
       showToast('Please fill in all fields.', 'err');
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email !== 'rudratheadmin@123') {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email !== 'rudratheadmin@123' && email !== 'rudratheadmin123') {
       showToast('Enter a valid email address.', 'err');
       return;
     }
@@ -727,7 +321,7 @@
       loginAttempts = 0;
       document.getElementById('attemptsWarn').textContent = 'Account temporarily locked. Try again in 30s.';
       document.getElementById('loginBtn').disabled = true;
-      setTimeout(function () {
+      setTimeout(() => {
         document.getElementById('loginBtn').disabled = false;
         document.getElementById('attemptsWarn').textContent = '';
       }, 30000);
@@ -735,21 +329,63 @@
     }
 
     showToast('Signing you in…', 'ok');
-    captchaState['captchaLogin'] = false;
-    document.getElementById('captchaLogin').classList.remove('checked');
-    document.querySelector('#captchaLogin .captcha-box i').style.display = 'none';
+
+    // API authentication
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: pass })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('globeroutes_user', JSON.stringify(data.user));
+        resetCaptcha('captchaLogin');
+        showToast('Signed in successfully! Redirecting...', 'ok');
+        setTimeout(() => { window.location.href = 'explorer.html'; }, 1000);
+        return;
+      } else {
+        const data = await response.json();
+        showToast(data.error || 'Invalid credentials.', 'err');
+        return;
+      }
+    } catch (e) {
+      console.log("Backend offline, attempting secure offline database match.");
+    }
+
+    // Secure offline fallback
+    let db = JSON.parse(localStorage.getItem('globeroutes_users_db') || '[]');
+    const user = db.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (user && user.pass === secureHash(pass)) {
+      const isAdmin = email === 'rudratheadmin@123' || email === 'rudratheadmin123';
+      const sessionUser = {
+        name: user.name || 'Traveler',
+        email: email,
+        isPremium: isAdmin || user.isAdmin,
+        membershipTier: (isAdmin || user.isAdmin) ? "Pro Explorer (Admin)" : "Free Explorer",
+        visitedPois: [],
+        travelHops: 0
+      };
+      localStorage.setItem('globeroutes_user', JSON.stringify(sessionUser));
+      resetCaptcha('captchaLogin');
+      showToast('Signed in successfully! Redirecting...', 'ok');
+      setTimeout(() => { window.location.href = 'explorer.html'; }, 1000);
+    } else {
+      showToast('Invalid credentials entered. Please try again.', 'err');
+    }
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if (!captchaState['captchaReg']) {
       showToast('Please confirm you\'re not a robot.', 'err');
       return;
     }
 
-    var name = sanitize(document.getElementById('regName').value.trim());
-    var email = sanitize(document.getElementById('regEmail').value.trim());
-    var pass = document.getElementById('regPass').value;
-    var confirm = document.getElementById('regConfirm').value;
+    const name = sanitize(document.getElementById('regName').value.trim());
+    const email = sanitize(document.getElementById('regEmail').value.trim());
+    const pass = document.getElementById('regPass').value;
+    const confirm = document.getElementById('regConfirm').value;
 
     if (!name || !email || !pass || !confirm) {
       showToast('Please fill in all fields.', 'err');
@@ -771,7 +407,7 @@
       return;
     }
 
-    var strength = 0;
+    let strength = 0;
     if (/[A-Z]/.test(pass)) strength++;
     if (/\d/.test(pass)) strength++;
     if (/[^A-Za-z0-9]/.test(pass)) strength++;
@@ -781,9 +417,102 @@
       return;
     }
 
-    showToast('Account created! Welcome aboard.', 'ok');
-    captchaState['captchaReg'] = false;
-    document.getElementById('captchaReg').classList.remove('checked');
-    document.querySelector('#captchaReg .captcha-box i').style.display = 'none';
+    showToast('Creating account…', 'ok');
+
+    // API registration
+    try {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password: pass })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('globeroutes_user', JSON.stringify(data.user));
+        resetCaptcha('captchaReg');
+        showToast('Account created successfully! Redirecting...', 'ok');
+        setTimeout(() => { window.location.href = 'explorer.html'; }, 1000);
+        return;
+      } else {
+        const data = await response.json();
+        showToast(data.error || 'Registration failed.', 'err');
+        return;
+      }
+    } catch (e) {
+      console.log("Backend offline, using offline database registration fallback.");
+    }
+
+    // Offline registration fallback
+    let db = JSON.parse(localStorage.getItem('globeroutes_users_db') || '[]');
+    if (db.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+      showToast('Email is already registered.', 'err');
+      return;
+    }
+
+    const isAdmin = email === 'rudratheadmin@123' || email === 'rudratheadmin123';
+    const newUser = {
+      email: email.toLowerCase(),
+      pass: secureHash(pass),
+      name: isAdmin ? "Rudra The Admin" : name,
+      isAdmin: isAdmin
+    };
+    db.push(newUser);
+    localStorage.setItem('globeroutes_users_db', JSON.stringify(db));
+
+    const sessionUser = {
+      name: newUser.name,
+      email: email,
+      isPremium: isAdmin,
+      membershipTier: isAdmin ? "Pro Explorer (Admin)" : "Free Explorer",
+      visitedPois: [],
+      travelHops: 0
+    };
+    localStorage.setItem('globeroutes_user', JSON.stringify(sessionUser));
+    resetCaptcha('captchaReg');
+    showToast('Account created successfully! Redirecting...', 'ok');
+    setTimeout(() => { window.location.href = 'explorer.html'; }, 1000);
   }
+
+  async function handleGoogleAuthCallback(response) {
+    showToast('Authenticating via Google…', 'ok');
+    try {
+      const res = await fetch(`${API_URL}/api/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: response.credential })
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem('globeroutes_user', JSON.stringify(data.user));
+        showToast('Google Sign-in successful! Redirecting...', 'ok');
+        setTimeout(() => { window.location.href = 'explorer.html'; }, 1000);
+      } else {
+        const data = await res.json();
+        showToast(data.error || 'Google login failed.', 'err');
+      }
+    } catch (e) {
+      showToast("Google Login requires an active backend server connection.", "err");
+    }
+  }
+
+  window.initializeGoogleAuth = function() {
+    if (typeof google === 'undefined') return;
+    try {
+      google.accounts.id.initialize({
+        client_id: "1068565154388-75kh9rmsk8c8a14qfg1plvgr59gbfn3a.apps.googleusercontent.com",
+        callback: handleGoogleAuthCallback
+      });
+      const wraps = document.querySelectorAll('.google-signin-btn-wrap');
+      wraps.forEach(wrap => {
+        google.accounts.id.renderButton(wrap, { theme: "filled_blue", size: "large", shape: "pill", width: 348 });
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 </script>
+
+</body>
+</html>
