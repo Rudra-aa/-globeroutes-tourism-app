@@ -1,8 +1,11 @@
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   .auth-scene {
     min-height: 600px;
@@ -28,7 +31,7 @@
   .vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.72) 100%);
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.72) 100%);
     z-index: 1;
   }
 
@@ -50,18 +53,25 @@
 
   .modal {
     background: rgba(10, 11, 15, 0.72);
-    border: 1px solid rgba(255,255,255,0.10);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 20px;
     backdrop-filter: blur(28px) saturate(160%);
     -webkit-backdrop-filter: blur(28px) saturate(160%);
     overflow: hidden;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 0 0 0.5px rgba(255,255,255,0.06) inset;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.06) inset;
     animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px) scale(0.97); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .modal-top-bar {
@@ -72,11 +82,18 @@
   }
 
   @keyframes shimmer {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 200% 0%; }
+    0% {
+      background-position: 0% 0%;
+    }
+
+    100% {
+      background-position: 200% 0%;
+    }
   }
 
-  .modal-inner { padding: 32px 36px 36px; }
+  .modal-inner {
+    padding: 32px 36px 36px;
+  }
 
   .brand {
     display: flex;
@@ -86,11 +103,14 @@
   }
 
   .brand-icon {
-    width: 38px; height: 38px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
     background: linear-gradient(135deg, #3b7fff, #7c5cfc);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 16px rgba(59,127,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(59, 127, 255, 0.4);
   }
 
   .brand-name {
@@ -100,14 +120,27 @@
     letter-spacing: -0.3px;
   }
 
-  .brand-name span { color: #6dabff; }
+  .brand-name span {
+    color: #6dabff;
+  }
 
-  .heading { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: -0.4px; margin-bottom: 4px; }
-  .subtext { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 24px; }
+  .heading {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.4px;
+    margin-bottom: 4px;
+  }
+
+  .subtext {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 24px;
+  }
 
   .tabs {
     display: flex;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 3px;
     margin-bottom: 28px;
@@ -120,7 +153,7 @@
     padding: 8px 0;
     font-size: 13px;
     font-weight: 500;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255, 255, 255, 0.4);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -128,38 +161,59 @@
   }
 
   .tab.active {
-    background: rgba(59,127,255,0.2);
+    background: rgba(59, 127, 255, 0.2);
     color: #6dabff;
-    box-shadow: 0 0 0 1px rgba(59,127,255,0.35);
+    box-shadow: 0 0 0 1px rgba(59, 127, 255, 0.35);
   }
 
-  .tab:hover:not(.active) { color: rgba(255,255,255,0.65); }
+  .tab:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.65);
+  }
 
-  .form-panel { display: none; animation: panelIn 0.3s ease both; }
-  .form-panel.active { display: block; }
+  .form-panel {
+    display: none;
+    animation: panelIn 0.3s ease both;
+  }
+
+  .form-panel.active {
+    display: block;
+  }
 
   @keyframes panelIn {
-    from { opacity: 0; transform: translateX(8px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+      opacity: 0;
+      transform: translateX(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .security-badge {
     display: flex;
     align-items: flex-start;
     gap: 9px;
-    background: rgba(59,127,255,0.08);
-    border: 1px solid rgba(59,127,255,0.22);
+    background: rgba(59, 127, 255, 0.08);
+    border: 1px solid rgba(59, 127, 255, 0.22);
     border-radius: 10px;
     padding: 10px 12px;
     margin-bottom: 20px;
     font-size: 12px;
-    color: rgba(109,171,255,0.85);
+    color: rgba(109, 171, 255, 0.85);
     line-height: 1.5;
   }
 
-  .security-badge i { margin-top: 1px; flex-shrink: 0; font-size: 14px; }
+  .security-badge i {
+    margin-top: 1px;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
 
-  .field { margin-bottom: 16px; }
+  .field {
+    margin-bottom: 16px;
+  }
 
   .field label {
     display: flex;
@@ -167,13 +221,15 @@
     gap: 6px;
     font-size: 11.5px;
     font-weight: 500;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.7px;
     margin-bottom: 7px;
   }
 
-  .input-wrap { position: relative; }
+  .input-wrap {
+    position: relative;
+  }
 
   .input-wrap i.field-icon {
     position: absolute;
@@ -181,15 +237,15 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
-    color: rgba(255,255,255,0.25);
+    color: rgba(255, 255, 255, 0.25);
     pointer-events: none;
     transition: color 0.2s;
   }
 
   .input-wrap input {
     width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 10px;
     padding: 11px 40px 11px 40px;
     font-family: 'Sora', sans-serif;
@@ -199,15 +255,19 @@
     transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   }
 
-  .input-wrap input::placeholder { color: rgba(255,255,255,0.22); }
-
-  .input-wrap input:focus {
-    background: rgba(59,127,255,0.07);
-    border-color: rgba(59,127,255,0.5);
-    box-shadow: 0 0 0 3px rgba(59,127,255,0.12);
+  .input-wrap input::placeholder {
+    color: rgba(255, 255, 255, 0.22);
   }
 
-  .input-wrap input:focus + .focus-line { width: 100%; }
+  .input-wrap input:focus {
+    background: rgba(59, 127, 255, 0.07);
+    border-color: rgba(59, 127, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(59, 127, 255, 0.12);
+  }
+
+  .input-wrap input:focus+.focus-line {
+    width: 100%;
+  }
 
   .toggle-pass {
     position: absolute;
@@ -217,26 +277,53 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: rgba(255,255,255,0.25);
+    color: rgba(255, 255, 255, 0.25);
     font-size: 16px;
     padding: 0;
     display: flex;
     transition: color 0.2s;
   }
-  .toggle-pass:hover { color: rgba(255,255,255,0.6); }
 
-  .strength-bar { display: flex; gap: 4px; margin-top: 8px; height: 3px; }
+  .toggle-pass:hover {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .strength-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+    height: 3px;
+  }
+
   .strength-bar span {
-    flex: 1; height: 100%; border-radius: 4px;
-    background: rgba(255,255,255,0.1);
+    flex: 1;
+    height: 100%;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
     transition: background 0.3s ease;
   }
-  .strength-bar.s1 span:nth-child(1) { background: #e24b4a; }
-  .strength-bar.s2 span:nth-child(-n+2) { background: #ef9f27; }
-  .strength-bar.s3 span:nth-child(-n+3) { background: #3b7fff; }
-  .strength-bar.s4 span { background: #1d9e75; }
 
-  .strength-label { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+  .strength-bar.s1 span:nth-child(1) {
+    background: #e24b4a;
+  }
+
+  .strength-bar.s2 span:nth-child(-n+2) {
+    background: #ef9f27;
+  }
+
+  .strength-bar.s3 span:nth-child(-n+3) {
+    background: #3b7fff;
+  }
+
+  .strength-bar.s4 span {
+    background: #1d9e75;
+  }
+
+  .strength-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+  }
 
   .btn-submit {
     width: 100%;
@@ -254,20 +341,29 @@
     position: relative;
     overflow: hidden;
     transition: opacity 0.2s, transform 0.15s;
-    box-shadow: 0 4px 24px rgba(59,127,255,0.35);
+    box-shadow: 0 4px 24px rgba(59, 127, 255, 0.35);
   }
 
   .btn-submit::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(255,255,255,0);
+    background: rgba(255, 255, 255, 0);
     transition: background 0.2s;
   }
 
-  .btn-submit:hover::before { background: rgba(255,255,255,0.07); }
-  .btn-submit:active { transform: scale(0.98); }
-  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-submit:hover::before {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
   .footer-links {
     display: flex;
@@ -275,15 +371,18 @@
     gap: 16px;
     margin-top: 20px;
     font-size: 11.5px;
-    color: rgba(255,255,255,0.25);
+    color: rgba(255, 255, 255, 0.25);
   }
 
   .footer-links a {
-    color: rgba(255,255,255,0.3);
+    color: rgba(255, 255, 255, 0.3);
     text-decoration: none;
     transition: color 0.2s;
   }
-  .footer-links a:hover { color: #6dabff; }
+
+  .footer-links a:hover {
+    color: #6dabff;
+  }
 
   .lock-row {
     display: flex;
@@ -292,17 +391,20 @@
     gap: 6px;
     margin-top: 16px;
     font-size: 11px;
-    color: rgba(255,255,255,0.2);
+    color: rgba(255, 255, 255, 0.2);
   }
 
-  .lock-row i { font-size: 12px; }
+  .lock-row i {
+    font-size: 12px;
+  }
 
   .toast {
     position: absolute;
-    top: 16px; left: 50%;
+    top: 16px;
+    left: 50%;
     transform: translateX(-50%) translateY(-8px);
-    background: rgba(29,158,117,0.15);
-    border: 1px solid rgba(29,158,117,0.4);
+    background: rgba(29, 158, 117, 0.15);
+    border: 1px solid rgba(29, 158, 117, 0.4);
     color: #5dcaa5;
     font-size: 13px;
     padding: 8px 16px;
@@ -315,7 +417,11 @@
     font-family: 'Sora', sans-serif;
     backdrop-filter: blur(12px);
   }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 
   .attempts-warning {
     font-size: 11.5px;
@@ -329,8 +435,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 10px;
     padding: 10px 14px;
     margin-bottom: 16px;
@@ -338,25 +444,50 @@
     transition: border-color 0.2s, background 0.2s;
     user-select: none;
   }
-  .captcha-row:hover { border-color: rgba(255,255,255,0.18); }
-  .captcha-row.checked { border-color: rgba(29,158,117,0.45); background: rgba(29,158,117,0.06); }
+
+  .captcha-row:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .captcha-row.checked {
+    border-color: rgba(29, 158, 117, 0.45);
+    background: rgba(29, 158, 117, 0.06);
+  }
 
   .captcha-box {
-    width: 20px; height: 20px;
-    border: 1.5px solid rgba(255,255,255,0.25);
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
     border-radius: 4px;
     flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.2s;
   }
+
   .captcha-row.checked .captcha-box {
     background: #1d9e75;
     border-color: #1d9e75;
   }
-  .captcha-row.checked .captcha-box i { color: #fff; font-size: 14px; }
 
-  .captcha-label { font-size: 13px; color: rgba(255,255,255,0.5); flex: 1; }
-  .captcha-logo { font-size: 11px; color: rgba(255,255,255,0.2); text-align: right; line-height: 1.3; }
+  .captcha-row.checked .captcha-box i {
+    color: #fff;
+    font-size: 14px;
+  }
+
+  .captcha-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    flex: 1;
+  }
+
+  .captcha-logo {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.2);
+    text-align: right;
+    line-height: 1.3;
+  }
 </style>
 
 <div class="auth-scene">
@@ -390,14 +521,14 @@
         <div class="form-panel active" id="panelLogin">
           <div class="security-badge">
             <i class="ti ti-shield-check" aria-hidden="true"></i>
-            <span>Admin access: use <strong style="font-family:'DM Mono',monospace;font-size:11.5px;">rudratheadmin@123</strong> as your email for elevated privileges.</span>
           </div>
 
           <div class="field">
             <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
             <div class="input-wrap">
               <i class="ti ti-mail field-icon" aria-hidden="true"></i>
-              <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="username" spellcheck="false">
+              <input type="email" id="loginEmail" placeholder="your@email.com" autocomplete="username"
+                spellcheck="false">
             </div>
           </div>
 
@@ -406,7 +537,8 @@
             <div class="input-wrap">
               <i class="ti ti-lock field-icon" aria-hidden="true"></i>
               <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
-              <button class="toggle-pass" type="button" onclick="toggleVis('loginPass', this)" aria-label="Show password">
+              <button class="toggle-pass" type="button" onclick="toggleVis('loginPass', this)"
+                aria-label="Show password">
                 <i class="ti ti-eye" aria-hidden="true"></i>
               </button>
             </div>
@@ -447,7 +579,8 @@
             <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
             <div class="input-wrap">
               <i class="ti ti-lock field-icon" aria-hidden="true"></i>
-              <input type="password" id="regPass" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
+              <input type="password" id="regPass" placeholder="Min. 8 characters" autocomplete="new-password"
+                oninput="checkStrength(this.value)">
               <button class="toggle-pass" type="button" onclick="toggleVis('regPass', this)" aria-label="Show password">
                 <i class="ti ti-eye" aria-hidden="true"></i>
               </button>
@@ -463,7 +596,8 @@
             <div class="input-wrap">
               <i class="ti ti-lock-check field-icon" aria-hidden="true"></i>
               <input type="password" id="regConfirm" placeholder="Repeat password" autocomplete="new-password">
-              <button class="toggle-pass" type="button" onclick="toggleVis('regConfirm', this)" aria-label="Show password">
+              <button class="toggle-pass" type="button" onclick="toggleVis('regConfirm', this)"
+                aria-label="Show password">
                 <i class="ti ti-eye" aria-hidden="true"></i>
               </button>
             </div>
@@ -547,7 +681,7 @@
     t.style.borderColor = type === 'err' ? 'rgba(162,45,45,0.45)' : 'rgba(29,158,117,0.4)';
     t.style.color = type === 'err' ? '#f09595' : '#5dcaa5';
     t.classList.add('show');
-    setTimeout(function() { t.classList.remove('show'); }, 3000);
+    setTimeout(function () { t.classList.remove('show'); }, 3000);
   }
 
   function sanitize(s) {
@@ -593,7 +727,7 @@
       loginAttempts = 0;
       document.getElementById('attemptsWarn').textContent = 'Account temporarily locked. Try again in 30s.';
       document.getElementById('loginBtn').disabled = true;
-      setTimeout(function() {
+      setTimeout(function () {
         document.getElementById('loginBtn').disabled = false;
         document.getElementById('attemptsWarn').textContent = '';
       }, 30000);

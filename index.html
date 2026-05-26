@@ -15,7 +15,9 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Tabler Icons & Google Fonts for Auth Modal -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
     /* ===================================================
@@ -1757,8 +1759,7 @@
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
         <i data-lucide="moon" style="width: 18px; height: 18px;" id="themeIcon"></i>
       </button>
-      <button class="btn btn-ghost" onclick="openAuth('login')" style="padding: 9px 18px; font-size: 0.85rem;">Sign
-        In</button>
+      <button class="btn btn-ghost" onclick="window.location.href='explorer.html'" style="padding: 9px 18px; font-size: 0.85rem;">Sign In</button>
       <a href="explorer.html" class="btn btn-primary" style="padding: 9px 20px; font-size: 0.85rem;">
         Launch Explorer <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
       </a>
@@ -1823,7 +1824,7 @@
               <i data-lucide="map" style="width: 18px; height: 18px;"></i>
               Open Explorer
             </a>
-            <button class="btn btn-outline" onclick="openAuth('register')"
+            <button class="btn btn-outline" onclick="window.location.href='explorer.html'"
               style="padding: 14px 30px; font-size: 1rem; color: white; border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); backdrop-filter: blur(8px); text-shadow: 0 1px 8px rgba(0,0,0,0.6);">
               Create Account
             </button>
@@ -2240,7 +2241,7 @@
               Priority map data & no restrictions
             </div>
           </div>
-          <button class="btn btn-premium" onclick="openAuth('register')" style="justify-content: center; width: 100%;">
+          <button class="btn btn-premium" onclick="window.location.href='explorer.html'" style="justify-content: center; width: 100%;">
             <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
             Get Pro Access
           </button>
@@ -2296,114 +2297,14 @@
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; 2026 Globetrotter Travel Technologies. All rights reserved.</span>
+        <span>&copy; 2026 Globeroutes Travel Technologies. All rights reserved.</span>
         <span>Built for explorers, by explorers.</span>
       </div>
     </div>
   </footer>
 
 
-  <!-- ============== AUTH MODAL ============== -->
-  <div class="auth-overlay auth-scene" id="authOverlay" onclick="if(event.target===this) closeAuth()">
-    <div class="auth-wrap" style="position: relative;">
-      <!-- Close Button -->
-      <button onclick="closeAuth()" style="position: absolute; right: 16px; top: 16px; background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.4); font-size: 18px; z-index: 20; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
-        <i data-lucide="x" style="width: 18px; height: 18px;"></i>
-      </button>
 
-      <div class="modal">
-        <div class="modal-top-bar"></div>
-        <div class="modal-inner">
-
-          <div class="brand">
-            <div class="brand-icon">
-              <i class="ti ti-compass" style="font-size:20px;color:#fff;" aria-hidden="true"></i>
-            </div>
-            <span class="brand-name">Globe<span>trotter</span></span>
-          </div>
-
-          <div class="heading" id="modalHeading">Welcome back</div>
-          <div class="subtext" id="modalSub">Sign in to continue your exploration journey</div>
-
-          <div class="tabs">
-            <div class="tab active" id="tabLogin" onclick="switchTab('login')">Sign in</div>
-            <div class="tab" id="tabRegister" onclick="switchTab('register')">Create account</div>
-          </div>
-
-          <!-- LOGIN FORM -->
-          <div class="form-panel active" id="panelLogin">
-            <div class="security-badge">
-              <i class="ti ti-shield-check" aria-hidden="true"></i>
-              <span>Admin access: use <strong style="font-family:'DM Mono',monospace;font-size:11.5px;">rudratheadmin@123</strong> as your email for elevated privileges.</span>
-            </div>
-
-            <form onsubmit="event.preventDefault(); handleLandingLogin();">
-              <div class="field">
-                <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
-                <div class="input-wrap">
-                  <i class="ti ti-mail field-icon" aria-hidden="true"></i>
-                  <input type="email" id="loginEmailLanding" placeholder="your@email.com" autocomplete="username" required>
-                </div>
-              </div>
-
-              <div class="field">
-                <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
-                <div class="input-wrap">
-                  <i class="ti ti-lock field-icon" aria-hidden="true"></i>
-                  <input type="password" id="loginPassLanding" placeholder="••••••••" autocomplete="current-password" required>
-                </div>
-              </div>
-
-              <button class="btn-submit" type="submit" style="margin-top: 20px;">
-                Sign in &amp; launch explorer
-              </button>
-            </form>
-          </div>
-
-          <!-- REGISTER FORM -->
-          <div class="form-panel" id="panelRegister">
-            <form onsubmit="event.preventDefault(); handleLandingRegister();">
-              <div class="field">
-                <label><i class="ti ti-user" aria-hidden="true"></i> Full name</label>
-                <div class="input-wrap">
-                  <i class="ti ti-user field-icon" aria-hidden="true"></i>
-                  <input type="text" id="regNameLanding" placeholder="Marco Polo" required>
-                </div>
-              </div>
-
-              <div class="field">
-                <label><i class="ti ti-mail" aria-hidden="true"></i> Email address</label>
-                <div class="input-wrap">
-                  <i class="ti ti-mail field-icon" aria-hidden="true"></i>
-                  <input type="email" id="regEmailLanding" placeholder="marco@explores.com" required>
-                </div>
-              </div>
-
-              <div class="field">
-                <label><i class="ti ti-lock" aria-hidden="true"></i> Password</label>
-                <div class="input-wrap">
-                  <i class="ti ti-lock field-icon" aria-hidden="true"></i>
-                  <input type="password" id="regPassLanding" placeholder="Min. 8 characters" required>
-                </div>
-              </div>
-
-              <button class="btn-submit" type="submit" style="margin-top: 20px;">
-                Create account &amp; explore
-              </button>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ============== TOAST ============== -->
-  <div class="toast" id="toast">
-    <span class="toast-dot"></span>
-    <span id="toastMsg"></span>
-  </div>
 
 
   <!-- ============== SCRIPTS ============== -->
@@ -2431,78 +2332,7 @@
       lucide.createIcons();
     }
 
-    // ---- AUTH MODAL ----
-    function openAuth(tab = 'login') {
-      document.getElementById('authOverlay').classList.add('show');
-      switchTab(tab);
-    }
 
-    function closeAuth() {
-      document.getElementById('authOverlay').classList.remove('show');
-    }
-
-    function switchTab(tab) {
-      document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
-      document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
-      document.getElementById('panelLogin').classList.toggle('active', tab === 'login');
-      document.getElementById('panelRegister').classList.toggle('active', tab === 'register');
-      
-      const heading = document.getElementById('modalHeading');
-      const sub = document.getElementById('modalSub');
-      if (heading) heading.textContent = tab === 'login' ? 'Welcome back' : 'Create your account';
-      if (sub) sub.textContent = tab === 'login'
-        ? 'Sign in to continue your exploration journey'
-        : 'Join thousands of globetrotters worldwide';
-    }
-
-    function handleLandingLogin() {
-      const email = document.getElementById('loginEmailLanding').value.trim();
-      if (!email) { showToast('Please enter your email.', 'error'); return; }
-
-      const isAdmin = email.toLowerCase().includes('admin') || email.toLowerCase().includes('rudratheadmin123');
-      const name = isAdmin ? 'Rudra The Admin' : (email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1));
-
-      const user = {
-        name, email,
-        isPremium: isAdmin,
-        membershipTier: isAdmin ? 'Pro Explorer (Admin)' : 'Free Explorer',
-        visitedPois: [],
-        travelHops: 0
-      };
-      localStorage.setItem('globetrotter_user', JSON.stringify(user));
-      showToast(isAdmin ? '🎉 Admin access granted! Redirecting...' : `Welcome, ${name}! Launching explorer...`, 'success');
-      setTimeout(() => { window.location.href = 'explorer.html'; }, 1200);
-    }
-
-    function handleLandingRegister() {
-      const name = document.getElementById('regNameLanding').value.trim();
-      const email = document.getElementById('regEmailLanding').value.trim();
-      if (!name || !email) { showToast('Please fill in all fields.', 'error'); return; }
-
-      const isAdmin = email.toLowerCase().includes('admin') || email.toLowerCase().includes('rudratheadmin123') || name.toLowerCase().includes('admin') || name.toLowerCase().includes('rudratheadmin123');
-      const user = {
-        name: isAdmin ? 'Rudra The Admin' : name,
-        email,
-        isPremium: isAdmin,
-        membershipTier: isAdmin ? 'Pro Explorer (Admin)' : 'Free Explorer',
-        visitedPois: [],
-        travelHops: 0
-      };
-      localStorage.setItem('globetrotter_user', JSON.stringify(user));
-      showToast(isAdmin ? '🎉 Admin access granted! Redirecting...' : `Account created! Welcome, ${name}! Launching...`, 'success');
-      setTimeout(() => { window.location.href = 'explorer.html'; }, 1200);
-    }
-
-    // ---- TOAST ----
-    let toastTimer;
-    function showToast(msg, type = 'info') {
-      clearTimeout(toastTimer);
-      const t = document.getElementById('toast');
-      t.className = `toast ${type}`;
-      document.getElementById('toastMsg').textContent = msg;
-      t.classList.add('show');
-      toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
-    }
 
     // ---- SMOOTH SCROLL for hash links ----
     document.querySelectorAll('a[href^="#"]').forEach(a => {
