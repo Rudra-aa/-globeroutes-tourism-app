@@ -1,5 +1,5 @@
 /**
- * Globeroutes Main Application Engine
+ * GlobeRoutes Main Application Engine
  * Manages SPA state routing, mock authorization, subscription locks,
  * Leaflet maps integration, autocomplete searches, procedural generations, and gamified achievements.
  */
@@ -302,7 +302,7 @@ async function checkAuthSession() {
         updateHeaderUserBadge();
       }
     } catch (e) {
-      console.log("Globeroutes backend offline. Using local session fallback.");
+      console.log("GlobeRoutes backend offline. Using local session fallback.");
     }
     
     syncUserJournalData();
@@ -534,7 +534,7 @@ async function handleRegister() {
         document.getElementById('authOverlay').style.display = 'none';
         updateHeaderUserBadge();
         syncUserJournalData();
-        showNotification(`Welcome to Globeroutes, ${currentUser.name}!`);
+        showNotification(`Welcome to GlobeRoutes, ${currentUser.name}!`);
       }, 1000);
       return;
     } else {
@@ -583,7 +583,7 @@ async function handleRegister() {
     document.getElementById('authOverlay').style.display = 'none';
     updateHeaderUserBadge();
     syncUserJournalData();
-    showNotification(`Welcome to Globeroutes, ${currentUser.name}!`);
+    showNotification(`Welcome to GlobeRoutes, ${currentUser.name}!`);
   }, 1000);
 }
 
@@ -608,7 +608,7 @@ async function handleGoogleAuthCallback(response) {
         if (currentUser.isPremium) {
           showNotification("Admin Access Granted via Google! All premium features unlocked.", "success");
         } else {
-          showNotification(`Welcome to Globeroutes, ${currentUser.name}!`);
+          showNotification(`Welcome to GlobeRoutes, ${currentUser.name}!`);
         }
       }, 1000);
     } else {
@@ -646,7 +646,7 @@ async function payWithRazorpay() {
     key: "rzp_test_dummykey12345", // Test Key for free sandbox simulation
     amount: 999 * 100, // 999 INR in paise
     currency: "INR",
-    name: "Globeroutes Premium",
+    name: "GlobeRoutes Premium",
     description: "Unlock Pro Explorer Lifetime Membership",
     image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=100&h=100&fit=crop",
     handler: async function (response) {

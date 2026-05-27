@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Globeroutes — World Tourism & Hidden Gems Explorer</title>
+  <title>GlobeRoutes — World Tourism & Hidden Gems Explorer</title>
 
   <!-- Leaflet Map CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -453,6 +453,12 @@
 
   <!-- ================= APP FLOATING HEADER & SEARCH ================= -->
   <header class="glass-header">
+    <!-- Mobile sidebar toggle button -->
+    <button id="mobileSidebarToggle" class="btn btn-secondary"
+      style="display:none; padding:9px; border-radius:50%; width:38px; height:38px; align-items:center; justify-content:center; border:1px solid rgba(30,144,255,0.4); color:var(--tier-blue); background:rgba(30,144,255,0.08); flex-shrink:0;"
+      onclick="toggleMobileSidebar()" title="Open Explorer Menu">
+      <i data-lucide="menu" style="width:18px;"></i>
+    </button>
     <div class="logo">
       <i data-lucide="compass" style="stroke-width: 2.5; color: var(--tier-blue);"></i>
       Globe<span>Routes</span>
@@ -464,6 +470,13 @@
         oninput="handleGlobalSearch(this.value)">
       <div id="searchAutocomplete" class="autocomplete-dropdown glass"></div>
     </div>
+
+    <!-- Mobile: search icon button (visible on mobile to toggle search) -->
+    <button id="mobileSearchBtn" class="btn btn-secondary"
+      style="display:none; padding:9px; border-radius:50%; width:38px; height:38px; align-items:center; justify-content:center; flex-shrink:0;"
+      onclick="toggleMobileSearch()" title="Search">
+      <i data-lucide="search" style="width:18px;"></i>
+    </button>
 
     <div style="display: flex; align-items: center; gap: 14px;">
       <!-- Link back to Marketing Landing Website -->
@@ -508,14 +521,18 @@
   </header>
 
   <!-- ================= APP MAIN MULTI-PANEL SYSTEM ================= -->
+  <!-- Mobile sidebar backdrop -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeMobileSidebar()"></div>
   <div class="app-container">
 
     <!-- LEFT SIDEBAR CONTAINER -->
-    <div class="sidebar">
+    <div class="sidebar" id="explorerSidebar">
       <!-- Slidable Sidebar Toggle Handle Tab -->
       <div class="sidebar-toggle-handle" onclick="toggleSidebarCollapse(event)" title="Toggle Sidebar">
         <i data-lucide="chevron-left" id="sidebarToggleChevron"></i>
       </div>
+      <!-- Resizable Sidebar Handle (desktop only) -->
+      <div class="sidebar-resize-handle" id="sidebarResizeHandle" title="Drag to resize sidebar"></div>
 
       <!-- VIEW 1: HOME/DASHBOARD VIEW -->
       <div id="panelHome" class="panel active">
@@ -1050,6 +1067,143 @@
 
   <!-- Core Logic, Router Gates & Checkout Controller -->
   <script src="app.js"></script>
+
+  <!-- ================= MOBILE & RESIZE ENHANCEMENTS ================= -->
+  <script>
+    /* ───────────────────────────────────────────
+       MOBILE SIDEBAR DRAWER
+    ─────────────────────────────────────────── */
+    const MOBILE_BREAKPOINT = 900;
+
+    function isMobile() {
+      return window.innerWidth <= MOBILE_BREAKPOINT;
+    }
+
+    function toggleMobileSidebar() {
+      const sidebar = document.getElementById('explorerSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (!sidebar) return;
+      const isOpen = sidebar.classList.contains('mobile-open');
+      if (isOpen) {
+        closeMobileSidebar();
+      } else {
+        openMobileSidebar();
+      }
+    }
+
+    function openMobileSidebar() {
+      const sidebar = document.getElementById('explorerSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const toggleBtn = document.getElementById('mobileSidebarToggle');
+      if (sidebar) sidebar.classList.add('mobile-open');
+      if (backdrop) backdrop.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileSidebar() {
+      const sidebar = document.getElementById('explorerSidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (sidebar) sidebar.classList.remove('mobile-open');
+      if (backdrop) backdrop.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    /* Show/hide mobile toggle based on screen size */
+    function updateMobileUIState() {
+      const toggleBtn = document.getElementById('mobileSidebarToggle');
+      const searchBtn = document.getElementById('mobileSearchBtn');
+      if (isMobile()) {
+        if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+        if (searchBtn) searchBtn.style.display = 'inline-flex';
+      } else {
+        if (toggleBtn) toggleBtn.style.display = 'none';
+        if (searchBtn) searchBtn.style.display = 'none';
+        closeMobileSidebar();
+      }
+    }
+
+    /* ───────────────────────────────────────────
+       RESIZABLE SIDEBAR (desktop only)
+    ─────────────────────────────────────────── */
+    (function initResizableSidebar() {
+      const handle = document.getElementById('sidebarResizeHandle');
+      const sidebar = document.getElementById('explorerSidebar');
+      const appContainer = document.querySelector('.app-container');
+      if (!handle || !sidebar || !appContainer) return;
+
+      let isResizing = false;
+      let startX = 0;
+      let startWidth = 0;
+      const MIN_WIDTH = 280;
+      const MAX_WIDTH = 620;
+
+      handle.addEventListener('mousedown', function(e) {
+        if (isMobile()) return;
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = sidebar.offsetWidth;
+        handle.classList.add('dragging');
+        document.body.style.cursor = 'ew-resize';
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isResizing) return;
+        const dx = e.clientX - startX;
+        const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + dx));
+        sidebar.style.width = newWidth + 'px';
+        appContainer.style.gridTemplateColumns = newWidth + 'px 1fr';
+        // Save user preference
+        try { localStorage.setItem('gr_sidebar_width', newWidth); } catch(err) {}
+      });
+
+      document.addEventListener('mouseup', function() {
+        if (!isResizing) return;
+        isResizing = false;
+        handle.classList.remove('dragging');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      });
+
+      // Restore saved width
+      try {
+        const saved = parseInt(localStorage.getItem('gr_sidebar_width'));
+        if (saved && saved >= MIN_WIDTH && saved <= MAX_WIDTH && !isMobile()) {
+          sidebar.style.width = saved + 'px';
+          appContainer.style.gridTemplateColumns = saved + 'px 1fr';
+        }
+      } catch(err) {}
+    })();
+
+    /* ───────────────────────────────────────────
+       MOBILE SEARCH TOGGLE
+    ─────────────────────────────────────────── */
+    function toggleMobileSearch() {
+      const sc = document.querySelector('.search-container');
+      if (!sc) return;
+      sc.classList.toggle('mobile-search-open');
+      if (sc.classList.contains('mobile-search-open')) {
+        const inp = sc.querySelector('input');
+        if (inp) setTimeout(() => inp.focus(), 100);
+      }
+    }
+
+    /* ───────────────────────────────────────────
+       WINDOW RESIZE HANDLER
+    ─────────────────────────────────────────── */
+    window.addEventListener('resize', function() {
+      updateMobileUIState();
+      if (!isMobile()) {
+        // Restore search container on desktop
+        const sc = document.querySelector('.search-container');
+        if (sc) sc.classList.remove('mobile-search-open');
+      }
+    });
+
+    // Initial state
+    updateMobileUIState();
+  </script>
 
 </body>
 

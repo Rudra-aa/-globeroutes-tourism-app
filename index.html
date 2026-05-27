@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Globeroutes — World Tourism & Hidden Gems Explorer</title>
+  <title>GlobeRoutes — World Tourism & Hidden Gems Explorer</title>
   <meta name="description"
     content="Discover every tourism destination on Earth — from Eiffel Tower to secret hidden gems in small towns. Explore 195 countries city by city.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,6 +269,72 @@
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       transition: background 0.3s ease;
+    }
+
+    /* Mobile hamburger */
+    .hamburger-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: var(--bg-hover);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+    }
+    .hamburger-btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav menu */
+    .mobile-nav-menu {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px 24px;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 999;
+      animation: slideDown 0.3s ease;
+    }
+    .mobile-nav-menu.open { display: flex; }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .mobile-nav-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-nav-menu a:hover { color: var(--text-primary); }
+    .mobile-nav-menu .mobile-nav-actions {
+      display: flex;
+      gap: 10px;
+      padding-top: 8px;
     }
 
     .navbar-logo {
@@ -1691,6 +1757,8 @@
       .hero-inner {
         grid-template-columns: 1fr;
         text-align: center;
+        padding: 48px 20px;
+        gap: 32px;
       }
 
       .hero-subtitle {
@@ -1703,6 +1771,7 @@
 
       .hero-stats {
         justify-content: center;
+        gap: 20px;
       }
 
       .globe-container {
@@ -1723,6 +1792,7 @@
 
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
       }
 
       .pricing-grid {
@@ -1731,10 +1801,75 @@
 
       .footer-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 24px;
       }
 
       .navbar-links {
         display: none;
+      }
+
+      .hamburger-btn {
+        display: flex;
+      }
+
+      .navbar-actions .btn-ghost,
+      .navbar-actions .btn-primary {
+        display: none;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .section-title {
+        font-size: clamp(1.6rem, 6vw, 2.4rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .hero-stat-num {
+        font-size: 1.3rem;
+      }
+
+      .container {
+        padding: 0 16px;
+      }
+
+      .section-header {
+        margin-bottom: 40px;
+      }
+
+      .pricing-card {
+        padding: 24px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      /* Fame tiers section on mobile */
+      [style*="grid-template-columns: 1fr 1fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 32px !important;
       }
     }
   </style>
@@ -1768,7 +1903,27 @@
         Launch Explorer <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
       </a>
     </div>
+
+    <!-- Hamburger button (mobile only) -->
+    <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+
+  <!-- Mobile Nav Menu -->
+  <div class="mobile-nav-menu" id="mobileNavMenu">
+    <a href="#features" onclick="closeMobileMenu()">Features</a>
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#tiers" onclick="closeMobileMenu()">Fame Tiers</a>
+    <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <div class="mobile-nav-actions">
+      <button class="btn btn-ghost" onclick="window.location.href='explorer.html'" style="flex:1; justify-content:center;">Sign In</button>
+      <a href="explorer.html" class="btn btn-primary" style="flex:1; justify-content:center;">Launch Explorer</a>
+    </div>
+    </div>
+  </div>
 
 
   <!-- ============== HERO ============== -->
@@ -2387,6 +2542,31 @@
         const target = document.querySelector(a.getAttribute('href'));
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
+    });
+
+    // ---- MOBILE MENU ----
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileNavMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileNavMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileNavMenu');
+      const btn = document.getElementById('hamburgerBtn');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      }
     });
   </script>
 

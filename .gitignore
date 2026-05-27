@@ -7,3 +7,4 @@ secure_auth_modal.html
 *.mov
 __pycache__/
 *.pyc
+.vercel
