@@ -1,7 +1,5 @@
 # 🗺️ GlobeRoutes — Interactive World Explorer & Route Planner
-
-[![Platform](https://img.shields.io/badge/Platform-Web-blueviolet?style=for-the-badge)](https://vercel.com)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](licence)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)]()
 
 **GlobeRoutes** is a premium, highly interactive world tourism and travel route planning web application. Designed with modern glassmorphic aesthetics, responsive layouts, and robust spatial calculations, GlobeRoutes lets users explore local attractions, check-in to visited timeline logs, and coordinate routes across three transport modes with real-time feedback and smart feasibility gates.
