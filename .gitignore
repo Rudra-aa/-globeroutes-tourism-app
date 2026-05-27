@@ -8,3 +8,5 @@ secure_auth_modal.html
 __pycache__/
 *.pyc
 .vercel
+qrcode.png
+qrenv/

@@ -724,6 +724,18 @@ function selectPricingPlan(plan) {
   
   if (upiSubmitBtn) upiSubmitBtn.textContent = `Verify & Pay ${costStr}`;
   
+  // Update the QR code image dynamically with the correct price, custom UPI, and plan context
+  const upiQrImg = document.getElementById('upiQrCodeImg');
+  const upiQrLoader = document.getElementById('upiQrCodeLoader');
+  if (upiQrImg) {
+    upiQrImg.style.opacity = '0';
+    if (upiQrLoader) upiQrLoader.style.display = 'flex';
+    const amountVal = plan === 'standard' ? 199 : 599;
+    const planName = plan === 'standard' ? 'Standard' : 'Pro';
+    const upiUri = `upi://pay?pa=8717815602@ibl&pn=Rudra Pratap Singh Parmar&am=${amountVal}&cu=INR&tn=GlobeRoutes ${planName} Plan`;
+    upiQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiUri)}`;
+  }
+  
   // Reset payment method tabs back to UPI
   switchPaymentMethod('upi');
   
