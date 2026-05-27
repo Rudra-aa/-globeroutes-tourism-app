@@ -297,7 +297,7 @@ header.glass-header.collapsed .nav-toggle-handle i {
 }
 
 .app-container.sidebar-collapsed {
-  grid-template-columns: 0px 1fr;
+  grid-template-columns: 0px 1fr !important;
 }
 
 /* Left Sidebar - Dynamic Context Panels — Enhanced Glassmorphism */
