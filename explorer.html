@@ -225,7 +225,7 @@
               <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Free Explorer</h3>
               <p style="color: var(--text-secondary); font-size: 0.9rem;">Perfect for casual Neighborhood walks and basic planning.</p>
             </div>
-            <div class="price-text">$0<span>/month</span></div>
+            <div class="price-text">₹0<span>/month</span></div>
             <ul class="benefits-list">
               <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Access to France and India</li>
               <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Red Tier World Icons freely</li>
@@ -245,7 +245,7 @@
               <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: #ffa940;">Standard Explorer</h3>
               <p style="color: var(--text-secondary); font-size: 0.9rem;">Ideal for pilgrimage exploration & regional travel.</p>
             </div>
-            <div class="price-text" style="color: #ffa940;">$3.99<span>/month</span></div>
+            <div class="price-text" style="color: #ffa940;">₹199<span>/month</span></div>
             <ul class="benefits-list">
               <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> Access to France and India flagship data</li>
               <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> Fully unlock **Red, Yellow, & Orange Tiers**</li>
@@ -265,7 +265,7 @@
               <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: #ffd700;">Pro Explorer</h3>
               <p style="color: var(--text-secondary); font-size: 0.9rem;">For the true pathfinder exploring global horizons.</p>
             </div>
-            <div class="price-text" style="color: #ffd700;">$9.99<span>/month</span></div>
+            <div class="price-text" style="color: #ffd700;">₹599<span>/month</span></div>
             <ul class="benefits-list">
               <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Unlimited country access (Japan, USA, Egypt+)</li>
               <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Fully unlock **Orange, Yellow, Green, and Blue Tiers**</li>
@@ -291,127 +291,61 @@
               style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border: 1px solid var(--border-glass);">
               <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                 <span id="checkoutPlanLabel">Pro Explorer (Monthly)</span>
-                <span id="checkoutPlanCost">$9.99</span>
+                <span id="checkoutPlanCost">₹599</span>
               </div>
               <div
                 style="display: flex; justify-content: space-between; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
                 <span>Total Due</span>
-                <span id="checkoutTotalCost" style="color: #ffd700;">$9.99</span>
+                <span id="checkoutTotalCost" style="color: #ffd700;">₹599</span>
               </div>
             </div>
           </div>
 
-          <!-- Tab Switcher for Card vs UPI -->
+          <!-- Tab Switcher for QR vs Razorpay -->
           <div style="display: flex; gap: 8px; margin: 15px 0 10px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid var(--border-glass);">
-            <button type="button" id="tabPayCard" onclick="switchPaymentMethod('card')"
-              style="flex: 1; padding: 8px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 700; cursor: pointer; background: rgba(59,127,255,0.2); color: #6dabff; transition: all 0.2s;">
-              💳 Card Pay
-            </button>
             <button type="button" id="tabPayUpi" onclick="switchPaymentMethod('upi')"
-              style="flex: 1; padding: 8px; border-radius: 6px; border: none; font-size: 0.78rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all 0.2s;">
-              📱 UPI QR Scan
+              style="flex: 1; padding: 10px; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 700; cursor: pointer; background: rgba(59,127,255,0.2); color: #6dabff; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span style="font-size:1.1rem;">📱</span> UPI QR Scan
             </button>
-          </div>
-
-          <!-- Left Visualizer Card Column -->
-          <div id="cardVisualizer" style="display: block;">
-            <!-- 3D Card Visualizer -->
-            <div class="card-simulator-container" style="margin: 15px 0;">
-              <div id="creditCard3d" class="credit-card-3d">
-                <!-- Front of Card -->
-                <div class="card-face card-front">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="card-chip"></div>
-                    <span style="font-weight: bold; font-style: italic;">VISA</span>
-                  </div>
-                  <div id="visaCardNumber" class="card-number-display">•••• •••• •••• ••••</div>
-                  <div class="card-details-row">
-                    <div>
-                      <div style="font-size: 7px; color: #ccc;">CARDHOLDER</div>
-                      <div id="visaCardHolder" style="font-size: 11px;">EXPLORER</div>
-                    </div>
-                    <div>
-                      <div style="font-size: 7px; color: #ccc;">EXPIRES</div>
-                      <div id="visaCardExpiry" style="font-size: 11px;">MM/YY</div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Back of Card -->
-                <div class="card-face card-back">
-                  <div class="card-strip"></div>
-                  <div id="visaCardCvv" class="card-cvv-stripe">123</div>
-                  <div style="padding: 0 20px; font-size: 8px; color: #aaa; text-align: center;">
-                    Authorized signature required. Secure simulation.
-                  </div>
-                </div>
-              </div>
-            </div>
+            <button type="button" id="tabPayRazorpay" onclick="switchPaymentMethod('razorpay')"
+              style="flex: 1; padding: 10px; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; position: relative;">
+              <span style="font-size:1.1rem;">⚡</span> Razorpay
+              <span style="position: absolute; top: -6px; right: -2px; font-size: 0.55rem; background: #ef4444; color: white; padding: 1px 5px; border-radius: 4px; font-weight: bold; border: 1px solid #1a1a24; scale: 0.85;">Soon</span>
+            </button>
           </div>
 
           <!-- Left Visualizer UPI QR Column -->
-          <div id="upiVisualizer" style="display: none; text-align: center; margin: 15px 0;">
+          <div id="upiVisualizer" style="display: block; text-align: center; margin: 15px 0;">
             <div class="glass" style="padding: 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="font-size: 0.8rem; font-weight: 700; color: #ffd700; text-transform: uppercase; letter-spacing: 0.5px;">Scan UPI QR Code</div>
-              <!-- Beautiful placeholder QR code requested by user -->
-              <img src="https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=crop&w=400&q=80" 
+              <div style="font-size: 0.8rem; font-weight: 700; color: #ffd700; text-transform: uppercase; letter-spacing: 0.5px;">Scan & Pay Using PhonePe App</div>
+              <!-- PhonePe QR Code -->
+              <img src="qr_code.png" 
                 alt="UPI QR Code Payment" 
-                style="width: 160px; height: 160px; border-radius: 8px; border: 4px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-              <div style="font-size: 0.72rem; color: var(--text-secondary); line-height: 1.3; font-weight: 600;">
-                All Indian UPI Apps Accepted (GPay, BHIM, PhonePe, Paytm, etc.)
+                style="width: 170px; height: 170px; border-radius: 8px; border: 4px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+              <div style="font-size: 0.85rem; color: var(--text-primary); font-weight: 700; margin-top: 4px;">
+                Rudra Pratap Singh Parmar
               </div>
+              <div style="font-size: 0.7rem; color: var(--text-secondary); line-height: 1.3; font-weight: 600;">
+                Scan with GPay, PhonePe, Paytm, or BHIM
+              </div>
+            </div>
+          </div>
+
+          <!-- Left Visualizer Razorpay Coming Soon Column -->
+          <div id="razorpayVisualizer" style="display: none; text-align: center; margin: 15px 0;">
+            <div class="glass" style="padding: 24px 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.1); height: 100%; justify-content: center;">
+              <div style="font-size: 2.2rem; filter: drop-shadow(0 0 8px #3399cc);">💳</div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: #3399cc; text-transform: uppercase; letter-spacing: 0.5px;">Razorpay Gateway</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; max-width: 200px; font-weight: 500;">
+                Direct Card Payments, Netbanking, & Wallets integration.
+              </div>
+              <span style="font-size: 0.65rem; background: #ef4444; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold; box-shadow: 0 2px 8px rgba(239,68,68,0.3);">COMING SOON</span>
             </div>
           </div>
         </div>
 
-        <!-- Card Input Form Column -->
-        <div id="cardPaymentForm" style="display: flex; flex-direction: column; gap: 14px;">
-          <h3 style="font-size: 1.2rem; font-family: 'Outfit';">Payment Details</h3>
-          <form id="paymentForm" onsubmit="event.preventDefault(); processPremiumPayment();">
-            <div class="form-group" style="margin-bottom: 10px;">
-              <label for="cardNumber">Card Number</label>
-              <input type="text" id="cardNumber" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19"
-                required oninput="syncCardInput('number')" onfocus="setCardFlip(false)">
-            </div>
-            <div class="form-group" style="margin-bottom: 10px;">
-              <label for="cardHolder">Cardholder Name</label>
-              <input type="text" id="cardHolder" class="form-control" placeholder="MARCO POLO" required
-                oninput="syncCardInput('holder')" onfocus="setCardFlip(false)">
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
-              <div class="form-group">
-                <label for="cardExpiry">Expiration Date</label>
-                <input type="text" id="cardExpiry" class="form-control" placeholder="12/28" maxlength="5" required
-                  oninput="syncCardInput('expiry')" onfocus="setCardFlip(false)">
-              </div>
-              <div class="form-group">
-                <label for="cardCvv">CVV</label>
-                <input type="password" id="cardCvv" class="form-control" placeholder="•••" maxlength="3" required
-                  oninput="syncCardInput('cvv')" onfocus="setCardFlip(true)" onblur="setCardFlip(false)">
-              </div>
-            </div>
-            <button type="submit" id="cardSubmitBtn" class="btn btn-premium" style="width: 100%; padding: 14px;">Authorize Purchase</button>
-          </form>
-
-          <div style="display: flex; align-items: center; justify-content: center; margin: 12px 0 8px;">
-            <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
-            <span style="font-size: 0.8rem; color: var(--text-secondary); margin: 0 10px;">OR</span>
-            <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
-          </div>
-
-          <button type="button" class="btn btn-premium" onclick="payWithRazorpay()"
-            style="width: 100%; padding: 14px; background: linear-gradient(135deg, #18233c 0%, #3399cc 100%); border: 1px solid #3399cc; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(51, 153, 204, 0.25);">
-            <i class="ti ti-credit-card" style="font-size: 16px;"></i>
-            Pay Securely with Razorpay (Free Test Mode)
-          </button>
-
-          <div style="text-align: center; margin-top: 10px;">
-            <span style="color: var(--text-secondary); cursor: pointer; font-size: 0.85rem;"
-              onclick="cancelCheckout()">← Back to plans</span>
-          </div>
-        </div>
-
-        <!-- UPI Input Form Column -->
-        <div id="upiPaymentForm" style="display: none; flex-direction: column; gap: 14px;">
+        <!-- UPI Form Column -->
+        <div id="upiPaymentForm" style="display: flex; flex-direction: column; gap: 14px;">
           <h3 style="font-size: 1.2rem; font-family: 'Outfit';">UPI Verification</h3>
           <form id="upiVerificationForm" onsubmit="event.preventDefault(); processPremiumPayment();">
             <div class="form-group" style="margin-bottom: 12px;">
@@ -420,7 +354,7 @@
             </div>
             
             <div class="glass" style="padding: 12px; font-size: 0.76rem; color: var(--text-secondary); border-radius: 10px; line-height: 1.4; border: 1px solid var(--border-glass); margin-bottom: 16px;">
-              💡 <b>UPI Instructions:</b> Scan the QR code on the left with Google Pay, BHIM, PhonePe or Paytm. Once you authorize the payment on your device, type your UPI ID above and click the verification button below to instantly unlock standard/pro features.
+              💡 <b>UPI Instructions:</b> Scan the QR code on the left with any UPI app. Once you authorize the payment on your device, type your UPI ID above and click the verification button below to instantly unlock standard/pro features.
             </div>
             
             <button type="submit" id="upiSubmitBtn" class="btn btn-premium" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #32c5ff 0%, #2299ff 100%); border:none; box-shadow: 0 4px 15px rgba(34,153,255,0.3);">
@@ -428,16 +362,25 @@
             </button>
           </form>
 
-          <div style="display: flex; align-items: center; justify-content: center; margin: 12px 0 8px;">
-            <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
-            <span style="font-size: 0.8rem; color: var(--text-secondary); margin: 0 10px;">OR</span>
-            <div style="height: 1px; background: rgba(255,255,255,0.08); flex: 1;"></div>
+          <div style="text-align: center; margin-top: 10px;">
+            <span style="color: var(--text-secondary); cursor: pointer; font-size: 0.85rem;"
+              onclick="cancelCheckout()">← Back to plans</span>
           </div>
+        </div>
 
-          <button type="button" class="btn btn-premium" onclick="payWithRazorpay()"
-            style="width: 100%; padding: 14px; background: linear-gradient(135deg, #18233c 0%, #3399cc 100%); border: 1px solid #3399cc; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(51, 153, 204, 0.25);">
-            <i class="ti ti-credit-card" style="font-size: 16px;"></i>
-            Pay Securely with Razorpay (Free Test Mode)
+        <!-- Razorpay Coming Soon Form Column -->
+        <div id="razorpayPaymentForm" style="display: none; flex-direction: column; gap: 14px; text-align: center; justify-content: center; padding: 10px;">
+          <h3 style="font-size: 1.2rem; font-family: 'Outfit'; color: #3399cc;">Instant Activation Offline</h3>
+          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 8px;">
+            Direct payments via Razorpay are currently in maintenance. Please use the UPI QR Code for instant activation!
+          </p>
+          <div class="glass" style="padding: 12px; font-size: 0.76rem; color: #ffa940; border-radius: 10px; border: 1px solid rgba(255, 169, 64, 0.2); margin-bottom: 12px;">
+            ⚡ <b>UPI QR code</b> supports GPay, PhonePe, Paytm, BHIM, and all other Indian banking apps.
+          </div>
+          
+          <button type="button" class="btn btn-premium" onclick="switchPaymentMethod('upi')"
+            style="width: 100%; padding: 14px; background: linear-gradient(135deg, #32c5ff 0%, #2299ff 100%); border:none; box-shadow: 0 4px 15px rgba(34,153,255,0.3);">
+            Pay Using UPI QR Code
           </button>
 
           <div style="text-align: center; margin-top: 10px;">

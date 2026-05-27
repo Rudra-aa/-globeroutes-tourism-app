@@ -638,69 +638,8 @@ window.initializeGoogleAuth = function() {
 };
 
 async function payWithRazorpay() {
-  if (!currentUser) return;
-  
-  showNotification("Opening secure Razorpay Checkout...", "info");
-  
-  const options = {
-    key: "rzp_test_dummykey12345", // Test Key for free sandbox simulation
-    amount: 999 * 100, // 999 INR in paise
-    currency: "INR",
-    name: "GlobeRoutes Premium",
-    description: "Unlock Pro Explorer Lifetime Membership",
-    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=100&h=100&fit=crop",
-    handler: async function (response) {
-      showNotification("Payment verified successfully via Razorpay!", "success");
-      
-      // Attempt backend API upgrade
-      try {
-        const upgradeRes = await fetch(`${API_URL}/api/user/upgrade`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: currentUser.email,
-            paymentId: response.razorpay_payment_id
-          })
-        });
-        
-        if (upgradeRes.ok) {
-          const data = await upgradeRes.json();
-          currentUser = data.user;
-        } else {
-          currentUser.isPremium = true;
-          currentUser.membershipTier = "Pro Explorer";
-        }
-      } catch (e) {
-        currentUser.isPremium = true;
-        currentUser.membershipTier = "Pro Explorer";
-      }
-      
-      saveUserSession();
-      updateHeaderUserBadge();
-      syncUserJournalData();
-      closePricingOverlay();
-      
-      if (activeCountryId) navigateCountry(activeCountryId);
-      if (activeCityId) navigateCity(activeCityId);
-      
-      showNotification("Pro Access Unlocked! Welcome to global discovery.", "success");
-    },
-    prefill: {
-      name: currentUser.name,
-      email: currentUser.email
-    },
-    theme: {
-      color: "#7c5cfc"
-    }
-  };
-  
-  try {
-    const rzp = new Razorpay(options);
-    rzp.open();
-  } catch (e) {
-    showNotification("Failed to load Razorpay. Simulating secure payment...", "warning");
-    processPremiumPayment();
-  }
+  showNotification("Razorpay payment gateway is coming soon! Please use the UPI QR Code for instant activation.", "info");
+  switchPaymentMethod('upi');
 }
 
 function handleLogout() {
@@ -772,10 +711,9 @@ function selectPricingPlan(plan) {
   const planCostEl = document.getElementById('checkoutPlanCost');
   const orderTitleEl = document.getElementById('checkoutOrderTitle');
   
-  const cardSubmitBtn = document.getElementById('cardSubmitBtn');
   const upiSubmitBtn = document.getElementById('upiSubmitBtn');
   
-  const costStr = plan === 'standard' ? "$3.99" : "$9.99";
+  const costStr = plan === 'standard' ? "₹199" : "₹599";
   const nameStr = plan === 'standard' ? "Standard Explorer (Monthly)" : "Pro Explorer (Monthly)";
   const titleStr = plan === 'standard' ? "Order Summary (Standard Plan)" : "Order Summary (Pro Plan)";
   
@@ -784,57 +722,56 @@ function selectPricingPlan(plan) {
   if (planCostEl) planCostEl.textContent = costStr;
   if (orderTitleEl) orderTitleEl.textContent = titleStr;
   
-  if (cardSubmitBtn) cardSubmitBtn.textContent = `Authorize ${costStr} Purchase`;
   if (upiSubmitBtn) upiSubmitBtn.textContent = `Verify & Pay ${costStr}`;
   
-  // Reset payment method tabs back to card
-  switchPaymentMethod('card');
+  // Reset payment method tabs back to UPI
+  switchPaymentMethod('upi');
   
-  // Switch to Credit Card 3D Simulator screen
+  // Switch to checkout screen
   document.getElementById('pricingTierScreen').style.display = 'none';
   document.getElementById('checkoutScreen').style.display = 'grid';
 }
 
 function switchPaymentMethod(method) {
-  const cardVis = document.getElementById('cardVisualizer');
   const upiVis = document.getElementById('upiVisualizer');
-  const cardForm = document.getElementById('cardPaymentForm');
+  const razorpayVis = document.getElementById('razorpayVisualizer');
   const upiForm = document.getElementById('upiPaymentForm');
+  const razorpayForm = document.getElementById('razorpayPaymentForm');
   
-  const tabCard = document.getElementById('tabPayCard');
   const tabUpi = document.getElementById('tabPayUpi');
+  const tabRazorpay = document.getElementById('tabPayRazorpay');
   
-  if (method === 'card') {
-    if (cardVis) cardVis.style.display = 'block';
-    if (upiVis) upiVis.style.display = 'none';
-    if (cardForm) cardForm.style.display = 'flex';
-    if (upiForm) upiForm.style.display = 'none';
+  if (method === 'upi') {
+    if (upiVis) upiVis.style.display = 'block';
+    if (razorpayVis) razorpayVis.style.display = 'none';
+    if (upiForm) upiForm.style.display = 'flex';
+    if (razorpayForm) razorpayForm.style.display = 'none';
     
-    if (tabCard) {
-      tabCard.style.background = 'rgba(59,127,255,0.2)';
-      tabCard.style.color = '#6dabff';
-      tabCard.style.fontWeight = '700';
+    if (tabUpi) {
+      tabUpi.style.background = 'rgba(59,127,255,0.2)';
+      tabUpi.style.color = '#6dabff';
+      tabUpi.style.fontWeight = '700';
     }
+    if (tabRazorpay) {
+      tabRazorpay.style.background = 'transparent';
+      tabRazorpay.style.color = 'var(--text-secondary)';
+      tabRazorpay.style.fontWeight = '600';
+    }
+  } else if (method === 'razorpay') {
+    if (upiVis) upiVis.style.display = 'none';
+    if (razorpayVis) razorpayVis.style.display = 'block';
+    if (upiForm) upiForm.style.display = 'none';
+    if (razorpayForm) razorpayForm.style.display = 'flex';
+    
     if (tabUpi) {
       tabUpi.style.background = 'transparent';
       tabUpi.style.color = 'var(--text-secondary)';
       tabUpi.style.fontWeight = '600';
     }
-  } else if (method === 'upi') {
-    if (cardVis) cardVis.style.display = 'none';
-    if (upiVis) upiVis.style.display = 'block';
-    if (cardForm) cardForm.style.display = 'none';
-    if (upiForm) upiForm.style.display = 'flex';
-    
-    if (tabCard) {
-      tabCard.style.background = 'transparent';
-      tabCard.style.color = 'var(--text-secondary)';
-      tabCard.style.fontWeight = '600';
-    }
-    if (tabUpi) {
-      tabUpi.style.background = 'rgba(59,127,255,0.2)';
-      tabUpi.style.color = '#6dabff';
-      tabUpi.style.fontWeight = '700';
+    if (tabRazorpay) {
+      tabRazorpay.style.background = 'rgba(59,127,255,0.2)';
+      tabRazorpay.style.color = '#6dabff';
+      tabRazorpay.style.fontWeight = '700';
     }
   }
 }

@@ -288,6 +288,7 @@
       gap: 5px;
       padding: 10px;
     }
+
     .hamburger-btn span {
       display: block;
       width: 18px;
@@ -296,9 +297,18 @@
       border-radius: 2px;
       transition: var(--transition);
     }
-    .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
-    .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .hamburger-btn.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     /* Mobile nav menu */
     .mobile-nav-menu {
@@ -317,11 +327,23 @@
       z-index: 999;
       animation: slideDown 0.3s ease;
     }
-    .mobile-nav-menu.open { display: flex; }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .mobile-nav-menu.open {
+      display: flex;
     }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .mobile-nav-menu a {
       font-size: 1rem;
       font-weight: 500;
@@ -330,7 +352,11 @@
       border-bottom: 1px solid var(--border);
       transition: color 0.2s;
     }
-    .mobile-nav-menu a:hover { color: var(--text-primary); }
+
+    .mobile-nav-menu a:hover {
+      color: var(--text-primary);
+    }
+
     .mobile-nav-menu .mobile-nav-actions {
       display: flex;
       gap: 10px;
@@ -1919,10 +1945,11 @@
     <a href="#tiers" onclick="closeMobileMenu()">Fame Tiers</a>
     <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
     <div class="mobile-nav-actions">
-      <button class="btn btn-ghost" onclick="window.location.href='explorer.html'" style="flex:1; justify-content:center;">Sign In</button>
+      <button class="btn btn-ghost" onclick="window.location.href='explorer.html'"
+        style="flex:1; justify-content:center;">Sign In</button>
       <a href="explorer.html" class="btn btn-primary" style="flex:1; justify-content:center;">Launch Explorer</a>
     </div>
-    </div>
+  </div>
   </div>
 
 
@@ -2333,7 +2360,7 @@
             <div class="plan-desc">Perfect for casual travel planning and exploration.</div>
           </div>
           <div class="plan-price">
-            <span class="price-amount">$0</span>
+            <span class="price-amount">₹0</span>
             <span class="price-period">/month</span>
           </div>
           <div class="plan-features">
@@ -2368,13 +2395,14 @@
         </div>
 
         <!-- Standard Plan -->
-        <div class="pricing-card" style="border: 1px solid rgba(255, 140, 0, 0.4); background: rgba(255, 140, 0, 0.03);">
+        <div class="pricing-card"
+          style="border: 1px solid rgba(255, 140, 0, 0.4); background: rgba(255, 140, 0, 0.03);">
           <div>
             <div class="plan-name" style="color: #f59e0b;">Standard Explorer</div>
             <div class="plan-desc">Ideal for pilgrimage exploration & regional travel.</div>
           </div>
           <div class="plan-price">
-            <span class="price-amount" style="color: #f59e0b;">$4</span>
+            <span class="price-amount" style="color: #f59e0b;">₹199</span>
             <span class="price-period">/month</span>
           </div>
           <div class="plan-features">
@@ -2403,7 +2431,8 @@
               All 195+ Pro Premium Countries
             </div>
           </div>
-          <a href="explorer.html" class="btn btn-outline" style="justify-content: center; background: rgba(255, 140, 0, 0.1); border-color: rgba(255, 140, 0, 0.4); color: #ffa940;">
+          <a href="explorer.html" class="btn btn-outline"
+            style="justify-content: center; background: rgba(255, 140, 0, 0.1); border-color: rgba(255, 140, 0, 0.4); color: #ffa940;">
             Get Standard Plan
           </a>
         </div>
@@ -2416,7 +2445,7 @@
             <div class="plan-desc">For the serious pathfinder exploring every corner of Earth.</div>
           </div>
           <div class="plan-price">
-            <span class="price-amount" style="color: #f59e0b;">$10</span>
+            <span class="price-amount" style="color: #f59e0b;">₹599</span>
             <span class="price-period">/month</span>
           </div>
           <div class="plan-features">
@@ -2560,7 +2589,7 @@
     }
 
     // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       const menu = document.getElementById('mobileNavMenu');
       const btn = document.getElementById('hamburgerBtn');
       if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
