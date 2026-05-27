@@ -398,8 +398,8 @@
   <header class="glass-header">
     <!-- Mobile sidebar toggle button -->
     <button id="mobileSidebarToggle" class="btn btn-secondary"
-      style="display:none; padding:9px; border-radius:50%; width:38px; height:38px; align-items:center; justify-content:center; border:1px solid rgba(30,144,255,0.4); color:var(--tier-blue); background:rgba(30,144,255,0.08); flex-shrink:0;"
-      onclick="toggleMobileSidebar()" title="Open Explorer Menu">
+      style="display:inline-flex; padding:9px; border-radius:50%; width:38px; height:38px; align-items:center; justify-content:center; border:1px solid rgba(30,144,255,0.4); color:var(--tier-blue); background:rgba(30,144,255,0.08); flex-shrink:0;"
+      onclick="toggleSidebar()" title="Toggle Sidebar Menu">
       <i data-lucide="menu" style="width:18px;"></i>
     </button>
     <div class="logo">
@@ -1022,6 +1022,16 @@
       return window.innerWidth <= MOBILE_BREAKPOINT;
     }
 
+    function toggleSidebar() {
+      if (isMobile()) {
+        toggleMobileSidebar();
+      } else {
+        if (typeof toggleSidebarCollapse === 'function') {
+          toggleSidebarCollapse();
+        }
+      }
+    }
+
     function toggleMobileSidebar() {
       const sidebar = document.getElementById('explorerSidebar');
       const backdrop = document.getElementById('sidebarBackdrop');
@@ -1037,7 +1047,8 @@
     function openMobileSidebar() {
       const sidebar = document.getElementById('explorerSidebar');
       const backdrop = document.getElementById('sidebarBackdrop');
-      const toggleBtn = document.getElementById('mobileSidebarToggle');
+      const container = document.querySelector('.app-container');
+      if (container) container.classList.remove('sidebar-collapsed'); // Clear desktop collapse state
       if (sidebar) sidebar.classList.add('mobile-open');
       if (backdrop) backdrop.classList.add('show');
       document.body.style.overflow = 'hidden';
@@ -1055,11 +1066,13 @@
     function updateMobileUIState() {
       const toggleBtn = document.getElementById('mobileSidebarToggle');
       const searchBtn = document.getElementById('mobileSearchBtn');
+      
+      // Toggle button is always visible on both desktop and mobile
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      
       if (isMobile()) {
-        if (toggleBtn) toggleBtn.style.display = 'inline-flex';
         if (searchBtn) searchBtn.style.display = 'inline-flex';
       } else {
-        if (toggleBtn) toggleBtn.style.display = 'none';
         if (searchBtn) searchBtn.style.display = 'none';
         closeMobileSidebar();
       }
