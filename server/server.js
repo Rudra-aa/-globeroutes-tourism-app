@@ -5,6 +5,20 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+// Groq AI SDK (optional — set GROQ_API_KEY in .env)
+let groqClient = null;
+try {
+  const Groq = require('groq-sdk');
+  if (process.env.GROQ_API_KEY) {
+    groqClient = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    console.log('Groq AI client initialized.');
+  } else {
+    console.log('GROQ_API_KEY not set. Aura will use smart fallback mode.');
+  }
+} catch (e) {
+  console.log('groq-sdk not installed. Run: cd server && npm install groq-sdk');
+}
+
 const Review = require('./models/Review');
 const User = require('./models/User');
 
@@ -330,6 +344,125 @@ app.post('/api/reviews/:poiId', async (req, res) => {
     console.error(`Error saving review for ${poiId}:`, error);
     res.status(500).json({ error: 'Failed to save review to database.' });
   }
+});
+
+// 9. Aura AI: Chat endpoint
+app.post('/api/aura/chat', async (req, res) => {
+  const { message, history } = req.body;
+  if (!message) {
+    return res.status(400).json({ error: 'Message is required.' });
+  }
+
+  // System prompt for structured JSON responses
+  const systemPrompt = `You are Aura, an expert AI travel planning assistant for GlobeRoutes.
+Always respond with ONLY valid JSON — never plain text or markdown outside JSON.
+
+Respond with one of these formats based on the user request:
+
+1. Trip Plan: { "type": "trip_plan", "data": { "trip": { "title": string, "destination": string, "duration": string, "from": string, "totalBudget": string, "bestTime": string, "description": string }, "budget": { "transport": "₹X", "accommodation": "₹X", "food": "₹X", "activities": "₹X", "emergency": "₹X", "total": "₹X" }, "itinerary": [ { "title": string, "activities": [string] } ], "hotels": [ { "name": string, "type": string, "stars": number, "price": "₹X" } ], "food": [ { "icon": emoji, "name": string, "type": string, "price": string } ] } }
+
+2. Route Comparison: { "type": "comparison", "data": { "from": string, "to": string, "routes": [ { "icon": emoji, "mode": string, "cost": string, "duration": string, "comfort": 1-5, "score": string, "recommended": bool } ], "recommendation": string } }
+
+3. Budget Only: { "type": "budget", "data": { "trip": string, "items": [ { "icon": emoji, "label": string, "amount": "₹X", "color": hexcolor } ], "note": string } }
+
+4. Hotels: { "type": "hotels", "data": { "destination": string, "hotels": [ { "name": string, "type": string, "stars": number, "price": "₹X" } ] } }
+
+5. Food: { "type": "food", "data": { "places": [ { "icon": emoji, "name": string, "type": string, "cuisine": string, "price": string } ] } }
+
+6. Insights: { "type": "insights", "data": { "destination": string, "badges": [ { "icon": emoji, "label": string, "value": string } ], "tip": string } }
+
+7. General: { "type": "general", "message": string }
+
+Focus on Indian destinations. Use ₹ for prices. Be specific and practical.`;
+
+  // If Groq is configured, use it
+  if (groqClient) {
+    try {
+      const messages = [
+        { role: 'system', content: systemPrompt },
+        ...(history || []).slice(-6).map(h => ({ role: h.role, content: typeof h.content === 'string' ? h.content : JSON.stringify(h.content) })),
+        { role: 'user', content: message }
+      ];
+
+      const completion = await groqClient.chat.completions.create({
+        model: 'llama-3.1-8b-instant',
+        messages,
+        temperature: 0.7,
+        max_tokens: 2048,
+        response_format: { type: 'json_object' }
+      });
+
+      const raw = completion.choices[0]?.message?.content || '{}';
+      const parsed = JSON.parse(raw);
+      return res.json(parsed);
+    } catch (err) {
+      console.error('Groq API error:', err.message);
+      // Fall through to smart fallback
+    }
+  }
+
+  // Smart fallback demo response (when Groq not configured or error)
+  const lower = message.toLowerCase();
+  const dest = lower.includes('goa') ? 'Goa' : lower.includes('manali') ? 'Manali' : lower.includes('kerala') ? 'Kerala' : lower.includes('rajasthan') ? 'Rajasthan' : lower.includes('mumbai') ? 'Mumbai' : lower.includes('delhi') ? 'Delhi' : 'Your Destination';
+
+  if (lower.includes('compare') || lower.includes('route') || (lower.includes('vs') && (lower.includes('train') || lower.includes('flight')))) {
+    return res.json({
+      type: 'comparison',
+      data: {
+        from: 'Mumbai', to: dest,
+        routes: [
+          { icon: '✈️', mode: 'Flight', cost: '₹3,500–6,000', duration: '1–2 hrs', comfort: 5, score: '9', recommended: true },
+          { icon: '🚂', mode: 'Train', cost: '₹600–2,500', duration: '8–24 hrs', comfort: 4, score: '7' },
+          { icon: '🚌', mode: 'Bus', cost: '₹400–1,200', duration: '10–18 hrs', comfort: 3, score: '5' },
+          { icon: '🚗', mode: 'Road Trip', cost: '₹1,500–3,000', duration: '6–14 hrs', comfort: 4, score: '7' }
+        ],
+        recommendation: 'For speed choose flight. For budget + experience, overnight Rajdhani is best value.'
+      }
+    });
+  }
+
+  if (lower.includes('budget') && !lower.includes('plan')) {
+    return res.json({
+      type: 'budget',
+      data: {
+        trip: `Budget for ${dest} trip`,
+        items: [
+          { icon: '🚌', label: 'Transport', amount: '₹3,500', color: '#3b82f6' },
+          { icon: '🏨', label: 'Hotels (3N)', amount: '₹4,800', color: '#8b5cf6' },
+          { icon: '🍽️', label: 'Food', amount: '₹2,400', color: '#f59e0b' },
+          { icon: '🎯', label: 'Activities', amount: '₹1,800', color: '#22c55e' },
+          { icon: '🛡️', label: 'Emergency', amount: '₹1,200', color: '#ef4444' },
+          { icon: '💎', label: 'TOTAL', amount: '₹13,700', color: '#a78bfa' }
+        ],
+        note: 'Add GROQ_API_KEY to server/.env for real AI-powered estimates.'
+      }
+    });
+  }
+
+  // Default: full trip plan
+  res.json({
+    type: 'trip_plan',
+    data: {
+      trip: { title: `${dest} Adventure`, destination: dest, duration: '4 Days / 3 Nights', from: 'Your City', totalBudget: '₹12,000–₹18,000', bestTime: 'Oct–Mar', description: `A perfectly balanced ${dest} trip — culture, nature, food, and hidden gems curated by Aura AI.` },
+      budget: { transport: '₹3,500', accommodation: '₹4,800', food: '₹2,400', activities: '₹1,800', emergency: '₹1,200', total: '₹13,700' },
+      itinerary: [
+        { title: 'Arrival & First Impressions', activities: ['Arrive by train/flight', 'Check into hotel, relax', 'Evening walk at main attraction', 'Local welcome dinner'] },
+        { title: 'Deep Explore', activities: ['Morning: Top landmark visit', 'Afternoon: Cultural experience', 'Sunset at scenic viewpoint', 'Night market exploration'] },
+        { title: 'Hidden Gems Day', activities: ['Offbeat spot only locals know', 'Local family restaurant lunch', 'Photography walk', 'Rooftop sunset cafe'] },
+        { title: 'Departure', activities: ['Souvenir shopping', 'Final breakfast at local favourite', 'Check out & depart', 'Trip memories captured!'] }
+      ],
+      hotels: [
+        { name: 'Budget Stay Inn', type: 'Guesthouse', stars: 3, price: '₹800' },
+        { name: 'Mid-range Comfort Hotel', type: 'Hotel', stars: 4, price: '₹1,800' },
+        { name: 'Luxury Resort', type: 'Resort', stars: 5, price: '₹4,500' }
+      ],
+      food: [
+        { icon: '🍛', name: 'Local Thali House', type: 'Indian', price: '₹120/meal' },
+        { icon: '☕', name: 'Breezy Cafe', type: 'Cafe', price: '₹200/meal' },
+        { icon: '🍜', name: 'Street Food Hub', type: 'Street Food', price: '₹80/meal' }
+      ]
+    }
+  });
 });
 
 // Start Server

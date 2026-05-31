@@ -182,7 +182,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /// ================= AUTHENTICATION SERVICES =================
 
-const API_URL = 'http://localhost:5001';
+
 let loginAttempts = 0;
 const maxAttempts = 5;
 let lockoutUntil = 0;
@@ -286,7 +286,7 @@ async function checkAuthSession() {
     
     // Attempt syncing data with backend MongoDB if online
     try {
-      const response = await fetch(`${API_URL}/api/user/sync`, {
+      const response = await fetch(`${BACKEND_URL}/api/user/sync`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -390,7 +390,7 @@ async function handleLogin() {
 
   // Attempt backend API login first
   try {
-    const response = await fetch(`${API_URL}/api/auth/login`, {
+    const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password: pass })
@@ -518,7 +518,7 @@ async function handleRegister() {
 
   // Attempt backend API registration
   try {
-    const response = await fetch(`${API_URL}/api/auth/register`, {
+    const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password: pass })
@@ -590,7 +590,7 @@ async function handleRegister() {
 async function handleGoogleAuthCallback(response) {
   showToast('Authenticating via Google…', 'ok');
   try {
-    const res = await fetch(`${API_URL}/api/auth/google`, {
+    const res = await fetch(`${BACKEND_URL}/api/auth/google`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: response.credential })
@@ -927,14 +927,17 @@ function plotCurrentTempleFilter() {
   activeMarkers.forEach(m => map.removeLayer(m));
   activeMarkers = [];
   
-  const tierName = currentUser ? currentUser.membershipTier : "Free Explorer";
-  const isFree = !tierName.includes("Standard") && !tierName.includes("Pro") && !tierName.includes("Admin");
+  // ── FREE TEMPLE ACCESS (temples, Char Dham & Jyotirlingas are free for all plans) ──
+  // To re-enable paywall, uncomment the lines marked [PAYWALL] below
+  // const tierName = currentUser ? currentUser.membershipTier : "Free Explorer"; // [PAYWALL]
+  // const isFree = !tierName.includes("Standard") && !tierName.includes("Pro") && !tierName.includes("Admin"); // [PAYWALL]
   
   let plottedCount = 0;
   temples.forEach(t => {
     if (!t.lat || !t.lng) return;
     plottedCount++;
-    const isLocked = isFree && (plottedCount > 3);
+    // const isLocked = isFree && (plottedCount > 3); // [PAYWALL] — commented out for free access
+    const isLocked = false; // All temples freely accessible
     
     let color;
     if (isLocked) {
@@ -983,8 +986,10 @@ function renderTemplesList(filter) {
     return;
   }
   
-  const tierName = currentUser ? currentUser.membershipTier : "Free Explorer";
-  const isFree = !tierName.includes("Standard") && !tierName.includes("Pro") && !tierName.includes("Admin");
+  // ── FREE TEMPLE ACCESS (temples, Char Dham & Jyotirlingas are free for all plans) ──
+  // To re-enable paywall, uncomment the lines marked [PAYWALL] below
+  // const tierName = currentUser ? currentUser.membershipTier : "Free Explorer"; // [PAYWALL]
+  // const isFree = !tierName.includes("Standard") && !tierName.includes("Pro") && !tierName.includes("Admin"); // [PAYWALL]
   
   const byState = {};
   temples.forEach(t => {
@@ -1002,7 +1007,8 @@ function renderTemplesList(filter) {
     
     byState[state].sort((a, b) => b.fameScore - a.fameScore).forEach(temple => {
       renderedCount++;
-      const isLocked = isFree && (renderedCount > 3);
+      // const isLocked = isFree && (renderedCount > 3); // [PAYWALL] — commented out for free access
+      const isLocked = false; // All temples freely accessible
       
       const badges = [];
       if (temple.isCharDham) badges.push('<span style="font-size:0.6rem;background:rgba(255,215,0,0.2);color:#FFD700;border:1px solid rgba(255,215,0,0.4);padding:2px 6px;border-radius:10px;">🕍 Char Dham</span>');
@@ -2606,7 +2612,7 @@ let routeEndMarker = null;
 let routeStartCountry = "";
 let routeEndCountry = "";
 
-window.addEventListener('DOMContentLoaded', () => {
+function initCustomRoutingEvents() {
   const startInput = document.getElementById('routeStartInput');
   const endInput = document.getElementById('routeEndInput');
 
@@ -2647,13 +2653,19 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCustomRoutingEvents);
+} else {
+  initCustomRoutingEvents();
+}
 
 async function fetchSuggestions(query, type) {
   try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`);
+    const res = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`);
     const data = await res.json();
-    renderSuggestions(data, type);
+    renderSuggestions(data.results || [], type);
   } catch (e) {
     console.error("Geocoding failed", e);
   }
@@ -2674,31 +2686,36 @@ function renderSuggestions(data, type) {
   data.forEach(place => {
     const el = document.createElement('div');
     el.className = 'suggestion-item';
-    el.textContent = place.display_name;
+    
+    // Construct a beautiful display name
+    let displayName = place.name;
+    if (place.admin1) displayName += `, ${place.admin1}`;
+    if (place.country) displayName += `, ${place.country}`;
+    
+    el.textContent = displayName;
     el.onclick = () => {
-      input.value = place.display_name.split(',')[0];
-      const parts = place.display_name.split(',');
-      const countryName = parts[parts.length - 1].trim();
+      input.value = place.name;
+      const countryName = place.country || "";
       
       if (type === 'start') {
         routeStartCountry = countryName;
-        routeStartLatLng = L.latLng(place.lat, place.lon);
+        routeStartLatLng = L.latLng(place.latitude, place.longitude);
         if (routeStartMarker) {
           map.removeLayer(routeStartMarker);
         }
-        routeStartMarker = L.marker(routeStartLatLng).addTo(map).bindPopup("Start: " + place.display_name.split(',')[0]).openPopup();
+        routeStartMarker = L.marker(routeStartLatLng).addTo(map).bindPopup("Start: " + place.name).openPopup();
       } else {
         routeEndCountry = countryName;
-        routeEndLatLng = L.latLng(place.lat, place.lon);
+        routeEndLatLng = L.latLng(place.latitude, place.longitude);
         if (routeEndMarker) {
           map.removeLayer(routeEndMarker);
         }
-        routeEndMarker = L.marker(routeEndLatLng).addTo(map).bindPopup("Destination: " + place.display_name.split(',')[0]).openPopup();
+        routeEndMarker = L.marker(routeEndLatLng).addTo(map).bindPopup("Destination: " + place.name).openPopup();
       }
       container.style.display = 'none';
       
       if (typeof map !== 'undefined' && map) {
-        map.setView([place.lat, place.lon], 14, { animate: true });
+        map.setView([place.latitude, place.longitude], 14, { animate: true });
       }
     };
     container.appendChild(el);
@@ -3179,6 +3196,30 @@ function updateRouteStats(distanceMeters, timeSeconds) {
 
 function toggleRoutePlannerPanel() {
   const panel = document.getElementById('customRoutingPanel');
+  
+  // If manual planner is already open, close it instead of showing the modal
+  if (panel && panel.style.display === 'flex') {
+    openManualPlanner(); // This will toggle it closed
+    return;
+  }
+
+  // Show the planner selection modal first
+  const selModal = document.getElementById('plannerSelectionModal');
+  if (selModal) {
+    selModal.style.display = 'flex';
+    setTimeout(() => selModal.classList.add('modal-visible'), 10);
+    return;
+  }
+  // Fallback: open manual planner directly if modal not found
+  openManualPlanner();
+}
+window.toggleRoutePlannerPanel = toggleRoutePlannerPanel;
+
+function openManualPlanner() {
+  // Close selection modal if open
+  closePlannerSelectionModal();
+  
+  const panel = document.getElementById('customRoutingPanel');
   const btn = document.getElementById('toggleRoutePlannerBtn');
   if (!panel || !btn) return;
   
@@ -3188,15 +3229,333 @@ function toggleRoutePlannerPanel() {
     btn.style.borderColor = '#00f2ff';
     btn.style.color = '#ffffff';
     btn.style.textShadow = '0 0 10px rgba(0, 242, 255, 0.8)';
-    showNotification("Opened Route Planner & Road Trip Organizer", "info");
+    showNotification("Opened Manual Route Planner", "info");
   } else {
     panel.style.display = 'none';
     btn.style.background = 'rgba(0, 242, 255, 0.08)';
     btn.style.borderColor = 'rgba(0, 242, 255, 0.4)';
     btn.style.color = '#00f2ff';
     btn.style.textShadow = '0 0 8px rgba(0, 242, 255, 0.4)';
-    showNotification("Hidden Route Planner Panel", "info");
     clearRoutingPlanner();
   }
 }
-window.toggleRoutePlannerPanel = toggleRoutePlannerPanel;
+window.openManualPlanner = openManualPlanner;
+
+function closePlannerSelectionModal() {
+  const selModal = document.getElementById('plannerSelectionModal');
+  if (selModal) {
+    selModal.classList.remove('modal-visible');
+    setTimeout(() => { selModal.style.display = 'none'; }, 300);
+  }
+}
+window.closePlannerSelectionModal = closePlannerSelectionModal;
+
+// ==========================================
+// INTEGRATED AURA AI ASSISTANT LOGIC
+// ==========================================
+
+let integratedAuraHistory = [];
+let isAuraLoading = false;
+let auraRecognition = null;
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\n/g, '<br>');
+}
+
+function openIntegratedAura() {
+  closePlannerSelectionModal();
+  const panel = document.getElementById('integratedAuraPanel');
+  if (panel) {
+    panel.style.display = 'flex';
+    // Ensure icon exists
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+    showNotification("Aura Assistant Ready", "info");
+  }
+}
+window.openIntegratedAura = openIntegratedAura;
+
+function closeIntegratedAura() {
+  const panel = document.getElementById('integratedAuraPanel');
+  if (panel) panel.style.display = 'none';
+}
+window.closeIntegratedAura = closeIntegratedAura;
+
+function toggleExpandIntegratedAura() {
+  const panel = document.getElementById('integratedAuraPanel');
+  const chatWindow = document.getElementById('integratedAuraChatWindow');
+  const icon = document.getElementById('auraExpandIcon');
+  
+  if (!panel) return;
+  
+  const isExpanded = panel.style.width === '500px';
+  
+  if (isExpanded) {
+    // Collapse
+    panel.style.width = '340px';
+    panel.style.height = 'auto';
+    if(chatWindow) {
+      chatWindow.style.minHeight = '250px';
+      chatWindow.style.maxHeight = '400px';
+    }
+    if (icon) {
+      icon.setAttribute('data-lucide', 'maximize-2');
+    }
+  } else {
+    // Expand
+    panel.style.width = '500px';
+    if(chatWindow) {
+      chatWindow.style.minHeight = '450px';
+      chatWindow.style.maxHeight = '600px';
+    }
+    if (icon) {
+      icon.setAttribute('data-lucide', 'minimize-2');
+    }
+  }
+  
+  if(typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sendIntegratedAuraQuick(text) {
+  const input = document.getElementById('integratedAuraInput');
+  if (input) {
+    input.value = text;
+    sendIntegratedAuraMessage();
+  }
+}
+window.sendIntegratedAuraQuick = sendIntegratedAuraQuick;
+window.toggleExpandIntegratedAura = toggleExpandIntegratedAura;
+
+function handleIntegratedAuraKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendIntegratedAuraMessage();
+  }
+}
+window.handleIntegratedAuraKeydown = handleIntegratedAuraKeydown;
+
+function toggleAuraVoiceInput() {
+  const micBtn = document.getElementById('auraMicBtn');
+  const input = document.getElementById('integratedAuraInput');
+  
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    showNotification("Voice input is not supported in your browser.", "error");
+    return;
+  }
+  
+  if (!auraRecognition) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    auraRecognition = new SpeechRecognition();
+    auraRecognition.continuous = false;
+    auraRecognition.interimResults = true;
+    
+    auraRecognition.onstart = function() {
+      if(micBtn) micBtn.style.color = 'var(--tier-red)';
+      if(input) input.placeholder = "Listening...";
+    };
+    
+    auraRecognition.onresult = function(event) {
+      let final_transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          final_transcript += event.results[i][0].transcript;
+        }
+      }
+      if (final_transcript && input) {
+        input.value = final_transcript;
+        setTimeout(() => sendIntegratedAuraMessage(), 500);
+      }
+    };
+    
+    auraRecognition.onerror = function(event) {
+      if(micBtn) micBtn.style.color = 'var(--text-secondary)';
+      if(input) input.placeholder = "Ask Aura...";
+      console.error("Speech recognition error", event.error);
+    };
+    
+    auraRecognition.onend = function() {
+      if(micBtn) micBtn.style.color = 'var(--text-secondary)';
+      if(input) input.placeholder = "Ask Aura...";
+    };
+  }
+  
+  try {
+    auraRecognition.start();
+  } catch(e) {
+    auraRecognition.stop();
+  }
+}
+window.toggleAuraVoiceInput = toggleAuraVoiceInput;
+
+async function sendIntegratedAuraMessage() {
+  const input = document.getElementById('integratedAuraInput');
+  if(!input) return;
+  const message = input.value.trim();
+  if (!message || isAuraLoading) return;
+  
+  input.value = '';
+  input.style.height = 'auto';
+  
+  appendAuraMessage('user', message);
+  integratedAuraHistory.push({ role: 'user', content: message });
+  
+  const typingId = showAuraTyping();
+  isAuraLoading = true;
+  const sendBtn = document.getElementById('integratedAuraSendBtn');
+  if(sendBtn) sendBtn.style.opacity = '0.5';
+  
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/aura/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, history: integratedAuraHistory.slice(-6) })
+    });
+    
+    removeAuraTyping(typingId);
+    
+    if (response.ok) {
+      const data = await response.json();
+      integratedAuraHistory.push({ role: 'assistant', content: JSON.stringify(data) });
+      renderLightweightAuraResponse(data);
+    } else {
+      appendAuraMessage('aura', "I'm having trouble connecting to my servers right now.");
+    }
+  } catch (err) {
+    removeAuraTyping(typingId);
+    appendAuraMessage('aura', "Network error. Please make sure the server is running.");
+  }
+  
+  isAuraLoading = false;
+  if(sendBtn) sendBtn.style.opacity = '1';
+}
+window.sendIntegratedAuraMessage = sendIntegratedAuraMessage;
+
+function appendAuraMessage(sender, textHtml) {
+  const chatWindow = document.getElementById('integratedAuraChatWindow');
+  if (!chatWindow) return;
+  
+  const div = document.createElement('div');
+  div.style.display = 'flex';
+  div.style.gap = '8px';
+  div.style.animation = 'fadeIn 0.3s ease';
+  
+  if (sender === 'user') {
+    div.style.flexDirection = 'row-reverse';
+    div.innerHTML = `
+      <div style="background:rgba(59,130,246,0.2); border:1px solid rgba(59,130,246,0.3); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:var(--tier-blue);">You</div>
+      <div style="background:rgba(59,130,246,0.12); padding:8px 12px; border-radius:12px 0 12px 12px; color:white; border:1px solid rgba(59,130,246,0.2); line-height:1.4;">
+        ${escapeHtml(textHtml)}
+      </div>
+    `;
+  } else {
+    div.innerHTML = `
+      <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:white; box-shadow:0 2px 8px rgba(139,92,246,0.3);">✨</div>
+      <div style="background:rgba(255,255,255,0.05); padding:10px 12px; border-radius:0 12px 12px 12px; color:var(--text-primary); border:1px solid var(--border-glass); line-height:1.4;">
+        ${textHtml}
+      </div>
+    `;
+  }
+  
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function showAuraTyping() {
+  const chatWindow = document.getElementById('integratedAuraChatWindow');
+  if(!chatWindow) return null;
+  const id = 'typing-' + Date.now();
+  const div = document.createElement('div');
+  div.id = id;
+  div.style.display = 'flex';
+  div.style.gap = '8px';
+  div.innerHTML = `
+    <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:white; box-shadow:0 2px 8px rgba(139,92,246,0.3);">✨</div>
+    <div style="background:rgba(255,255,255,0.05); padding:8px 12px; border-radius:0 12px 12px 12px; color:var(--text-primary); border:1px solid var(--border-glass); display:flex; align-items:center; gap:4px;">
+      <span style="width:6px;height:6px;background:var(--tier-blue);border-radius:50%;animation:pulse 1.4s infinite ease-in-out;opacity:0.4;"></span>
+      <span style="width:6px;height:6px;background:var(--tier-blue);border-radius:50%;animation:pulse 1.4s infinite ease-in-out 0.2s;opacity:0.4;"></span>
+      <span style="width:6px;height:6px;background:var(--tier-blue);border-radius:50%;animation:pulse 1.4s infinite ease-in-out 0.4s;opacity:0.4;"></span>
+    </div>
+  `;
+  chatWindow.appendChild(div);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+  return id;
+}
+
+function removeAuraTyping(id) {
+  if(!id) return;
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function renderLightweightAuraResponse(data) {
+  const type = data.type || 'general';
+  let html = '';
+  
+  if (type === 'trip_plan' && data.data) {
+    const t = data.data.trip || {};
+    html = `<div style="margin-bottom:8px;"><strong>${escapeHtml(t.title || 'Trip Plan')}</strong></div>
+            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:8px;">${escapeHtml(t.description || '')}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px;">
+              ${t.destination ? `<span style="background:rgba(59,130,246,0.15); color:var(--tier-blue); padding:2px 8px; border-radius:4px; font-size:0.7rem;">📍 ${escapeHtml(t.destination)}</span>` : ''}
+              ${t.duration ? `<span style="background:rgba(59,130,246,0.15); color:var(--tier-blue); padding:2px 8px; border-radius:4px; font-size:0.7rem;">📅 ${escapeHtml(t.duration)}</span>` : ''}
+              ${t.totalBudget ? `<span style="background:rgba(59,130,246,0.15); color:var(--tier-blue); padding:2px 8px; border-radius:4px; font-size:0.7rem;">💰 ${escapeHtml(t.totalBudget)}</span>` : ''}
+            </div>
+            <div style="font-size:0.75rem; border-top:1px solid var(--border-glass); padding-top:8px; color:var(--tier-blue); cursor:pointer;" onclick="window.location.href='aura.html'">
+              Open Aura Pro for full itinerary & hotels &rarr;
+            </div>`;
+            
+    // Plot destination on map if found
+    if (t.destination) {
+       searchAndPlotDestination(t.destination);
+    }
+  } else if (type === 'comparison' && data.data) {
+    const routes = data.data.routes || [];
+    html = `<div style="margin-bottom:8px;"><strong>${escapeHtml(data.data.from)} &rarr; ${escapeHtml(data.data.to)}</strong></div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+            ${routes.map(r => `
+              <div style="background:rgba(0,0,0,0.2); padding:6px; border-radius:6px; font-size:0.75rem; border-left:2px solid ${r.recommended?'var(--tier-blue)':'var(--border-glass)'};">
+                <strong>${r.icon} ${escapeHtml(r.mode)}</strong>: ${escapeHtml(r.cost)} (${escapeHtml(r.duration)})
+              </div>
+            `).join('')}
+            </div>
+            <div style="font-size:0.75rem; margin-top:8px; color:var(--text-secondary);">${escapeHtml(data.data.recommendation)}</div>`;
+  } else if (type === 'budget' && data.data) {
+    const items = data.data.items || [];
+    html = `<div style="margin-bottom:8px;"><strong>Budget Estimate</strong></div>
+            <div style="display:flex; flex-direction:column; gap:4px; font-size:0.8rem;">
+            ${items.map(i => `
+              <div style="display:flex; justify-content:space-between;">
+                <span>${i.icon} ${escapeHtml(i.label)}</span>
+                <strong>${escapeHtml(i.amount)}</strong>
+              </div>
+            `).join('')}
+            </div>`;
+  } else {
+    html = `<div>${escapeHtml(data.message || data.text || 'I can help with that! Please be more specific about your destination.')}</div>`;
+  }
+  
+  appendAuraMessage('aura', html);
+}
+
+async function searchAndPlotDestination(destName) {
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destName)}`);
+    const results = await res.json();
+    if (results && results.length > 0) {
+      const lat = parseFloat(results[0].lat);
+      const lon = parseFloat(results[0].lon);
+      if(map) {
+         map.setView([lat, lon], 10);
+         showNotification(`Moved map to ${destName}`, "info");
+      }
+    }
+  } catch(e) {
+    console.error('Failed to geocode destination', e);
+  }
+}
+

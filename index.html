@@ -1808,6 +1808,10 @@
         grid-template-columns: 1fr;
       }
 
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
       .about-grid {
         grid-template-columns: 1fr;
       }
@@ -1913,10 +1917,11 @@
     </div>
 
     <ul class="navbar-links">
-      <li><a href="#features">Features</a></li>
+      <li><a href="#" onclick="openFeaturesModal(event)">Features</a></li>
+      <li><a href="#" onclick="openAuraModal(event)" style="color: #a78bfa; font-weight: 600;">✨ Aura AI</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#tiers">Fame Tiers</a></li>
-      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#" onclick="openPricingModal(event)">Pricing</a></li>
     </ul>
 
     <div class="navbar-actions">
@@ -1938,12 +1943,12 @@
     </button>
   </nav>
 
-  <!-- Mobile Nav Menu -->
   <div class="mobile-nav-menu" id="mobileNavMenu">
-    <a href="#features" onclick="closeMobileMenu()">Features</a>
+    <a href="#" onclick="openFeaturesModal(event); closeMobileMenu();">Features</a>
+    <a href="#" onclick="openAuraModal(event); closeMobileMenu();" style="color: #a78bfa; font-weight: 600;">✨ Aura AI</a>
     <a href="#about" onclick="closeMobileMenu()">About</a>
     <a href="#tiers" onclick="closeMobileMenu()">Fame Tiers</a>
-    <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <a href="#" onclick="openPricingModal(event); closeMobileMenu();">Pricing</a>
     <div class="mobile-nav-actions">
       <button class="btn btn-ghost" onclick="window.location.href='explorer.html'"
         style="flex:1; justify-content:center;">Sign In</button>
@@ -2056,173 +2061,192 @@
   </section>
 
 
-  <!-- ============== FEATURES SECTION ============== -->
-  <section class="section section-bg-ph" id="features">
+  <!-- ============== ECOSYSTEM OVERVIEW SECTION ============== -->
+  <section class="section section-bg-ph" id="overview" style="padding: 100px 0; border-bottom: 1px solid var(--border); position: relative; background: #050a14;">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" style="text-align: center; margin-bottom: 60px;">
         <div class="section-tag">
-          <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
-          Features
+          <i data-lucide="compass" style="width: 13px; height: 13px;"></i>
+          The GlobeRoutes Ecosystem
         </div>
-        <h2 class="section-title">Built for True Wanderers</h2>
-        <p class="section-sub" style="margin: 0 auto;">
-          Every feature is designed to help you discover the world in full depth — from UNESCO wonders to that one
-          waterfall nobody knows about.
+        <h2 class="section-title">What is GlobeRoutes?</h2>
+        <p class="section-sub" style="margin: 0 auto; max-width: 680px;">
+          GlobeRoutes integrates the world's most exhaustive tourism index with **Aura AI**—your intelligent companion—to map, plan, and guide your travels down to the smallest hidden gem.
         </p>
       </div>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-card-img"
-            style="background-image: url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80');">
-          </div>
-          <div class="feature-card-body">
-            <div class="feature-icon icon-red">
-              <i data-lucide="map-pin" style="width: 22px; height: 22px;"></i>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;" class="overview-grid">
+        
+        <!-- Left Column: Core Engine -->
+        <div style="
+          background: rgba(13, 21, 32, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); 
+          border-radius: 24px; padding: 40px; backdrop-filter: blur(12px); 
+          display: flex; flex-direction: column; justify-content: space-between;
+        ">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); color: var(--tier-blue); display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="map" style="width: 22px; height: 22px;"></i>
+              </div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #ffffff;">Core Travel Engine</h3>
             </div>
-            <h3>5-Tier Fame Ranking</h3>
-            <p>Attractions are color-graded from globally iconic red-tier wonders down to blue-tier hidden local secrets
-              — see at a glance how popular a spot is.</p>
+            
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px;">
+              Explore the planet city-by-city. Our mapping platform gives you interactive access to tourism spots, historic monuments, and local tips across 195 countries.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px;">
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <i data-lucide="map-pin" style="width: 20px; height: 20px; color: var(--tier-blue); margin-top: 2px; flex-shrink:0;"></i>
+                <div>
+                  <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">5-Tier Fame Index</h4>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">Color-coded rankings from globally iconic monuments to secret local gems.</p>
+                </div>
+              </div>
+              
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <i data-lucide="navigation" style="width: 20px; height: 20px; color: var(--tier-blue); margin-top: 2px; flex-shrink:0;"></i>
+                <div>
+                  <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Sequential City-Hops</h4>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">Hop sequentially between cities to unlock local food, culture, and transit guides.</p>
+                </div>
+              </div>
+              
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <i data-lucide="book-open" style="width: 20px; height: 20px; color: var(--tier-blue); margin-top: 2px; flex-shrink:0;"></i>
+                <div>
+                  <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Personal Travel Journal</h4>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">Check in to attractions, catalog your travel milestones, and earn Pathmaker badges.</p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <button onclick="openFeaturesModal(event)" class="btn btn-outline" style="align-self: flex-start; gap: 8px;">
+            Explore All Features <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </button>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card-img"
-            style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80');">
-          </div>
-          <div class="feature-card-body">
-            <div class="feature-icon icon-blue">
-              <i data-lucide="git-branch" style="width: 22px; height: 22px;"></i>
+        <!-- Right Column: Aura AI -->
+        <div style="
+          background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139, 92, 246, 0.15); 
+          border-radius: 24px; padding: 40px; backdrop-filter: blur(12px);
+          display: flex; flex-direction: column; justify-content: space-between;
+          position: relative; overflow: hidden;
+        ">
+          <!-- Glow Orb -->
+          <div style="position: absolute; top: -10%; right: -10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%); pointer-events: none; z-index: 0;"></div>
+          
+          <div style="position: relative; z-index: 1;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 1.3rem;">✨</span>
+              </div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #ffffff;">Aura AI Companion</h3>
             </div>
-            <h3>City-by-City Travel Mode</h3>
-            <p>Hop through cities in sequence within a country. Each hop reveals new tourism spots, regional cuisine
-              tips, and local transit guides.</p>
+            
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px;">
+              Your intelligent pilot. Powered by next-gen LLMs to dynamically synthesize custom travel plans, estimate budgets, and solve routes in seconds.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px;">
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <span style="font-size: 1.25rem; margin-top: 1px; flex-shrink:0;">🧠</span>
+                <div>
+                  <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Procedural Itineraries</h4>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">Generate instant day-by-day itineraries custom-matched to your pacing and interests.</p>
+                </div>
+              </div>
+              
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <span style="font-size: 1.25rem; margin-top: 1px; flex-shrink:0;">💰</span>
+                <div>
+                  <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Smart Budget Estimates</h4>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">Receive automatic expense breakdowns covering hotels, activities, food, and emergency funds.</p>
+                </div>
+              </div>
+              
+              <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <span style="font-size: 1.25rem; margin-top: 1px; flex-shrink:0;">🧭</span>
+                <div>
+                  <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Route & Hotel Intelligence</h4>
+                  <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">AI comparative routing across train, air, road, plus curated hotel matches.</p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <button onclick="openAuraModal(event)" class="btn btn-primary" style="
+            align-self: flex-start; gap: 8px; background: linear-gradient(135deg, #8b5cf6, #3b82f6); 
+            border: none; color: #ffffff; box-shadow: 0 4px 20px rgba(139,92,246,0.3);
+          ">
+            Meet Aura AI <span style="font-size: 1rem;">✨</span>
+          </button>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-card-img"
-            style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80');">
-          </div>
-          <div class="feature-card-body">
-            <div class="feature-icon icon-green">
-              <i data-lucide="cpu" style="width: 22px; height: 22px;"></i>
-            </div>
-            <h3>Infinite City Synthesis</h3>
-            <p>Search any city on Earth — even tiny towns. The engine procedurally generates realistic POIs with
-              coordinates, descriptions, and ratings.</p>
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-card-img"
-            style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80');">
-          </div>
-          <div class="feature-card-body">
-            <div class="feature-icon icon-orange">
-              <i data-lucide="book-open" style="width: 22px; height: 22px;"></i>
-            </div>
-            <h3>Personal Travel Journal</h3>
-            <p>Check in at landmarks you've visited and build your travel timeline. Earn pathfinder badges and track
-              your world exploration progress.</p>
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-card-img"
-            style="background-image: url('https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=800&q=80');">
-          </div>
-          <div class="feature-card-body">
-            <div class="feature-icon icon-purple">
-              <i data-lucide="search" style="width: 22px; height: 22px;"></i>
-            </div>
-            <h3>Global Smart Search</h3>
-            <p>Instantly search across all countries, cities, and attractions with autocomplete. Filter by tier,
-              category, and entry cost on the fly.</p>
-          </div>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-card-img"
-            style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80');">
-          </div>
-          <div class="feature-card-body">
-            <div class="feature-icon icon-yellow">
-              <i data-lucide="layers" style="width: 22px; height: 22px;"></i>
-            </div>
-            <h3>Live Interactive Map</h3>
-            <p>Color-coded markers on a real Leaflet map show all attractions in a city. Click any marker to get full
-              attraction details, hours & tips.</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
 
   <!-- ============== FAME TIERS SECTION ============== -->
-  <section class="section section-bg-ph" id="tiers">
+  <section class="section section-bg-ph" id="tiers" style="padding: 100px 0; background: var(--section-bg); position: relative;">
     <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+      <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center;">
         <div>
-          <div class="section-tag">
+          <div class="section-tag" style="margin-bottom: 16px;">
             <i data-lucide="bar-chart-2" style="width: 13px; height: 13px;"></i>
             Discovery Ranking System
           </div>
-          <h2 class="section-title">From World Icons<br>to Hidden Secrets</h2>
-          <p class="section-sub">
+          <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 16px; color: var(--text-primary);">From World Icons<br>to Hidden Secrets</h2>
+          <p class="section-sub" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
             Every attraction on GlobeRoutes is scored and color-coded by its global fame level. Free users access tiers
             1–4. Pro users unlock all 5, including the rarest hidden gems.
           </p>
         </div>
 
-        <div class="tier-showcase">
-          <div class="tier-row">
+        <div class="tier-showcase" style="margin-top: 0;">
+          <div class="tier-row" style="padding: 12px 16px; margin-bottom: 8px;">
             <div class="tier-dot" style="background: #ef4444; box-shadow: 0 0 10px rgba(239,68,68,0.5);"></div>
             <div class="tier-info">
-              <div class="tier-name">Tier 1 — World Icons</div>
-              <div class="tier-desc">Globally recognized, must-see monuments</div>
-              <div class="tier-examples">Eiffel Tower · Taj Mahal · Colosseum · Great Wall</div>
+              <div class="tier-name" style="font-size: 0.95rem;">Tier 1 — World Icons</div>
+              <div class="tier-desc" style="font-size: 0.8rem;">Globally recognized, must-see monuments</div>
             </div>
             <div class="tier-count">Free</div>
           </div>
 
-          <div class="tier-row">
+          <div class="tier-row" style="padding: 12px 16px; margin-bottom: 8px;">
             <div class="tier-dot" style="background: #f97316; box-shadow: 0 0 10px rgba(249,115,22,0.5);"></div>
             <div class="tier-info">
-              <div class="tier-name">Tier 2 — National Landmarks</div>
-              <div class="tier-desc">Famous within their country and region</div>
-              <div class="tier-examples">Amer Fort · Versailles Gardens · Lake Bled</div>
+              <div class="tier-name" style="font-size: 0.95rem;">Tier 2 — National Landmarks</div>
+              <div class="tier-desc" style="font-size: 0.8rem;">Famous within their country and region</div>
             </div>
             <div class="tier-count">Free</div>
           </div>
 
-          <div class="tier-row">
+          <div class="tier-row" style="padding: 12px 16px; margin-bottom: 8px;">
             <div class="tier-dot" style="background: #eab308; box-shadow: 0 0 10px rgba(234,179,8,0.5);"></div>
             <div class="tier-info">
-              <div class="tier-name">Tier 3 — Regional Stars</div>
-              <div class="tier-desc">Beloved by locals and regional travelers</div>
-              <div class="tier-examples">Montmartre Steps · Mysore Palace Gardens</div>
+              <div class="tier-name" style="font-size: 0.95rem;">Tier 3 — Regional Stars</div>
+              <div class="tier-desc" style="font-size: 0.8rem;">Beloved by locals and regional travelers</div>
             </div>
             <div class="tier-count">Free</div>
           </div>
 
-          <div class="tier-row">
+          <div class="tier-row" style="padding: 12px 16px; margin-bottom: 8px;">
             <div class="tier-dot" style="background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.5);"></div>
             <div class="tier-info">
-              <div class="tier-name">Tier 4 — Locally Famous</div>
-              <div class="tier-desc">Well-known in their city or district</div>
-              <div class="tier-examples">Rue Crémieux · Meiji Shrine side trails</div>
+              <div class="tier-name" style="font-size: 0.95rem;">Tier 4 — Locally Famous</div>
+              <div class="tier-desc" style="font-size: 0.8rem;">Well-known in their city or district</div>
             </div>
             <div class="tier-count">Free</div>
           </div>
 
-          <div class="tier-row" style="border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.06);">
+          <div class="tier-row" style="border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.06); padding: 12px 16px; margin-bottom: 8px;">
             <div class="tier-dot" style="background: #3b82f6; box-shadow: 0 0 10px rgba(59,130,246,0.6);"></div>
             <div class="tier-info">
-              <div class="tier-name">Tier 5 — Hidden Gems</div>
-              <div class="tier-desc">Secret spots almost no tourist knows</div>
-              <div class="tier-examples">Unnamed viewpoints · Alley shrines · Cave pools</div>
+              <div class="tier-name" style="font-size: 0.95rem;">Tier 5 — Hidden Gems</div>
+              <div class="tier-desc" style="font-size: 0.8rem;">Secret spots almost no tourist knows</div>
             </div>
             <div class="tier-count" style="color: var(--tier-blue);">
               <i data-lucide="lock" style="width: 14px; height: 14px;"></i> Pro
@@ -2338,16 +2362,472 @@
   </section>
 
 
-  <!-- ============== PRICING SECTION ============== -->
-  <section class="section section-bg-prem" id="pricing">
+  <!-- ============== PRICING SECTION removed from flow and moved to Modal below ============== -->
+
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="footer footer-bg-prem">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="navbar-logo" style="margin-bottom: 12px;">
+            <div class="logo-icon">
+              <i data-lucide="compass" style="width: 18px; height: 18px; stroke: white; stroke-width: 2.5;"></i>
+            </div>
+            Globe<span>Routes</span>
+          </div>
+          <p>The world's most comprehensive tourism mapping platform. From iconic wonders to hidden gems — every city,
+            every tier.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#" onclick="openFeaturesModal(event)">Features</a></li>
+            <li><a href="#" onclick="openAuraModal(event)" style="color: #a78bfa; font-weight: 600;">✨ Aura AI</a></li>
+            <li><a href="#" onclick="openTiersModal(event)">Fame Tiers</a></li>
+            <li><a href="#" onclick="openPricingModal(event)">Pricing</a></li>
+            <li><a href="explorer.html">Launch App</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 GlobeRoutes Travel Technologies. All rights reserved.</span>
+        <span>Built for explorers, by explorer.</span>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+  <!-- ============== SCRIPTS ============== -->
+  <!-- ============== AURA MODAL ============== -->
+  <div id="auraModal" style="
+    display: none; position: fixed; inset: 0; background: rgba(5, 10, 20, 0.85); 
+    z-index: 9999; backdrop-filter: blur(12px); align-items: center; justify-content: center;
+  ">
+    <div style="
+      background: #0d1520; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; 
+      padding: 40px; max-width: 1000px; width: 92%; max-height: 90vh; overflow-y: auto; 
+      position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    ">
+      <button onclick="document.getElementById('auraModal').style.display='none'" style="
+        position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.1); 
+        border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; 
+        font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        z-index: 10;
+      ">&times;</button>
+      
+      <!-- Flex Layout for Text (Left) and 3D Boy Image (Right) -->
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 56px; flex-wrap: wrap; text-align: left;">
+        
+        <!-- Left Side: Text Content -->
+        <div style="flex: 1; min-width: 320px;">
+          <div style="
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px; border-radius: 999px; margin-bottom: 24px;
+            background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3);
+            font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+            color: #a78bfa;
+          ">
+            <span style="font-size:1rem;">✨</span> Introducing Aura Pro
+          </div>
+
+          <h2 style="
+            font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900; line-height: 1.1; margin-bottom: 20px;
+            background: linear-gradient(135deg, #e879f9 0%, #a78bfa 40%, #60a5fa 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+          ">Meet Aura Pro</h2>
+
+          <p style="
+            font-size: 1.1rem; color: rgba(180,200,240,0.85); max-width: 560px;
+            margin: 0 0 16px; line-height: 1.7; font-weight: 500;
+          ">Your intelligent travel companion built directly into GlobeRoutes.</p>
+          <p style="
+            font-size: 0.95rem; color: rgba(140,170,220,0.7); max-width: 520px;
+            margin: 0; line-height: 1.6;
+          ">Plan trips faster, discover hidden gems, estimate budgets, compare routes, and receive personalized
+            itineraries powered by AI.</p>
+        </div>
+
+        <!-- Right Side: 3D Boy Image -->
+        <div style="flex: 1; min-width: 320px; display: flex; justify-content: center; align-items: center; position: relative;">
+          <!-- Using the new bg/auraaa.jpeg image with a floating animation and blend mode for transparency -->
+          <img src="bg/auraaa.jpeg" alt="Aura 3D Boy" style="
+            max-width: 100%; height: auto; max-height: 420px;
+            mix-blend-mode: lighten;
+            mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 100%);
+            animation: float-boy 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 40px rgba(139,92,246,0.2));
+          ">
+        </div>
+      </div>
+
+      <!-- Aura feature cards grid -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 56px;
+      " class="aura-cards-grid">
+
+        <!-- Card 1 -->
+        <div class="aura-feat-card" onclick="window.location.href='aura.html'">
+          <div class="aura-feat-icon"
+            style="background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.05)); border-color: rgba(139,92,246,0.3);">
+            <span style="font-size:1.5rem;">🧠</span>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px;">Smart Trip Planning</h3>
+          <p style="font-size:0.83rem;color:rgba(148,163,184,0.85);line-height:1.55;">Build complete day-wise
+            itineraries with transport, hotels & food in seconds.</p>
+          <div class="aura-card-glow" style="background: rgba(139,92,246,0.15);"></div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="aura-feat-card" onclick="window.location.href='aura.html'">
+          <div class="aura-feat-icon"
+            style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05)); border-color: rgba(16,185,129,0.3);">
+            <span style="font-size:1.5rem;">💰</span>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px;">Budget Estimation</h3>
+          <p style="font-size:0.83rem;color:rgba(148,163,184,0.85);line-height:1.55;">Get a full breakdown — travel,
+            hotels, food, activities, and emergency buffer.</p>
+          <div class="aura-card-glow" style="background: rgba(16,185,129,0.15);"></div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="aura-feat-card" onclick="window.location.href='aura.html'">
+          <div class="aura-feat-icon"
+            style="background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.05)); border-color: rgba(59,130,246,0.3);">
+            <span style="font-size:1.5rem;">🗺️</span>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px;">Route Intelligence</h3>
+          <p style="font-size:0.83rem;color:rgba(148,163,184,0.85);line-height:1.55;">Compare train, flight, bus, taxi &
+            road across cost, time & comfort scores.</p>
+          <div class="aura-card-glow" style="background: rgba(59,130,246,0.15);"></div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="aura-feat-card" onclick="window.location.href='aura.html'">
+          <div class="aura-feat-icon"
+            style="background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05)); border-color: rgba(245,158,11,0.3);">
+            <span style="font-size:1.5rem;">🏨</span>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px;">Hotel Recommendations</h3>
+          <p style="font-size:0.83rem;color:rgba(148,163,184,0.85);line-height:1.55;">AI-curated hotels, hostels &
+            resorts matched to your budget and style.</p>
+          <div class="aura-card-glow" style="background: rgba(245,158,11,0.15);"></div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="aura-feat-card" onclick="window.location.href='aura.html'">
+          <div class="aura-feat-icon"
+            style="background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(236,72,153,0.05)); border-color: rgba(236,72,153,0.3);">
+            <span style="font-size:1.5rem;">🍜</span>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px;">Food Discovery</h3>
+          <p style="font-size:0.83rem;color:rgba(148,163,184,0.85);line-height:1.55;">Restaurants, street food & cafes
+            curated for authentic local experiences.</p>
+          <div class="aura-card-glow" style="background: rgba(236,72,153,0.15);"></div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="aura-feat-card" onclick="window.location.href='aura.html'">
+          <div class="aura-feat-icon"
+            style="background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05)); border-color: rgba(34,197,94,0.3);">
+            <span style="font-size:1.5rem;">📄</span>
+          </div>
+          <h3 style="font-size:1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px;">Downloadable Travel Plans</h3>
+          <p style="font-size:0.83rem;color:rgba(148,163,184,0.85);line-height:1.55;">Export your entire trip as a
+            professional PDF — itinerary, budget & routes.</p>
+          <div class="aura-card-glow" style="background: rgba(34,197,94,0.15);"></div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;">
+        <a href="aura.html" style="
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 16px 40px; border-radius: 999px;
+          background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+          color: #fff; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+          text-decoration: none; box-shadow: 0 8px 32px rgba(139,92,246,0.4);
+          transition: all 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 40px rgba(139,92,246,0.55)';"
+          onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(139,92,246,0.4)';">
+          <span style="font-size:1.1rem;">✨</span> Try Aura Pro — It's Free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </a>
+        <p style="margin-top:14px;font-size:0.82rem;color:rgba(120,150,200,0.6);">No credit card needed · Works in
+          GlobeRoutes Explorer</p>
+      </div>
+    </div>
+    
+    <style>
+      .aura-feat-card {
+        position: relative;
+        padding: 28px 24px;
+        border-radius: 20px;
+        background: rgba(13, 21, 40, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(12px);
+        cursor: pointer;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+      }
+
+      .aura-feat-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(139, 92, 246, 0.35);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+
+      .aura-feat-card:hover .aura-card-glow {
+        opacity: 1;
+      }
+
+      .aura-feat-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        border: 1px solid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        transition: transform 0.3s ease;
+      }
+
+      .aura-feat-card:hover .aura-feat-icon {
+        transform: scale(1.1);
+      }
+
+      .aura-card-glow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 0 0 20px 20px;
+      }
+
+      /* Floating particles */
+      .aura-particle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgba(139, 92, 246, 0.6);
+        bottom: -10px;
+        animation: floatUp 8s ease-in infinite;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 0.6;
+        }
+
+        90% {
+          opacity: 0.2;
+        }
+
+        100% {
+          transform: translateY(-100vh) scale(0.3);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .aura-cards-grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .aura-cards-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
+  </div>
+
+  <!-- ============== FEATURES MODAL ============== -->
+  <div id="featuresModal" style="
+    display: none; position: fixed; inset: 0; background: rgba(5, 10, 20, 0.85); 
+    z-index: 9999; backdrop-filter: blur(12px); align-items: center; justify-content: center;
+  ">
+    <div style="
+      background: #0d1520; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; 
+      padding: 40px; max-width: 1000px; width: 92%; max-height: 90vh; overflow-y: auto; 
+      position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    ">
+      <button onclick="document.getElementById('featuresModal').style.display='none'" style="
+        position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.1); 
+        border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; 
+        font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        z-index: 10;
+      ">&times;</button>
+      
+      <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+        <div class="section-tag" style="display: inline-flex; justify-content: center; margin-bottom: 16px;">
+          <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+          Features
+        </div>
+        <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 12px; color: #ffffff;">Built for True Wanderers</h2>
+        <p class="section-sub" style="margin: 0 auto; color: #8b9ab0; font-size: 0.95rem; max-width: 600px;">
+          Every feature is designed to help you discover the world in full depth — from UNESCO wonders to that one
+          waterfall nobody knows about.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-red">
+              <i data-lucide="map-pin" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>5-Tier Fame Ranking</h3>
+            <p>Attractions are color-graded from globally iconic red-tier wonders down to blue-tier hidden local secrets
+              — see at a glance how popular a spot is.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-blue">
+              <i data-lucide="git-branch" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>City-by-City Travel Mode</h3>
+            <p>Hop through cities in sequence within a country. Each hop reveals new tourism spots, regional cuisine
+              tips, and local transit guides.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-green">
+              <i data-lucide="cpu" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Infinite City Synthesis</h3>
+            <p>Search any city on Earth — even tiny towns. The engine procedurally generates realistic POIs with
+              coordinates, descriptions, and ratings.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-orange">
+              <i data-lucide="book-open" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Personal Travel Journal</h3>
+            <p>Check in at landmarks you've visited and build your travel timeline. Earn pathfinder badges and track
+              your world exploration progress.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-purple">
+              <i data-lucide="search" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Global Smart Search</h3>
+            <p>Instantly search across all countries, cities, and attractions with autocomplete. Filter by tier,
+              category, and entry cost on the fly.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80');">
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-icon icon-yellow">
+              <i data-lucide="layers" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3>Live Interactive Map</h3>
+            <p>Color-coded markers on a real Leaflet map show all attractions in a city. Click any marker to get full
+              attraction details, hours & tips.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== PRICING MODAL ============== -->
+  <div id="pricingModal" style="
+    display: none; position: fixed; inset: 0; background: rgba(5, 10, 20, 0.85); 
+    z-index: 9999; backdrop-filter: blur(12px); align-items: center; justify-content: center;
+  ">
+    <div style="
+      background: #0d1520; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; 
+      padding: 40px; max-width: 1100px; width: 94%; max-height: 90vh; overflow-y: auto; 
+      position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    ">
+      <button onclick="document.getElementById('pricingModal').style.display='none'" style="
+        position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.1); 
+        border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; 
+        font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        z-index: 10;
+      ">&times;</button>
+      
+      <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+        <div class="section-tag" style="display: inline-flex; justify-content: center; margin-bottom: 16px;">
           <i data-lucide="credit-card" style="width: 13px; height: 13px;"></i>
           Pricing
         </div>
-        <h2 class="section-title">Choose Your Plan</h2>
-        <p class="section-sub" style="margin: 0 auto;">
+        <h2 class="section-title" style="font-size: 2.2rem; margin-bottom: 12px; color: #ffffff;">Choose Your Plan</h2>
+        <p class="section-sub" style="margin: 0 auto; color: #8b9ab0; font-size: 0.95rem; max-width: 600px;">
           Start free with flagship countries. Upgrade to Pro for the full world — including Tier 5 hidden gems.
         </p>
       </div>
@@ -2357,7 +2837,7 @@
         <div class="pricing-card">
           <div>
             <div class="plan-name">Free Explorer</div>
-            <div class="plan-desc">Perfect for casual travel planning and exploration.</div>
+            <div class="plan-desc">Perfect for pilgrimage exploration, temples & basic planning.</div>
           </div>
           <div class="plan-price">
             <span class="price-amount">₹0</span>
@@ -2380,13 +2860,17 @@
               <i data-lucide="check" class="feat-icon" style="color: #22c55e;"></i>
               Personal travel journal & check-ins
             </div>
+            <div class="plan-feature">
+              <i data-lucide="check" class="feat-icon" style="color: #22c55e;"></i>
+              All India Temples, Char Dham & Jyotirlingas 🛕
+            </div>
             <div class="plan-feature locked">
               <i data-lucide="x" class="feat-icon" style="color: #ef4444;"></i>
               Tiers 2–5 (Orange, Yellow, Green, Blue)
             </div>
             <div class="plan-feature locked">
               <i data-lucide="x" class="feat-icon" style="color: #ef4444;"></i>
-              Full India Temples & Char Dham lists
+              Pro Premium Countries (Japan, USA, Egypt+)
             </div>
           </div>
           <a href="explorer.html" class="btn btn-outline" style="justify-content: center;">
@@ -2478,67 +2962,52 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-
-  <!-- ============== FOOTER ============== -->
-  <footer class="footer footer-bg-prem">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="navbar-logo" style="margin-bottom: 12px;">
-            <div class="logo-icon">
-              <i data-lucide="compass" style="width: 18px; height: 18px; stroke: white; stroke-width: 2.5;"></i>
-            </div>
-            Globe<span>Routes</span>
-          </div>
-          <p>The world's most comprehensive tourism mapping platform. From iconic wonders to hidden gems — every city,
-            every tier.</p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Product</h4>
-          <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#tiers">Fame Tiers</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="explorer.html">Launch App</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>&copy; 2026 GlobeRoutes Travel Technologies. All rights reserved.</span>
-        <span>Built for explorers, by explorer.</span>
-      </div>
-    </div>
-  </footer>
-
-
-
-
-
-  <!-- ============== SCRIPTS ============== -->
   <script>
+    function openFeaturesModal(e) {
+      e.preventDefault();
+      document.getElementById('featuresModal').style.display = 'flex';
+    }
+
+    function openAuraModal(e) {
+      e.preventDefault();
+      document.getElementById('auraModal').style.display = 'flex';
+    }
+
+    function openPricingModal(e) {
+      e.preventDefault();
+      document.getElementById('pricingModal').style.display = 'flex';
+    }
+
+    // Fame Tiers is an inline section — scroll smoothly to it
+    function openTiersModal(e) {
+      e.preventDefault();
+      const section = document.getElementById('tiers');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Modal click outside to close for features modal
+    document.getElementById('featuresModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Modal click outside to close for aura modal
+    document.getElementById('auraModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Modal click outside to close for pricing modal
+    document.getElementById('pricingModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
     // Init Lucide icons
     lucide.createIcons();
 
@@ -2565,10 +3034,13 @@
 
 
     // ---- SMOOTH SCROLL for hash links ----
+    // Skip bare href="#" links — those are modal triggers with their own onclick handlers
     document.querySelectorAll('a[href^="#"]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
       a.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
