@@ -38,27 +38,56 @@ class AuraConversationalAI {
   /**
    * Main conversation handler
    */
-  async handleUserMessage(userInput) {
-    // Add to memory
+  async handleUserMessage(message) {
+    const userInput = message.trim();
+    if (!userInput) return;
+
+    this.memory.lastUserMessage = userInput;
     this.memory.addMessage('user', userInput);
 
-    // Parse input
+    // Parse user input
     const parsed = this.parser.parse(userInput);
+    
+    // Check what the engine was explicitly expecting before applying this new message
+    const expectedMissing = this.memory.getMissingInformation(this.memory.context.intent || parsed.intent);
 
-    // Context-aware disambiguation for single-word city inputs
-    if (parsed.sourceCity && parsed.destination && parsed.sourceCity === parsed.destination) {
-       const missingBefore = this.memory.getMissingInformation(this.memory.context.intent || parsed.intent);
-       if (missingBefore.includes('sourceCity') && !missingBefore.includes('destination')) {
-          parsed.destination = null; 
-       } else if (missingBefore.includes('destination') && !missingBefore.includes('sourceCity')) {
-          parsed.sourceCity = null; 
-       } else {
-          parsed.sourceCity = null; 
-       }
+    // Phase F: Debug Logging
+    console.log('--- AURA DEBUG LOG ---');
+    console.log('Message:', userInput);
+    console.log('Detected Intent:', parsed.intent || this.memory.context.intent);
+    console.log('Expected Missing (Before):', expectedMissing);
+    console.log('Raw Extracted Entities:', parsed);
+
+    // Phase A & B: Smart Entity Extraction & Context Matching
+    // If the message is short and we are expecting a specific field, force map it
+    const isShortResponse = userInput.split(/\s+/).length <= 4 && !/(to|from|for|under)/i.test(userInput);
+    
+    if (isShortResponse && expectedMissing.length > 0) {
+      const field = expectedMissing[0]; // The specific field we just asked the user for
+      
+      if ((field === 'sourceCity' || field === 'destination') && (!parsed.sourceCity && !parsed.destination)) {
+         parsed[field] = this.parser.normalizeCity(userInput);
+      }
+      if (field === 'budget' && !parsed.budget) {
+         parsed.budget = this.parser.extractBudget(userInput);
+      }
+    }
+
+    // Fix the misattribution bug where sourceCity was captured instead of destination
+    if (parsed.sourceCity && !parsed.destination && expectedMissing.includes('destination') && !expectedMissing.includes('sourceCity')) {
+       parsed.destination = parsed.sourceCity;
+       parsed.sourceCity = null;
+    } else if (parsed.destination && !parsed.sourceCity && expectedMissing.includes('sourceCity') && !expectedMissing.includes('destination')) {
+       parsed.sourceCity = parsed.destination;
+       parsed.destination = null;
     }
 
     // Update context with extracted information
     this.memory.updateContext(parsed);
+    
+    console.log('Updated Session State:', this.memory.context);
+    console.log('Missing Info (After):', this.memory.getMissingInformation());
+    console.log('----------------------');
 
     // Generate response
     let response = '';
@@ -175,15 +204,27 @@ class AuraConversationalAI {
 
       response += `---\n### 💡 Recommendation\n\n`;
       
-      if (comparison.cheapest && comparison.cheapest.type === 'train') {
-        response += `Choose **Train** if cost matters.\n\n`;
+      let bestMode = 'Flight';
+      let reasons = [];
+      
+      if (this.memory.context.transportPreference) {
+          bestMode = this.memory.context.transportPreference;
+          reasons.push(`Matches your preference for ${bestMode}`);
+      } else if (this.memory.context.budget && comparison.cheapest) {
+          bestMode = comparison.cheapest.type;
+          reasons.push(`Lowest cost`);
+          reasons.push(`Suitable for your budget`);
+      } else if (comparison.fastest) {
+          bestMode = comparison.fastest.type;
+          reasons.push(`Fastest travel time`);
       }
-      if (comparison.fastest && comparison.fastest.type === 'flight') {
-        response += `Choose **Flight** if time matters.\n\n`;
-      }
-      if (comparison.routes.find(r => r.type === 'road')) {
-        response += `Choose **Road Trip** if you want flexibility and scenic views.\n\n`;
-      }
+      
+      const bestModeCap = bestMode.charAt(0).toUpperCase() + bestMode.slice(1);
+      
+      response += `**Recommended: ${bestModeCap}**\n\n**Reason:**\n`;
+      if (reasons.length === 0) reasons.push(`Most balanced option between speed and cost`);
+      reasons.forEach(r => { response += `- ${r}\n`; });
+      response += `\n`;
 
       response += `*I've mapped these routes for you on the Explorer!*`;
 
@@ -202,7 +243,7 @@ class AuraConversationalAI {
     } catch (error) {
       console.error('Error in route request:', error);
       return {
-        response: "I couldn't retrieve live route data right now. I can still provide an estimated comparison based on historical data if you'd like.",
+        response: "I couldn't retrieve live route information right now, but I can provide an estimated comparison.",
         cards: [],
         action: 'error'
       };
@@ -268,8 +309,11 @@ class AuraConversationalAI {
   formatTripPlanCards(tripPlan) {
     const cards = [];
 
+    // Phase D: Conditional UI Rendering
+    // Never display empty cards or ₹0 values
+
     // Itinerary card
-    if (tripPlan.itinerary) {
+    if (tripPlan.itinerary && Array.isArray(tripPlan.itinerary) && tripPlan.itinerary.length > 0) {
       cards.push({
         type: 'itinerary',
         title: 'Day-wise Itinerary',
@@ -278,7 +322,7 @@ class AuraConversationalAI {
     }
 
     // Budget card
-    if (tripPlan.budget_breakdown) {
+    if (tripPlan.budget_breakdown && tripPlan.budget_breakdown.total > 0) {
       cards.push({
         type: 'budget',
         title: 'Budget Breakdown',
@@ -287,7 +331,7 @@ class AuraConversationalAI {
     }
 
     // Attractions card
-    if (tripPlan.attractions) {
+    if (tripPlan.attractions && Array.isArray(tripPlan.attractions) && tripPlan.attractions.length > 0) {
       cards.push({
         type: 'attractions',
         title: 'Top Attractions',
@@ -296,7 +340,7 @@ class AuraConversationalAI {
     }
 
     // Hotels card
-    if (tripPlan.hotels) {
+    if (tripPlan.hotels && Array.isArray(tripPlan.hotels) && tripPlan.hotels.length > 0) {
       cards.push({
         type: 'hotels',
         title: 'Hotel Suggestions',
@@ -305,7 +349,7 @@ class AuraConversationalAI {
     }
 
     // Food card
-    if (tripPlan.food) {
+    if (tripPlan.food && Array.isArray(tripPlan.food) && tripPlan.food.length > 0) {
       cards.push({
         type: 'food',
         title: 'Local Delicacies',
@@ -320,10 +364,20 @@ class AuraConversationalAI {
    * Format route comparison cards
    */
   formatRouteComparisonCards(comparison) {
+    const formattedRoutes = comparison.routes.map(r => ({
+      ...r,
+      duration: this.formatDuration(r.duration),
+      cost: this.formatCost(r.costMin, r.costMax)
+    }));
+
     return [{
       type: 'route-comparison',
       title: 'Route Options',
-      data: comparison
+      data: {
+        from: comparison.source,
+        to: comparison.destination,
+        routes: formattedRoutes
+      }
     }];
   }
 

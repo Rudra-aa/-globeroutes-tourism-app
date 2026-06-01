@@ -448,7 +448,7 @@
       </div>
 
       <!-- Two option cards -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+      <div class="responsive-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
 
         <!-- Manual Planner Card -->
         <div onclick="openManualPlanner()" style="
@@ -627,7 +627,7 @@
       <div id="panelHome" class="panel active">
         <!-- Global Stats counters -->
         <div class="glass"
-          style="padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center;">
+          class="responsive-grid" style="padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center;">
           <div>
             <div style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-blue);">5</div>
             <div style="font-size: 0.75rem; color: var(--text-secondary);">Flagship Countries</div>
@@ -677,7 +677,7 @@
               Attractions are color-coded by their level of significance. Select a country below to explore its cities
               and filter by these tiers:
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px;">
+            <div class="responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px;">
               <div style="display: flex; align-items: center; font-size: 0.72rem; color: white;">
                 <span class="legend-color-dot legend-red"
                   style="margin-right: 6px; width: 8px; height: 8px; flex-shrink: 0;"></span>
@@ -928,7 +928,7 @@
           <h3 style="font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
             <i data-lucide="award" style="color: #ffd700; width: 18px;"></i> Pathfinder Achievements
           </h3>
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="journalBadges">
+          <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="journalBadges">
             <!-- Interactive badges injected dynamically -->
           </div>
         </div>
@@ -1105,7 +1105,7 @@
       <div class="poi-body">
 
         <!-- Quick Meta Info Cards -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+        <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
           <div class="glass" style="padding: 12px; text-align: center;">
             <i data-lucide="ticket" style="color: var(--tier-green); width: 20px; margin-bottom: 4px;"></i>
             <div style="font-size: 0.7rem; color: var(--text-secondary);">ENTRY FEE</div>
@@ -1136,7 +1136,7 @@
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+        <div class="responsive-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
           <!-- Left descriptions -->
           <div style="display: flex; flex-direction: column; gap: 16px;">
             <div id="poiDetailDescArea">

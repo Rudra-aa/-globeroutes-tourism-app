@@ -261,7 +261,7 @@ class AuraV2UI {
   formatBudgetCard(budget) {
     if (!budget) return '';
     let html = `<h4 style="margin-bottom: 12px; color: #a78bfa;">Budget Breakdown</h4>`;
-    html += `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">`;
+    html += `<div class="responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">`;
 
     Object.entries(budget.distribution || {}).forEach(([key, value]) => {
       const label = key.replace(/_/g, ' ').charAt(0).toUpperCase() + key.slice(1);
@@ -357,7 +357,7 @@ class AuraV2UI {
             <span>${icon} ${route.type.toUpperCase()}</span>
             ${route.recommended ? '<span style="color: #22c55e;">✓ Recommended</span>' : ''}
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
+          <div class="responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem;">
             <div>Duration: <strong>${route.duration}</strong></div>
             <div>Cost: <strong>${route.estimatedCost}</strong></div>
             <div>Distance: <strong>${route.distance} km</strong></div>

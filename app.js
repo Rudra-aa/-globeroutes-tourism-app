@@ -3291,8 +3291,6 @@ window.sendIntegratedAuraMessage = sendIntegratedAuraMessage;
 window.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'aura-map-action') {
     const action = event.data.data;
-    
-    // Fallback if action.action is used instead of action.type
     const actionType = action.type || action.action;
 
     if (actionType === 'plot-destination' && action.destination) {
@@ -3300,28 +3298,48 @@ window.addEventListener('message', (event) => {
     } else if (actionType === 'draw-routes' || actionType === 'draw-route') {
       const routes = action.routes;
       if (routes && routes.length > 0) {
-        // Find the road route to draw
         const roadRoute = routes.find(r => r.type === 'road' && r.geometry);
         if (roadRoute && roadRoute.geometry && window.L) {
-          // If we have an ORS geometry (GeoJSON LineString)
           const geoJsonLayer = L.geoJSON(roadRoute.geometry, {
             style: { color: '#8b5cf6', weight: 5, opacity: 0.8 }
           });
           if (window.map) {
+             if (activeRouteLine) window.map.removeLayer(activeRouteLine);
+             activeRouteLine = geoJsonLayer;
              geoJsonLayer.addTo(window.map);
              window.map.fitBounds(geoJsonLayer.getBounds(), { padding: [50, 50] });
              showNotification(`Drawn road route from ${action.source} to ${action.destination}`, "success");
           }
         } else {
-          // Fallback to basic destination ping
-          searchAndPlotDestination(action.destination);
+          plotRouteBetweenCities(action.source, action.destination);
         }
       } else {
-        searchAndPlotDestination(action.destination);
+        plotRouteBetweenCities(action.source, action.destination);
       }
     }
   }
 });
+
+async function plotRouteBetweenCities(sourceStr, destStr) {
+  try {
+    const srcRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(sourceStr)}`);
+    const srcData = await srcRes.json();
+    const destRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destStr)}`);
+    const destData = await destRes.json();
+
+    if (srcData.length > 0 && destData.length > 0) {
+      const origin = { lat: parseFloat(srcData[0].lat), lng: parseFloat(srcData[0].lon) };
+      const dest = { lat: parseFloat(destData[0].lat), lng: parseFloat(destData[0].lon) };
+      drawTravelRoute(origin, dest);
+      showNotification(`Showing route from ${sourceStr} to ${destStr}`, "success");
+    } else {
+      searchAndPlotDestination(destStr);
+    }
+  } catch (err) {
+    console.error(err);
+    searchAndPlotDestination(destStr);
+  }
+}
 
 async function searchAndPlotDestination(destName) {
   try {

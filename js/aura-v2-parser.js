@@ -76,8 +76,14 @@ class AuraParser {
     const match = text.match(pattern);
     if (match && match[1]) {
       const city = match[1].trim();
-      const normalized = this.normalizeCity(city);
-      if (normalized) return normalized;
+      const forbiddenWords = ['compare', 'route', 'plan', 'trip', 'budget', 'hotel', 'show', 'find', 'get', 'want'];
+      const hasForbidden = forbiddenWords.some(w => city.toLowerCase().includes(w));
+      
+      if (!hasForbidden) {
+        const normalized = this.normalizeCity(city);
+        if (normalized) return normalized;
+        return city;
+      }
     }
 
     // Fallback: search for known cities
@@ -230,13 +236,13 @@ class AuraParser {
   detectIntent(text) {
     if (/(?:compare|vs|cheapest|fastest|option|better|train vs flight|flight vs train)/i.test(text)) return 'compare-routes';
     if (/(?:road trip|drive to|driving|car to)/i.test(text)) return 'road-trip';
-    if (/(?:plan|itinerary|trip)/i.test(text)) return 'plan-trip';
     if (/(?:budget|cost|expense|price|under ₹|under r|cheap)/i.test(text)) return 'budget-plan';
-    if (/(?:hotel|stay|accommodation|lodge|resort|hostel)/i.test(text)) return 'hotel-search';
-    if (/(?:attraction|place|thing|see|visit|destination)/i.test(text)) return 'attractions';
-    if (/(?:food|eat|restaurant|cuisine|cafe|dish)/i.test(text)) return 'food-discovery';
     if (/(?:hidden gem|secret|unexplored|offbeat)/i.test(text)) return 'hidden-gems';
-    if (/(?:route|direction|path|map)/i.test(text)) return 'show-route';
+    if (/(?:hotel|stay|accommodation|lodge|resort|hostel)/i.test(text)) return 'hotel-search';
+    if (/(?:food|eat|restaurant|cuisine|cafe|dish)/i.test(text)) return 'food-discovery';
+    if (/(?:attraction|place|thing|see|visit|destination)/i.test(text)) return 'attractions';
+    if (/(?:route|direction|path|map|show me how)/i.test(text)) return 'show-route';
+    if (/(?:plan|itinerary|trip|tour)/i.test(text)) return 'plan-trip';
     return 'general-travel-query';
   }
 

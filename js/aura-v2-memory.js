@@ -107,11 +107,13 @@ class AuraMemory {
       return missing;
     }
 
-    // Default missing logic
-    if (!this.context.sourceCity) missing.push('sourceCity');
+    // General travel query needs nothing to be answered directly
+    if (activeIntent === 'general-travel-query') {
+      return missing;
+    }
+
+    // Default missing logic (fallback)
     if (!this.context.destination) missing.push('destination');
-    if (!this.context.budget) missing.push('budget');
-    if (!this.context.duration) missing.push('duration');
     
     return missing;
   }
@@ -120,6 +122,9 @@ class AuraMemory {
    * Check if we have enough information to plan a trip
    */
   isReadyForPlanning() {
+    if (!this.context.intent || this.context.intent === 'general-travel-query' || this.context.intent === 'compare-routes') {
+      return false; // These intents don't generate a full trip plan
+    }
     return this.getMissingInformation().length === 0;
   }
 
