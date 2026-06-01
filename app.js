@@ -642,19 +642,7 @@ async function payWithRazorpay() {
   switchPaymentMethod('upi');
 }
 
-function handleLogout() {
-  localStorage.removeItem('globeroutes_user');
-  currentUser = null;
-  captchaState = {};
-  
-  document.getElementById('authOverlay').style.display = 'flex';
-  switchAuthMode('login');
-  
-  document.getElementById('panelJournal').classList.remove('active');
-  document.getElementById('panelHome').classList.add('active');
-  showNotification("Logged out successfully.", "info");
-  lucide.createIcons();
-}
+// Logout functionality removed as requested
 
 // Bind utilities to window
 window.toggleVis = toggleVis;
@@ -794,58 +782,6 @@ function cancelCheckout() {
   document.getElementById('checkoutScreen').style.display = 'none';
 }
 
-// 3D Credit Card interactive animations
-function setCardFlip(flipped) {
-  const card = document.getElementById('creditCard3d');
-  if (flipped) {
-    card.classList.add('flipped');
-  } else {
-    card.classList.remove('flipped');
-  }
-}
-
-function syncCardInput(field) {
-  const numInput = document.getElementById('cardNumber');
-  const holderInput = document.getElementById('cardHolder');
-  const expiryInput = document.getElementById('cardExpiry');
-  const cvvInput = document.getElementById('cardCvv');
-  
-  if (field === 'number') {
-    // Format card input to groups of 4
-    let val = numInput.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-    let matches = val.match(/\d{4,16}/g);
-    let match = (matches && matches[0]) || '';
-    let parts = [];
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
-    }
-    if (parts.length > 0) {
-      numInput.value = parts.join(' ');
-    } else {
-      numInput.value = val;
-    }
-    document.getElementById('visaCardNumber').textContent = numInput.value || '•••• •••• •••• ••••';
-  }
-  
-  if (field === 'holder') {
-    document.getElementById('visaCardHolder').textContent = holderInput.value.toUpperCase() || 'EXPLORER';
-  }
-  
-  if (field === 'expiry') {
-    // Format card expiry as MM/YY
-    let val = expiryInput.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-    if (val.length >= 2) {
-      expiryInput.value = val.substring(0, 2) + '/' + val.substring(2, 4);
-    } else {
-      expiryInput.value = val;
-    }
-    document.getElementById('visaCardExpiry').textContent = expiryInput.value || 'MM/YY';
-  }
-  
-  if (field === 'cvv') {
-    document.getElementById('visaCardCvv').textContent = cvvInput.value || '•••';
-  }
-}
 
 function processPremiumPayment() {
   if (!currentUser) return;
@@ -2725,12 +2661,6 @@ function renderSuggestions(data, type) {
 }
 
 // --- AMENITIES & TRAVEL MODE HANDLERS ---
-function onAmenityToggleChange() {
-  if (activeRouteCoordinates) {
-    generateAmenitiesAlongRoute(activeRouteCoordinates);
-  }
-}
-window.onAmenityToggleChange = onAmenityToggleChange;
 
 function onTravelModeChange(mode) {
   currentTravelMode = mode;
@@ -3311,7 +3241,7 @@ function toggleExpandIntegratedAura() {
     panel.style.width = '500px';
     if(chatWindow) {
       chatWindow.style.minHeight = '450px';
-      chatWindow.style.maxHeight = '600px';
+      chatWindow.style.maxHeight = 'calc(100vh - 250px)';
     }
     if (icon) {
       icon.setAttribute('data-lucide', 'minimize-2');
@@ -3322,10 +3252,12 @@ function toggleExpandIntegratedAura() {
 }
 
 function sendIntegratedAuraQuick(text) {
-  const input = document.getElementById('integratedAuraInput');
+  const input = document.getElementById('integratedAuraInput') || document.getElementById('auraUserInput');
   if (input) {
     input.value = text;
-    sendIntegratedAuraMessage();
+    if (window.AuraV2UI) {
+      window.AuraV2UI.handleSendMessage();
+    }
   }
 }
 window.sendIntegratedAuraQuick = sendIntegratedAuraQuick;
@@ -3334,213 +3266,62 @@ window.toggleExpandIntegratedAura = toggleExpandIntegratedAura;
 function handleIntegratedAuraKeydown(e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
-    sendIntegratedAuraMessage();
+    if (window.AuraV2UI) window.AuraV2UI.handleSendMessage();
   }
 }
 window.handleIntegratedAuraKeydown = handleIntegratedAuraKeydown;
 
 function toggleAuraVoiceInput() {
-  const micBtn = document.getElementById('auraMicBtn');
-  const input = document.getElementById('integratedAuraInput');
-  
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    showNotification("Voice input is not supported in your browser.", "error");
-    return;
-  }
-  
-  if (!auraRecognition) {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    auraRecognition = new SpeechRecognition();
-    auraRecognition.continuous = false;
-    auraRecognition.interimResults = true;
-    
-    auraRecognition.onstart = function() {
-      if(micBtn) micBtn.style.color = 'var(--tier-red)';
-      if(input) input.placeholder = "Listening...";
-    };
-    
-    auraRecognition.onresult = function(event) {
-      let final_transcript = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          final_transcript += event.results[i][0].transcript;
-        }
-      }
-      if (final_transcript && input) {
-        input.value = final_transcript;
-        setTimeout(() => sendIntegratedAuraMessage(), 500);
-      }
-    };
-    
-    auraRecognition.onerror = function(event) {
-      if(micBtn) micBtn.style.color = 'var(--text-secondary)';
-      if(input) input.placeholder = "Ask Aura...";
-      console.error("Speech recognition error", event.error);
-    };
-    
-    auraRecognition.onend = function() {
-      if(micBtn) micBtn.style.color = 'var(--text-secondary)';
-      if(input) input.placeholder = "Ask Aura...";
-    };
-  }
-  
-  try {
-    auraRecognition.start();
-  } catch(e) {
-    auraRecognition.stop();
+  if (window.AuraV2UI) {
+    window.AuraV2UI.toggleVoiceInput();
+  } else {
+    showNotification("Aura V2 is not initialized.", "error");
   }
 }
 window.toggleAuraVoiceInput = toggleAuraVoiceInput;
 
 async function sendIntegratedAuraMessage() {
-  const input = document.getElementById('integratedAuraInput');
-  if(!input) return;
-  const message = input.value.trim();
-  if (!message || isAuraLoading) return;
-  
-  input.value = '';
-  input.style.height = 'auto';
-  
-  appendAuraMessage('user', message);
-  integratedAuraHistory.push({ role: 'user', content: message });
-  
-  const typingId = showAuraTyping();
-  isAuraLoading = true;
-  const sendBtn = document.getElementById('integratedAuraSendBtn');
-  if(sendBtn) sendBtn.style.opacity = '0.5';
-  
-  try {
-    const response = await fetch(`${BACKEND_URL}/api/aura/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, history: integratedAuraHistory.slice(-6) })
-    });
-    
-    removeAuraTyping(typingId);
-    
-    if (response.ok) {
-      const data = await response.json();
-      integratedAuraHistory.push({ role: 'assistant', content: JSON.stringify(data) });
-      renderLightweightAuraResponse(data);
-    } else {
-      appendAuraMessage('aura', "I'm having trouble connecting to my servers right now.");
-    }
-  } catch (err) {
-    removeAuraTyping(typingId);
-    appendAuraMessage('aura', "Network error. Please make sure the server is running.");
+  if (window.AuraV2UI) {
+    return window.AuraV2UI.handleSendMessage();
   }
-  
-  isAuraLoading = false;
-  if(sendBtn) sendBtn.style.opacity = '1';
 }
 window.sendIntegratedAuraMessage = sendIntegratedAuraMessage;
 
-function appendAuraMessage(sender, textHtml) {
-  const chatWindow = document.getElementById('integratedAuraChatWindow');
-  if (!chatWindow) return;
-  
-  const div = document.createElement('div');
-  div.style.display = 'flex';
-  div.style.gap = '8px';
-  div.style.animation = 'fadeIn 0.3s ease';
-  
-  if (sender === 'user') {
-    div.style.flexDirection = 'row-reverse';
-    div.innerHTML = `
-      <div style="background:rgba(59,130,246,0.2); border:1px solid rgba(59,130,246,0.3); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:var(--tier-blue);">You</div>
-      <div style="background:rgba(59,130,246,0.12); padding:8px 12px; border-radius:12px 0 12px 12px; color:white; border:1px solid rgba(59,130,246,0.2); line-height:1.4;">
-        ${escapeHtml(textHtml)}
-      </div>
-    `;
-  } else {
-    div.innerHTML = `
-      <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:white; box-shadow:0 2px 8px rgba(139,92,246,0.3);">✨</div>
-      <div style="background:rgba(255,255,255,0.05); padding:10px 12px; border-radius:0 12px 12px 12px; color:var(--text-primary); border:1px solid var(--border-glass); line-height:1.4;">
-        ${textHtml}
-      </div>
-    `;
-  }
-  
-  chatWindow.appendChild(div);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
+// Listen for map actions emitted by AuraV2UI
+window.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'aura-map-action') {
+    const action = event.data.data;
+    
+    // Fallback if action.action is used instead of action.type
+    const actionType = action.type || action.action;
 
-function showAuraTyping() {
-  const chatWindow = document.getElementById('integratedAuraChatWindow');
-  if(!chatWindow) return null;
-  const id = 'typing-' + Date.now();
-  const div = document.createElement('div');
-  div.id = id;
-  div.style.display = 'flex';
-  div.style.gap = '8px';
-  div.innerHTML = `
-    <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:white; box-shadow:0 2px 8px rgba(139,92,246,0.3);">✨</div>
-    <div style="background:rgba(255,255,255,0.05); padding:8px 12px; border-radius:0 12px 12px 12px; color:var(--text-primary); border:1px solid var(--border-glass); display:flex; align-items:center; gap:4px;">
-      <span style="width:6px;height:6px;background:var(--tier-blue);border-radius:50%;animation:pulse 1.4s infinite ease-in-out;opacity:0.4;"></span>
-      <span style="width:6px;height:6px;background:var(--tier-blue);border-radius:50%;animation:pulse 1.4s infinite ease-in-out 0.2s;opacity:0.4;"></span>
-      <span style="width:6px;height:6px;background:var(--tier-blue);border-radius:50%;animation:pulse 1.4s infinite ease-in-out 0.4s;opacity:0.4;"></span>
-    </div>
-  `;
-  chatWindow.appendChild(div);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-  return id;
-}
-
-function removeAuraTyping(id) {
-  if(!id) return;
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
-
-function renderLightweightAuraResponse(data) {
-  const type = data.type || 'general';
-  let html = '';
-  
-  if (type === 'trip_plan' && data.data) {
-    const t = data.data.trip || {};
-    html = `<div style="margin-bottom:8px;"><strong>${escapeHtml(t.title || 'Trip Plan')}</strong></div>
-            <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:8px;">${escapeHtml(t.description || '')}</div>
-            <div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px;">
-              ${t.destination ? `<span style="background:rgba(59,130,246,0.15); color:var(--tier-blue); padding:2px 8px; border-radius:4px; font-size:0.7rem;">📍 ${escapeHtml(t.destination)}</span>` : ''}
-              ${t.duration ? `<span style="background:rgba(59,130,246,0.15); color:var(--tier-blue); padding:2px 8px; border-radius:4px; font-size:0.7rem;">📅 ${escapeHtml(t.duration)}</span>` : ''}
-              ${t.totalBudget ? `<span style="background:rgba(59,130,246,0.15); color:var(--tier-blue); padding:2px 8px; border-radius:4px; font-size:0.7rem;">💰 ${escapeHtml(t.totalBudget)}</span>` : ''}
-            </div>
-            <div style="font-size:0.75rem; border-top:1px solid var(--border-glass); padding-top:8px; color:var(--tier-blue); cursor:pointer;" onclick="window.location.href='aura.html'">
-              Open Aura Pro for full itinerary & hotels &rarr;
-            </div>`;
-            
-    // Plot destination on map if found
-    if (t.destination) {
-       searchAndPlotDestination(t.destination);
+    if (actionType === 'plot-destination' && action.destination) {
+      searchAndPlotDestination(action.destination);
+    } else if (actionType === 'draw-routes' || actionType === 'draw-route') {
+      const routes = action.routes;
+      if (routes && routes.length > 0) {
+        // Find the road route to draw
+        const roadRoute = routes.find(r => r.type === 'road' && r.geometry);
+        if (roadRoute && roadRoute.geometry && window.L) {
+          // If we have an ORS geometry (GeoJSON LineString)
+          const geoJsonLayer = L.geoJSON(roadRoute.geometry, {
+            style: { color: '#8b5cf6', weight: 5, opacity: 0.8 }
+          });
+          if (window.map) {
+             geoJsonLayer.addTo(window.map);
+             window.map.fitBounds(geoJsonLayer.getBounds(), { padding: [50, 50] });
+             showNotification(`Drawn road route from ${action.source} to ${action.destination}`, "success");
+          }
+        } else {
+          // Fallback to basic destination ping
+          searchAndPlotDestination(action.destination);
+        }
+      } else {
+        searchAndPlotDestination(action.destination);
+      }
     }
-  } else if (type === 'comparison' && data.data) {
-    const routes = data.data.routes || [];
-    html = `<div style="margin-bottom:8px;"><strong>${escapeHtml(data.data.from)} &rarr; ${escapeHtml(data.data.to)}</strong></div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-            ${routes.map(r => `
-              <div style="background:rgba(0,0,0,0.2); padding:6px; border-radius:6px; font-size:0.75rem; border-left:2px solid ${r.recommended?'var(--tier-blue)':'var(--border-glass)'};">
-                <strong>${r.icon} ${escapeHtml(r.mode)}</strong>: ${escapeHtml(r.cost)} (${escapeHtml(r.duration)})
-              </div>
-            `).join('')}
-            </div>
-            <div style="font-size:0.75rem; margin-top:8px; color:var(--text-secondary);">${escapeHtml(data.data.recommendation)}</div>`;
-  } else if (type === 'budget' && data.data) {
-    const items = data.data.items || [];
-    html = `<div style="margin-bottom:8px;"><strong>Budget Estimate</strong></div>
-            <div style="display:flex; flex-direction:column; gap:4px; font-size:0.8rem;">
-            ${items.map(i => `
-              <div style="display:flex; justify-content:space-between;">
-                <span>${i.icon} ${escapeHtml(i.label)}</span>
-                <strong>${escapeHtml(i.amount)}</strong>
-              </div>
-            `).join('')}
-            </div>`;
-  } else {
-    html = `<div>${escapeHtml(data.message || data.text || 'I can help with that! Please be more specific about your destination.')}</div>`;
   }
-  
-  appendAuraMessage('aura', html);
-}
+});
 
 async function searchAndPlotDestination(destName) {
   try {

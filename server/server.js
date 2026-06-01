@@ -346,7 +346,278 @@ app.post('/api/reviews/:poiId', async (req, res) => {
   }
 });
 
-// 9. Aura AI: Chat endpoint
+// 9. Aura V2: Conversational Chat
+app.post('/api/aura/v2/chat', async (req, res) => {
+  const { message, context, conversationHistory } = req.body;
+  if (!message) {
+    return res.status(400).json({ error: 'Message is required.' });
+  }
+
+  try {
+    if (!groqClient) {
+      return res.json({
+        response: "I'm here to help! Tell me about your trip plans. Where would you like to go?",
+        type: 'general'
+      });
+    }
+
+    const conversationContext = conversationHistory
+      ? conversationHistory.map(m => ({ role: m.role, content: m.content }))
+      : [];
+
+    const systemPrompt = `You are Aura, a friendly and knowledgeable AI travel planning assistant. 
+Your role is to help users plan their travel trips by:
+1. Understanding their travel needs
+2. Asking clarifying questions when needed
+3. Providing personalized travel recommendations
+4. Suggesting routes, hotels, and attractions
+5. Helping with budget planning
+
+Be conversational, helpful, and maintain context from previous messages.
+Keep responses concise and friendly.`;
+
+    conversationContext.push({
+      role: 'user',
+      content: message
+    });
+
+    const response = await groqClient.chat.completions.create({
+      messages: conversationContext,
+      model: 'mixtral-8x7b-32768',
+      system: systemPrompt,
+      max_tokens: 500,
+      temperature: 0.7
+    });
+
+    const aiResponse = response.choices[0].message.content;
+
+    res.json({
+      response: aiResponse,
+      type: 'conversational'
+    });
+  } catch (error) {
+    console.error('Aura V2 chat error:', error);
+    res.json({
+      response: "I encountered a temporary issue. Please try again!",
+      type: 'error'
+    });
+  }
+});
+
+// 9.1 Aura V2: Generate Trip Plan
+app.post('/api/aura/v2/generate-trip', async (req, res) => {
+  const { destination, duration, budget, travelers, transportPreference, hotelPreference, travelStyle } = req.body;
+  
+  if (!destination || !duration || !budget) {
+    return res.status(400).json({ error: 'Destination, duration, and budget are required.' });
+  }
+
+  try {
+    const tripPlan = {
+      destination,
+      duration: parseInt(duration),
+      travelers: travelers || 1,
+      budget,
+      travelStyle: travelStyle || 'balanced',
+      itinerary: generateItinerary(destination, parseInt(duration)),
+      budgetBreakdown: generateBudgetBreakdown(budget, parseInt(duration), travelers || 1),
+      recommendations: {
+        attractions: getAttractionsForDestination(destination),
+        hotels: getHotelSuggestions(hotelPreference || 'mid-range', budget),
+        food: getFoodRecommendations(destination),
+        safetyTips: getSafetyTips(destination),
+        bestSeason: getBestSeason(destination)
+      }
+    };
+
+    res.json(tripPlan);
+  } catch (error) {
+    console.error('Trip generation error:', error);
+    res.status(500).json({ error: 'Failed to generate trip plan.' });
+  }
+});
+
+// 9.2 Aura V2: Get Route Options & OpenRouteService Integration
+app.post('/api/aura/v2/routes', async (req, res) => {
+  const { source, destination, sourceCoords, destCoords } = req.body;
+  
+  if (!source || !destination) {
+    return res.status(400).json({ error: 'Source and destination are required.' });
+  }
+
+  try {
+    let roadDistance = calculateDistance(source, destination); // Fallback mock
+    let roadDuration = 12; // numeric hours fallback
+    let roadGeometry = null;
+
+    // Phase 4-5: OpenRouteService Integration
+    if (process.env.ORS_API_KEY && sourceCoords && destCoords) {
+      const orsUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${process.env.ORS_API_KEY}&start=${sourceCoords.lng},${sourceCoords.lat}&end=${destCoords.lng},${destCoords.lat}`;
+      try {
+        const orsRes = await fetch(orsUrl);
+        if (orsRes.ok) {
+          const orsData = await orsRes.json();
+          if (orsData.features && orsData.features.length > 0) {
+            const props = orsData.features[0].properties;
+            roadDistance = props.segments[0].distance / 1000; // raw km
+            roadDuration = props.segments[0].duration / 3600; // raw hours
+            roadGeometry = orsData.features[0].geometry; // GeoJSON geometry
+          }
+        }
+      } catch (err) {
+        console.error('ORS fetch error:', err);
+      }
+    }
+
+    const distBase = calculateDistance(source, destination);
+
+    const routes = {
+      source,
+      destination,
+      options: [
+        {
+          type: 'flight',
+          distance: distBase,
+          duration: 2.5,
+          costMin: 3500,
+          costMax: 8000,
+          frequency: 'Multiple daily',
+          comfort: 5,
+          recommended: true,
+          advantages: ['Fastest', 'Direct routes', 'Multiple options']
+        },
+        {
+          type: 'train',
+          distance: distBase * 1.1, // Train tracks usually longer
+          duration: 16.5,
+          costMin: 350,
+          costMax: 1200,
+          frequency: 'Daily',
+          comfort: 4,
+          recommended: false,
+          advantages: ['Most economical', 'Scenic route', 'Overnight options']
+        },
+        {
+          type: 'road',
+          distance: roadDistance,
+          duration: roadDuration,
+          costMin: Math.round(roadDistance * 5), // Basic fuel/toll estimate
+          costMax: Math.round(roadDistance * 8),
+          frequency: 'Always available',
+          comfort: 3,
+          recommended: false,
+          geometry: roadGeometry, // Real ORS geometry passed to frontend
+          advantages: ['Flexible timing', 'Stop anywhere', 'Scenic drives']
+        }
+      ]
+    };
+
+    res.json(routes);
+  } catch (error) {
+    console.error('Route calculation error:', error);
+    res.status(500).json({ error: 'Failed to calculate routes.' });
+  }
+});
+
+// 9.3 Helper Functions
+function generateItinerary(destination, duration) {
+  const itinerary = [];
+  for (let i = 1; i <= duration; i++) {
+    itinerary.push({
+      day: i,
+      title: `Day ${i} in ${destination}`,
+      activities: ['Explore attractions', 'Try local food', 'Rest and relax'],
+      meals: ['Breakfast', 'Lunch', 'Dinner']
+    });
+  }
+  return itinerary;
+}
+
+function generateBudgetBreakdown(totalBudget, duration, travelers) {
+  const perPerson = totalBudget / travelers;
+  return {
+    total: totalBudget,
+    perPerson: Math.floor(perPerson),
+    breakdown: {
+      accommodation: Math.floor(perPerson * 0.30),
+      food: Math.floor(perPerson * 0.20),
+      transport: Math.floor(perPerson * 0.25),
+      activities: Math.floor(perPerson * 0.15),
+      shopping: Math.floor(perPerson * 0.05),
+      contingency: Math.floor(perPerson * 0.05)
+    }
+  };
+}
+
+function getAttractionsForDestination(destination) {
+  const attractions = {
+    'goa': ['Baga Beach', 'Anjuna Beach', 'Basilica of Bom Jesus', 'Fort Aguada'],
+    'delhi': ['India Gate', 'Red Fort', 'Jama Masjid', 'Raj Ghat'],
+    'agra': ['Taj Mahal', 'Agra Fort', 'Mehtab Bagh'],
+    'jaipur': ['Hawa Mahal', 'City Palace', 'Jantar Mantar']
+  };
+  return attractions[destination.toLowerCase()] || ['Local attractions await!'];
+}
+
+function getHotelSuggestions(preference, budget) {
+  const hotels = {
+    'luxury': [
+      { name: '5-Star Resort', price: '₹15,000/night', rating: 4.8 },
+      { name: 'Premium Palace Hotel', price: '₹12,000/night', rating: 4.7 }
+    ],
+    'mid-range': [
+      { name: '3-Star Comfort Hotel', price: '₹4,000/night', rating: 4.3 },
+      { name: 'Midrange Inn', price: '₹3,500/night', rating: 4.2 }
+    ],
+    'budget': [
+      { name: 'Budget Hotel', price: '₹1,200/night', rating: 3.8 },
+      { name: 'Backpacker Hostel', price: '₹600/night', rating: 3.5 }
+    ]
+  };
+  return hotels[preference] || hotels['mid-range'];
+}
+
+function getFoodRecommendations(destination) {
+  const food = {
+    'goa': ['Fish Curry Rice', 'Prawn Biryani', 'Sorpotel', 'Bebinca'],
+    'delhi': ['Butter Chicken', 'Chole Bhature', 'Dosa', 'Samosa'],
+    'agra': ['Petha', 'Chicken Tikka', 'Biryani']
+  };
+  return food[destination.toLowerCase()] || ['Local specialties'];
+}
+
+function getSafetyTips(destination) {
+  return [
+    'Keep valuables secure',
+    'Use registered taxis/apps',
+    'Drink bottled water only',
+    'Avoid traveling alone at night',
+    'Respect local customs'
+  ];
+}
+
+function getBestSeason(destination) {
+  const seasons = {
+    'goa': 'November - February',
+    'delhi': 'October - March',
+    'agra': 'October - March',
+    'manali': 'June - September'
+  };
+  return seasons[destination.toLowerCase()] || 'October - March';
+}
+
+function calculateDistance(source, destination) {
+  // Mock distance calculation
+  const distances = {
+    'delhi-goa': 1550,
+    'mumbai-goa': 600,
+    'delhi-agra': 206
+  };
+  const key = `${source.toLowerCase()}-${destination.toLowerCase()}`;
+  return distances[key] || 800;
+}
+
+// 9. Aura AI: Chat endpoint (Legacy)
 app.post('/api/aura/chat', async (req, res) => {
   const { message, history } = req.body;
   if (!message) {
@@ -463,6 +734,12 @@ Focus on Indian destinations. Use ₹ for prices. Be specific and practical.`;
       ]
     }
   });
+});
+
+// 10. Global Error Boundary
+app.use((err, req, res, next) => {
+  console.error('Unhandled Error Boundary Caught:', err.stack);
+  res.status(500).json({ error: 'An unexpected error occurred. Please try again later.' });
 });
 
 // Start Server
