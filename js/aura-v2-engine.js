@@ -256,7 +256,7 @@ class AuraConversationalAI {
   async getAIResponse(userInput) {
     try {
       // Call backend for Groq response
-      const response = await fetch(`${this.backendUrl}/api/aura/chat`, {
+      const response = await fetch(`${this.backendUrl}/api/aura/v2/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
