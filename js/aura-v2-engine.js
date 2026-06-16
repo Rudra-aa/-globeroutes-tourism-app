@@ -101,7 +101,7 @@ class AuraConversationalAI {
       }
 
       // Get missing information based on current intent
-      const missing = this.memory.getMissingInformation(parsed.intent || this.memory.context.intent);
+      const { missing } = this.memory.getMissingInformation(parsed.intent || this.memory.context.intent);
 
       // If intent is route request but we are missing source/dest, prompt for them
       if ((parsed.intent === 'compare-routes' || parsed.intent === 'show-route' || this.memory.context.intent === 'compare-routes') && missing.length === 0) {

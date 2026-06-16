@@ -1,0 +1,14 @@
+{
+  "countries": {
+    "india": "data/countries/india.json",
+    "united_states": "data/countries/united_states.json",
+    "france": "data/countries/france.json",
+    "japan": "data/countries/japan.json",
+    "italy": "data/countries/italy.json",
+    "spain": "data/countries/spain.json",
+    "united_kingdom": "data/countries/united_kingdom.json",
+    "uae": "data/countries/uae.json",
+    "thailand": "data/countries/thailand.json",
+    "singapore": "data/countries/singapore.json"
+  }
+}

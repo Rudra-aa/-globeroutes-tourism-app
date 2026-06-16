@@ -1,41 +1,83 @@
 /**
  * Aura V2 Natural Language Parser
- * Extracts travel information from free-form user input
+ * Extracts travel information from free-form user input and classifies intents.
+ * Data-Driven approach: No hardcoded fallback locations.
  */
-
 class AuraParser {
   constructor() {
-    this.patterns = {
-      // City/Location patterns
-      cityPattern: /from\s+([a-zA-Z\s]+?)(?:\s+to\s+|$)|from\s+([a-zA-Z\s]+?)(?:\s|,)/i,
-      destinationPattern: /to\s+([a-zA-Z\s]+?)(?:\s+for\s+|$)|destination\s+([a-zA-Z\s]+?)(?:\s|,|$)/i,
-      
-      // Budget patterns
-      budgetPattern: /(?:₹|rupees?|budget|under|cost|price)\s*[\s:]*(\d+[,\d]*)\s*(cr|lakh|thousand|k)?/i,
-      
-      // Duration patterns
-      durationPattern: /(\d+)[-\s]*(?:day|night|week|month)s?/i,
-      
-      // Transport patterns
-      transportPattern: /(?:by\s+)?(?:train|flight|air|road|bus|car|taxi|bike|cycle)/i,
-      
-      // Hotel preference
-      hotelPattern: /(?:hotel|accommodation|stay|lodge)\s+(\w+)/i,
-      
-      // Travel style
-      stylePattern: /(?:luxury|budget|adventure|cultural|beach|mountain|offbeat|backpacking|luxury|family)/i,
-      
-      // Number of travelers
-      travelersPattern: /(?:for\s+)?(\d+)\s+(?:person|people|traveler|tourist|me\s+and)/i,
-      
-      // Route request
-      routePattern: /(?:show|display|find|get)\s+(?:route|path|way|direction|map)(?:\s+from\s+(.+?)\s+to\s+(.+))?/i
+    // Currency symbol/code map for normalization
+    this.currencyMap = {
+      'inr': { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      '₹': { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      'rupee': { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      'rupees': { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      'rs': { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
+      'usd': { code: 'USD', symbol: '$', name: 'US Dollar' },
+      'dollar': { code: 'USD', symbol: '$', name: 'US Dollar' },
+      'dollars': { code: 'USD', symbol: '$', name: 'US Dollar' },
+      '$': { code: 'USD', symbol: '$', name: 'US Dollar' },
+      'eur': { code: 'EUR', symbol: '€', name: 'Euro' },
+      'euro': { code: 'EUR', symbol: '€', name: 'Euro' },
+      'euros': { code: 'EUR', symbol: '€', name: 'Euro' },
+      '€': { code: 'EUR', symbol: '€', name: 'Euro' },
+      'gbp': { code: 'GBP', symbol: '£', name: 'British Pound' },
+      'pound': { code: 'GBP', symbol: '£', name: 'British Pound' },
+      'pounds': { code: 'GBP', symbol: '£', name: 'British Pound' },
+      '£': { code: 'GBP', symbol: '£', name: 'British Pound' },
+      'jpy': { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+      'yen': { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+      '¥': { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
+      'sgd': { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar' },
+      'aed': { code: 'AED', symbol: 'AED', name: 'UAE Dirham' },
+      'dirham': { code: 'AED', symbol: 'AED', name: 'UAE Dirham' },
+      'cad': { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
+      'aud': { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
+      'thb': { code: 'THB', symbol: '฿', name: 'Thai Baht' },
+      'baht': { code: 'THB', symbol: '฿', name: 'Thai Baht' },
     };
 
-    this.cities = ['delhi', 'mumbai', 'bangalore', 'hyderabad', 'goa', 'gwalior', 'manali', 'shimla', 'leh', 'agra', 'dubai', 'jaipur', 'udaipur', 'rajasthan', 'kerala', 'darjeeling', 'ooty'];
+    this.patterns = {
+      // Explicit route matching (from X to Y)
+      routePattern: /(?:from|travel from|trip from|route(?:s)? from)[\s]+([a-zA-Z\s]+?)\s+to\s+([a-zA-Z\s]+?)(?:\s+for|\s+under|\s+with|\s+in|,|\.|\?|$)/i,
+
+      // Standalone X to Y
+      xToYPattern: /^([a-zA-Z\s]+?)\s+to\s+([a-zA-Z\s]+?)(?:\s+for|\s+under|\s+with|\s+in|,|\.|\?|$)/i,
+
+      // City/Location patterns (robust extraction)
+      fromPattern: /(?:from|starting\s+in|leaving|originating|source)\s+([a-zA-Z\s]+?)(?:\s+to\s+|\s+for\s+|\s+under\s+|,|\.|\?|$)/i,
+      toPattern: /(?:to|visit|visiting|destination|explore|in)\s+([a-zA-Z\s]+?)(?:\s+from\s+|\s+for\s+|\s+under\s+|\s+with\s+|\s+by\s+|,|\.|\?|$)/i,
+
+      // Country patterns (basic)
+      countryPattern: /(?:in|to|explore)\s+(india|europe|usa|america|uk|france|italy|germany|spain|japan|thailand|singapore|australia|uae)/i,
+
+      // Currency pattern — must appear before budgetPattern so we parse currency first
+      currencyPattern: /\b(inr|usd|eur|gbp|jpy|sgd|aed|cad|aud|thb|rupees?|dollars?|euros?|pounds?|yen|dirham|baht|₹|\$|€|£|¥)\b/i,
+
+      // Budget patterns — supports ₹/$€£¥ and plain word budgets
+      budgetPattern: /(?:₹|\$|€|£|¥|inr|usd|eur|gbp|jpy|rupees?|dollars?|euros?|pounds?|yen|budget|under|cost|price|within|max)\s*[\s:]*([\d]+[,\d]*)\s*(cr|crore|lakh|l|thousand|k)?/i,
+
+      // Duration patterns
+      durationPattern: /(\d+)[-\s]*(?:day|night|week|month)s?/i,
+
+      // Date patterns
+      datePattern: /(?:on|in|around)\s+(january|february|march|april|may|june|july|august|september|october|november|december|next\s+week|next\s+month|\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec))/i,
+
+      // Transport patterns
+      transportPattern: /(?:by\s+)?(?:train|flight|air|plane|road|bus|car|taxi|bike|cycle)/i,
+
+      // Hotel preference
+      hotelPattern: /(?:hotel|accommodation|stay|lodge)\s+(\w+)/i,
+
+      // Travel style
+      stylePattern: /(?:luxury|budget|adventure|cultural|beach|mountain|offbeat|backpacking|family|honeymoon)/i,
+
+      // Number of travelers
+      travelersPattern: /(?:for\s+)?(\d+)\s+(?:person|people|traveler|tourist|me\s+and)/i
+    };
+
     this.transportModes = ['train', 'flight', 'road', 'bus', 'car'];
     this.hotelTypes = ['luxury', 'budget', 'midrange', 'resort', 'hostel', 'heritage'];
-    this.travelStyles = ['luxury', 'budget', 'adventure', 'cultural', 'beach', 'mountain', 'offbeat', 'backpacking', 'family'];
+    this.travelStyles = ['luxury', 'budget', 'adventure', 'cultural', 'beach', 'mountain', 'offbeat', 'backpacking', 'family', 'honeymoon'];
   }
 
   /**
@@ -43,148 +85,136 @@ class AuraParser {
    */
   parse(userMessage) {
     const text = userMessage.toLowerCase().trim();
+    const intent = this.detectIntent(text);
+
+    // Explicit route pattern first
+    const routeMatch = text.match(this.patterns.routePattern) || text.match(this.patterns.xToYPattern);
+    let explicitSource = null;
+    let explicitDestination = null;
+
+    if (routeMatch) {
+      explicitSource = this.normalizeCity(routeMatch[1].trim());
+      explicitDestination = this.normalizeCity(routeMatch[2].trim());
+    }
+
     const result = {
-      sourceCity: this.extractCity(text, 'from'),
-      destination: this.extractCity(text, 'to'),
+      sourceCity: explicitSource || this.extractCity(text, 'from'),
+      destination: explicitDestination || this.extractCity(text, 'to'),
+      country: this.extractCountry(text),
+      currency: this.extractCurrency(text),
       budget: this.extractBudget(text),
       duration: this.extractDuration(text),
+      dates: this.extractDates(text),
       transportPreference: this.extractTransport(text),
       hotelPreference: this.extractHotel(text),
       travelStyle: this.extractStyle(text),
       travelers: this.extractTravelers(text),
-      isRouteRequest: this.isRouteRequest(text),
-      intent: this.detectIntent(text),
-      hasCompleteInfo: false
+      intent: intent
     };
 
-    // Fix the fallback bug: we shouldn't assume it's the destination unless there's only one
-    // Remove the bad parse block we just added
-    // Let's modify extractCity instead
-
-    result.hasCompleteInfo = result.sourceCity && result.destination && result.budget && result.duration;
     return result;
   }
 
-  /**
-   * Extract city name from text
-   */
   extractCity(text, position) {
-    const pattern = position === 'from' 
-      ? /from\s+([a-zA-Z\s]+?)(?:\s+to\s+|,|\s+for\s+|$)/i
-      : /to\s+([a-zA-Z\s]+?)(?:\s+for\s+|,|$|\s+under\s+|\s+in\s+)/i;
-
+    if (/\d/.test(text)) return null;
+    const pattern = position === 'from' ? this.patterns.fromPattern : this.patterns.toPattern;
     const match = text.match(pattern);
-    if (match && match[1]) {
-      const city = match[1].trim();
-      const forbiddenWords = ['compare', 'route', 'plan', 'trip', 'budget', 'hotel', 'show', 'find', 'get', 'want'];
-      const hasForbidden = forbiddenWords.some(w => city.toLowerCase().includes(w));
-      
-      if (!hasForbidden) {
-        const normalized = this.normalizeCity(city);
-        if (normalized) return normalized;
-        return city;
+
+    if (match) {
+      const rawMatch = match[1];
+      if (rawMatch) {
+        const city = rawMatch.trim();
+        const forbiddenWords = ['compare', 'route', 'plan', 'trip', 'budget', 'hotel', 'show', 'find', 'get', 'want', 'my'];
+        if (!forbiddenWords.some(w => city.toLowerCase() === w || city.toLowerCase().includes(w + ' '))) {
+          return this.normalizeCity(city);
+        }
       }
     }
 
-    // Fallback: search for known cities
-    for (const city of this.cities) {
-      if (text.includes(city)) {
-        // Prevent grabbing the destination city when looking for the source city
-        if (position === 'from' && new RegExp(`to\\s+${city}`, 'i').test(text)) continue;
-        // Prevent grabbing the source city when looking for the destination city
-        if (position === 'to' && new RegExp(`from\\s+${city}`, 'i').test(text)) continue;
-        
-        return city;
+    // Check if input is JUST a single word (e.g. answering "Which city?")
+    if (text.split(/\s+/).length <= 2 && !text.match(/(?:day|night|week|month|budget|hotel|₹|\$|€|£|¥)/i)) {
+      const actionWords = ['plan', 'compare', 'show', 'hi', 'hello', 'inr', 'usd', 'eur', 'gbp', 'jpy', 'trip', 'plan trip', 'start planning', 'trip planner', 'help', 'reset'];
+      if (!actionWords.includes(text)) {
+        return this.normalizeCity(text);
       }
     }
 
     return null;
   }
 
-  /**
-   * Normalize city names
-   */
   normalizeCity(city) {
     const cityMap = {
-      'gwl': 'gwalior',
-      'gwr': 'gwalior',
-      'mumbai': 'mumbai',
-      'bombay': 'mumbai',
-      'ncr': 'delhi',
-      'raj': 'rajasthan',
-      'maharashtra': 'maharashtra'
+      'gwl': 'gwalior', 'gwr': 'gwalior', 'mumbai': 'mumbai', 'bombay': 'mumbai',
+      'ncr': 'delhi', 'raj': 'rajasthan', 'maharashtra': 'maharashtra'
     };
-
     const lower = city.toLowerCase().trim();
-    return cityMap[lower] || lower;
+    const formatted = (cityMap[lower] || lower)
+      .split(' ')
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+    return formatted;
+  }
+
+  extractCountry(text) {
+    const match = text.match(this.patterns.countryPattern);
+    return match ? match[1].trim() : null;
+  }
+
+  extractDates(text) {
+    const match = text.match(this.patterns.datePattern);
+    return match ? match[1].trim() : null;
   }
 
   /**
-   * Extract budget from text
+   * Detect currency from input — returns normalized currency object or null
+   */
+  extractCurrency(text) {
+    const match = text.match(this.patterns.currencyPattern);
+    if (match) {
+      const key = match[1].toLowerCase();
+      return this.currencyMap[key] || null;
+    }
+    return null;
+  }
+
+  /**
+   * Extract budget amount and infer currency from context
    */
   extractBudget(text) {
     let match = text.match(this.patterns.budgetPattern);
-    
-    // Fallback: If it's a short answer answering a budget prompt (e.g. "5000", "5k")
     if (!match && text.split(/\s+/).length <= 3 && !text.match(/day|night|week|month/i)) {
-      match = text.match(/^(\d+[,\d]*)\s*(cr|lakh|thousand|k)?$/i);
+      match = text.match(/^(\d+[,\d]*)\s*(cr|crore|lakh|l|thousand|k)?$/i);
     }
-
     if (match && match[1]) {
       let amount = parseInt(match[1].replace(/,/g, ''));
       const multiplier = match[2];
-
       if (multiplier) {
         const multipliers = {
-          'cr': 10000000,
-          'crore': 10000000,
-          'lakh': 100000,
-          'l': 100000,
-          'thousand': 1000,
-          'k': 1000
+          'cr': 10000000, 'crore': 10000000,
+          'lakh': 100000, 'l': 100000,
+          'thousand': 1000, 'k': 1000
         };
         amount *= multipliers[multiplier.toLowerCase()] || 1;
       }
 
+      // Try to detect inline currency from the budget string itself
+      const inlineCurrency = this.extractCurrency(text);
       return {
-        amount,
-        currency: '₹',
-        range: this.budgetRange(amount)
+        amount: amount,
+        currency: inlineCurrency ? inlineCurrency.code : null  // null = will use session currency
       };
     }
     return null;
   }
 
-  /**
-   * Categorize budget into ranges
-   */
-  budgetRange(amount) {
-    if (amount < 10000) return 'ultra-budget';
-    if (amount < 50000) return 'budget';
-    if (amount < 100000) return 'mid-range';
-    if (amount < 200000) return 'premium';
-    return 'luxury';
-  }
-
-  /**
-   * Extract trip duration
-   */
   extractDuration(text) {
     const match = text.match(this.patterns.durationPattern);
-    if (match && match[1]) {
-      return parseInt(match[1]);
-    }
-    // If it's a raw number and likely an answer to "how many days"
+    if (match && match[1]) return parseInt(match[1]);
     const rawNumMatch = text.match(/^(\d+)$/);
-    if (rawNumMatch) {
-      return parseInt(rawNumMatch[1]);
-    }
+    if (rawNumMatch) return parseInt(rawNumMatch[1]);
     return null;
   }
 
-  /**
-   * Extract transport preference
-   */
   extractTransport(text) {
     for (const mode of this.transportModes) {
       if (text.includes(mode)) return mode;
@@ -192,9 +222,6 @@ class AuraParser {
     return null;
   }
 
-  /**
-   * Extract hotel preference
-   */
   extractHotel(text) {
     for (const type of this.hotelTypes) {
       if (text.includes(type)) return type;
@@ -202,9 +229,6 @@ class AuraParser {
     return null;
   }
 
-  /**
-   * Extract travel style
-   */
   extractStyle(text) {
     for (const style of this.travelStyles) {
       if (text.includes(style)) return style;
@@ -212,60 +236,23 @@ class AuraParser {
     return null;
   }
 
-  /**
-   * Extract number of travelers
-   */
   extractTravelers(text) {
     const match = text.match(this.patterns.travelersPattern);
-    if (match && match[1]) {
-      return parseInt(match[1]);
-    }
-    return 1;
+    return match && match[1] ? parseInt(match[1]) : null;
   }
 
-  /**
-   * Check if user is asking for route
-   */
-  isRouteRequest(text) {
-    return /(?:show|display|find|get|draw|plot|route|path|way|direction|map|compare|vs|train vs flight)/i.test(text);
-  }
-
-  /**
-   * Detect user's intent
-   */
   detectIntent(text) {
-    if (/(?:compare|vs|cheapest|fastest|option|better|train vs flight|flight vs train)/i.test(text)) return 'compare-routes';
-    if (/(?:road trip|drive to|driving|car to)/i.test(text)) return 'road-trip';
-    if (/(?:budget|cost|expense|price|under ₹|under r|cheap)/i.test(text)) return 'budget-plan';
-    if (/(?:hidden gem|secret|unexplored|offbeat)/i.test(text)) return 'hidden-gems';
-    if (/(?:hotel|stay|accommodation|lodge|resort|hostel)/i.test(text)) return 'hotel-search';
-    if (/(?:food|eat|restaurant|cuisine|cafe|dish)/i.test(text)) return 'food-discovery';
-    if (/(?:attraction|place|thing|see|visit|destination)/i.test(text)) return 'attractions';
-    if (/(?:route|direction|path|map|show me how)/i.test(text)) return 'show-route';
-    if (/(?:plan|itinerary|trip|tour)/i.test(text)) return 'plan-trip';
-    return 'general-travel-query';
-  }
+    if (/(?:compare|vs|cheapest|fastest|train vs flight|flight vs train|options from|travel from)/i.test(text)) return 'route_comparison';
+    if (/(?:road trip|drive to|driving|car to)/i.test(text)) return 'road_trip';
+    if (/(?:attraction|place|thing|see|visit|route|direction|path|map|show me how|plan|itinerary|trip|tour)/i.test(text) && !/(?:suggest|recommend|where should i|ideas for|destinations for)/i.test(text)) return 'trip_planning';
+    if (/(?:budget|cost|expense|price|under ₹|under r|cheap)/i.test(text)) return 'budget_estimation';
+    if (/(?:hidden gem|secret|unexplored|offbeat)/i.test(text)) return 'hidden_gems';
+    if (/(?:hotel|stay|accommodation|lodge|resort|hostel)/i.test(text)) return 'hotel_search';
+    if (/(?:food|eat|restaurant|cuisine|cafe|dish)/i.test(text)) return 'food_discovery';
+    if (/(?:suggest|recommend|where should i|ideas for|destinations for|places to go|where to go|honeymoon destinations)/i.test(text)) return 'destination_recommendation';
 
-  /**
-   * Generate follow-up question based on missing info
-   */
-  generateQuestion(missing, context) {
-    const questions = {
-      sourceCity: "Where are you traveling from?",
-      destination: "Which city or destination would you like to visit?",
-      budget: "What's your total budget for this trip?",
-      duration: "How many days are you planning to stay?",
-      transportPreference: "Do you prefer train, flight, or road travel?",
-      travelers: "How many people are traveling?"
-    };
-
-    if (missing.length > 0) {
-      return questions[missing[0]] || "Tell me more about your trip.";
-    }
-
-    return null;
+    return 'travel_advice';
   }
 }
 
-// Export for use in other modules
 window.AuraParser = AuraParser;

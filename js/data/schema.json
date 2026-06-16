@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GlobeRoutes Verified Dataset Schema",
+  "type": "object",
+  "required": ["country", "code", "cities"],
+  "properties": {
+    "country": {
+      "type": "string",
+      "description": "Name of the country"
+    },
+    "code": {
+      "type": "string",
+      "description": "ISO 2-letter country code"
+    },
+    "currency": {
+      "type": "object",
+      "required": ["code", "symbol"],
+      "properties": {
+        "code": { "type": "string" },
+        "symbol": { "type": "string" }
+      }
+    },
+    "cities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "coordinates", "attractions", "hotels"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "bestSeason": { "type": "string" },
+          "coordinates": {
+            "type": "object",
+            "required": ["lat", "lng"],
+            "properties": {
+              "lat": { "type": "number" },
+              "lng": { "type": "number" }
+            }
+          },
+          "attractions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "type"],
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "rating": { "type": "number" },
+                "price": { "type": "number", "description": "Estimated cost in local currency" }
+              }
+            }
+          },
+          "hotels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "category", "price"],
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "category": { "type": "string", "enum": ["budget", "mid-range", "luxury"] },
+                "price": { "type": "number", "description": "Price per night in local currency" },
+                "rating": { "type": "number" }
+              }
+            }
+          },
+          "restaurants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "cuisine": { "type": "string" },
+                "priceCategory": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
