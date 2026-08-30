@@ -1,0 +1,202 @@
+{
+  "country": "South Korea",
+  "code": "KR",
+  "currency": {
+    "code": "KRW",
+    "symbol": "₩"
+  },
+  "cities": [
+    {
+      "id": "seoul",
+      "name": "Seoul",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 37.5665, "lng": 126.9780 },
+      "attractions": [
+        { "id": "kr_seoul_gyeongbokgung", "name": "Gyeongbokgung Palace", "type": "Joseon Palace", "rating": 4.8, "price": 3000 },
+        { "id": "kr_seoul_n_tower", "name": "N Seoul Tower", "type": "Observation Tower", "rating": 4.7, "price": 16000 },
+        { "id": "kr_seoul_bukchon", "name": "Bukchon Hanok Village", "type": "Traditional Village", "rating": 4.6, "price": 0 },
+        { "id": "kr_seoul_myeongdong", "name": "Myeongdong Shopping District", "type": "Shopping & Street Food", "rating": 4.6, "price": 0 },
+        { "id": "kr_seoul_changdeokgung", "name": "Changdeokgung Palace & Secret Garden", "type": "UNESCO Palace", "rating": 4.8, "price": 3000 },
+        { "id": "kr_seoul_ddp", "name": "Dongdaemun Design Plaza (DDP)", "type": "Cultural Complex", "rating": 4.7, "price": 0 },
+        { "id": "kr_seoul_lotte_tower", "name": "Lotte World Tower", "type": "Skyscraper & Mall", "rating": 4.8, "price": 27000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_seoul_shilla", "name": "The Shilla Seoul", "category": "luxury", "price": 450000, "rating": 4.9 },
+        { "id": "hotel_kr_seoul_signiel", "name": "Signiel Seoul", "category": "luxury", "price": 650000, "rating": 4.9 },
+        { "id": "hotel_kr_seoul_four_seasons", "name": "Four Seasons Hotel Seoul", "category": "luxury", "price": 550000, "rating": 4.9 },
+        { "id": "hotel_kr_seoul_rakkojae", "name": "Rakkojae Seoul", "category": "luxury", "price": 350000, "rating": 4.8 },
+        { "id": "hotel_kr_seoul_daam", "name": "Hanok Hotel DAAM (Ikseon-dong)", "category": "luxury", "price": 200000, "rating": 4.6 },
+        { "id": "hotel_kr_seoul_cappuccino", "name": "Hotel Cappuccino (Gangnam)", "category": "luxury", "price": 150000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "busan",
+      "name": "Busan",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 35.1796, "lng": 129.0756 },
+      "attractions": [
+        { "id": "kr_busan_haeundae", "name": "Busan Haeundae Beach", "type": "Beach & City", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_busan_park_hyatt", "name": "Park Hyatt Busan", "category": "luxury", "price": 400000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "jeju",
+      "name": "Jeju Island",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": 33.4996, "lng": 126.5312 },
+      "attractions": [
+        { "id": "kr_jeju_island", "name": "Jeju Volcanic Island & Hallasan", "type": "Volcanic Island", "rating": 4.9, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_jeju_marriott", "name": "Jeju Shinhwa World Marriott", "category": "luxury", "price": 300000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "incheon",
+      "name": "Incheon & Ganghwa Island",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 37.4563, "lng": 126.7052 },
+      "attractions": [
+        { "id": "kr_incheon_ganghwa", "name": "Ganghwa Island Dolmen Sites", "type": "Historical Island", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_incheon_nest", "name": "Nest Hotel Incheon", "category": "luxury", "price": 220000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "gyeongju",
+      "name": "Gyeongju",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 35.8562, "lng": 129.2132 },
+      "attractions": [
+        { "id": "kr_gyeongju_historic", "name": "Bulguksa Temple & Tumuli Park Heritage", "type": "Silla Kingdom Capital", "rating": 4.9, "price": 6000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_gyeongju_lahan", "name": "Lahan Select Gyeongju", "category": "luxury", "price": 220000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "paju",
+      "name": "Paju & DMZ",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 37.7600, "lng": 126.7800 },
+      "attractions": [
+        { "id": "kr_paju_dmz", "name": "DMZ Demilitarized Zone Tour", "type": "Historical Site", "rating": 4.8, "price": 46000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_paju_siena", "name": "Hotel Siena Paju", "category": "mid-range", "price": 95000, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "taean",
+      "name": "Taean Peninsula",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 36.7456, "lng": 126.2978 },
+      "attractions": [
+        { "id": "kr_taean_national_park", "name": "Taean Haean National Park & Dongseo Trail", "type": "Coastal Nature", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_taean_resort", "name": "Taean Beach Hotel", "category": "mid-range", "price": 110000, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "suncheon",
+      "name": "Suncheon & Boseong",
+      "bestSeason": "October - November",
+      "coordinates": { "lat": 34.9507, "lng": 127.4875 },
+      "attractions": [
+        { "id": "kr_suncheon_wetland", "name": "Suncheon Bay Wetland Reserve", "type": "UNESCO Wetland Reserve", "rating": 4.8, "price": 8000 },
+        { "id": "kr_suncheon_boseong", "name": "Boseong Green Tea Fields", "type": "Tea Plantation", "rating": 4.8, "price": 4000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_suncheon_ecograd", "name": "Suncheon Ecograd Hotel", "category": "mid-range", "price": 98000, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "jeonju",
+      "name": "Jeonju",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 35.8242, "lng": 127.1480 },
+      "attractions": [
+        { "id": "kr_jeonju_hanok_village", "name": "Jeonju Hanok Village", "type": "Traditional Village", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_jeonju_hanok", "name": "Jeonju Hanok Midam", "category": "mid-range", "price": 120000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "ulleungdo",
+      "name": "Ulleungdo Island",
+      "bestSeason": "Summer & Autumn",
+      "coordinates": { "lat": 37.4844, "lng": 130.8655 },
+      "attractions": [
+        { "id": "kr_ulleungdo_cliffs", "name": "Ulleungdo Volcanic Cliffs & Peak", "type": "Volcanic Island", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_ulleungdo_kosmos", "name": "Healing Stay KOSMOS", "category": "luxury", "price": 350000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "damyang",
+      "name": "Damyang Bamboo Forest",
+      "bestSeason": "Spring & Summer",
+      "coordinates": { "lat": 35.3212, "lng": 126.9841 },
+      "attractions": [
+        { "id": "kr_damyang_bamboo", "name": "Juknokwon Bamboo Garden", "type": "Bamboo Grove", "rating": 4.7, "price": 3000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_damyang_resort", "name": "Damyang Resort Hotel", "category": "mid-range", "price": 110000, "rating": 4.2 }
+      ]
+    },
+    {
+      "id": "seoraksan",
+      "name": "Seoraksan National Park",
+      "bestSeason": "Autumn & Winter",
+      "coordinates": { "lat": 38.1189, "lng": 128.4628 },
+      "attractions": [
+        { "id": "kr_seoraksan_park", "name": "Seoraksan National Park & Ulsanbawi", "type": "Mountain National Park", "rating": 4.9, "price": 4000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_seorak_kensington", "name": "Kensington Hotel Seoraksan", "category": "luxury", "price": 150000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "andong",
+      "name": "Andong Hahoe Village",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 36.5392, "lng": 128.5198 },
+      "attractions": [
+        { "id": "kr_andong_hahoe", "name": "Andong Hahoe Folk Village", "type": "UNESCO Folk Village", "rating": 4.7, "price": 5000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_andong_gurume", "name": "Gurume Traditional Hanok Resort", "category": "luxury", "price": 200000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "yeosu",
+      "name": "Yeosu",
+      "bestSeason": "Spring & Summer",
+      "coordinates": { "lat": 34.7604, "lng": 127.6622 },
+      "attractions": [
+        { "id": "kr_yeosu_coastal", "name": "Odongdo Island & Yeosu Sea Cable Car", "type": "Coastal City", "rating": 4.7, "price": 15000 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_yeosu_sonocalm", "name": "Sono Calm Yeosu", "category": "luxury", "price": 180000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "namhae",
+      "name": "Namhae Coast",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 34.8378, "lng": 127.8924 },
+      "attractions": [
+        { "id": "kr_namhae_village", "name": "Namhae German Village & Coastal Scenic Trails", "type": "Coastal Nature", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_kr_namhae_ananti", "name": "Ananti at Namhae Resort", "category": "luxury", "price": 380000, "rating": 4.8 }
+      ]
+    }
+  ]
+}

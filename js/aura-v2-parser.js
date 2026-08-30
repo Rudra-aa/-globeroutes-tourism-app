@@ -34,6 +34,23 @@ class AuraParser {
       'aud': { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
       'thb': { code: 'THB', symbol: '฿', name: 'Thai Baht' },
       'baht': { code: 'THB', symbol: '฿', name: 'Thai Baht' },
+      'chf': { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+      'franc': { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+      'francs': { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+      'try': { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
+      'lira': { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
+      'liras': { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
+      '₺': { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
+      'idr': { code: 'IDR', symbol: 'Rp', name: 'Indonesian Rupiah' },
+      'rupiah': { code: 'IDR', symbol: 'Rp', name: 'Indonesian Rupiah' },
+      'rupiahs': { code: 'IDR', symbol: 'Rp', name: 'Indonesian Rupiah' },
+      'rp': { code: 'IDR', symbol: 'Rp', name: 'Indonesian Rupiah' },
+      'krw': { code: 'KRW', symbol: '₩', name: 'South Korean Won' },
+      'won': { code: 'KRW', symbol: '₩', name: 'South Korean Won' },
+      '₩': { code: 'KRW', symbol: '₩', name: 'South Korean Won' },
+      'vnd': { code: 'VND', symbol: '₫', name: 'Vietnamese Dong' },
+      'dong': { code: 'VND', symbol: '₫', name: 'Vietnamese Dong' },
+      '₫': { code: 'VND', symbol: '₫', name: 'Vietnamese Dong' },
     };
 
     this.patterns = {
@@ -48,13 +65,13 @@ class AuraParser {
       toPattern: /(?:to|visit|visiting|destination|explore|in)\s+([a-zA-Z\s]+?)(?:\s+from\s+|\s+for\s+|\s+under\s+|\s+with\s+|\s+by\s+|,|\.|\?|$)/i,
 
       // Country patterns (basic)
-      countryPattern: /(?:in|to|explore)\s+(india|europe|usa|america|uk|france|italy|germany|spain|japan|thailand|singapore|australia|uae)/i,
+      countryPattern: /(?:in|to|explore)\s+(india|europe|usa|america|uk|france|italy|germany|spain|japan|thailand|singapore|australia|uae|switzerland|turkey|indonesia|south_korea|vietnam|korea)/i,
 
       // Currency pattern — must appear before budgetPattern so we parse currency first
-      currencyPattern: /\b(inr|usd|eur|gbp|jpy|sgd|aed|cad|aud|thb|rupees?|dollars?|euros?|pounds?|yen|dirham|baht|₹|\$|€|£|¥)\b/i,
+      currencyPattern: /\b(inr|usd|eur|gbp|jpy|sgd|aed|cad|aud|thb|chf|try|idr|krw|vnd|rupees?|dollars?|euros?|pounds?|yen|dirham|baht|francs?|liras?|rupiahs?|rp|won|dong|₹|\$|€|£|¥|₺|₩|₫)\b/i,
 
       // Budget patterns — supports ₹/$€£¥ and plain word budgets
-      budgetPattern: /(?:₹|\$|€|£|¥|inr|usd|eur|gbp|jpy|rupees?|dollars?|euros?|pounds?|yen|budget|under|cost|price|within|max)\s*[\s:]*([\d]+[,\d]*)\s*(cr|crore|lakh|l|thousand|k)?/i,
+      budgetPattern: /(?:₹|\$|€|£|¥|₺|₩|₫|inr|usd|eur|gbp|jpy|sgd|aed|cad|aud|thb|chf|try|idr|krw|vnd|rupees?|dollars?|euros?|pounds?|yen|dirham|baht|francs?|liras?|rupiahs?|rp|won|dong|budget|under|cost|price|within|max)\s*[\s:]*([\d]+[,\d]*)\s*(cr|crore|lakh|l|thousand|k)?/i,
 
       // Duration patterns
       durationPattern: /(\d+)[-\s]*(?:day|night|week|month)s?/i,
@@ -145,7 +162,14 @@ class AuraParser {
   normalizeCity(city) {
     const cityMap = {
       'gwl': 'gwalior', 'gwr': 'gwalior', 'mumbai': 'mumbai', 'bombay': 'mumbai',
-      'ncr': 'delhi', 'raj': 'rajasthan', 'maharashtra': 'maharashtra'
+      'ncr': 'delhi', 'raj': 'rajasthan', 'maharashtra': 'maharashtra',
+      'bkk': 'bangkok', 'cnx': 'chiang mai', 'hkt': 'phuket', 'sg': 'singapore_city',
+      'fra': 'frankfurt', 'muc': 'munich', 'txl': 'berlin', 'ber': 'berlin',
+      'zrh': 'zurich', 'gva': 'geneva', 'luz': 'lucerne', 'ist': 'istanbul',
+      'ayt': 'antalya', 'bjv': 'bodrum', 'ch': 'zurich', 'de': 'berlin', 'tr': 'istanbul',
+      'sel': 'seoul', 'icn': 'incheon', 'pus': 'busan', 'cju': 'jeju',
+      'han': 'hanoi', 'sgn': 'ho_chi_minh_city', 'hcm': 'ho_chi_minh_city', 'dad': 'da_nang',
+      'kr': 'seoul', 'vn': 'hanoi'
     };
     const lower = city.toLowerCase().trim();
     const formatted = (cityMap[lower] || lower)

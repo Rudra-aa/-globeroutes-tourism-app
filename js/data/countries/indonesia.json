@@ -1,0 +1,233 @@
+{
+  "country": "Indonesia",
+  "code": "ID",
+  "currency": {
+    "code": "IDR",
+    "symbol": "Rp"
+  },
+  "cities": [
+    {
+      "id": "jakarta",
+      "name": "Jakarta",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -6.2088, "lng": 106.8456 },
+      "attractions": [
+        { "id": "id_jakarta_old_town", "name": "Jakarta Old Town (Kota Tua)", "type": "Colonial District", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_jakarta_hermitage", "name": "The Hermitage Jakarta", "category": "luxury", "price": 2200000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "yogyakarta",
+      "name": "Yogyakarta & Dieng",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -7.7956, "lng": 110.3695 },
+      "attractions": [
+        { "id": "id_yogyakarta_prambanan", "name": "Prambanan Temple", "type": "Hindu Temple", "rating": 4.8, "price": 375000 },
+        { "id": "id_yogyakarta_dieng", "name": "Dieng Plateau Highlands", "type": "Highland Plateau", "rating": 4.6, "price": 150000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_yogyakarta_phoenix", "name": "The Phoenix Hotel Yogyakarta", "category": "luxury", "price": 1800000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "magelang",
+      "name": "Magelang & Borobudur",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -7.4706, "lng": 110.2178 },
+      "attractions": [
+        { "id": "id_magelang_borobudur", "name": "Borobudur Temple", "type": "Buddhist Temple", "rating": 4.9, "price": 375000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_magelang_amanjiwo", "name": "Amanjiwo", "category": "luxury", "price": 13500000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "ubud",
+      "name": "Ubud (Bali)",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -8.5069, "lng": 115.2625 },
+      "attractions": [
+        { "id": "id_ubud_rice_terraces", "name": "Ubud Rice Terraces", "type": "Cultural Landscape", "rating": 4.8, "price": 30000 },
+        { "id": "id_ubud_tegallalang", "name": "Tegallalang Rice Terrace", "type": "Rice Terrace", "rating": 4.7, "price": 30000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_ubud_como", "name": "COMO Shambhala Estate", "category": "luxury", "price": 10500000, "rating": 4.9 },
+        { "id": "hotel_id_ubud_four_seasons", "name": "Four Seasons Resort Bali at Sayan", "category": "luxury", "price": 12800000, "rating": 4.9 },
+        { "id": "hotel_id_ubud_bambu_indah", "name": "Bambu Indah", "category": "luxury", "price": 4500000, "rating": 4.8 },
+        { "id": "hotel_id_ubud_capella", "name": "Capella Ubud", "category": "luxury", "price": 13500000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "south_bali",
+      "name": "South Bali (Uluwatu & Canggu)",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -8.8149, "lng": 115.0884 },
+      "attractions": [
+        { "id": "id_south_bali_tanah_lot", "name": "Tanah Lot Sea Temple", "type": "Sea Temple", "rating": 4.8, "price": 60000 },
+        { "id": "id_south_bali_uluwatu", "name": "Uluwatu Cliff Temple", "type": "Cliff Temple", "rating": 4.8, "price": 60000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_south_bali_the_slow", "name": "The Slow (Canggu)", "category": "luxury", "price": 3300000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "east_bali",
+      "name": "East Bali & Sidemen",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -8.4500, "lng": 115.5000 },
+      "attractions": [
+        { "id": "id_east_bali_sidemen", "name": "Sidemen Valley Rice Fields", "type": "Rural Rice Valley", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_east_bali_amankila", "name": "Amankila", "category": "luxury", "price": 12000000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "north_bali",
+      "name": "North Bali (Munduk & Pemuteran)",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -8.2586, "lng": 115.0681 },
+      "attractions": [
+        { "id": "id_north_bali_munduk", "name": "Munduk Mountain Village & Waterfalls", "type": "Mountain Village", "rating": 4.7, "price": 20000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_north_bali_puri_ganesha", "name": "Puri Ganesha Villas (Pemuteran)", "category": "luxury", "price": 5200000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "nusa_penida",
+      "name": "Nusa Penida",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -8.7278, "lng": 115.5444 },
+      "attractions": [
+        { "id": "id_nusa_penida_island", "name": "Nusa Penida Rugged Coastlines", "type": "Rugged Island", "rating": 4.8, "price": 30000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_nusa_penida_semabu", "name": "Semabu Hills Resort Nusa Penida", "category": "mid-range", "price": 1650000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "komodo",
+      "name": "Komodo National Park",
+      "bestSeason": "April - December",
+      "coordinates": { "lat": -8.5833, "lng": 119.5000 },
+      "attractions": [
+        { "id": "id_komodo_national_park", "name": "Komodo National Park Dragons & Coral Reefs", "type": "UNESCO Site", "rating": 4.9, "price": 375000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_komodo_plataran", "name": "Plataran Komodo Resort", "category": "luxury", "price": 6000000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "raja_ampat",
+      "name": "Raja Ampat",
+      "bestSeason": "October - April",
+      "coordinates": { "lat": -0.2289, "lng": 130.4981 },
+      "attractions": [
+        { "id": "id_raja_ampat_marine", "name": "Raja Ampat Marine Archipelago", "type": "Marine Paradise", "rating": 4.9, "price": 750000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_raja_ampat_biodiversity", "name": "Raja Ampat Biodiversity Nature Resort", "category": "luxury", "price": 5200000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "mount_bromo",
+      "name": "Mount Bromo",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -7.9425, "lng": 112.9530 },
+      "attractions": [
+        { "id": "id_bromo_volcano", "name": "Mount Bromo Active Volcano", "type": "Volcano", "rating": 4.8, "price": 225000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_bromo_jiwajawa", "name": "Jiwa Jawa Resort Bromo", "category": "mid-range", "price": 1950000, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "sulawesi",
+      "name": "Sulawesi Highland & Reefs",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -2.0000, "lng": 120.0000 },
+      "attractions": [
+        { "id": "id_sulawesi_togean", "name": "Togean Remote Archipelago", "type": "Remote Archipelago", "rating": 4.7, "price": 0 },
+        { "id": "id_sulawesi_toraja", "name": "Tana Toraja Highland Culture", "type": "Highland Culture", "rating": 4.8, "price": 75000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_sulawesi_toraja_heritage", "name": "Toraja Heritage Hotel", "category": "mid-range", "price": 1650000, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "wakatobi",
+      "name": "Wakatobi Biosphere Reserve",
+      "bestSeason": "March - December",
+      "coordinates": { "lat": -5.3242, "lng": 123.5824 },
+      "attractions": [
+        { "id": "id_wakatobi_biosphere", "name": "Wakatobi Marine National Park", "type": "UNESCO Biosphere Reserve", "rating": 4.9, "price": 450000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_wakatobi_resort", "name": "Wakatobi Dive Resort", "category": "luxury", "price": 9800000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "belitung",
+      "name": "Belitung Island",
+      "bestSeason": "March - October",
+      "coordinates": { "lat": -2.8333, "lng": 107.6667 },
+      "attractions": [
+        { "id": "id_belitung_beaches", "name": "Belitung Granite Beaches", "type": "Granite Beach Island", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_belitung_fairfield", "name": "Fairfield by Marriott Belitung Resort", "category": "mid-range", "price": 1350000, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "banda_islands",
+      "name": "Banda Spice Islands",
+      "bestSeason": "March - May, September - November",
+      "coordinates": { "lat": -4.5292, "lng": 129.8972 },
+      "attractions": [
+        { "id": "id_banda_nutmeg", "name": "Banda Historic Spice Islands & Forts", "type": "Historic Spice Islands", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_banda_maulana", "name": "The Maulana Hotel Banda", "category": "mid-range", "price": 1400000, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "sumba",
+      "name": "Sumba Island",
+      "bestSeason": "March - October",
+      "coordinates": { "lat": -9.6500, "lng": 120.0000 },
+      "attractions": [
+        { "id": "id_sumba_culture", "name": "Sumba Tribal Villages & lagoons", "type": "Tribal Island", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_sumba_nihi", "name": "Nihi Sumba", "category": "luxury", "price": 27000000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "karimunjawa",
+      "name": "Karimunjawa Archipelago",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": -5.8500, "lng": 110.4333 },
+      "attractions": [
+        { "id": "id_karimunjawa_marine", "name": "Karimunjawa Marine Sanctuary", "type": "Marine National Park", "rating": 4.7, "price": 75000 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_karimunjawa_java_paradise", "name": "Java Paradise Resort", "category": "mid-range", "price": 1500000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "pulau_weh",
+      "name": "Pulau Weh",
+      "bestSeason": "March - October",
+      "coordinates": { "lat": 5.8239, "lng": 95.3117 },
+      "attractions": [
+        { "id": "id_pulau_weh_diving", "name": "Pulau Weh Marine Beaches & Hot Springs", "type": "Volcanic Island", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_id_pulau_weh_freddies", "name": "Freddie Sumur Tiga", "category": "budget", "price": 675000, "rating": 4.4 }
+      ]
+    }
+  ]
+}

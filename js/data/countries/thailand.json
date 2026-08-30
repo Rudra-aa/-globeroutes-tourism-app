@@ -1,6 +1,328 @@
 {
-  "country": "thailand",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "Thailand",
+  "code": "TH",
+  "currency": {
+    "code": "THB",
+    "symbol": "฿"
+  },
+  "cities": [
+    {
+      "id": "bangkok",
+      "name": "Bangkok",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 13.7563, "lng": 100.5018 },
+      "attractions": [
+        { "id": "th_bangkok_grand_palace", "name": "Grand Palace & Wat Phra Kaew", "type": "Royal Palace & Temple", "rating": 4.8, "price": 500 },
+        { "id": "th_bangkok_wat_arun", "name": "Wat Arun (Temple of Dawn)", "type": "Buddhist Temple", "rating": 4.7, "price": 100 },
+        { "id": "th_bangkok_chatuchak", "name": "Chatuchak Weekend Market", "type": "Market", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_bangkok_oriental", "name": "Mandarin Oriental Bangkok", "category": "luxury", "price": 18000, "rating": 4.9 },
+        { "id": "hotel_th_bangkok_siam", "name": "The Siam", "category": "luxury", "price": 25000, "rating": 4.9 },
+        { "id": "hotel_th_bangkok_langham", "name": "The Langham, Custom House Bangkok", "category": "luxury", "price": 15000, "rating": 4.8 },
+        { "id": "hotel_th_bangkok_nobu", "name": "Plaza Athénée Nobu Hotel & Spa", "category": "luxury", "price": 16000, "rating": 4.8 },
+        { "id": "hotel_th_bangkok_andaz", "name": "Andaz One Bangkok", "category": "luxury", "price": 10000, "rating": 4.7 },
+        { "id": "hotel_th_bangkok_nai_lert", "name": "Aman Nai Lert Bangkok", "category": "luxury", "price": 22000, "rating": 4.9 },
+        { "id": "hotel_th_bangkok_dusit", "name": "Dusit Thani Bangkok (New)", "category": "luxury", "price": 12000, "rating": 4.8 }
+      ],
+      "restaurants": [
+        { "id": "food_th_bangkok_le_normandie", "name": "Le Normandie by Alain Roux", "cuisine": "French Fine Dining", "priceCategory": "$$$$" }
+      ]
+    },
+    {
+      "id": "phuket",
+      "name": "Phuket",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 7.8804, "lng": 98.3922 },
+      "attractions": [
+        { "id": "th_phuket_beaches", "name": "Phuket Beaches (Patong, Kata, Karon)", "type": "Island Resort", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_phuket_amanpuri", "name": "Amanpuri", "category": "luxury", "price": 45000, "rating": 4.9 },
+        { "id": "hotel_th_phuket_trisara", "name": "Trisara", "category": "luxury", "price": 30000, "rating": 4.9 },
+        { "id": "hotel_th_phuket_navera", "name": "Navera Phuket – MGallery Collection", "category": "luxury", "price": 9000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "chiang_mai",
+      "name": "Chiang Mai",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 18.7883, "lng": 98.9853 },
+      "attractions": [
+        { "id": "th_chiang_mai_old_city", "name": "Chiang Mai Old City & Temples", "type": "Historic City", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_chiang_mai_four_seasons", "name": "Four Seasons Resort Chiang Mai", "category": "luxury", "price": 20000, "rating": 4.9 },
+        { "id": "hotel_th_chiang_mai_raya_heritage", "name": "Raya Heritage", "category": "luxury", "price": 12000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "ayutthaya",
+      "name": "Ayutthaya",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 14.3532, "lng": 100.5683 },
+      "attractions": [
+        { "id": "th_ayutthaya_historical_park", "name": "Ayutthaya Historical Park", "type": "UNESCO Ruins", "rating": 4.6, "price": 50 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_ayutthaya_retreat", "name": "Ayutthaya Retreat", "category": "mid-range", "price": 2000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "krabi",
+      "name": "Krabi",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 8.0863, "lng": 98.9063 },
+      "attractions": [
+        { "id": "th_krabi_railay", "name": "Railay Beach", "type": "Beach & Climbing", "rating": 4.8, "price": 0 },
+        { "id": "th_krabi_phi_phi", "name": "Phi Phi Islands & Maya Bay", "type": "Island Group", "rating": 4.7, "price": 400 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_krabi_rayavadee", "name": "Rayavadee Krabi", "category": "luxury", "price": 15000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "pattaya",
+      "name": "Pattaya",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 12.9236, "lng": 100.8824 },
+      "attractions": [
+        { "id": "th_pattaya_beach", "name": "Pattaya Beach & Nightlife", "type": "Beach Resort", "rating": 4.4, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_pattaya_hilton", "name": "Hilton Pattaya", "category": "luxury", "price": 5000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "ratchaburi",
+      "name": "Ratchaburi",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 13.5186, "lng": 99.9602 },
+      "attractions": [
+        { "id": "th_ratchaburi_damnoen", "name": "Damnoen Saduak Floating Market", "type": "Floating Market", "rating": 4.2, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_ratchaburi_maikaew", "name": "Maikaew Damnoen Resort", "category": "mid-range", "price": 1500, "rating": 4.2 }
+      ]
+    },
+    {
+      "id": "nan",
+      "name": "Nan",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 18.7831, "lng": 100.7816 },
+      "attractions": [
+        { "id": "th_nan_culture", "name": "Wat Phumin & Sapan Waterfall", "type": "Cultural Heritage", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_nan_boutique", "name": "Nan Boutique Hotel", "category": "mid-range", "price": 1500, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "pranburi",
+      "name": "Pranburi",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 12.2464, "lng": 99.9875 },
+      "attractions": [
+        { "id": "th_pranburi_cave", "name": "Phraya Nakhon Cave (Sam Roi Yot)", "type": "National Park", "rating": 4.8, "price": 200 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_pranburi_sheraton", "name": "Sheraton Pranburi Villa", "category": "luxury", "price": 5000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "koh_kood",
+      "name": "Koh Kood",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 11.6606, "lng": 102.5739 },
+      "attractions": [
+        { "id": "th_koh_kood_beaches", "name": "Pristine Beaches & Waterfalls", "type": "Untouched Island", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_kood_soneva", "name": "Soneva Kiri", "category": "luxury", "price": 35000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "uthai_thani",
+      "name": "Uthai Thani",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 15.3789, "lng": 100.0247 },
+      "attractions": [
+        { "id": "th_uthai_thani_springs", "name": "Samor Thong Hot Spring & Sakae Krang River", "type": "Hot Springs", "rating": 4.5, "price": 30 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_uthai_thani_resort", "name": "Uthai River Lake Resort", "category": "mid-range", "price": 1800, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "chiang_dao",
+      "name": "Chiang Dao",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 19.3667, "lng": 98.9667 },
+      "attractions": [
+        { "id": "th_chiang_dao_sanctuary", "name": "Pong Arng Hot Spring & Wildlife Sanctuary", "type": "Mountain Sanctuary", "rating": 4.7, "price": 100 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_chiang_dao_nest", "name": "Chiang Dao Nest", "category": "budget", "price": 1200, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "koh_yao_noi",
+      "name": "Koh Yao Noi",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 8.1256, "lng": 98.6186 },
+      "attractions": [
+        { "id": "th_koh_yao_noi_cycling", "name": "Phang Nga Bay Views & Cycling", "type": "Scenic Island", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_yao_noi_six_senses", "name": "Six Senses Yao Noi", "category": "luxury", "price": 25000, "rating": 4.9 },
+        { "id": "hotel_th_koh_yao_noi_hideout", "name": "The Hideout", "category": "luxury", "price": 7000, "rating": 4.7 },
+        { "id": "hotel_th_koh_yao_noi_kudu", "name": "Cape Kudu Hotel", "category": "luxury", "price": 8000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "koh_yao_yai",
+      "name": "Koh Yao Yai",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 8.0163, "lng": 98.5997 },
+      "attractions": [
+        { "id": "th_koh_yao_yai_villages", "name": "Traditional Fishing Villages", "type": "Scenic Island", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_yao_yai_santhiya", "name": "Santhiya Koh Yao Yai Resort", "category": "luxury", "price": 4500, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "koh_mak",
+      "name": "Koh Mak",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 11.8153, "lng": 102.4839 },
+      "attractions": [
+        { "id": "th_koh_mak_snorkeling", "name": "Snorkeling & Quiet Beaches", "type": "Scenic Island", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_mak_seavana", "name": "Seavana Koh Mak Beach Resort", "category": "mid-range", "price": 2500, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "koh_chang",
+      "name": "Koh Chang",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 12.0104, "lng": 102.3560 },
+      "attractions": [
+        { "id": "th_koh_chang_nature", "name": "Rainforests & Klong Plu Waterfall", "type": "Nature Island", "rating": 4.6, "price": 200 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_chang_kc", "name": "KC Grande Resort Koh Chang", "category": "mid-range", "price": 3000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "koh_phangan",
+      "name": "Koh Phangan",
+      "bestSeason": "December - March",
+      "coordinates": { "lat": 9.7500, "lng": 100.0333 },
+      "attractions": [
+        { "id": "th_koh_phangan_wellness", "name": "Haad Yuan & Yoga Retreats", "type": "Wellness Island", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_phangan_kaia", "name": "KAIA Koh Phangan", "category": "luxury", "price": 8000, "rating": 4.7 },
+        { "id": "hotel_th_koh_phangan_panviman", "name": "Panviman Resort", "category": "luxury", "price": 4000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "kanchanaburi",
+      "name": "Kanchanaburi",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 14.0228, "lng": 99.5328 },
+      "attractions": [
+        { "id": "th_kanchanaburi_bridge", "name": "Bridge over River Kwai & Erawan Falls", "type": "History & Nature", "rating": 4.8, "price": 300 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_kanchanaburi_inchantree", "name": "U Inchantree Kanchanaburi", "category": "mid-range", "price": 2500, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "pai",
+      "name": "Pai",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 19.3582, "lng": 98.4367 },
+      "attractions": [
+        { "id": "th_pai_canyon", "name": "Pai Canyon & Mo Paeng Waterfall", "type": "Mountain Town", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_pai_island", "name": "Pai Island Resort", "category": "luxury", "price": 3500, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "koh_lipe",
+      "name": "Koh Lipe",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 6.4894, "lng": 99.3025 },
+      "attractions": [
+        { "id": "th_koh_lipe_snorkeling", "name": "Snorkeling & White Sand Beaches", "type": "Tropical Island", "rating": 4.8, "price": 200 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_lipe_castaway", "name": "Castaway Resort Koh Lipe", "category": "budget", "price": 1500, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "khao_yai",
+      "name": "Khao Yai",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 14.4397, "lng": 101.3732 },
+      "attractions": [
+        { "id": "th_khao_yai_park", "name": "Wild Elephants & Haew Suwat Waterfall", "type": "National Park", "rating": 4.7, "price": 400 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_khao_yai_intercontinental", "name": "InterContinental Khao Yai Resort", "category": "luxury", "price": 8000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "koh_samui",
+      "name": "Koh Samui",
+      "bestSeason": "December - March",
+      "coordinates": { "lat": 9.5120, "lng": 100.0136 },
+      "attractions": [
+        { "id": "th_koh_samui_beaches", "name": "Chaweng Beach & Ang Thong Marine Park", "type": "Tropical Island", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_koh_samui_library", "name": "The Library Samui", "category": "luxury", "price": 12000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "khao_lak",
+      "name": "Khao Lak",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 8.6436, "lng": 98.2496 },
+      "attractions": [
+        { "id": "th_khao_lak_beaches", "name": "Pristine Beaches & Similan Islands Access", "type": "Beach Resort", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_khao_lak_sarojin", "name": "The Sarojin", "category": "luxury", "price": 10000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "chiang_rai",
+      "name": "Chiang Rai",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 19.9079, "lng": 99.8310 },
+      "attractions": [
+        { "id": "th_chiang_rai_white_temple", "name": "Wat Rong Khun (White Temple)", "type": "Buddhist Temple", "rating": 4.8, "price": 50 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_chiang_rai_mora", "name": "Mora Boutique Hotel", "category": "luxury", "price": 4000, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "hua_hin",
+      "name": "Hua Hin",
+      "bestSeason": "November - February",
+      "coordinates": { "lat": 12.5684, "lng": 99.9576 },
+      "attractions": [
+        { "id": "th_hua_hin_night_market", "name": "Hua Hin Night Market & Cicada Market", "type": "Market", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_th_hua_hin_barai", "name": "The Barai Hua Hin", "category": "luxury", "price": 14000, "rating": 4.9 }
+      ]
+    }
+  ]
 }

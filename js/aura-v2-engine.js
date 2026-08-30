@@ -49,7 +49,7 @@ class AuraConversationalAI {
     const parsed = this.parser.parse(userInput);
     
     // Check what the engine was explicitly expecting before applying this new message
-    const expectedMissing = this.memory.getMissingInformation(this.memory.context.intent || parsed.intent);
+    const { missing: expectedMissing } = this.memory.getMissingInformation(this.memory.context.intent || parsed.intent);
 
     // Phase F: Debug Logging
     console.log('--- AURA DEBUG LOG ---');
@@ -83,7 +83,7 @@ class AuraConversationalAI {
     }
 
     // Update context with extracted information
-    this.memory.updateContext(parsed);
+    this.memory.updateContext(parsed, userInput);
     
     console.log('Updated Session State:', this.memory.context);
     console.log('Missing Info (After):', this.memory.getMissingInformation());
@@ -115,9 +115,17 @@ class AuraConversationalAI {
       } else if (this.memory.isReadyForPlanning()) {
         // Generate travel plan
         const tripPlan = await this.planner.generateTripPlan(this.memory.context);
-        response = this.generateTripResponse(tripPlan);
-        cards = this.formatTripPlanCards(tripPlan);
-        action = 'generate-plan';
+        if (tripPlan && tripPlan.error === 'DATASET_SEARCH_FAILURE') {
+          response = `I searched GlobeRoutes' database but couldn't find verified travel data for **${this.memory.context.destination}**.\n\nCould you try another destination? (e.g. Goa, Mumbai, Delhi, Paris, Tokyo, New York)`;
+          action = 'error';
+        } else if (!tripPlan) {
+          response = "I encountered an error planning your trip. Please try again.";
+          action = 'error';
+        } else {
+          response = this.generateTripResponse(tripPlan);
+          cards = this.formatTripPlanCards(tripPlan);
+          action = 'generate-plan';
+        }
       } else {
         // Generic response using Groq AI
         response = await this.getAIResponse(userInput);
@@ -191,32 +199,30 @@ class AuraConversationalAI {
 
       comparison.routes.forEach(route => {
         response += `### ${routeIcons[route.type] || '🧭'} ${routeLabels[route.type] || route.type}\n\n`;
-        if (route.type === 'road') {
-           response += `**Driving Distance:**\n${this.formatDistance(route.distance)}\n\n`;
-           response += `**Driving Time:**\n${this.formatDuration(route.duration)}\n\n`;
-           response += `**Fuel & Toll Estimate:**\n${this.formatCost(route.costMin, route.costMax)}\n\n`;
-        } else {
-           response += `**Estimated Cost:**\n${this.formatCost(route.costMin, route.costMax)}\n\n`;
-           response += `**Travel Time:**\n${this.formatDuration(route.duration)}\n\n`;
+        if (route.unavailable) {
+           response += `⚠️ **Status:** ${route.message}\n\n`;
+        } else if (route.type === 'road') {
+           response += `**Verified Driving Distance:**\n${this.formatDistance(route.distance)}\n\n`;
+           response += `**Live Estimated Time:**\n${this.formatDuration(route.duration)}\n\n`;
+           response += `**Fuel Estimate:**\n${this.formatCost(route.costMin, route.costMax)}\n\n`;
+           if (route.warnings && route.warnings.length > 0) {
+              response += `**Alerts:**\n${route.warnings.join(', ')}\n\n`;
+           }
         }
         response += `**Best For:**\n${bestFor[route.type] || 'General travel'}\n\n`;
       });
 
       response += `---\n### 💡 Recommendation\n\n`;
       
-      let bestMode = 'Flight';
+      let bestMode = 'Road';
       let reasons = [];
       
       if (this.memory.context.transportPreference) {
           bestMode = this.memory.context.transportPreference;
           reasons.push(`Matches your preference for ${bestMode}`);
-      } else if (this.memory.context.budget && comparison.cheapest) {
-          bestMode = comparison.cheapest.type;
-          reasons.push(`Lowest cost`);
-          reasons.push(`Suitable for your budget`);
-      } else if (comparison.fastest) {
-          bestMode = comparison.fastest.type;
-          reasons.push(`Fastest travel time`);
+      } else if (comparison.recommended) {
+          bestMode = comparison.recommended.type;
+          reasons.push(`Safest and most verified route available`);
       }
       
       const bestModeCap = bestMode.charAt(0).toUpperCase() + bestMode.slice(1);

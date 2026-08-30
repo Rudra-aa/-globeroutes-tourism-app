@@ -29,6 +29,7 @@
 
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="aura-native.css">
 </head>
 
 <body>
@@ -208,7 +209,8 @@
         <div style="display: flex; justify-content: flex-start; margin-bottom: -10px;">
           <button class="btn btn-secondary" onclick="closePricingOverlay()"
             style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; font-size: 0.85rem; border-radius: 30px; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06); color: var(--text-primary); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-            <i data-lucide="arrow-left" style="width: 15px; height: 15px; stroke-width: 2.5; color: var(--tier-blue);"></i> Back to Map
+            <i data-lucide="arrow-left"
+              style="width: 15px; height: 15px; stroke-width: 2.5; color: var(--tier-blue);"></i> Back to Map
           </button>
         </div>
 
@@ -222,39 +224,52 @@
           <div class="pricing-card glass">
             <div>
               <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Free Explorer</h3>
-              <p style="color: var(--text-secondary); font-size: 0.9rem;">Perfect for pilgrimage exploration, temples & basic planning.</p>
+              <p style="color: var(--text-secondary); font-size: 0.9rem;">Perfect for pilgrimage exploration, temples &
+                basic planning.</p>
             </div>
             <div class="price-text">₹0<span>/month</span></div>
             <ul class="benefits-list">
-              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Access to France and India</li>
-              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Red Tier World Icons freely</li>
-              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> All 50+ Temples &amp; Char Dham 🛕</li>
-              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> All 12 Jyotirlingas 🔱 free</li>
+              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Access to France and India
+              </li>
+              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> Red Tier World Icons freely
+              </li>
+              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> All 50+ Temples &amp; Char
+                Dham 🛕</li>
+              <li><i data-lucide="check" style="color: var(--tier-green); width: 18px;"></i> All 12 Jyotirlingas 🔱 free
+              </li>
               <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x"
                   style="color: var(--tier-red); width: 18px;"></i> Tiers 2–5 (Orange, Yellow, Green, Blue)</li>
               <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x"
                   style="color: var(--tier-red); width: 18px;"></i> Pro Premium Countries (Japan, USA, Egypt+)</li>
             </ul>
-            <button class="btn btn-secondary" onclick="selectPricingPlan('free')" style="padding: 12px;">Current Active Plan</button>
+            <button class="btn btn-secondary" onclick="selectPricingPlan('free')" style="padding: 12px;">Current Active
+              Plan</button>
           </div>
 
           <!-- STANDARD EXPLORER PLAN -->
-          <div class="pricing-card glass" style="border: 1px solid rgba(255, 140, 0, 0.4); background: rgba(255, 140, 0, 0.03);">
+          <div class="pricing-card glass"
+            style="border: 1px solid rgba(255, 140, 0, 0.4); background: rgba(255, 140, 0, 0.03);">
             <div>
               <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: #ffa940;">Standard Explorer</h3>
-              <p style="color: var(--text-secondary); font-size: 0.9rem;">Ideal for pilgrimage exploration & regional travel.</p>
+              <p style="color: var(--text-secondary); font-size: 0.9rem;">Ideal for pilgrimage exploration & regional
+                travel.</p>
             </div>
             <div class="price-text" style="color: #ffa940;">₹199<span>/month</span></div>
             <ul class="benefits-list">
-              <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> Access to France and India flagship data</li>
-              <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> Fully unlock **Red, Yellow, & Orange Tiers**</li>
-              <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> **All 50+ India Temples & Char Dham** unlocked</li>
+              <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> Access to France and India flagship
+                data</li>
+              <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> Fully unlock **Red, Yellow, & Orange
+                Tiers**</li>
+              <li><i data-lucide="check" style="color: #ffa940; width: 18px;"></i> **All 50+ India Temples & Char Dham**
+                unlocked</li>
               <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x"
                   style="color: var(--tier-red); width: 18px;"></i> Fame Tiers Green & Blue (Hidden Gems)</li>
               <li style="color: var(--text-secondary); text-decoration: line-through;"><i data-lucide="x"
                   style="color: var(--tier-red); width: 18px;"></i> All 195+ Pro Premium Countries</li>
             </ul>
-            <button class="btn btn-premium" onclick="selectPricingPlan('standard')" style="padding: 12px; background: linear-gradient(135deg, rgba(255, 140, 0, 0.9), rgba(255, 69, 0, 0.9)); border: none; box-shadow: 0 4px 15px rgba(255, 140, 0, 0.25);">Upgrade to Standard</button>
+            <button class="btn btn-premium" onclick="selectPricingPlan('standard')"
+              style="padding: 12px; background: linear-gradient(135deg, rgba(255, 140, 0, 0.9), rgba(255, 69, 0, 0.9)); border: none; box-shadow: 0 4px 15px rgba(255, 140, 0, 0.25);">Upgrade
+              to Standard</button>
           </div>
 
           <!-- PREMIUM PRO EXPLORER PLAN -->
@@ -262,17 +277,24 @@
             <div class="premium-ribbon">POPULAR</div>
             <div>
               <h3 style="font-size: 1.5rem; margin-bottom: 10px; color: #ffd700;">Pro Explorer</h3>
-              <p style="color: var(--text-secondary); font-size: 0.9rem;">For the true pathfinder exploring global horizons.</p>
+              <p style="color: var(--text-secondary); font-size: 0.9rem;">For the true pathfinder exploring global
+                horizons.</p>
             </div>
             <div class="price-text" style="color: #ffd700;">₹599<span>/month</span></div>
             <ul class="benefits-list">
-              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Unlimited country access (Japan, USA, Egypt+)</li>
-              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Fully unlock **Orange, Yellow, Green, and Blue Tiers**</li>
-              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Access full **India Temple & Char Dham lists**</li>
-              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Infinite Procedural City Generation</li>
-              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Infinite city-by-city routing hops</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Unlimited country access (Japan,
+                USA, Egypt+)</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Fully unlock **Orange, Yellow,
+                Green, and Blue Tiers**</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Access full **India Temple & Char
+                Dham lists**</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Infinite Procedural City
+                Generation</li>
+              <li><i data-lucide="sparkles" style="color: #ffd700; width: 18px;"></i> Infinite city-by-city routing hops
+              </li>
             </ul>
-            <button class="btn btn-premium" onclick="selectPricingPlan('pro')" style="padding: 12px;">Upgrade to Pro Explorer</button>
+            <button class="btn btn-premium" onclick="selectPricingPlan('pro')" style="padding: 12px;">Upgrade to Pro
+              Explorer</button>
           </div>
         </div>
         <div style="text-align: center;">
@@ -285,7 +307,8 @@
       <div id="checkoutScreen" class="checkout-view glass" style="margin: 0 auto; display: none;">
         <div style="display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <h3 id="checkoutOrderTitle" style="font-size: 1.4rem; font-family: 'Outfit'; margin-bottom: 12px;">Order Summary</h3>
+            <h3 id="checkoutOrderTitle" style="font-size: 1.4rem; font-family: 'Outfit'; margin-bottom: 12px;">Order
+              Summary</h3>
             <div
               style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border: 1px solid var(--border-glass);">
               <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
@@ -301,7 +324,8 @@
           </div>
 
           <!-- Tab Switcher for QR vs Razorpay -->
-          <div style="display: flex; gap: 8px; margin: 15px 0 10px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid var(--border-glass);">
+          <div
+            style="display: flex; gap: 8px; margin: 15px 0 10px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; border: 1px solid var(--border-glass);">
             <button type="button" id="tabPayUpi" onclick="switchPaymentMethod('upi')"
               style="flex: 1; padding: 10px; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 700; cursor: pointer; background: rgba(59,127,255,0.2); color: #6dabff; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;">
               <span style="font-size:1.1rem;">📱</span> UPI QR Scan
@@ -309,22 +333,29 @@
             <button type="button" id="tabPayRazorpay" onclick="switchPaymentMethod('razorpay')"
               style="flex: 1; padding: 10px; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; position: relative;">
               <span style="font-size:1.1rem;">⚡</span> Razorpay
-              <span style="position: absolute; top: -6px; right: -2px; font-size: 0.55rem; background: #ef4444; color: white; padding: 1px 5px; border-radius: 4px; font-weight: bold; border: 1px solid #1a1a24; scale: 0.85;">Soon</span>
+              <span
+                style="position: absolute; top: -6px; right: -2px; font-size: 0.55rem; background: #ef4444; color: white; padding: 1px 5px; border-radius: 4px; font-weight: bold; border: 1px solid #1a1a24; scale: 0.85;">Soon</span>
             </button>
           </div>
 
           <!-- Left Visualizer UPI QR Column -->
           <div id="upiVisualizer" style="display: block; text-align: center; margin: 15px 0;">
-            <div class="glass" style="padding: 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1);">
-              <div style="font-size: 0.8rem; font-weight: 700; color: #ffd700; text-transform: uppercase; letter-spacing: 0.5px;">Scan & Pay Using PhonePe App</div>
+            <div class="glass"
+              style="padding: 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1);">
+              <div
+                style="font-size: 0.8rem; font-weight: 700; color: #ffd700; text-transform: uppercase; letter-spacing: 0.5px;">
+                Scan & Pay Using PhonePe App</div>
               <!-- PhonePe QR Code with dynamic loading -->
-              <div style="position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 8px; border: 4px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;">
+              <div
+                style="position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 8px; border: 4px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;">
                 <!-- Glowing shimmer loader -->
-                <div id="upiQrCodeLoader" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%); background-size: 200% 100%; animation: shimmer 1.5s infinite; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.75rem;">
+                <div id="upiQrCodeLoader"
+                  style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%); background-size: 200% 100%; animation: shimmer 1.5s infinite; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.75rem;">
                   Loading QR...
                 </div>
-                <img id="upiQrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi%3A%2F%2Fpay%3Fpa%3D8717815602%40ibl%26pn%3DRudra%2520Pratap%2520Singh%2520Parmar%26am%3D599%26cu%3DINR%26tn%3DGlobeRoutes%2520Pro%2520Plan" 
-                  alt="UPI QR Code Payment" 
+                <img id="upiQrCodeImg"
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi%3A%2F%2Fpay%3Fpa%3D8717815602%40ibl%26pn%3DRudra%2520Pratap%2520Singh%2520Parmar%26am%3D599%26cu%3DINR%26tn%3DGlobeRoutes%2520Pro%2520Plan"
+                  alt="UPI QR Code Payment"
                   onload="document.getElementById('upiQrCodeLoader').style.display='none'; this.style.opacity='1';"
                   style="width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease-in-out;">
               </div>
@@ -339,13 +370,19 @@
 
           <!-- Left Visualizer Razorpay Coming Soon Column -->
           <div id="razorpayVisualizer" style="display: none; text-align: center; margin: 15px 0;">
-            <div class="glass" style="padding: 24px 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.1); height: 100%; justify-content: center;">
+            <div class="glass"
+              style="padding: 24px 16px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.1); height: 100%; justify-content: center;">
               <div style="font-size: 2.2rem; filter: drop-shadow(0 0 8px #3399cc);">💳</div>
-              <div style="font-size: 0.9rem; font-weight: 700; color: #3399cc; text-transform: uppercase; letter-spacing: 0.5px;">Razorpay Gateway</div>
-              <div style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; max-width: 200px; font-weight: 500;">
+              <div
+                style="font-size: 0.9rem; font-weight: 700; color: #3399cc; text-transform: uppercase; letter-spacing: 0.5px;">
+                Razorpay Gateway</div>
+              <div
+                style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; max-width: 200px; font-weight: 500;">
                 Direct Card Payments, Netbanking, & Wallets integration.
               </div>
-              <span style="font-size: 0.65rem; background: #ef4444; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold; box-shadow: 0 2px 8px rgba(239,68,68,0.3);">COMING SOON</span>
+              <span
+                style="font-size: 0.65rem; background: #ef4444; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold; box-shadow: 0 2px 8px rgba(239,68,68,0.3);">COMING
+                SOON</span>
             </div>
           </div>
         </div>
@@ -358,12 +395,16 @@
               <label for="upiIdInput">Your UPI ID (VPA)</label>
               <input type="text" id="upiIdInput" class="form-control" placeholder="explorer@okaxis" required>
             </div>
-            
-            <div class="glass" style="padding: 12px; font-size: 0.76rem; color: var(--text-secondary); border-radius: 10px; line-height: 1.4; border: 1px solid var(--border-glass); margin-bottom: 16px;">
-              💡 <b>UPI Instructions:</b> Scan the QR code on the left with any UPI app. Once you authorize the payment on your device, type your UPI ID above and click the verification button below to instantly unlock standard/pro features.
+
+            <div class="glass"
+              style="padding: 12px; font-size: 0.76rem; color: var(--text-secondary); border-radius: 10px; line-height: 1.4; border: 1px solid var(--border-glass); margin-bottom: 16px;">
+              💡 <b>UPI Instructions:</b> Scan the QR code on the left with any UPI app. Once you authorize the payment
+              on your device, type your UPI ID above and click the verification button below to instantly unlock
+              standard/pro features.
             </div>
-            
-            <button type="submit" id="upiSubmitBtn" class="btn btn-premium" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #32c5ff 0%, #2299ff 100%); border:none; box-shadow: 0 4px 15px rgba(34,153,255,0.3);">
+
+            <button type="submit" id="upiSubmitBtn" class="btn btn-premium"
+              style="width: 100%; padding: 14px; background: linear-gradient(135deg, #32c5ff 0%, #2299ff 100%); border:none; box-shadow: 0 4px 15px rgba(34,153,255,0.3);">
               Verify & Activate Access
             </button>
           </form>
@@ -375,15 +416,18 @@
         </div>
 
         <!-- Razorpay Coming Soon Form Column -->
-        <div id="razorpayPaymentForm" style="display: none; flex-direction: column; gap: 14px; text-align: center; justify-content: center; padding: 10px;">
+        <div id="razorpayPaymentForm"
+          style="display: none; flex-direction: column; gap: 14px; text-align: center; justify-content: center; padding: 10px;">
           <h3 style="font-size: 1.2rem; font-family: 'Outfit'; color: #3399cc;">Instant Activation Offline</h3>
           <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 8px;">
-            Direct payments via Razorpay are currently in maintenance. Please use the UPI QR Code for instant activation!
+            Direct payments via Razorpay are currently in maintenance. Please use the UPI QR Code for instant
+            activation!
           </p>
-          <div class="glass" style="padding: 12px; font-size: 0.76rem; color: #ffa940; border-radius: 10px; border: 1px solid rgba(255, 169, 64, 0.2); margin-bottom: 12px;">
+          <div class="glass"
+            style="padding: 12px; font-size: 0.76rem; color: #ffa940; border-radius: 10px; border: 1px solid rgba(255, 169, 64, 0.2); margin-bottom: 12px;">
             ⚡ <b>UPI QR code</b> supports GPay, PhonePe, Paytm, BHIM, and all other Indian banking apps.
           </div>
-          
+
           <button type="button" class="btn btn-premium" onclick="switchPaymentMethod('upi')"
             style="width: 100%; padding: 14px; background: linear-gradient(135deg, #32c5ff 0%, #2299ff 100%); border:none; box-shadow: 0 4px 15px rgba(34,153,255,0.3);">
             Pay Using UPI QR Code
@@ -395,9 +439,9 @@
           </div>
         </div>
       </div>
-      </div>
-
     </div>
+
+  </div>
   </div>
 
   <!-- ================= PLANNER SELECTION MODAL ================= -->
@@ -429,7 +473,7 @@
         cursor:pointer; display:flex; align-items:center; justify-content:center;
         transition: all 0.2s;
       " onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white';"
-         onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.5)';">✕</button>
+        onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='rgba(255,255,255,0.5)';">✕</button>
 
       <!-- Header -->
       <div style="text-align:center; margin-bottom:36px;">
@@ -458,9 +502,8 @@
           cursor:pointer; transition:all 0.3s ease;
           display:flex; flex-direction:column; gap:16px;
           position:relative; overflow:hidden;
-        "
-        onmouseover="this.style.background='rgba(0,242,255,0.06)';this.style.borderColor='rgba(0,242,255,0.35)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 48px rgba(0,0,0,0.4)';"
-        onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='rgba(255,255,255,0.1)';this.style.transform='';this.style.boxShadow='';">
+        " onmouseover="this.style.background='rgba(0,242,255,0.06)';this.style.borderColor='rgba(0,242,255,0.35)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 48px rgba(0,0,0,0.4)';"
+          onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='rgba(255,255,255,0.1)';this.style.transform='';this.style.boxShadow='';">
           <div style="
             width:56px; height:56px; border-radius:16px;
             background:rgba(0,242,255,0.1); border:1px solid rgba(0,242,255,0.25);
@@ -468,8 +511,12 @@
             font-size:1.6rem;
           ">🗺️</div>
           <div>
-            <h3 style="font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:700; color:#e2e8f0; margin-bottom:6px;">Manual Planner</h3>
-            <p style="font-size:0.83rem; color:rgba(148,163,184,0.8); line-height:1.5;">Use GlobeRoutes' traditional route planning tools — set waypoints, choose transport mode &amp; find points of interest along your route.</p>
+            <h3
+              style="font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:700; color:#e2e8f0; margin-bottom:6px;">
+              Manual Planner</h3>
+            <p style="font-size:0.83rem; color:rgba(148,163,184,0.8); line-height:1.5;">Use GlobeRoutes' traditional
+              route planning tools — set waypoints, choose transport mode &amp; find points of interest along your
+              route.</p>
           </div>
           <div style="
             display:inline-flex; align-items:center; gap:6px;
@@ -490,9 +537,8 @@
           cursor:pointer; transition:all 0.3s ease;
           display:flex; flex-direction:column; gap:16px;
           position:relative; overflow:hidden;
-        "
-        onmouseover="this.style.background='linear-gradient(145deg,rgba(139,92,246,0.18),rgba(59,130,246,0.1))';this.style.borderColor='rgba(139,92,246,0.5)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 48px rgba(139,92,246,0.25)';"
-        onmouseout="this.style.background='linear-gradient(145deg,rgba(139,92,246,0.08),rgba(59,130,246,0.04))';this.style.borderColor='rgba(139,92,246,0.2)';this.style.transform='';this.style.boxShadow='';">
+        " onmouseover="this.style.background='linear-gradient(145deg,rgba(139,92,246,0.18),rgba(59,130,246,0.1))';this.style.borderColor='rgba(139,92,246,0.5)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 48px rgba(139,92,246,0.25)';"
+          onmouseout="this.style.background='linear-gradient(145deg,rgba(139,92,246,0.08),rgba(59,130,246,0.04))';this.style.borderColor='rgba(139,92,246,0.2)';this.style.transform='';this.style.boxShadow='';">
           <!-- POPULAR badge -->
           <div style="
             position:absolute; top:16px; right:16px;
@@ -512,11 +558,15 @@
               width:100%; height:100%; object-fit:cover;
               mix-blend-mode:screen; opacity:0.9;
               filter:brightness(1.1) saturate(1.3);
-            "/>
+            " />
           </div>
           <div>
-            <h3 style="font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:700; color:#e2e8f0; margin-bottom:6px;">Aura AI Planner</h3>
-            <p style="font-size:0.83rem; color:rgba(148,163,184,0.8); line-height:1.5;">Let Aura build &amp; optimize your trip intelligently — full itinerary, budget breakdown, hotel picks &amp; route comparison in seconds.</p>
+            <h3
+              style="font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:700; color:#e2e8f0; margin-bottom:6px;">
+              Aura AI Planner</h3>
+            <p style="font-size:0.83rem; color:rgba(148,163,184,0.8); line-height:1.5;">Let Aura build &amp; optimize
+              your trip intelligently — full itinerary, budget breakdown, hotel picks &amp; route comparison in seconds.
+            </p>
           </div>
           <div style="
             display:inline-flex; align-items:center; gap:6px;
@@ -535,14 +585,32 @@
   </div>
 
   <style>
-    #plannerSelectionModal { opacity: 0; }
-    #plannerSelectionModal.modal-visible { opacity: 1; }
-    @media (max-width: 640px) {
-      #plannerSelectionModal > div { padding: 32px 20px; }
-      #plannerSelectionModal > div > div:last-of-type { grid-template-columns: 1fr !important; }
+    #plannerSelectionModal {
+      opacity: 0;
     }
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    #plannerSelectionModal.modal-visible {
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      #plannerSelectionModal>div {
+        padding: 32px 20px;
+      }
+
+      #plannerSelectionModal>div>div:last-of-type {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 
   <!-- ================= APP FLOATING HEADER & SEARCH ================= -->
@@ -626,15 +694,14 @@
       <!-- VIEW 1: HOME/DASHBOARD VIEW -->
       <div id="panelHome" class="panel active">
         <!-- Global Stats counters -->
-        <div class="glass"
-          class="responsive-grid" style="padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center;">
+        <div class="glass" class="responsive-grid"
+          style="padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center;">
           <div>
-            <div style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-blue);">5</div>
+            <div id="statFlagshipCountriesCount" style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-blue);">5</div>
             <div style="font-size: 0.75rem; color: var(--text-secondary);">Flagship Countries</div>
           </div>
           <div>
-            <div style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-orange);">12+
-            </div>
+            <div id="statPreseededCitiesCount" style="font-size: 1.8rem; font-family: 'Outfit'; font-weight: 800; color: var(--tier-orange);">12+</div>
             <div style="font-size: 0.75rem; color: var(--text-secondary);">Preseeded Cities</div>
           </div>
           <div
@@ -865,28 +932,32 @@
             <div class="legend-item active" onclick="toggleTierFilter('orange')">
               <div>
                 <span class="legend-color-dot legend-orange"></span>National Landmarks
-                <i data-lucide="lock" class="premium-lock-icon" style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
+                <i data-lucide="lock" class="premium-lock-icon"
+                  style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
               </div>
               <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
             </div>
             <div class="legend-item active" onclick="toggleTierFilter('yellow')">
               <div>
                 <span class="legend-color-dot legend-yellow"></span>Regional Stars
-                <i data-lucide="lock" class="premium-lock-icon" style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
+                <i data-lucide="lock" class="premium-lock-icon"
+                  style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
               </div>
               <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
             </div>
             <div class="legend-item active" onclick="toggleTierFilter('green')">
               <div>
                 <span class="legend-color-dot legend-green"></span>Locally Famous
-                <i data-lucide="lock" class="premium-lock-icon" style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
+                <i data-lucide="lock" class="premium-lock-icon"
+                  style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
               </div>
               <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
             </div>
             <div class="legend-item active" id="blueLegendFilter" onclick="toggleTierFilter('blue')">
               <div>
                 <span class="legend-color-dot legend-blue"></span>Hidden Gems
-                <i data-lucide="lock" class="premium-lock-icon" style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
+                <i data-lucide="lock" class="premium-lock-icon"
+                  style="width: 12px; color: #ffd700; margin-left: 4px; display: inline-block;"></i>
               </div>
               <div class="legend-checkbox"><i data-lucide="check" style="width: 10px;"></i></div>
             </div>
@@ -911,10 +982,16 @@
 
       <!-- VIEW 4: PERSONAL TRAVEL JOURNAL VIEW -->
       <div id="panelJournal" class="panel">
-        <button class="btn btn-secondary" onclick="navigateHome()"
-          style="align-self: flex-start; padding: 6px 12px; font-size: 0.8rem;">
-          <i data-lucide="arrow-left" style="width: 16px;"></i> Close Log
-        </button>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 15px;">
+          <button class="btn btn-secondary" onclick="navigateHome()"
+            style="padding: 6px 12px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="arrow-left" style="width: 16px;"></i> Close Log
+          </button>
+          <button class="btn btn-secondary" onclick="handleSignOut()"
+            style="padding: 6px 12px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(239, 68, 68, 0.4); color: #ef4444; background: rgba(239, 68, 68, 0.08);">
+            <i data-lucide="log-out" style="width: 16px;"></i> Sign Out
+          </button>
+        </div>
 
         <div style="text-align: center; padding: 10px 0;">
           <div class="user-avatar" style="width: 60px; height: 60px; margin: 0 auto 12px auto; font-size: 1.8rem;"
@@ -928,7 +1005,8 @@
           <h3 style="font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
             <i data-lucide="award" style="color: #ffd700; width: 18px;"></i> Pathfinder Achievements
           </h3>
-          <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="journalBadges">
+          <div class="responsive-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;"
+            id="journalBadges">
             <!-- Interactive badges injected dynamically -->
           </div>
         </div>
@@ -961,51 +1039,174 @@
         <i data-lucide="map-pin" style="width:13px;opacity:0.7;"></i>
       </div>
 
-      <!-- ── Lightweight Integrated Aura Assistant UI ── -->
+      <!-- ── Premium Integrated Aura Assistant UI ── -->
       <div id="integratedAuraPanel" class="glass"
-        style="position:absolute; top:95px; right:20px; z-index:1000; width:340px; padding:15px; border-radius:12px; display:none; flex-direction:column; gap:10px; box-shadow:0 8px 32px rgba(0,0,0,0.4); background:var(--bg-card); backdrop-filter:blur(20px); transition: all 0.3s ease;">
-        
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-glass); padding-bottom:10px;">
-          <h4 style="margin:0; font-size:1.1rem; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
-            <i data-lucide="sparkles" style="width:18px; color:var(--tier-blue);"></i> Aura AI Assistant
-          </h4>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <button onclick="toggleExpandIntegratedAura()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;" title="Expand/Collapse">
-              <i data-lucide="maximize-2" id="auraExpandIcon" style="width:16px;"></i>
+        style="position:absolute; top:95px; right:20px; z-index:1000; width:450px; height:calc(100vh - 115px); padding:0; border-radius:24px; border:1px solid var(--glass-border-strong); display:none; flex-direction:column; box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1); background:rgba(12, 16, 28, 0.7); backdrop-filter:blur(40px) saturate(200%); -webkit-backdrop-filter:blur(40px) saturate(200%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s, width 0.3s ease-in-out; transform: translateX(120%); opacity: 0; overflow:hidden;">
+
+        <!-- Header -->
+        <header class="aura-header"
+          style="border-radius: 24px 24px 0 0; padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);">
+          <div class="aura-header-left" style="display: flex; gap: 12px; align-items: center;">
+            <div
+              style="position: relative; width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #3b82f6); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); flex-shrink: 0;">
+              <span style="color: white; font-size: 1.1rem; line-height: 1;">✦</span>
+              <div class="aura-status-dot"
+                style="position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; background: #10b981; border: 2px solid #0c101c; border-radius: 50%; box-shadow: 0 0 6px #10b981;">
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="aura-header-title"
+                  style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; background: var(--aura-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Aura
+                  AI </span>
+                <span
+                  style="background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 6px; padding: 2px 6px; font-size: 0.65rem; font-weight: 800; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; height: 16px;">PRO</span>
+              </div>
+              <div class="aura-header-sub" style="font-size: 0.75rem; color: #10b981; font-weight: 500;">Ready to
+                explore</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button onclick="closeIntegratedAura()"
+              style="background:transparent; border:none; color:var(--text-secondary); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s;"
+              onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.color='white'"
+              onmouseout="this.style.background='transparent'; this.style.color='var(--text-secondary)'"
+              title="Minimize">
+              <i data-lucide="minus" style="width:14px;height:14px;"></i>
             </button>
-            <button onclick="closeIntegratedAura()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;">
-              <i data-lucide="x" style="width:18px;"></i>
+            <button onclick="toggleExpandIntegratedAura()"
+              style="background:transparent; border:none; color:var(--text-secondary); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s;"
+              onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.color='white'"
+              onmouseout="this.style.background='transparent'; this.style.color='var(--text-secondary)'"
+              title="Toggle Size">
+              <i data-lucide="square" id="auraExpandIcon" style="width:12px;height:12px;"></i>
             </button>
+            <button onclick="closeIntegratedAura()"
+              style="background:transparent; border:none; color:var(--text-secondary); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s;"
+              onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.color='white'"
+              onmouseout="this.style.background='transparent'; this.style.color='var(--text-secondary)'" title="Close">
+              <i data-lucide="x" style="width:14px;height:14px;"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Status Pills Row -->
+        <div class="aura-status-bar"
+          style="padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; gap: 10px; background: rgba(0, 0, 0, 0.15);">
+          <!-- Traveler Pro Pill -->
+          <div class="aura-status-pill"
+            style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); font-size: 0.78rem; color: #c4b5fd; font-weight: 500;">
+            <i data-lucide="user" style="width: 12px; height: 12px; opacity: 0.8;"></i>
+            <span>Traveler Pro</span>
+          </div>
+          <!-- Destination Pill -->
+          <div class="aura-status-pill" id="auraDestPill"
+            style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; transition: all 0.3s;">
+            <i data-lucide="compass" style="width: 12px; height: 12px; opacity: 0.8;"></i>
+            <span id="auraDestLabel">No destination</span>
           </div>
         </div>
 
-        <!-- Chat messages area -->
-        <div id="integratedAuraChatWindow" style="flex:1; overflow-y:auto; min-height:250px; max-height:400px; display:flex; flex-direction:column; gap:12px; padding-right:5px; font-size:0.85rem; scroll-behavior:smooth;">
-          <!-- Welcome message -->
-          <div style="display:flex; gap:8px; animation: fadeIn 0.3s ease;">
-            <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:white; box-shadow:0 2px 8px rgba(139,92,246,0.3);">✨</div>
-            <div style="background:rgba(255,255,255,0.05); padding:10px 12px; border-radius:0 12px 12px 12px; color:var(--text-primary); border:1px solid var(--border-glass); line-height:1.4;">
-              Hi, I'm Aura! How can I help you explore today? Try asking me to plan a trip or compare routes.
+        <!-- Chat window -->
+        <div class="aura-chat-window" id="chatWindow"
+          style="flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 24px;">
+          <!-- WELCOME SCREEN -->
+          <div class="aura-welcome" id="welcomeScreen"
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; gap: 20px; padding: 20px 0;">
+            <div class="aura-welcome-icon"
+              style="font-size: 3rem; background: var(--glass-bg-strong); width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--glass-border); box-shadow: var(--aura-glow);">
+              ✨</div>
+            <div>
+              <h1
+                style="font-size: 1.8rem; font-family: var(--font-display); font-weight: 700; background: var(--aura-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Hello, I'm Aura ✨</h1>
+              <p style="font-size:0.95rem;color:var(--text-secondary);margin-top:8px;">Your advanced AI travel
+                companion.</p>
             </div>
           </div>
         </div>
 
-        <!-- Suggested prompts -->
-        <div style="display:flex; overflow-x:auto; gap:6px; padding-bottom:4px; padding-top:4px;" class="hide-scrollbar">
-          <button onclick="sendIntegratedAuraQuick('I want to plan a trip')" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-glass); border-radius:12px; padding:5px 12px; font-size:0.7rem; color:var(--text-secondary); white-space:nowrap; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">🏖️ Plan a trip</button>
-          <button onclick="sendIntegratedAuraQuick('I want to compare routes')" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-glass); border-radius:12px; padding:5px 12px; font-size:0.7rem; color:var(--text-secondary); white-space:nowrap; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">🔄 Compare Routes</button>
-          <button onclick="sendIntegratedAuraQuick('I want to plan a budget trip')" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-glass); border-radius:12px; padding:5px 12px; font-size:0.7rem; color:var(--text-secondary); white-space:nowrap; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">💰 Budget Trip</button>
+        <!-- Quick Actions Row at Bottom -->
+        <div class="aura-quick-actions-bar hide-scrollbar"
+          style="padding: 10px 20px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid rgba(255,255,255,0.03); background: rgba(0, 0, 0, 0.1);">
+          <button class="aura-quick-chip"
+            onclick="window.AuraV2UI.handleQuickAction('Plan a 4-day Goa trip from Delhi')" style="
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-primary); font-size: 0.8rem; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+          " onmouseover="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.2)';"
+            onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='rgba(255,255,255,0.06)';">
+            🏖️ Plan my trip
+          </button>
+          <button class="aura-quick-chip"
+            onclick="window.AuraV2UI.handleQuickAction('Show budget estimate for 4 days in Goa')" style="
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-primary); font-size: 0.8rem; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+          " onmouseover="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.2)';"
+            onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='rgba(255,255,255,0.06)';">
+            💰 Budget estimate
+          </button>
+          <button class="aura-quick-chip"
+            onclick="window.AuraV2UI.handleQuickAction('Compare train vs flight from Mumbai to Bangalore')" style="
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-primary); font-size: 0.8rem; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+          " onmouseover="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.2)';"
+            onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='rgba(255,255,255,0.06)';">
+            ✈️ Route options
+          </button>
+          <button class="aura-quick-chip"
+            onclick="window.AuraV2UI.handleQuickAction('Local food recommendations in Goa')" style="
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-primary); font-size: 0.8rem; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+          " onmouseover="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.2)';"
+            onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='rgba(255,255,255,0.06)';">
+            🍜 Local food
+          </button>
+          <button class="aura-quick-chip" onclick="exportTripPDF()" style="
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 16px;
+            background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2);
+            color: #4ade80; font-size: 0.8rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+          " onmouseover="this.style.background='rgba(74,222,128,0.15)';"
+            onmouseout="this.style.background='rgba(74,222,128,0.08)';">
+            📥 Export PDF
+          </button>
         </div>
 
         <!-- Input Area -->
-        <div style="display:flex; gap:6px; background:rgba(0,0,0,0.3); border-radius:12px; padding:6px; border:1px solid var(--border-active); align-items:flex-end;">
-          <button id="auraMicBtn" onclick="toggleAuraVoiceInput()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; padding:6px; flex-shrink:0; transition:color 0.2s;" title="Voice Input">
-            <i data-lucide="mic" style="width:16px;"></i>
-          </button>
-          <textarea id="integratedAuraInput" placeholder="Ask Aura..." style="flex:1; background:transparent; border:none; outline:none; color:white; font-size:0.85rem; font-family:var(--font-body); resize:none; padding:6px 0; max-height:80px; line-height:1.4;" rows="1" onkeydown="handleIntegratedAuraKeydown(event)" oninput="this.style.height='auto'; this.style.height=(this.scrollHeight)+'px';"></textarea>
-          <button id="integratedAuraSendBtn" onclick="sendIntegratedAuraMessage()" style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border:none; color:white; border-radius:10px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; margin-bottom:2px; box-shadow:0 2px 8px rgba(139,92,246,0.3); transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            <i data-lucide="send" style="width:14px;"></i>
-          </button>
+        <div class="aura-input-area"
+          style="padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.03); background: linear-gradient(to top, rgba(0,0,0,0.3), transparent); border-radius: 0 0 24px 24px;">
+          <div class="aura-input-wrap"
+            style="position: relative; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border-strong); border-radius: 20px; padding: 4px; display: flex; align-items: center; transition: all 0.3s ease; box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05);">
+            <textarea id="auraInput" class="aura-textarea" placeholder="Ask Aura anything..." rows="1"
+              style="flex: 1; background: transparent; border: none; padding: 10px 14px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.9rem; resize: none; outline: none; max-height: 120px; line-height: 1.4;"></textarea>
+
+            <!-- Voice/Mic Button -->
+            <button id="auraMicBtn"
+              style="width: 36px; height: 36px; margin: 2px; border-radius: 10px; background: transparent; border: none; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0;"
+              onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.color='white'"
+              onmouseout="this.style.background='transparent'; this.style.color='var(--text-secondary)'">
+              <i data-lucide="mic" id="auraMicIcon" style="width:16px;height:16px;"></i>
+            </button>
+
+            <!-- Send Button -->
+            <button class="aura-send-btn" id="sendBtn" onclick="window.AuraV2UI.handleSendMessage()"
+              style="width: 36px; height: 36px; margin: 2px; border-radius: 10px; background: var(--aura-grad); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0;"
+              onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+              <i data-lucide="send" style="width:16px;height:16px;"></i>
+            </button>
+          </div>
+          <div
+            style="font-size: 0.68rem; color: var(--text-muted); text-align: center; margin-top: 8px; font-weight: 500; letter-spacing: 0.02em;">
+            Press <span
+              style="border: 1px solid rgba(255,255,255,0.15); padding: 1px 4px; border-radius: 4px; background: rgba(0,0,0,0.2);">Enter</span>
+            to send · <span
+              style="border: 1px solid rgba(255,255,255,0.15); padding: 1px 4px; border-radius: 4px; background: rgba(0,0,0,0.2);">Esc</span>
+            to close
+          </div>
         </div>
       </div>
 
@@ -1197,6 +1398,7 @@
 
   <!-- Core Logic, Router Gates & Checkout -->
   <script src="js/data/data-loader.js"></script>
+  <script src="js/services/RouteIntelligence.js"></script>
   <script src="js/aura-v2-memory.js"></script>
   <script src="js/aura-v2-parser.js"></script>
   <script src="js/aura-v2-router.js"></script>
@@ -1261,10 +1463,10 @@
     function updateMobileUIState() {
       const toggleBtn = document.getElementById('mobileSidebarToggle');
       const searchBtn = document.getElementById('mobileSearchBtn');
-      
+
       // Toggle button is always visible on both desktop and mobile
       if (toggleBtn) toggleBtn.style.display = 'inline-flex';
-      
+
       if (isMobile()) {
         if (searchBtn) searchBtn.style.display = 'inline-flex';
       } else {
@@ -1288,7 +1490,7 @@
       const MIN_WIDTH = 280;
       const MAX_WIDTH = 620;
 
-      handle.addEventListener('mousedown', function(e) {
+      handle.addEventListener('mousedown', function (e) {
         if (isMobile()) return;
         isResizing = true;
         startX = e.clientX;
@@ -1299,17 +1501,17 @@
         e.preventDefault();
       });
 
-      document.addEventListener('mousemove', function(e) {
+      document.addEventListener('mousemove', function (e) {
         if (!isResizing) return;
         const dx = e.clientX - startX;
         const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + dx));
         sidebar.style.width = newWidth + 'px';
         appContainer.style.gridTemplateColumns = newWidth + 'px 1fr';
         // Save user preference
-        try { localStorage.setItem('gr_sidebar_width', newWidth); } catch(err) {}
+        try { localStorage.setItem('gr_sidebar_width', newWidth); } catch (err) { }
       });
 
-      document.addEventListener('mouseup', function() {
+      document.addEventListener('mouseup', function () {
         if (!isResizing) return;
         isResizing = false;
         handle.classList.remove('dragging');
@@ -1324,7 +1526,7 @@
           sidebar.style.width = saved + 'px';
           appContainer.style.gridTemplateColumns = saved + 'px 1fr';
         }
-      } catch(err) {}
+      } catch (err) { }
     })();
 
     /* ───────────────────────────────────────────
@@ -1343,7 +1545,7 @@
     /* ───────────────────────────────────────────
        WINDOW RESIZE HANDLER
     ─────────────────────────────────────────── */
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
       updateMobileUIState();
       if (!isMobile()) {
         // Restore search container on desktop
@@ -1356,6 +1558,21 @@
     updateMobileUIState();
   </script>
 
+  <!-- Aura V2 Engine Scripts -->
+  <script src="js/data/data-loader.js"></script>
+  <script src="js/services/RouteIntelligence.js"></script>
+  <script src="js/aura-v2-memory.js"></script>
+  <script src="js/aura-v2-parser.js"></script>
+  <script src="js/aura-v2-router.js"></script>
+  <script src="js/aura-v2-planner.js"></script>
+  <script src="js/aura-v2-engine.js"></script>
+  <script src="js/aura-v2-ui.js"></script>
+  <script>
+    // Initialize AuraV2 and wire it up to the UI
+    document.addEventListener('DOMContentLoaded', () => {
+      window.AuraV2 = new AuraConversationalAI();
+    });
+  </script>
 </body>
 
 </html>

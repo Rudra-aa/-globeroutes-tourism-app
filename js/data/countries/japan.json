@@ -1,6 +1,789 @@
 {
-  "country": "japan",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "Japan",
+  "code": "JP",
+  "currency": {
+    "code": "JPY",
+    "symbol": "¥"
+  },
+  "cities": [
+    {
+      "id": "tokyo",
+      "name": "Tokyo",
+      "bestSeason": "March - May",
+      "coordinates": {
+        "lat": 35.6762,
+        "lng": 139.6503
+      },
+      "attractions": [
+        {
+          "id": "jp_sensoji",
+          "name": "Senso-ji Temple",
+          "type": "Buddhist Temple",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "jp_shibuya",
+          "name": "Shibuya Crossing",
+          "type": "Urban Landmark",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "jp_disney",
+          "name": "Tokyo Disneyland & DisneySea",
+          "type": "Theme Park",
+          "rating": 4.7,
+          "price": 8400
+        },
+        {
+          "id": "tokyo_goldengai",
+          "name": "Golden Gai Secret Whiskey Bars",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 1000
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_aman_tokyo",
+          "name": "Aman Tokyo",
+          "category": "luxury",
+          "price": 200000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_park_hyatt_tokyo",
+          "name": "Park Hyatt Tokyo",
+          "category": "luxury",
+          "price": 150000,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_peninsula_tokyo",
+          "name": "The Peninsula Tokyo",
+          "category": "luxury",
+          "price": 130000,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_jw_marriott_tokyo",
+          "name": "JW Marriott Hotel Tokyo",
+          "category": "luxury",
+          "price": 95000,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_capsule_premium_tokyo",
+          "name": "Capsule Hotels (Premium)",
+          "category": "budget",
+          "price": 8000,
+          "rating": 4.3
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_sushi",
+          "name": "Traditional Sushi dinner",
+          "cuisine": "Japanese",
+          "priceCategory": "$$$$"
+        }
+      ]
+    },
+    {
+      "id": "kyoto",
+      "name": "Kyoto",
+      "bestSeason": "March - May",
+      "coordinates": {
+        "lat": 35.0116,
+        "lng": 135.7681
+      },
+      "attractions": [
+        {
+          "id": "jp_fushimi_inari",
+          "name": "Fushimi Inari Shrine",
+          "type": "Shinto Shrine",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "jp_arashiyama",
+          "name": "Arashiyama Bamboo Grove",
+          "type": "Natural Wonder",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "kyoto_otagi",
+          "name": "Otagi Nenbutsu-ji Temple",
+          "type": "Hidden Gem",
+          "rating": 4.9,
+          "price": 300
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_hoshinoya_kyoto",
+          "name": "Hoshinoya Kyoto",
+          "category": "luxury",
+          "price": 220000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ritz_kyoto",
+          "name": "Ritz-Carlton Kyoto",
+          "category": "luxury",
+          "price": 160000,
+          "rating": 4.8
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_kaiseki",
+          "name": "Kaiseki multi-course dinner",
+          "cuisine": "Japanese",
+          "priceCategory": "$$$$"
+        }
+      ]
+    },
+    {
+      "id": "osaka",
+      "name": "Osaka",
+      "bestSeason": "March - May",
+      "coordinates": {
+        "lat": 34.6937,
+        "lng": 135.5023
+      },
+      "attractions": [
+        {
+          "id": "jp_osaka_castle",
+          "name": "Osaka Castle",
+          "type": "Historic Castle",
+          "rating": 4.6,
+          "price": 600
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_four_points_osaka",
+          "name": "Four Points Flex by Sheraton Osaka Umeda",
+          "category": "mid-range",
+          "price": 15000,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_capsule_premium_osaka",
+          "name": "Capsule Hotels (Premium)",
+          "category": "budget",
+          "price": 8000,
+          "rating": 4.3
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_ramen",
+          "name": "Osaka ramen bowl",
+          "cuisine": "Japanese",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "hiroshima",
+      "name": "Hiroshima",
+      "bestSeason": "October - November",
+      "coordinates": {
+        "lat": 34.3853,
+        "lng": 132.4553
+      },
+      "attractions": [
+        {
+          "id": "jp_hiroshima_peace",
+          "name": "Hiroshima Peace Memorial Park",
+          "type": "Memorial",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "jp_itsukushima",
+          "name": "Itsukushima Shrine (Miyajima)",
+          "type": "Shinto Shrine",
+          "rating": 4.8,
+          "price": 300
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_sheraton_hiroshima",
+          "name": "Sheraton Grand Hiroshima Hotel",
+          "category": "luxury",
+          "price": 28000,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "nara",
+      "name": "Nara",
+      "bestSeason": "October - November",
+      "coordinates": {
+        "lat": 34.6851,
+        "lng": 135.8048
+      },
+      "attractions": [
+        {
+          "id": "jp_nara_park",
+          "name": "Nara Park & Todai-ji",
+          "type": "Cultural/Religious",
+          "rating": 4.8,
+          "price": 600
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_nara_hotel",
+          "name": "Nara Hotel",
+          "category": "luxury",
+          "price": 35000,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "kanazawa",
+      "name": "Kanazawa",
+      "bestSeason": "March - May, October - November",
+      "coordinates": {
+        "lat": 36.5613,
+        "lng": 136.6562
+      },
+      "attractions": [
+        {
+          "id": "jp_kenrokuen",
+          "name": "Kenrokuen Garden",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 320
+        },
+        {
+          "id": "jp_higashichaya",
+          "name": "Higashi-chaya geisha district",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "jp_nagamachi",
+          "name": "Samurai district (Nagamachi)",
+          "type": "Hidden Gem",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "jp_omicho",
+          "name": "Omicho Market",
+          "type": "Local Market",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_kanazawa_tokyu",
+          "name": "Kanazawa Tokyu Hotel",
+          "category": "mid-range",
+          "price": 18000,
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "id": "takayama",
+      "name": "Takayama",
+      "bestSeason": "April, October",
+      "coordinates": {
+        "lat": 36.1408,
+        "lng": 137.2521
+      },
+      "attractions": [
+        {
+          "id": "jp_sanmachi_suji",
+          "name": "Sanmachi Suji preserved streets",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "jp_takayama_festival",
+          "name": "Takayama Festival",
+          "type": "Cultural Event",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_hanaougi",
+          "name": "Hida Takayama Onsen Hanaougi",
+          "category": "luxury",
+          "price": 45000,
+          "rating": 4.7
+        }
+      ]
+    },
+    {
+      "id": "shirakawa_go",
+      "name": "Shirakawa-go",
+      "bestSeason": "December - February",
+      "coordinates": {
+        "lat": 36.2562,
+        "lng": 136.9061
+      },
+      "attractions": [
+        {
+          "id": "jp_shirakawago_village",
+          "name": "Ogimachi Village Gassho farmhouses",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "jp_shiroyama_view",
+          "name": "Shiroyama Viewpoint",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_minshuku_shirakawa",
+          "name": "Minshuku Farmhouse Stay",
+          "category": "budget",
+          "price": 12000,
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "id": "kinosaki_onsen",
+      "name": "Kinosaki Onsen",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 35.6263,
+        "lng": 134.8118
+      },
+      "attractions": [
+        {
+          "id": "jp_kinosaki_public_onsens",
+          "name": "7 public onsens",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 800
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_kai_kinosaki",
+          "name": "KAI Ryokan Collection Kinosaki",
+          "category": "luxury",
+          "price": 55000,
+          "rating": 4.7
+        }
+      ]
+    },
+    {
+      "id": "iya_valley",
+      "name": "Iya Valley",
+      "bestSeason": "April - October",
+      "coordinates": {
+        "lat": 33.8794,
+        "lng": 133.8188
+      },
+      "attractions": [
+        {
+          "id": "jp_iya_vine_bridge",
+          "name": "Kazura vine bridges",
+          "type": "Hidden Gem",
+          "rating": 4.6,
+          "price": 550
+        },
+        {
+          "id": "jp_oboke_gorge",
+          "name": "Oboke Gorge",
+          "type": "Hidden Gem",
+          "rating": 4.5,
+          "price": 1200
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_iya_onsen",
+          "name": "Hotel Iya Onsen",
+          "category": "luxury",
+          "price": 45000,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "tottori_dunes",
+      "name": "Tottori Sand Dunes",
+      "bestSeason": "Year-round",
+      "coordinates": {
+        "lat": 35.5411,
+        "lng": 134.2303
+      },
+      "attractions": [
+        {
+          "id": "jp_tottori_dunes",
+          "name": "16km coastline dunes",
+          "type": "Desert Landscape",
+          "rating": 4.6,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_tottori_city",
+          "name": "Tottori City Hotel",
+          "category": "mid-range",
+          "price": 12000,
+          "rating": 4.2
+        }
+      ]
+    },
+    {
+      "id": "yakushima",
+      "name": "Yakushima",
+      "bestSeason": "March - May",
+      "coordinates": {
+        "lat": 30.3444,
+        "lng": 130.5122
+      },
+      "attractions": [
+        {
+          "id": "jp_jomon_sugi",
+          "name": "Jomon Sugi (7,000-year-old cedar)",
+          "type": "UNESCO Nature Reserve",
+          "rating": 4.9,
+          "price": 1000
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_atona_yakushima",
+          "name": "ATONA Yakushima (upcoming)",
+          "category": "luxury",
+          "price": 90000,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "gujo_hachiman",
+      "name": "Gujo Hachiman",
+      "bestSeason": "April - October",
+      "coordinates": {
+        "lat": 35.7485,
+        "lng": 136.9544
+      },
+      "attractions": [
+        {
+          "id": "jp_gujo_castle",
+          "name": "Gujo Hachiman Castle in the Sky",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_gujo_ryokan",
+          "name": "Traditional Gujo Ryokan",
+          "category": "mid-range",
+          "price": 25000,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "kumano_kodo",
+      "name": "Kumano Kodo",
+      "bestSeason": "March - May, September - November",
+      "coordinates": {
+        "lat": 33.7292,
+        "lng": 135.895
+      },
+      "attractions": [
+        {
+          "id": "jp_kumano_trails",
+          "name": "1,000+ year old trails",
+          "type": "Ancient Pilgrimage Route",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "jp_nachi_falls",
+          "name": "Nachi Falls & Pagoda",
+          "type": "Hidden Gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_shukubo_koyasan",
+          "name": "Shukubo (Temple Lodging) Mt. Koya",
+          "category": "mid-range",
+          "price": 20000,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "naoshima",
+      "name": "Naoshima",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 34.4566,
+        "lng": 133.9936
+      },
+      "attractions": [
+        {
+          "id": "jp_pumpkin_sculpture",
+          "name": "Yayoi Kusama pumpkin sculpture",
+          "type": "Art Island",
+          "rating": 4.7,
+          "price": 1500
+        },
+        {
+          "id": "jp_chichu_museum",
+          "name": "Chichu Art Museum",
+          "type": "Art Island",
+          "rating": 4.8,
+          "price": 2100
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_benesse_house",
+          "name": "Benesse House Art Hotel",
+          "category": "luxury",
+          "price": 75000,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "aizu_wakamatsu",
+      "name": "Aizu-Wakamatsu",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 37.4948,
+        "lng": 139.9296
+      },
+      "attractions": [
+        {
+          "id": "jp_tsuruga_castle",
+          "name": "Tsuruga Castle",
+          "type": "Samurai History",
+          "rating": 4.7,
+          "price": 410
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_aizu_ryokan",
+          "name": "Aizu-Wakamatsu Ryokan",
+          "category": "mid-range",
+          "price": 18000,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "takaragawa_onsen",
+      "name": "Takaragawa Onsen",
+      "bestSeason": "Year-round",
+      "coordinates": {
+        "lat": 36.8459,
+        "lng": 139.0494
+      },
+      "attractions": [
+        {
+          "id": "jp_takaragawa_bathing",
+          "name": "Mixed outdoor hot spring baths",
+          "type": "Mountain Hot Spring",
+          "rating": 4.8,
+          "price": 1500
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_takaragawa_ryokan",
+          "name": "Takaragawa Onsen 100-year-old Ryokan",
+          "category": "luxury",
+          "price": 45000,
+          "rating": 4.7
+        }
+      ]
+    },
+    {
+      "id": "lake_biwa",
+      "name": "Lake Biwa & Omihachiman",
+      "bestSeason": "March - May",
+      "coordinates": {
+        "lat": 35.1278,
+        "lng": 136.0898
+      },
+      "attractions": [
+        {
+          "id": "jp_lake_biwa",
+          "name": "Japan's largest freshwater lake",
+          "type": "Freshwater Lake",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "jp_floating_torii",
+          "name": "Floating Torii Gate (Shirahige Shrine)",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_biwa_resort",
+          "name": "Lake Biwa Marriott Hotel",
+          "category": "luxury",
+          "price": 35000,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "takeda_castle",
+      "name": "Takeda Castle Ruins",
+      "bestSeason": "September - November",
+      "coordinates": {
+        "lat": 35.3006,
+        "lng": 134.8292
+      },
+      "attractions": [
+        {
+          "id": "jp_takeda_ruins",
+          "name": "Takeda Castle Ruins",
+          "type": "Castle in the Sky",
+          "rating": 4.7,
+          "price": 500
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_takeda_ryokan",
+          "name": "Traditional Asago Ryokan",
+          "category": "mid-range",
+          "price": 16000,
+          "rating": 4.3
+        }
+      ]
+    },
+    {
+      "id": "fuji",
+      "name": "Mount Fuji",
+      "bestSeason": "July - August",
+      "coordinates": {
+        "lat": 35.3606,
+        "lng": 138.7274
+      },
+      "attractions": [
+        {
+          "id": "jp_mt_fuji_climb",
+          "name": "Mount Fuji Summit climb",
+          "type": "Natural Wonder",
+          "rating": 4.9,
+          "price": 1000
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_hoshinoya_fuji",
+          "name": "Hoshinoya Fuji Glamping Resort",
+          "category": "luxury",
+          "price": 110000,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "hakone",
+      "name": "Hakone",
+      "bestSeason": "Year-round",
+      "coordinates": {
+        "lat": 35.2324,
+        "lng": 139.1038
+      },
+      "attractions": [
+        {
+          "id": "jp_hakone_shrine",
+          "name": "Hakone Shrine & Torii Gate",
+          "type": "Shinto Shrine",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "jp_lake_ashi",
+          "name": "Lake Ashi cruise",
+          "type": "Natural Wonder",
+          "rating": 4.6,
+          "price": 1200
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_gora_kadan",
+          "name": "Gora Kadan Imperial Ryokan",
+          "category": "luxury",
+          "price": 150000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_atona_hakone",
+          "name": "ATONA Hakone (upcoming)",
+          "category": "luxury",
+          "price": 95000,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "iseshima",
+      "name": "Ise-Shima",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 34.4678,
+        "lng": 136.829
+      },
+      "attractions": [
+        {
+          "id": "jp_ise_jingu",
+          "name": "Ise Jingu Grand Shrine",
+          "type": "Shinto Shrine",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_amanemu",
+          "name": "Amanemu Onsen Resort",
+          "category": "luxury",
+          "price": 250000,
+          "rating": 4.9
+        }
+      ]
+    }
+  ]
 }

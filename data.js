@@ -5,19 +5,6 @@
  */
 
 const SEED_COUNTRIES = {
-  france: {
-    id: "france",
-    name: "France",
-    code: "FR",
-    continent: "Europe",
-    flag: "🇫🇷",
-    center: [46.2276, 2.2137],
-    zoom: 6,
-    isFree: true,
-    totalAttractions: 18,
-    description: "A cultural tapestry of haute cuisine, high fashion, ancient art, and iconic architecture from the sparkling Eiffel Tower to the lavender fields of Provence.",
-    coverImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80"
-  },
   india: {
     id: "india",
     name: "India",
@@ -31,18 +18,31 @@ const SEED_COUNTRIES = {
     description: "A land of incredible diversity, ancient heritage, architectural marvels, vibrant festivals, and deep spiritual traditions spanning from the Himalayas to tropical coasts.",
     coverImage: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=80"
   },
-  japan: {
-    id: "japan",
-    name: "Japan",
-    code: "JP",
-    continent: "Asia",
-    flag: "🇯🇵",
-    center: [36.2048, 138.2529],
-    zoom: 5,
-    isFree: false, // Premium Lock
-    totalAttractions: 20,
-    description: "A mesmerizing blend of neon-lit ultra-modern cities and ancient traditions, pristine shrines, peaceful gardens, and extraordinary gastronomy.",
-    coverImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80"
+  france: {
+    id: "france",
+    name: "France",
+    code: "FR",
+    continent: "Europe",
+    flag: "🇫🇷",
+    center: [46.2276, 2.2137],
+    zoom: 6,
+    isFree: true,
+    totalAttractions: 18,
+    description: "A cultural tapestry of haute cuisine, high fashion, ancient art, and iconic architecture from the sparkling Eiffel Tower to the lavender fields of Provence.",
+    coverImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80"
+  },
+  spain: {
+    id: "spain",
+    name: "Spain",
+    code: "ES",
+    continent: "Europe",
+    flag: "🇪🇸",
+    center: [40.4637, -3.7492],
+    zoom: 6,
+    isFree: false,
+    totalAttractions: 21,
+    description: "A sun-drenched land of exquisite tapas, historic plazas, vibrant flamenco rhythms, and awe-inspiring architectural wonders from Barcelona to Seville.",
+    coverImage: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80"
   },
   usa: {
     id: "usa",
@@ -52,10 +52,153 @@ const SEED_COUNTRIES = {
     flag: "🇺🇸",
     center: [37.0902, -95.7129],
     zoom: 4,
-    isFree: false, // Premium Lock
+    isFree: false,
     totalAttractions: 19,
     description: "A vast landscape of dazzling metropolis horizons, breathtaking national parks, diverse subcultures, and iconic entertainment monuments.",
     coverImage: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80"
+  },
+  italy: {
+    id: "italy",
+    name: "Italy",
+    code: "IT",
+    continent: "Europe",
+    flag: "🇮🇹",
+    center: [41.8719, 12.5674],
+    zoom: 6,
+    isFree: false,
+    totalAttractions: 23,
+    description: "The birthplace of the Renaissance, offering a rich canvas of ancient Roman ruins, pristine coastlines, spectacular food, and rolling Tuscan hills.",
+    coverImage: "https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?auto=format&fit=crop&w=1200&q=80"
+  },
+  turkey: {
+    id: "turkey",
+    name: "Turkey",
+    code: "TR",
+    continent: "Europe/Asia",
+    flag: "🇹🇷",
+    center: [38.9637, 35.2433],
+    zoom: 6,
+    isFree: false,
+    totalAttractions: 22,
+    description: "A fascinating transcontinental bridge of rich Greco-Roman and Ottoman history, surreal cave landscapes, stunning Aegean coasts, and bustling historic spice bazaars.",
+    coverImage: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1200&q=80"
+  },
+  united_kingdom: {
+    id: "united_kingdom",
+    name: "United Kingdom",
+    code: "GB",
+    continent: "Europe",
+    flag: "🇬🇧",
+    center: [55.3781, -3.4360],
+    zoom: 5,
+    isFree: false,
+    totalAttractions: 29,
+    description: "A historic nation of royal landmarks, gothic castles, dramatic highlands, and quaint villages nestled across beautiful countryside.",
+    coverImage: "https://images.unsplash.com/photo-1513635269975-59663e0ca1ad?auto=format&fit=crop&w=1200&q=80"
+  },
+  germany: {
+    id: "germany",
+    name: "Germany",
+    code: "DE",
+    continent: "Europe",
+    flag: "🇩🇪",
+    center: [51.1657, 10.4515],
+    zoom: 6,
+    isFree: false,
+    totalAttractions: 22,
+    description: "A rich historic land of fairytale castles, medieval half-timbered villages, deep forests, historic monuments, vibrant beer halls, and scenic river valleys.",
+    coverImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1200&q=80"
+  },
+  thailand: {
+    id: "thailand",
+    name: "Thailand",
+    code: "TH",
+    continent: "Asia",
+    flag: "🇹🇭",
+    center: [15.8700, 100.9925],
+    zoom: 5,
+    isFree: false,
+    totalAttractions: 25,
+    description: "A tropical wonderland of ornate Buddhist temples, pristine white-sand islands, vibrant street food markets, and lush northern mountain sanctuaries.",
+    coverImage: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80"
+  },
+  japan: {
+    id: "japan",
+    name: "Japan",
+    code: "JP",
+    continent: "Asia",
+    flag: "🇯🇵",
+    center: [36.2048, 138.2529],
+    zoom: 5,
+    isFree: false,
+    totalAttractions: 20,
+    description: "A mesmerizing blend of neon-lit ultra-modern cities and ancient traditions, pristine shrines, peaceful gardens, and extraordinary gastronomy.",
+    coverImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80"
+  },
+  uae: {
+    id: "uae",
+    name: "United Arab Emirates",
+    code: "AE",
+    continent: "Middle East",
+    flag: "🇦🇪",
+    center: [23.4241, 53.8478],
+    zoom: 7,
+    isFree: false,
+    totalAttractions: 12,
+    description: "A land of futuristic wonders, record-breaking skyscrapers, rich Bedouin tradition, majestic desert dunes, and luxury resort islands.",
+    coverImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
+  },
+  vietnam: {
+    id: "vietnam",
+    name: "Vietnam",
+    code: "VN",
+    continent: "Asia",
+    flag: "🇻🇳",
+    center: [14.0583, 108.2772],
+    zoom: 5,
+    isFree: false,
+    totalAttractions: 22,
+    description: "A stunning land of emerald karst bays, ancient historic towns, dense mountain rice terraces, rich war histories, and vibrant street food markets.",
+    coverImage: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"
+  },
+  south_korea: {
+    id: "south_korea",
+    name: "South Korea",
+    code: "KR",
+    continent: "Asia",
+    flag: "🇰🇷",
+    center: [35.9078, 127.7669],
+    zoom: 6,
+    isFree: false,
+    totalAttractions: 22,
+    description: "A dynamic country of high-tech futuristic skylines, historic palaces, volcanic resort islands, deep hiking trails, and global K-culture.",
+    coverImage: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=1200&q=80"
+  },
+  singapore: {
+    id: "singapore",
+    name: "Singapore",
+    code: "SG",
+    continent: "Asia",
+    flag: "🇸🇬",
+    center: [1.3521, 103.8198],
+    zoom: 12,
+    isFree: false,
+    totalAttractions: 10,
+    description: "A futuristic global city-state blending stunning modern architectures, vertical supertree gardens, colorful historical districts, and Michelin-starred dining.",
+    coverImage: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80"
+  },
+  indonesia: {
+    id: "indonesia",
+    name: "Indonesia",
+    code: "ID",
+    continent: "Asia",
+    flag: "🇮🇩",
+    center: [-2.5489, 118.0149],
+    zoom: 5,
+    isFree: false,
+    totalAttractions: 22,
+    description: "A tropical archipelago of volcanic peaks, rich tribal heritage, Komodo dragons, marine reefs, and Bali's emerald rice valleys.",
+    coverImage: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80"
   },
   egypt: {
     id: "egypt",
@@ -65,10 +208,23 @@ const SEED_COUNTRIES = {
     flag: "🇪🇬",
     center: [26.8206, 30.8025],
     zoom: 6,
-    isFree: false, // Premium Lock
+    isFree: false,
     totalAttractions: 15,
     description: "The historic cradle of empires, home of towering pharaonic tombs, massive golden temples, the eternal Nile, and majestic desert safaris.",
     coverImage: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=1200&q=80"
+  },
+  switzerland: {
+    id: "switzerland",
+    name: "Switzerland",
+    code: "CH",
+    continent: "Europe",
+    flag: "🇨🇭",
+    center: [46.8182, 8.2275],
+    zoom: 8,
+    isFree: false,
+    totalAttractions: 22,
+    description: "A breathtaking Alpine paradise of snow-capped peaks, pristine turquoise lakes, scenic panoramic railways, and world-class luxury watchmaking and chocolate.",
+    coverImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1200&q=80"
   }
 };
 
@@ -104,7 +260,2348 @@ const SEED_CITIES = {
     description: "A dramatic alpine valley at the base of Mont Blanc, world-famous for mountaineering, skiing, and glaciers.",
     coverImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80"
   },
-
+  // --- ITALY CITIES ---
+  rome: {
+    id: "rome",
+    name: "Rome",
+    countryId: "italy",
+    lat: 41.9028,
+    lng: 12.4964,
+    tagline: "The Eternal City",
+    description: "Italy's historic capital, filled with 3,000 years of globally influential art, architecture, and ruins like the Colosseum.",
+    coverImage: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  florence: {
+    id: "florence",
+    name: "Florence",
+    countryId: "italy",
+    lat: 43.7696,
+    lng: 11.2558,
+    tagline: "Cradle of the Renaissance",
+    description: "Home to masterpieces of Renaissance art and architecture, including Michelangelo's David and Brunelleschi's iconic Duomo.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  venice: {
+    id: "venice",
+    name: "Venice",
+    countryId: "italy",
+    lat: 45.4408,
+    lng: 12.3155,
+    tagline: "The Floating City",
+    description: "Built on more than 100 small islands in a lagoon in the Adriatic Sea, famous for winding canals and gondolas.",
+    coverImage: "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&w=600&q=80"
+  },
+  pisa: {
+    id: "pisa",
+    name: "Pisa",
+    countryId: "italy",
+    lat: 43.7228,
+    lng: 10.4017,
+    tagline: "Home of the Leaning Tower",
+    description: "A city in Tuscany best known for its iconic Leaning Tower, the bell tower of the city's cathedral.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  cinque_terre: {
+    id: "cinque_terre",
+    name: "Cinque Terre",
+    countryId: "italy",
+    lat: 44.1460,
+    lng: 9.6438,
+    tagline: "Five Colorful Cliffside Villages",
+    description: "A string of centuries-old seaside villages on the rugged Italian Riviera coastline, known for colorful houses and vineyards.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  amalfi_coast: {
+    id: "amalfi_coast",
+    name: "Amalfi Coast",
+    countryId: "italy",
+    lat: 40.6340,
+    lng: 14.6027,
+    tagline: "Dramatic Vertical Landscape",
+    description: "A 50-kilometer stretch of coastline along the southern edge of Italy’s Sorrentine Peninsula, famous for cliffside towns.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  milan: {
+    id: "milan",
+    name: "Milan",
+    countryId: "italy",
+    lat: 45.4642,
+    lng: 9.1900,
+    tagline: "Global Fashion & Design Capital",
+    description: "A metropolis in Italy's northern Lombardy region, a global capital of fashion and design, home of the Duomo.",
+    coverImage: "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&w=600&q=80"
+  },
+  matera: {
+    id: "matera",
+    name: "Matera",
+    countryId: "italy",
+    lat: 40.6664,
+    lng: 16.6046,
+    tagline: "The Ancient Cave City",
+    description: "Famous for the Sassi districts, a complex of cave dwellings carved into the ancient river canyon.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  castelmezzano: {
+    id: "castelmezzano",
+    name: "Castelmezzano",
+    countryId: "italy",
+    lat: 40.5283,
+    lng: 16.0125,
+    tagline: "Dolomite Mountain Jewel",
+    description: "An extraordinary mountain village nestled in the Lucanian Dolomites, resembling a natural nativity scene.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  pietrapertosa: {
+    id: "pietrapertosa",
+    name: "Pietrapertosa",
+    countryId: "italy",
+    lat: 40.5186,
+    lng: 16.0628,
+    tagline: "Italy's Highest Village",
+    description: "Perched high in the mountains, this medieval village offers breath-taking views and a historic Saracen castle.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  alberobello: {
+    id: "alberobello",
+    name: "Alberobello",
+    countryId: "italy",
+    lat: 40.7830,
+    lng: 17.2408,
+    tagline: "The Town of Trulli",
+    description: "Renowned for its unique UNESCO-listed trulli — whitewashed stone huts with conical roofs found only in Puglia.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  civita_bagnoregio: {
+    id: "civita_bagnoregio",
+    name: "Civita di Bagnoregio",
+    countryId: "italy",
+    lat: 42.6276,
+    lng: 12.0883,
+    tagline: "The Dying Hilltop Town",
+    description: "An ancient hilltop village accessible only by a footbridge, famous for its dramatic position on eroding clay cliffs.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  procida: {
+    id: "procida",
+    name: "Procida",
+    countryId: "italy",
+    lat: 40.7617,
+    lng: 14.0203,
+    tagline: "Vibrant Island of Color",
+    description: "A small, colorful island in the Bay of Naples, known for its picturesque harbor Marina Corricella.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  ponza: {
+    id: "ponza",
+    name: "Ponza & Palmarola",
+    countryId: "italy",
+    lat: 40.8961,
+    lng: 12.9622,
+    tagline: "Hidden Tyrrhenian Islands",
+    description: "Stunning, crystal-clear volcanic islands offering sea caves, shipwrecks, and traditional Italian island vibes.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  sperlonga: {
+    id: "sperlonga",
+    name: "Sperlonga",
+    countryId: "italy",
+    lat: 41.2588,
+    lng: 13.4336,
+    tagline: "Whitewashed Coastal Retreat",
+    description: "A picturesque seaside town known for its medieval whitewashed center and scenic coastal watchtowers.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  monte_isola: {
+    id: "monte_isola",
+    name: "Monte Isola",
+    countryId: "italy",
+    lat: 45.7144,
+    lng: 10.0831,
+    tagline: "Lake Iseo's Car-Free Island",
+    description: "Europe's largest lake island, completely free of cars and famous for cycle trails and fishing heritage.",
+    coverImage: "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&w=600&q=80"
+  },
+  tropea: {
+    id: "tropea",
+    name: "Tropea & Capo Vaticano",
+    countryId: "italy",
+    lat: 38.6789,
+    lng: 15.8953,
+    tagline: "The Pearl of Calabria",
+    description: "Perched on a cliff overlooking sandy beaches and clear waters, famous for historic churches and local cuisine.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  certaldo: {
+    id: "certaldo",
+    name: "Certaldo",
+    countryId: "italy",
+    lat: 43.7196,
+    lng: 11.0425,
+    tagline: "Tuscan Medieval Village",
+    description: "A walled medieval town in Tuscany, famous as the birthplace and home of writer Giovanni Boccaccio.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  comano: {
+    id: "comano",
+    name: "Terme di Comano",
+    countryId: "italy",
+    lat: 46.0384,
+    lng: 10.8876,
+    tagline: "Healing Alpine Thermal Oasis",
+    description: "Nestled in the Dolomites, this peaceful region is famous for healing thermal waters and spectacular lake landscapes.",
+    coverImage: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=600&q=80"
+  },
+  vietri_sul_mare: {
+    id: "vietri_sul_mare",
+    name: "Vietri sul Mare",
+    countryId: "italy",
+    lat: 40.6698,
+    lng: 14.7275,
+    tagline: "Gateway to the Amalfi Coast",
+    description: "The first town of the Amalfi Coast from Salerno, famous for colorful, hand-painted ceramic workshops.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  lampedusa: {
+    id: "lampedusa",
+    name: "Lampedusa",
+    countryId: "italy",
+    lat: 35.5069,
+    lng: 12.6074,
+    tagline: "Southern Paradise Beaches",
+    description: "Italy's southernmost island, world-famous for Rabbit Beach's shallow waters and sea turtle nesting grounds.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  tuscany_coast: {
+    id: "tuscany_coast",
+    name: "Tuscany Coast",
+    countryId: "italy",
+    lat: 42.3929,
+    lng: 11.2064,
+    tagline: "Scenic Coastal Tyrrhenian",
+    description: "Scenic coast including Porto Ercole harbor and Lucca vineyards, combining beach, wine, and Tuscan beauty.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  umbria: {
+    id: "umbria",
+    name: "Umbria",
+    countryId: "italy",
+    lat: 43.1107,
+    lng: 12.3908,
+    tagline: "The Green Heart of Italy",
+    description: "Renowned for its rolling hills, medieval villages, truffles, local wines, and the majestic Castello di Reschio.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- SPAIN CITIES ---
+  madrid: {
+    id: "madrid",
+    name: "Madrid",
+    countryId: "spain",
+    lat: 40.4168,
+    lng: -3.7037,
+    tagline: "The Golden Capital",
+    description: "Spain's capital, a city of elegant boulevards, expansive manicured parks, and rich repositories of European art.",
+    coverImage: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=600&q=80"
+  },
+  barcelona: {
+    id: "barcelona",
+    name: "Barcelona",
+    countryId: "spain",
+    lat: 41.3851,
+    lng: 2.1734,
+    tagline: "Gaudí's Mosaic Playground",
+    description: "The cosmopolitan capital of Spain’s Catalonia region, defined by quirky Gaudí architecture and seaside vibes.",
+    coverImage: "https://images.unsplash.com/photo-1583422409516-2895a77efedd?auto=format&fit=crop&w=600&q=80"
+  },
+  seville: {
+    id: "seville",
+    name: "Seville",
+    countryId: "spain",
+    lat: 37.3891,
+    lng: -5.9845,
+    tagline: "The Sun-Drenched Andalusian Capital",
+    description: "Famous for flamenco dancing, the massive Gothic cathedral, and the ornate Alcázar castle complex.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  granada: {
+    id: "granada",
+    name: "Granada",
+    countryId: "spain",
+    lat: 37.1773,
+    lng: -3.5986,
+    tagline: "Home of the Alhambra Palace",
+    description: "A foothill city in the Sierra Nevada mountains, famous for Moorish palaces and medieval cave districts.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  marbella: {
+    id: "marbella",
+    name: "Marbella",
+    countryId: "spain",
+    lat: 36.5099,
+    lng: -4.8858,
+    tagline: "Glittering Costa del Sol Resort",
+    description: "A luxury beach resort town on southern Spain's Costa del Sol, backed by the Sierra Blanca mountains.",
+    coverImage: "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=600&q=80"
+  },
+  santiago_compostela: {
+    id: "santiago_compostela",
+    name: "Santiago de Compostela",
+    countryId: "spain",
+    lat: 42.8782,
+    lng: -8.5448,
+    tagline: "Ancient Pilgrimage Terminus",
+    description: "The capital of northwest Spain’s Galicia region, famous as the final destination of the Camino de Santiago pilgrimage.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  ibiza: {
+    id: "ibiza",
+    name: "Ibiza",
+    countryId: "spain",
+    lat: 38.9067,
+    lng: 1.4206,
+    tagline: "Global Clubbing & Old Town Island",
+    description: "One of the Balearic Islands, famous for wild nightlife and quiet Mediterranean beaches with UNESCO historic quarters.",
+    coverImage: "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&w=600&q=80"
+  },
+  mallorca: {
+    id: "mallorca",
+    name: "Mallorca",
+    countryId: "spain",
+    lat: 39.6953,
+    lng: 3.0176,
+    tagline: "Scenic Balearic Retreat",
+    description: "A gorgeous island famous for stone-built villages, dramatic cliffs, and pristine turquoise coves.",
+    coverImage: "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&w=600&q=80"
+  },
+  setenil_bodegas: {
+    id: "setenil_bodegas",
+    name: "Setenil de las Bodegas",
+    countryId: "spain",
+    lat: 36.8637,
+    lng: -5.1812,
+    tagline: "The Cliffs Overhang Town",
+    description: "A unique white village in Cádiz famous for its houses built directly into rock overhangs.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  merida: {
+    id: "merida",
+    name: "Mérida",
+    countryId: "spain",
+    lat: 38.9171,
+    lng: -6.3444,
+    tagline: "Spain's Roman Core",
+    description: "Capital of Extremadura, preserving some of the finest Roman ruins in the Iberian Peninsula.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  rio_tinto: {
+    id: "rio_tinto",
+    name: "Río Tinto",
+    countryId: "spain",
+    lat: 37.6931,
+    lng: -6.5947,
+    tagline: "The Martian Landscape River",
+    description: "A river in Andalusia famous for its deep red water and Mars-like mining hills.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  cabo_gata: {
+    id: "cabo_gata",
+    name: "Cabo de Gata-Níjar",
+    countryId: "spain",
+    lat: 36.7214,
+    lng: -2.2039,
+    tagline: "Europe's Volcanic Desert Coast",
+    description: "Spain's largest coastal protected area, boasting volcanic formations, desert sands, and coral reefs.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  catedrais_beach: {
+    id: "catedrais_beach",
+    name: "As Catedrais Beach",
+    countryId: "spain",
+    lat: 43.5545,
+    lng: -7.1587,
+    tagline: "Beach of Holy Waters",
+    description: "Famed for its spectacular 30-meter high natural rock arches resembling Gothic cathedral buttresses.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  gaztelugatxe: {
+    id: "gaztelugatxe",
+    name: "San Juan de Gaztelugatxe",
+    countryId: "spain",
+    lat: 43.4473,
+    lng: -2.7850,
+    tagline: "Basque Dragonstone Hermitage",
+    description: "A jaw-dropping islet in the Bay of Biscay, connected to the mainland by a winding 241-step stone bridge.",
+    coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+  },
+  cazorla: {
+    id: "cazorla",
+    name: "Cazorla Natural Park",
+    countryId: "spain",
+    lat: 37.9142,
+    lng: -3.0039,
+    tagline: "Spain's Largest Protected Forest",
+    description: "An immense natural park with rivers, mountain gorges, and rich fauna including deer and wild boar.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  coruna: {
+    id: "coruna",
+    name: "A Coruña",
+    countryId: "spain",
+    lat: 43.3623,
+    lng: -8.4115,
+    tagline: "Glass City of the Atlantic",
+    description: "A coastal city in Galicia famous for its glass-enclosed balconies and the Tower of Hercules lighthouse.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  oviedo: {
+    id: "oviedo",
+    name: "Oviedo",
+    countryId: "spain",
+    lat: 43.3603,
+    lng: -5.8448,
+    tagline: "Asturian Secret Cider Capital",
+    description: "A clean, historic city in Asturias known for pre-Romanesque churches, museums, and traditional cider houses.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  chulilla: {
+    id: "chulilla",
+    name: "Chulilla",
+    countryId: "spain",
+    lat: 39.6548,
+    lng: -0.8653,
+    tagline: "Suspended Bridge Gorge Village",
+    description: "A gorgeous white mountain village near Valencia, offering hanging canyon bridge trails and climbing cliffs.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  chelva: {
+    id: "chelva",
+    name: "Chelva",
+    countryId: "spain",
+    lat: 39.7475,
+    lng: -0.9991,
+    tagline: "Roman Aqueduct Mountain Village",
+    description: "Famous for its historic water route, medieval quarters, and the massive 1st-century Peña Cortada Roman aqueduct.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  llanes: {
+    id: "llanes",
+    name: "Llanes",
+    countryId: "spain",
+    lat: 43.4216,
+    lng: -4.7548,
+    tagline: "Scenic Asturian Beach Haven",
+    description: "A stunning beach town with historic walls, active fishing port, and dramatic seaside cliffs.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  salamanca: {
+    id: "salamanca",
+    name: "Salamanca",
+    countryId: "spain",
+    lat: 40.9701,
+    lng: -5.6635,
+    tagline: "The Golden City of Learning",
+    description: "Famous for its historic sandstone university, spectacular Plaza Mayor, and monastic wine estates.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- UNITED KINGDOM CITIES ---
+  london: {
+    id: "london",
+    name: "London",
+    countryId: "united_kingdom",
+    lat: 51.5074,
+    lng: -0.1278,
+    tagline: "The Majestic Capital on the Thames",
+    description: "A global metropolis blending royal history with cutting-edge culture, featuring world-class museums, West End theaters, and iconic historic landmarks.",
+    coverImage: "https://images.unsplash.com/photo-1513635269975-59663e0ca1ad?auto=format&fit=crop&w=600&q=80"
+  },
+  edinburgh: {
+    id: "edinburgh",
+    name: "Edinburgh",
+    countryId: "united_kingdom",
+    lat: 55.9533,
+    lng: -3.1883,
+    tagline: "The Gothic Capital of Scotland",
+    description: "Famous for its medieval Old Town, elegant Georgian New Town, the imposing castle on the rock, and the world-renowned Fringe Festival.",
+    coverImage: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=600&q=80"
+  },
+  manchester: {
+    id: "manchester",
+    name: "Manchester",
+    countryId: "united_kingdom",
+    lat: 53.4808,
+    lng: -2.2426,
+    tagline: "The Industrial & Cultural Pioneer",
+    description: "A vibrant city known for its industrial heritage, music scene, football rivalry, and the trendy Northern Quarter.",
+    coverImage: "https://images.unsplash.com/photo-1515586000733-ac494a8a3875?auto=format&fit=crop&w=600&q=80"
+  },
+  birmingham: {
+    id: "birmingham",
+    name: "Birmingham",
+    countryId: "united_kingdom",
+    lat: 52.4862,
+    lng: -1.8904,
+    tagline: "The Heart of the Midlands",
+    description: "A major city with a complex canal network, historic Jewelry Quarter, and exceptional shopping and dining options.",
+    coverImage: "https://images.unsplash.com/photo-1603566113110-8b1b519e497b?auto=format&fit=crop&w=600&q=80"
+  },
+  windsor: {
+    id: "windsor",
+    name: "Windsor",
+    countryId: "united_kingdom",
+    lat: 51.4839,
+    lng: -0.6044,
+    tagline: "The Royal Riverside Enclave",
+    description: "Home to Windsor Castle, the oldest and largest occupied castle in the world, surrounded by royal parks and the scenic River Thames.",
+    coverImage: "https://images.unsplash.com/photo-1563820250550-fa018cbb3117?auto=format&fit=crop&w=600&q=80"
+  },
+  wiltshire: {
+    id: "wiltshire",
+    name: "Wiltshire",
+    countryId: "united_kingdom",
+    lat: 51.1789,
+    lng: -1.8262,
+    tagline: "Ancient Landscapes & Stone Circles",
+    description: "A picturesque English county famous for the mysterious standing stones of Stonehenge, Avebury, and historic Salisbury.",
+    coverImage: "https://images.unsplash.com/photo-1599833975787-5c143f373c30?auto=format&fit=crop&w=600&q=80"
+  },
+  bath: {
+    id: "bath",
+    name: "Bath",
+    countryId: "united_kingdom",
+    lat: 51.3814,
+    lng: -2.3574,
+    tagline: "Elegant Georgian Thermal Spa",
+    description: "Famous for its ancient Roman Baths, stunning honey-colored Georgian architecture, and historic Jane Austen connections.",
+    coverImage: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=600&q=80"
+  },
+  belfast: {
+    id: "belfast",
+    name: "Belfast",
+    countryId: "united_kingdom",
+    lat: 54.5973,
+    lng: -5.9301,
+    tagline: "Maritime Heritage & Titanic Birthplace",
+    description: "A dynamic capital featuring the world-renowned Titanic Belfast museum, Victorian architecture, and the lively Cathedral Quarter.",
+    coverImage: "https://images.unsplash.com/photo-1549880181-56a44cf4a9a1?auto=format&fit=crop&w=600&q=80"
+  },
+  causeway_coast: {
+    id: "causeway_coast",
+    name: "Causeway Coast",
+    countryId: "united_kingdom",
+    lat: 55.2408,
+    lng: -6.5115,
+    tagline: "UNESCO Basalt Columns & Coastal Drives",
+    description: "A dramatic shoreline featuring the hexagonal columns of Giant's Causeway, historic ruins, and the ancient Bushmills distillery.",
+    coverImage: "https://images.unsplash.com/photo-1552355977-817c1bf2086e?auto=format&fit=crop&w=600&q=80"
+  },
+  elan_valley: {
+    id: "elan_valley",
+    name: "Elan Valley",
+    countryId: "united_kingdom",
+    lat: 52.2741,
+    lng: -3.6198,
+    tagline: "The Lake District of Wales",
+    description: "A beautiful area of reservoirs, Victorian stone dams, and wild oak woods, designated as a Dark Sky Park.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  isles_of_scilly: {
+    id: "isles_of_scilly",
+    name: "Isles of Scilly",
+    countryId: "united_kingdom",
+    lat: 49.9143,
+    lng: -6.3152,
+    tagline: "Subtropical Archipelago of Cornwall",
+    description: "A peaceful group of islands featuring white sand beaches, clear turquoise waters, local vineyards, and exotic gardens.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  devon: {
+    id: "devon",
+    name: "Devon",
+    countryId: "united_kingdom",
+    lat: 50.9962,
+    lng: -4.4811,
+    tagline: "Rugged Coastline & Walled Gardens",
+    description: "Home to the family-owned Hartland Abbey, dramatic coastal cliffs, historic estates, and pristine sandy beaches.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  skipton: {
+    id: "skipton",
+    name: "Skipton",
+    countryId: "united_kingdom",
+    lat: 53.9614,
+    lng: -2.0169,
+    tagline: "The Gateway to the Dales",
+    description: "A historic market town featuring a remarkably preserved 900-year-old medieval castle and scenic canal walks.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  clare: {
+    id: "clare",
+    name: "Clare",
+    countryId: "united_kingdom",
+    lat: 52.0784,
+    lng: 0.5806,
+    tagline: "Medieval Wool Town of Suffolk",
+    description: "A historic gem with 15th-century pargeted houses, church pews connected to Henry VIII, and a scenic country park.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  isle_of_wight: {
+    id: "isle_of_wight",
+    name: "Isle of Wight",
+    countryId: "united_kingdom",
+    lat: 50.5951,
+    lng: -1.3123,
+    tagline: "Sunny Coastlines & Hidden Beaches",
+    description: "Known for Blackgang Beach, golden cliffs, scenic steam railways, and a rich history as a holiday resort since Victorian times.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  amberley: {
+    id: "amberley",
+    name: "Amberley",
+    countryId: "united_kingdom",
+    lat: 50.9068,
+    lng: -0.5342,
+    tagline: "Industrial Heritage & Chalk Pits",
+    description: "A small village in West Sussex famous for the Amberley Museum, nature reserves, and nesting peregrine falcons.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  chinnor: {
+    id: "chinnor",
+    name: "Chinnor",
+    countryId: "united_kingdom",
+    lat: 51.6983,
+    lng: -0.9102,
+    tagline: "Vintage Heritage Railways & Crosses",
+    description: "A village in Oxfordshire offering heritage steam rides, mystery dining evenings, and views of the historic hillside Whiteleaf Cross.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  coruna: {
+    id: "coruna",
+    name: "A Coruña",
+    countryId: "united_kingdom",
+    lat: 43.3623,
+    lng: -8.4115,
+    tagline: "Roman Lighthouses & Gastronomy",
+    description: "A dramatic Atlantic coastal city featuring the ancient Tower of Hercules, fine seafood, and sandy beaches.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  st_abbs_head: {
+    id: "st_abbs_head",
+    name: "St Abb's Head",
+    countryId: "united_kingdom",
+    lat: 55.9167,
+    lng: -2.1333,
+    tagline: "Dramatic Scottish Coastal Nature",
+    description: "A spectacular cliffside nature reserve in the Scottish Borders, home to seabird colonies and pristine walking trails.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  falkland: {
+    id: "falkland",
+    name: "Falkland",
+    countryId: "united_kingdom",
+    lat: 56.2522,
+    lng: -3.2081,
+    tagline: "Royal Retreat of Mary, Queen of Scots",
+    description: "A charming village in Fife boasting Falkland Palace, the oldest tennis court in the UK, and historic stone cottages.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  northumberland: {
+    id: "northumberland",
+    name: "Northumberland",
+    countryId: "united_kingdom",
+    lat: 55.0135,
+    lng: -2.3168,
+    tagline: "Roman Frontiers & Dark Sky Parks",
+    description: "Home to the incredibly preserved Housesteads Roman Fort along Hadrian's Wall, offering panoramic wild views.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  ambleside: {
+    id: "ambleside",
+    name: "Ambleside",
+    countryId: "united_kingdom",
+    lat: 54.4328,
+    lng: -2.9628,
+    tagline: "The Literary Heart of Lake District",
+    description: "Surrounded by stunning peaks and Lake Windermere, this town is historic base for hiking, literary history, and boutique luxury.",
+    coverImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+  },
+  glasgow: {
+    id: "glasgow",
+    name: "Glasgow",
+    countryId: "united_kingdom",
+    lat: 55.8642,
+    lng: -4.2518,
+    tagline: "Scotland's Cultural & Art Center",
+    description: "A vibrant city known for its outstanding art galleries, Victorian architecture, live music scenes, and local dining hubs.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  cambridge: {
+    id: "cambridge",
+    name: "Cambridge",
+    countryId: "united_kingdom",
+    lat: 52.2053,
+    lng: 0.1218,
+    tagline: "Historic University City & Punting",
+    description: "Famous for its majestic colleges, punting along the River Cam, the historic Hobson police-station conversion, and grand chapels.",
+    coverImage: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=600&q=80"
+  },
+  bristol: {
+    id: "bristol",
+    name: "Bristol",
+    countryId: "united_kingdom",
+    lat: 51.4545,
+    lng: -2.5879,
+    tagline: "Creative Maritime Hub & Street Art",
+    description: "A city with deep maritime roots, famous for the Clifton Suspension Bridge, street art, and the dramatic Guildhall conversion.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  sherborne: {
+    id: "sherborne",
+    name: "Sherborne",
+    countryId: "united_kingdom",
+    lat: 50.9496,
+    lng: -2.5186,
+    tagline: "Georgian Townhouses & Abbey History",
+    description: "A lovely Dorset market town featuring medieval buildings, historic Sherborne Abbey, and boutique spas in gentleman's residences.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  perthshire: {
+    id: "perthshire",
+    name: "Perthshire",
+    countryId: "united_kingdom",
+    lat: 56.4,
+    lng: -3.8,
+    tagline: "Championship Golf & Highland Resorts",
+    description: "A glorious region of Scottish glens, championship golf courses, equestrian centers, and Michelin-starred country hotels.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  north_yorkshire: {
+    id: "north_yorkshire",
+    name: "North Yorkshire",
+    countryId: "united_kingdom",
+    lat: 54.1206,
+    lng: -1.6231,
+    tagline: "Historic Manors & Walled Abbeys",
+    description: "Featuring the grand 17th-century Grade II* listed manor houses, Michelin star restaurants, and stunning Dales countryside.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  portrush: {
+    id: "portrush",
+    name: "Portrush",
+    countryId: "united_kingdom",
+    lat: 55.2045,
+    lng: -6.6572,
+    tagline: "Championship Links Golf Coast",
+    description: "A seaside resort town in Northern Ireland famous for the Royal Portrush Golf Club, Dunluce Castle views, and aurora spotting.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- UAE CITIES ---
+  dubai: {
+    id: "dubai",
+    name: "Dubai",
+    countryId: "uae",
+    lat: 25.2048,
+    lng: 55.2708,
+    tagline: "The Global Hub of Futuristic Wonder",
+    description: "A dazzling futuristic oasis known for its record-breaking skyscrapers, artificial palm islands, massive shopping centers, and vibrant multicultural dining.",
+    coverImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80"
+  },
+  abu_dhabi: {
+    id: "abu_dhabi",
+    name: "Abu Dhabi",
+    countryId: "uae",
+    lat: 24.4539,
+    lng: 54.3773,
+    tagline: "The Royal Cultural Capital",
+    description: "The majestic capital of the UAE, boasting the spectacular Sheikh Zayed Grand Mosque, state-of-the-art Louvre museum, and Yas Island theme parks.",
+    coverImage: "https://images.unsplash.com/photo-1549880181-56a44cf4a9a1?auto=format&fit=crop&w=600&q=80"
+  },
+  al_ain: {
+    id: "al_ain",
+    name: "Al Ain",
+    countryId: "uae",
+    lat: 24.2075,
+    lng: 55.7447,
+    tagline: "The Garden City Heritage Oasis",
+    description: "A UNESCO-listed historic town featuring ancient 1,200-hectare date palm oases, traditional forts, camel markets, and the rugged height of Jebel Hafeet.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  hatta: {
+    id: "hatta",
+    name: "Hatta",
+    countryId: "uae",
+    lat: 24.8197,
+    lng: 56.1264,
+    tagline: "The Hajar Mountain Adventure Exclave",
+    description: "A peaceful mountain exclave of Dubai offering turquoise reservoir kayaking, hiking trails, and a restored 200-year-old heritage village.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  sharjah: {
+    id: "sharjah",
+    name: "Sharjah",
+    countryId: "uae",
+    lat: 25.3463,
+    lng: 55.4209,
+    tagline: "The Cultural & Archaeological Heart",
+    description: "Recognized as a cultural capital, Sharjah features outstanding Bronze Age archaeological sites, historic desert sands, and beautifully restored heritage hotels.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  kalba: {
+    id: "kalba",
+    name: "Kalba",
+    countryId: "uae",
+    lat: 25.0427,
+    lng: 56.3541,
+    tagline: "Pristine Mangroves & Wetland Sanctuary",
+    description: "An eastern coast sanctuary famous for its rare collared kingfishers, green sea turtle breeding grounds, and peaceful mangrove kayaking routes.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  ras_al_khaimah: {
+    id: "ras_al_khaimah",
+    name: "Ras Al Khaimah",
+    countryId: "uae",
+    lat: 25.7895,
+    lng: 55.9432,
+    tagline: "Peak Adventures & Arabian Sea Coasts",
+    description: "Featuring UAE's highest peak, Jebel Jais, and the world's longest zipline alongside white sandy beaches and luxury coastal resorts.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  fujairah: {
+    id: "fujairah",
+    name: "Fujairah",
+    countryId: "uae",
+    lat: 25.1288,
+    lng: 56.3265,
+    tagline: "Indian Ocean Coastline & Snoopy Snorkeling",
+    description: "The UAE's only entirely eastern coastline emirate, famous for clean Indian Ocean dive spots, the ancient Al Badiyah mosque, and historic forts.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  liwa_oasis: {
+    id: "liwa_oasis",
+    name: "Liwa Oasis",
+    countryId: "uae",
+    lat: 23.1311,
+    lng: 53.7592,
+    tagline: "The Monumental Empty Quarter Desert",
+    description: "Deep in the Rub al Khali, Liwa is a breathtaking landscape of 300-meter sand dunes, historic date palm oases, and ultra-luxury desert resorts.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  al_marmoom: {
+    id: "al_marmoom",
+    name: "Al Marmoom",
+    countryId: "uae",
+    lat: 24.8318,
+    lng: 55.3302,
+    tagline: "Protected Desert Wildlife Reserve",
+    description: "A massive desert conservation reserve home to thousands of wild Arabian oryxes, lakes populated by pink flamingos, and extensive desert cycle tracks.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  umm_al_quwain: {
+    id: "umm_al_quwain",
+    name: "Umm Al Quwain",
+    countryId: "uae",
+    lat: 25.5647,
+    lng: 55.5534,
+    tagline: "Authentic Pre-Oil Maritime Coast",
+    description: "A quiet, less commercialized coastal emirate showcasing traditional dhow building yards, coral-stone architectures, and ancient archaeological sites.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  ajman: {
+    id: "ajman",
+    name: "Ajman",
+    countryId: "uae",
+    lat: 25.4111,
+    lng: 55.445,
+    tagline: "Charming Coastline & Heritage Forts",
+    description: "The smallest of the seven emirates, Ajman offers beautiful waterfront corniche strolls, busy traditional fish markets, and detailed museum collections.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- THAILAND CITIES ---
+  bangkok: {
+    id: "bangkok",
+    name: "Bangkok",
+    countryId: "thailand",
+    lat: 13.7563,
+    lng: 100.5018,
+    tagline: "The Venice of the East",
+    description: "A energetic metropolis with historical temples, bustling canal networks, and legendary street food culture.",
+    coverImage: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=600&q=80"
+  },
+  phuket: {
+    id: "phuket",
+    name: "Phuket",
+    countryId: "thailand",
+    lat: 7.8804,
+    lng: 98.3922,
+    tagline: "The Pearl of the Andaman",
+    description: "Thailand's largest tropical island, offering white-sand beaches, crystal clear waters, and historic Old Town.",
+    coverImage: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=600&q=80"
+  },
+  chiang_mai: {
+    id: "chiang_mai",
+    name: "Chiang Mai",
+    countryId: "thailand",
+    lat: 18.7883,
+    lng: 98.9853,
+    tagline: "The Rose of the North",
+    description: "A peaceful sanctuary of mist-shrouded peaks, ancient golden temples, and artistic tribal heritage.",
+    coverImage: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=600&q=80"
+  },
+  ayutthaya: {
+    id: "ayutthaya",
+    name: "Ayutthaya",
+    countryId: "thailand",
+    lat: 14.3532,
+    lng: 100.5683,
+    tagline: "The Ancient Capital Sanctuary",
+    description: "A historical ruins site once served as the glorious second capital of the Siamese Kingdom.",
+    coverImage: "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?auto=format&fit=crop&w=600&q=80"
+  },
+  krabi: {
+    id: "krabi",
+    name: "Krabi",
+    countryId: "thailand",
+    lat: 8.0863,
+    lng: 98.9063,
+    tagline: "Karst Cliffs & Hidden Lagoons",
+    description: "A stunning province of towering limestone cliffs, pristine shorelines, and emerald geothermal lagoons.",
+    coverImage: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80"
+  },
+  pattaya: {
+    id: "pattaya",
+    name: "Pattaya",
+    countryId: "thailand",
+    lat: 12.9236,
+    lng: 100.8824,
+    tagline: "Vibrant Beach & Cabaret Coast",
+    description: "A dynamic seaside resort featuring active water sports, shopping malls, and lively night entertainment.",
+    coverImage: "https://images.unsplash.com/photo-1579244030-22c55eab4c3c?auto=format&fit=crop&w=600&q=80"
+  },
+  ratchaburi: {
+    id: "ratchaburi",
+    name: "Ratchaburi",
+    countryId: "thailand",
+    lat: 13.5186,
+    lng: 99.9602,
+    tagline: "Pioneering Floating Food Markets",
+    description: "A fertile canal province famous for its vibrant boat-selling markets and traditional earthenware.",
+    coverImage: "https://images.unsplash.com/photo-1517088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  nan: {
+    id: "nan",
+    name: "Nan",
+    countryId: "thailand",
+    lat: 18.7831,
+    lng: 100.7816,
+    tagline: "Lanna Heritage & Misty Valleys",
+    description: "An authentic northern province of quiet villages, artistic murals, and lush mountain roads.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  pranburi: {
+    id: "pranburi",
+    name: "Pranburi",
+    countryId: "thailand",
+    lat: 12.2464,
+    lng: 99.9875,
+    tagline: "Royal Caves & Secluded Estuaries",
+    description: "A tranquil coastal district featuring the Phraya Nakhon Cave under a glowing natural skylight.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_kood: {
+    id: "koh_kood",
+    name: "Koh Kood",
+    countryId: "thailand",
+    lat: 11.6606,
+    lng: 102.5739,
+    tagline: "Prastine Ecological Island Paradise",
+    description: "A peaceful, low-development island displaying wild jungle interiors, cascades, and crystal clear shores.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  uthai_thani: {
+    id: "uthai_thani",
+    name: "Uthai Thani",
+    countryId: "thailand",
+    lat: 15.3789,
+    lng: 100.0247,
+    tagline: "Sakae Krang Floating River Life",
+    description: "An off-the-grid valley town hosting floating raft houses, hot springs, and ancient temples.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  chiang_dao: {
+    id: "chiang_dao",
+    name: "Chiang Dao",
+    countryId: "thailand",
+    lat: 19.3667,
+    lng: 98.9667,
+    tagline: "The Mountain of Stargazing",
+    description: "A breathtaking limestone peak valley filled with therapeutic hot springs and dense nature reserves.",
+    coverImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_yao_noi: {
+    id: "koh_yao_noi",
+    name: "Koh Yao Noi",
+    countryId: "thailand",
+    lat: 8.1256,
+    lng: 98.6186,
+    tagline: "Phang Nga Bay's Eco-Retreat",
+    description: "A peaceful sanctuary in Phang Nga Bay with emerald rice paddies and incredible karst cliff views.",
+    coverImage: "https://images.unsplash.com/photo-1552355977-817c1bf2086e?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_yao_yai: {
+    id: "koh_yao_yai",
+    name: "Koh Yao Yai",
+    countryId: "thailand",
+    lat: 8.0163,
+    lng: 98.5997,
+    tagline: "Traditional Coastal Serenity",
+    description: "The larger sister island hosting quiet coconut groves, traditional fishing docks, and empty sands.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_mak: {
+    id: "koh_mak",
+    name: "Koh Mak",
+    countryId: "thailand",
+    lat: 11.8153,
+    lng: 102.4839,
+    tagline: "Low-Carbon Quiet Sanctuary",
+    description: "A small, flat island dotted with rubber plantations, palm trees, and sandbars.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_chang: {
+    id: "koh_chang",
+    name: "Koh Chang",
+    countryId: "thailand",
+    lat: 12.0104,
+    lng: 102.356,
+    tagline: "Rainforest Peaks & Coastal Waterfalls",
+    description: "Thailand's second largest island, known for its rugged forest peaks, marine parks, and coral reefs.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_phangan: {
+    id: "koh_phangan",
+    name: "Koh Phangan",
+    countryId: "thailand",
+    lat: 9.75,
+    lng: 100.0333,
+    tagline: "Wellness Retreats & Secluded Coves",
+    description: "An island of stunning yoga sanctuaries, emerald bays, and wild jungle trails.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  kanchanaburi: {
+    id: "kanchanaburi",
+    name: "Kanchanaburi",
+    countryId: "thailand",
+    lat: 14.0228,
+    lng: 99.5328,
+    tagline: "Bridge over River Kwai History",
+    description: "A province rich in WWII memorial history, floating raft retreats, and tiered waterfalls.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  pai: {
+    id: "pai",
+    name: "Pai",
+    countryId: "thailand",
+    lat: 19.3582,
+    lng: 98.4367,
+    tagline: "Bohemian Mountain Loop Valley",
+    description: "A backpacker valley nestled in the mountains, offering local canyons and geothermal pools.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_lipe: {
+    id: "koh_lipe",
+    name: "Koh Lipe",
+    countryId: "thailand",
+    lat: 6.4894,
+    lng: 99.3025,
+    tagline: "The Maldives of Thailand",
+    description: "A tiny island in the far south featuring white sandbanks and colorful coral reefs.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  khao_yai: {
+    id: "khao_yai",
+    name: "Khao Yai",
+    countryId: "thailand",
+    lat: 14.4397,
+    lng: 101.3732,
+    tagline: "Elephant Jungles & Wineries",
+    description: "A lush UNESCO park offering wild elephant sightings, spectacular waterfalls, and vineyards.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  koh_samui: {
+    id: "koh_samui",
+    name: "Koh Samui",
+    countryId: "thailand",
+    lat: 9.512,
+    lng: 100.0136,
+    tagline: "Coconut Palms & Luxury Resorts",
+    description: "A gorgeous tropical island with coconut groves, luxury spas, and fine sandy shores.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  khao_lak: {
+    id: "khao_lak",
+    name: "Khao Lak",
+    countryId: "thailand",
+    lat: 8.6436,
+    lng: 98.2496,
+    tagline: "Tranquil Beaches & Similan Gateways",
+    description: "A peaceful strip of coastal resort villages offering access to world-class diving.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  chiang_rai: {
+    id: "chiang_rai",
+    name: "Chiang Rai",
+    countryId: "thailand",
+    lat: 19.9079,
+    lng: 99.831,
+    tagline: "The Golden Triangle & White Temples",
+    description: "A northernmost arts hub boasting Wat Rong Khun (White Temple) and deep hill-tribe history.",
+    coverImage: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=600&q=80"
+  },
+  hua_hin: {
+    id: "hua_hin",
+    name: "Hua Hin",
+    countryId: "thailand",
+    lat: 12.5684,
+    lng: 99.9576,
+    tagline: "Royal Seaside Golf Resort",
+    description: "A historic royal getaway featuring family-friendly beaches, night markets, and spas.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- SINGAPORE DISTRICTS ---
+  singapore_city: {
+    id: "singapore_city",
+    name: "Downtown & Marina Bay",
+    countryId: "singapore",
+    lat: 1.2868,
+    lng: 103.8545,
+    tagline: "The Venice of the East",
+    description: "A energetic metropolis with historical temples, bustling canal networks, and legendary street food culture.",
+    coverImage: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=600&q=80"
+  },
+  sentosa: {
+    id: "sentosa",
+    name: "Sentosa Island",
+    countryId: "singapore",
+    lat: 1.2494,
+    lng: 103.8303,
+    tagline: "State of Fun Island",
+    description: "A resort island home to theme parks, golden sand beaches, pristine golf courses, and luxury accommodations.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  orchard: {
+    id: "orchard",
+    name: "Orchard & Tanglin",
+    countryId: "singapore",
+    lat: 1.3048,
+    lng: 103.8318,
+    tagline: "Retail & Shopping Paradise",
+    description: "Singapore's premier retail spine, lined with grand malls, luxury flagships, and upscale hotels.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  chinatown: {
+    id: "chinatown",
+    name: "Chinatown & Outram",
+    countryId: "singapore",
+    lat: 1.2848,
+    lng: 103.8438,
+    tagline: "Straits Heritage & Hawkers",
+    description: "A vibrant historic enclave blending traditional shophouses, Michelin-starred street food stalls, and the Buddha Tooth Relic Temple.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  little_india: {
+    id: "little_india",
+    name: "Little India & Rochor",
+    countryId: "singapore",
+    lat: 1.3068,
+    lng: 103.8518,
+    tagline: "Sensory Cultural Explosion",
+    description: "A lively, colorful district filled with spice scents, flower vendors, historic temples, and 24-hour shopping emporiums.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  katong: {
+    id: "katong",
+    name: "Katong & Joo Chiat",
+    countryId: "singapore",
+    lat: 1.3098,
+    lng: 103.9024,
+    tagline: "Peranakan Architecture & Laksa",
+    description: "A heritage residential neighborhood known for pastel-colored terraced shophouses, cafes, and local Straits Chinese cuisines.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  pulau_ubin: {
+    id: "pulau_ubin",
+    name: "Pulau Ubin",
+    countryId: "singapore",
+    lat: 1.4116,
+    lng: 103.9589,
+    tagline: "Rustic Kampong Time Capsule",
+    description: "Singapore's last surviving rural village island, hosting tidal wetlands, old granite quarries, and scenic bicycle paths.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  tiong_bahru: {
+    id: "tiong_bahru",
+    name: "Tiong Bahru",
+    countryId: "singapore",
+    lat: 1.2862,
+    lng: 103.8329,
+    tagline: "Art Deco Hipster Hub",
+    description: "One of Singapore's oldest estates, featuring streamlined Art Deco architectures, trendy bakeries, and indie bookstores.",
+    coverImage: "https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"
+  },
+  mandai: {
+    id: "mandai",
+    name: "Mandai & North",
+    countryId: "singapore",
+    lat: 1.4043,
+    lng: 103.7898,
+    tagline: "Rainforest Wildlife Sanctuaries",
+    description: "The eco-tourism heart of Singapore, containing the world-renowned Night Safari, River Wonders, and Bird Paradise.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  changi: {
+    id: "changi",
+    name: "Changi & East Coast",
+    countryId: "singapore",
+    lat: 1.3892,
+    lng: 103.9870,
+    tagline: "Coastal Walks & Airport Wonders",
+    description: "A coastal gateway famous for sea-breeze boardwalks, Changi Village food hubs, and close proximity to Jewel Changi Airport.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  southern_ridges: {
+    id: "southern_ridges",
+    name: "Southern Ridges & Pasir Panjang",
+    countryId: "singapore",
+    lat: 1.2785,
+    lng: 103.7992,
+    tagline: "Henderson Waves Nature Canopy",
+    description: "A 10-kilometer nature trail connector featuring the undulating Henderson Waves pedestrian bridge and Haw Par Villa.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  kranji: {
+    id: "kranji",
+    name: "Kranji Countryside",
+    countryId: "singapore",
+    lat: 1.4247,
+    lng: 103.7197,
+    tagline: "Mainland Organic Farmlands",
+    description: "A rustic countryside region home to organic vegetable farms, goat dairies, and Sungei Buloh wetland reserves.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  central_catchment: {
+    id: "central_catchment",
+    name: "Central Catchment & Nature",
+    countryId: "singapore",
+    lat: 1.3530,
+    lng: 103.8150,
+    tagline: "MacRitchie Reservoir Suspension Bridge",
+    description: "The lush central rainforest catchment containing scenic hiking trails and the 250-meter elevated TreeTop Walk.",
+    coverImage: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80"
+  },
+  southern_islands: {
+    id: "southern_islands",
+    name: "Southern Islands",
+    countryId: "singapore",
+    lat: 1.2185,
+    lng: 103.8586,
+    tagline: "Prastine Beaches & Glamping Coves",
+    description: "A collection of tranquil, vehicle-free islands offering white sand crescent beaches and sea turtle lagoons.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- GERMANY CITIES ---
+  berlin: {
+    id: "berlin",
+    name: "Berlin",
+    countryId: "germany",
+    lat: 52.5200,
+    lng: 13.4050,
+    tagline: "The Capital of Reintegration",
+    description: "Germany's historic capital, a global hub of culture, politics, media, and science.",
+    coverImage: "https://images.unsplash.com/photo-1599946347371-68eb71b16afc?auto=format&fit=crop&w=600&q=80"
+  },
+  munich: {
+    id: "munich",
+    name: "Munich",
+    countryId: "germany",
+    lat: 48.1351,
+    lng: 11.5820,
+    tagline: "Bavarian Cosmopolitan Capital",
+    description: "Famous for its annual Oktoberfest celebration, beautiful historic squares, and rich culture.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  cologne: {
+    id: "cologne",
+    name: "Cologne",
+    countryId: "germany",
+    lat: 50.9375,
+    lng: 6.9603,
+    tagline: "2,000-Year-Old Gothic Jewel",
+    description: "A major cultural center of the Rhineland, famous for its magnificent dual-spired Gothic Cathedral.",
+    coverImage: "https://images.unsplash.com/photo-1473951574080-01fe45ec8643?auto=format&fit=crop&w=600&q=80"
+  },
+  bavaria: {
+    id: "bavaria",
+    name: "Bavarian Alps & Castles",
+    countryId: "germany",
+    lat: 47.5672,
+    lng: 10.9850,
+    tagline: "Alpine Castles & Crystal Lakes",
+    description: "Home to the fairytale Neuschwanstein Castle, pristine mountain peaks, and deep blue glacial lakes.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  heidelberg: {
+    id: "heidelberg",
+    name: "Heidelberg",
+    countryId: "germany",
+    lat: 49.3988,
+    lng: 8.6724,
+    tagline: "Romantic Renaissance University Town",
+    description: "Famous for its picturesque historic old town, grand castle ruins, and Germany's oldest university.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  rhineland: {
+    id: "rhineland",
+    name: "Romantic Rhine Valley",
+    countryId: "germany",
+    lat: 50.1100,
+    lng: 7.3000,
+    tagline: "Romantic Rhine Valley Castles",
+    description: "A stunning UNESCO valley of steep vineyards, historic wine villages, and cliff-perched medieval castles.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  black_forest: {
+    id: "black_forest",
+    name: "Black Forest",
+    countryId: "germany",
+    lat: 48.0500,
+    lng: 8.2500,
+    tagline: "Fairytale Pine Forests & Spas",
+    description: "A mountainous region of dense evergreens, scenic lakes, traditional cuckoo clocks, and thermal spas.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  dresden: {
+    id: "dresden",
+    name: "Dresden",
+    countryId: "germany",
+    lat: 51.0504,
+    lng: 13.7373,
+    tagline: "Jewel Box Baroque City",
+    description: "Known as the 'Florence on the Elbe', renowned for its meticulously restored Baroque and Rococo old town.",
+    coverImage: "https://images.unsplash.com/photo-1490642914619-7955a3fd483c?auto=format&fit=crop&w=600&q=80"
+  },
+  monschau: {
+    id: "monschau",
+    name: "Monschau",
+    countryId: "germany",
+    lat: 50.5562,
+    lng: 6.2400,
+    tagline: "Timber-Framed Eifel Village",
+    description: "A quaint, untouched medieval town nestled in a narrow river gorge within the Eifel region.",
+    coverImage: "https://images.unsplash.com/photo-1582298538104-fe2e74c27f59?auto=format&fit=crop&w=600&q=80"
+  },
+  freudenberg: {
+    id: "freudenberg",
+    name: "Freudenberg",
+    countryId: "germany",
+    lat: 50.8986,
+    lng: 7.8761,
+    tagline: "Stunning Monochromatic Half-Timbering",
+    description: "World-famous for its uniformly white-and-black half-timbered houses set in scenic rolling hills.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  esslingen: {
+    id: "esslingen",
+    name: "Esslingen am Neckar",
+    countryId: "germany",
+    lat: 48.7408,
+    lng: 9.3102,
+    tagline: "Medieval Wine & Sparking Nectar",
+    description: "A beautifully preserved medieval canalside town famous for its historic towers and sparkling wine.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  heppenheim: {
+    id: "heppenheim",
+    name: "Heppenheim",
+    countryId: "germany",
+    lat: 49.6417,
+    lng: 8.6444,
+    tagline: "Vine-Covered Odenwald Wine Town",
+    description: "A peaceful wine town known for its picturesque timbered square and historic Starkenburg ruins.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  idstein: {
+    id: "idstein",
+    name: "Idstein",
+    countryId: "germany",
+    lat: 50.2217,
+    lng: 8.2706,
+    tagline: "Ornately Detailed Timber Facades",
+    description: "Boasting some of the most intricate and colorful wood carvings on half-timbered houses in Germany.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  landshut: {
+    id: "landshut",
+    name: "Landshut",
+    countryId: "germany",
+    lat: 48.5372,
+    lng: 12.1524,
+    tagline: "Gothic Pastels & Royal Weddings",
+    description: "A delightful Bavarian city featuring colorful pastel facades, a massive brick Gothic cathedral, and Trausnitz castle.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  eltville: {
+    id: "eltville",
+    name: "Eltville am Rhein",
+    countryId: "germany",
+    lat: 50.0272,
+    lng: 8.1219,
+    tagline: "Riverside Roses & Sparkling Riesling",
+    description: "The oldest town in the Rheingau region, famous for its rose gardens, medieval castle, and local wineries.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  bremen: {
+    id: "bremen",
+    name: "Bremen Schnoor",
+    countryId: "germany",
+    lat: 53.0759,
+    lng: 8.8093,
+    tagline: "Oldest Fairytale Quarter",
+    description: "The charming Schnoor district in Bremen features tiny, tightly packed 15th-century half-timbered houses.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  swabian_alps: {
+    id: "swabian_alps",
+    name: "Swabian Alps",
+    countryId: "germany",
+    lat: 48.4064,
+    lng: 9.2528,
+    tagline: "Perched Cliffs & Neo-Gothic Spires",
+    description: "Home of the spectacular Schloss Lichtenstein castle perched high on a sheer cliff edge.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  frankfurt: {
+    id: "frankfurt",
+    name: "Frankfurt",
+    countryId: "germany",
+    lat: 50.1109,
+    lng: 8.6821,
+    tagline: "Mainhatten Skyline & Cider",
+    description: "Germany's financial heart, blending a futuristic skyscraper skyline with traditional apple cider taverns.",
+    coverImage: "https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?auto=format&fit=crop&w=600&q=80"
+  },
+  hamburg: {
+    id: "hamburg",
+    name: "Hamburg",
+    countryId: "germany",
+    lat: 53.5511,
+    lng: 9.9937,
+    tagline: "Historic Harbor & Speicherstadt",
+    description: "A major port city featuring the modern Elbphilharmonie and the world's largest warehouse district.",
+    coverImage: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=600&q=80"
+  },
+  dinkelsbuehl: {
+    id: "dinkelsbuehl",
+    name: "Dinkelsbühl",
+    countryId: "germany",
+    lat: 49.0696,
+    lng: 10.3195,
+    tagline: "The Romantic Road's Medieval Heart",
+    description: "One of Germany's most pristine medieval walled towns, featuring colorful gabled houses.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  regensburg: {
+    id: "regensburg",
+    name: "Regensburg",
+    countryId: "germany",
+    lat: 49.0134,
+    lng: 12.1016,
+    tagline: "UNESCO Medieval Wonder on the Danube",
+    description: "A beautifully preserved medieval city featuring a historic stone bridge and towering cathedral.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  tegernsee: {
+    id: "tegernsee",
+    name: "Tegernsee",
+    countryId: "germany",
+    lat: 47.7086,
+    lng: 11.7589,
+    tagline: "Bavarian Alpine Glacial Lake",
+    description: "A pristine resort lake surrounded by dramatic mountains, luxury wellness lodges, and local breweries.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- SWITZERLAND CITIES ---
+  zurich: {
+    id: "zurich",
+    name: "Zurich",
+    countryId: "switzerland",
+    lat: 47.3769,
+    lng: 8.5417,
+    tagline: "Lakeside Financial & Cultural Hub",
+    description: "A beautiful lakeside metropolis blending high finance, trendy industrial districts, and rich historic lanes.",
+    coverImage: "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=600&q=80"
+  },
+  geneva: {
+    id: "geneva",
+    name: "Geneva",
+    countryId: "switzerland",
+    lat: 46.2044,
+    lng: 6.1432,
+    tagline: "Cosmopolitan Peace Capital",
+    description: "Set on Europe's largest Alpine lake, home to global institutions and the towering Jet d'Eau fountain.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  lucerne: {
+    id: "lucerne",
+    name: "Lucerne",
+    countryId: "switzerland",
+    lat: 47.0502,
+    lng: 8.3093,
+    tagline: "Gateway to Central Switzerland",
+    description: "A gorgeous lake city famous for its preserved medieval Chapel Bridge and surrounding Mount Pilatus views.",
+    coverImage: "https://images.unsplash.com/photo-1499856138868-75586016629f?auto=format&fit=crop&w=600&q=80"
+  },
+  interlaken: {
+    id: "interlaken",
+    name: "Interlaken",
+    countryId: "switzerland",
+    lat: 46.6863,
+    lng: 7.8632,
+    tagline: "Adventure Capital of the Alps",
+    description: "Nestled between two emerald lakes at the foot of the Eiger, Mönch, and Jungfrau peaks.",
+    coverImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80"
+  },
+  zermatt: {
+    id: "zermatt",
+    name: "Zermatt",
+    countryId: "switzerland",
+    lat: 46.0207,
+    lng: 7.7491,
+    tagline: "The Majestic Matterhorn Peak",
+    description: "A car-free mountain village offering world-class skiing, hiking, and iconic views of the pyramid peak.",
+    coverImage: "https://images.unsplash.com/photo-1486916856992-e4db22c8df33?auto=format&fit=crop&w=600&q=80"
+  },
+  st_moritz: {
+    id: "st_moritz",
+    name: "St. Moritz",
+    countryId: "switzerland",
+    lat: 46.4908,
+    lng: 9.8355,
+    tagline: "Alpine Cradle of Winter Luxury",
+    description: "The world's most glamorous winter resort, hosting polo on frozen lakes and historic grand hotels.",
+    coverImage: "https://images.unsplash.com/photo-1473951574080-01fe45ec8643?auto=format&fit=crop&w=600&q=80"
+  },
+  bern: {
+    id: "bern",
+    name: "Bern",
+    countryId: "switzerland",
+    lat: 46.9480,
+    lng: 7.4474,
+    tagline: "UNESCO Sandstone Old Town",
+    description: "Switzerland's federal capital, featuring medieval arcades, historic fountains, and river swimming.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  kandersteg: {
+    id: "kandersteg",
+    name: "Kandersteg & Blausee",
+    countryId: "switzerland",
+    lat: 46.4957,
+    lng: 7.6738,
+    tagline: "Turquoise Lakes & Alpine Cliffs",
+    description: "Home of the stunning Oeschinensee lake and dramatic cliffside hiking trails in the Bernese Oberland.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  thun: {
+    id: "thun",
+    name: "Lake Thun Region",
+    countryId: "switzerland",
+    lat: 46.7580,
+    lng: 7.6280,
+    tagline: "Underrated Medieval Lakeshore",
+    description: "A picturesque town with a hilltop castle, wooden bridges, and spectacular views of the Bernese Alps.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  gruyeres: {
+    id: "gruyeres",
+    name: "Gruyères & Broc",
+    countryId: "switzerland",
+    lat: 46.5844,
+    lng: 7.0819,
+    tagline: "Cheese, Chocolate & Hilltop Castles",
+    description: "A medieval hilltop village famous for its namesake cheese and nearby Cailler chocolate factory.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  vevey: {
+    id: "vevey",
+    name: "Vevey & Mont Pèlerin",
+    countryId: "switzerland",
+    lat: 46.4628,
+    lng: 6.8426,
+    tagline: "Chaplin's Lakeside Vineyard Riviera",
+    description: "A tranquil lake town set against the terraced Lavaux vineyards, once home to Charlie Chaplin.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  meiringen: {
+    id: "meiringen",
+    name: "Meiringen & Haslital",
+    countryId: "switzerland",
+    lat: 46.7275,
+    lng: 8.1882,
+    tagline: "Sherlock Holmes & Alpine Gorges",
+    description: "Famous for the Reichenbach Falls where Sherlock Holmes fought Moriarty, and the Aareschlucht Gorge.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  sion: {
+    id: "sion",
+    name: "Sion & St. Leonard",
+    countryId: "switzerland",
+    lat: 46.2330,
+    lng: 7.3600,
+    tagline: "Historic Castles & Underground Lakes",
+    description: "Featuring twin hilltops topped with medieval castles and the largest underground lake in Europe.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  martigny: {
+    id: "martigny",
+    name: "Martigny & Emosson",
+    countryId: "switzerland",
+    lat: 46.1017,
+    lng: 7.0754,
+    tagline: "Mont Blanc Express Gateway",
+    description: "A historic Roman town linked by scenic train to the spectacular Emosson reservoir.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  crans_montana: {
+    id: "crans_montana",
+    name: "Crans-Montana",
+    countryId: "switzerland",
+    lat: 46.3090,
+    lng: 7.4815,
+    tagline: "Sunny Alpine Plateau & Eco-Pods",
+    description: "A year-round resort offering panoramic mountain views, golf courses, and unique geodesic domes.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  yverdon: {
+    id: "yverdon",
+    name: "Yverdon-les-Bains & Grandson",
+    countryId: "switzerland",
+    lat: 46.7785,
+    lng: 6.6412,
+    tagline: "Thermal Spas & Lakeshore Castles",
+    description: "A peaceful lakeside spa town on Lake Neuchâtel, featuring historic ruins and thermal waters.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  turtmann: {
+    id: "turtmann",
+    name: "Turtmann Valley",
+    countryId: "switzerland",
+    lat: 46.2519,
+    lng: 7.7011,
+    tagline: "Remote Glacier Valley Solitude",
+    description: "An untouched, rugged valley leading to the high-altitude Turtmannsee glacial reservoir.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  schaffhausen: {
+    id: "schaffhausen",
+    name: "Schaffhausen & Rhine Falls",
+    countryId: "switzerland",
+    lat: 47.6973,
+    lng: 8.6349,
+    tagline: "Rhine Falls & Medieval Oriel Windows",
+    description: "Famous for the roaring Rhine Falls, Europe's largest waterfall, and historic medieval streets.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  andermatt: {
+    id: "andermatt",
+    name: "Andermatt",
+    countryId: "switzerland",
+    lat: 46.6328,
+    lng: 8.5947,
+    tagline: "High-Altitude Alpine Crossroads",
+    description: "A legendary mountain village offering deep winter snow and the iconic Chedi resort.",
+    coverImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80"
+  },
+  vals: {
+    id: "vals",
+    name: "Vals (Graubünden)",
+    countryId: "switzerland",
+    lat: 46.6186,
+    lng: 9.1811,
+    tagline: "Quartzite Thermal Sanctuary",
+    description: "A remote valley famous for its architecturally stunning thermal spa built from local quartzite.",
+    coverImage: "https://images.unsplash.com/photo-1473951574080-01fe45ec8643?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- TURKEY CITIES ---
+  istanbul: {
+    id: "istanbul",
+    name: "Istanbul",
+    countryId: "turkey",
+    lat: 41.0082,
+    lng: 28.9784,
+    tagline: "The Bridge of Two Continents",
+    description: "A magnificent historic metropolis spanning Europe and Asia, filled with ancient mosques and palaces.",
+    coverImage: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=600&q=80"
+  },
+  cappadocia: {
+    id: "cappadocia",
+    name: "Cappadocia",
+    countryId: "turkey",
+    lat: 38.6431,
+    lng: 34.8286,
+    tagline: "Surreal Fairy Chimneys & Cave Hotels",
+    description: "Famous for its volcanic rock formations, ancient underground cities, and hot air balloon skyline.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  bodrum: {
+    id: "bodrum",
+    name: "Bodrum",
+    countryId: "turkey",
+    lat: 37.0344,
+    lng: 27.4305,
+    tagline: "Aegean Chic & Turquoise Bays",
+    description: "A glamourous coastal resort town featuring white-washed houses, a historic castle, and luxury beach clubs.",
+    coverImage: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=600&q=80"
+  },
+  antalya: {
+    id: "antalya",
+    name: "Antalya",
+    countryId: "turkey",
+    lat: 36.8841,
+    lng: 30.7056,
+    tagline: "Turkish Riviera Capital",
+    description: "A major coastal city blending beautiful sandy beaches, luxury resorts, and a historic Roman harbor.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  pamukkale: {
+    id: "pamukkale",
+    name: "Pamukkale & Hierapolis",
+    countryId: "turkey",
+    lat: 37.9137,
+    lng: 29.1187,
+    tagline: "Cotton Castle Thermal Travertines",
+    description: "Stunning terraces of carbonate minerals created by flowing thermal spring water.",
+    coverImage: "https://images.unsplash.com/photo-1473951574080-01fe45ec8643?auto=format&fit=crop&w=600&q=80"
+  },
+  ephesus: {
+    id: "ephesus",
+    name: "Ephesus & Izmir",
+    countryId: "turkey",
+    lat: 37.9484,
+    lng: 27.3680,
+    tagline: "Greco-Roman Archaeological Marvel",
+    description: "One of the best-preserved classical ancient cities in the Mediterranean, near Şirince village.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  safranbolu: {
+    id: "safranbolu",
+    name: "Safranbolu",
+    countryId: "turkey",
+    lat: 41.2449,
+    lng: 32.6942,
+    tagline: "UNESCO Ottoman Wooden Mansions",
+    description: "An exceptionally well-preserved Ottoman town famous for its historic wooden architecture.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  amasra: {
+    id: "amasra",
+    name: "Amasra",
+    countryId: "turkey",
+    lat: 41.7483,
+    lng: 32.3858,
+    tagline: "Black Sea Cliffside Fishing Haven",
+    description: "A picturesque coastal town featuring Roman ruins, seafood restaurants, and two beautiful bays.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  trabzon: {
+    id: "trabzon",
+    name: "Trabzon & Black Sea",
+    countryId: "turkey",
+    lat: 41.0027,
+    lng: 39.7168,
+    tagline: "Cliffside Monastery & Mountain Lakes",
+    description: "Home to the spectacular Sumela Monastery built into a steep cliff, and scenic Uzungöl lake.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  kars: {
+    id: "kars",
+    name: "Kars & Ani Ruins",
+    countryId: "turkey",
+    lat: 40.6019,
+    lng: 43.0950,
+    tagline: "Medieval Armenian Ghost City",
+    description: "A high-altitude historic town near the spectacular UNESCO-listed ruins of the ghost city of Ani.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  mardin: {
+    id: "mardin",
+    name: "Mardin",
+    countryId: "turkey",
+    lat: 37.3122,
+    lng: 40.7350,
+    tagline: "Stone-Carved Mesopotamian Citadel",
+    description: "A hilltop city featuring beautiful honey-colored stone houses overlooking the plains of Mesopotamia.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  mugla: {
+    id: "mugla",
+    name: "Muğla & Akyaka",
+    countryId: "turkey",
+    lat: 37.0583,
+    lng: 28.3242,
+    tagline: "Eco-Tourism & Reed-Lined Rivers",
+    description: "Home of Akyaka village, famous for its traditional wooden houses and crystal-clear Azmak river.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  canakkale: {
+    id: "canakkale",
+    name: "Çanakkale & Aegean Islands",
+    countryId: "turkey",
+    lat: 40.1451,
+    lng: 26.4064,
+    tagline: "Aegean Islands & Historic Straits",
+    description: "The gateway to the pristine islands of Bozcaada and Gökçeada, rich in ancient history.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  bolu: {
+    id: "bolu",
+    name: "Bolu & Lake Abant",
+    countryId: "turkey",
+    lat: 40.7314,
+    lng: 31.6081,
+    tagline: "Crater Lakes & Pine Forests",
+    description: "A mountainous wilderness region featuring the spectacular forested shores of Lake Abant.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  bitlis: {
+    id: "bitlis",
+    name: "Bitlis & Ahlat Seljuk Site",
+    countryId: "turkey",
+    lat: 38.3992,
+    lng: 42.1092,
+    tagline: "Historic Seljuk Tombs & Volcanoes",
+    description: "Located near Lake Van, famous for the massive medieval Seljuk cemetery and tombstones at Ahlat.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- INDONESIA CITIES ---
+  jakarta: {
+    id: "jakarta",
+    name: "Jakarta",
+    countryId: "indonesia",
+    lat: -6.2088,
+    lng: 106.8456,
+    tagline: "Sprawling Historic Capital",
+    description: "Indonesia's massive capital, blending historic Dutch colonial streets in Kota Tua with a bustling modern skyscraper skyline.",
+    coverImage: "https://images.unsplash.com/photo-1509060464153-44667396260f?auto=format&fit=crop&w=600&q=80"
+  },
+  yogyakarta: {
+    id: "yogyakarta",
+    name: "Yogyakarta & Dieng",
+    countryId: "indonesia",
+    lat: -7.7956,
+    lng: 110.3695,
+    tagline: "Javanese Cultural & Heritage Cradle",
+    description: "Famous for classical Javanese fine art, traditional puppetry, and the ancient Prambanan temple and Dieng Plateau highlands.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  magelang: {
+    id: "magelang",
+    name: "Magelang & Borobudur",
+    countryId: "indonesia",
+    lat: -7.4706,
+    lng: 110.2178,
+    tagline: "Ancient Buddhist Sanctuary",
+    description: "The scenic gateway to the massive, world-famous 9th-century Buddhist monument Borobudur.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  ubud: {
+    id: "ubud",
+    name: "Ubud (Bali)",
+    countryId: "indonesia",
+    lat: -8.5069,
+    lng: 115.2625,
+    tagline: "Bali's Artistic & Jungle Heart",
+    description: "A peaceful sanctuary of cascading emerald rice terraces, traditional art markets, and wellness retreats.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  south_bali: {
+    id: "south_bali",
+    name: "South Bali (Uluwatu & Canggu)",
+    countryId: "indonesia",
+    lat: -8.8149,
+    lng: 115.0884,
+    tagline: "Clifftop Temples & Surf Shores",
+    description: "Home to the sea temples of Uluwatu and Tanah Lot, sandy beaches, and Canggu's trendy cafe culture.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  east_bali: {
+    id: "east_bali",
+    name: "East Bali & Sidemen",
+    countryId: "indonesia",
+    lat: -8.4500,
+    lng: 115.5000,
+    tagline: "Mount Agung Views & Quiet Valleys",
+    description: "A serene region of traditional villages like Sidemen set against lush valleys and the massive Mount Agung volcano.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  north_bali: {
+    id: "north_bali",
+    name: "North Bali (Munduk & Pemuteran)",
+    countryId: "indonesia",
+    lat: -8.2586,
+    lng: 115.0681,
+    tagline: "Cool Highlands & Black Sand Shores",
+    description: "Features cool mountain climate in Munduk, pristine waterfalls, and Pemuteran's calm beachfronts.",
+    coverImage: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=600&q=80"
+  },
+  nusa_penida: {
+    id: "nusa_penida",
+    name: "Nusa Penida",
+    countryId: "indonesia",
+    lat: -8.7278,
+    lng: 115.5444,
+    tagline: "Dramatic Cliffs & Turquoise Bays",
+    description: "A rugged, undeveloped offshore island famous for the iconic T-Rex-shaped cliff at Kelingking Beach.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  komodo: {
+    id: "komodo",
+    name: "Komodo National Park",
+    countryId: "indonesia",
+    lat: -8.5833,
+    lng: 119.5000,
+    tagline: "Volcanic Isles & Komodo Dragons",
+    description: "A UNESCO reserve of pink sand beaches, world-class diving reefs, and the legendary giant dragons.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  raja_ampat: {
+    id: "raja_ampat",
+    name: "Raja Ampat",
+    countryId: "indonesia",
+    lat: -0.2289,
+    lng: 130.4981,
+    tagline: "Pristine Marine Karst Wonderland",
+    description: "An isolated archipelago of thousands of jungle-covered islands, pristine lagoons, and rich coral reefs.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  mount_bromo: {
+    id: "mount_bromo",
+    name: "Mount Bromo",
+    countryId: "indonesia",
+    lat: -7.9425,
+    lng: 112.9530,
+    tagline: "Active Volcanic Sand Sea",
+    description: "Features surreal active volcanic craters rising out of a vast grey plain of volcanic sand.",
+    coverImage: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=600&q=80"
+  },
+  sulawesi: {
+    id: "sulawesi",
+    name: "Sulawesi Highland & Reefs",
+    countryId: "indonesia",
+    lat: -2.0000,
+    lng: 120.0000,
+    tagline: "Unique Funerary Culture & Coral Reefs",
+    description: "Home of Tana Toraja's cliffside graves and stilt-house villages, and the pristine remote Togean Islands.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  wakatobi: {
+    id: "wakatobi",
+    name: "Wakatobi Biosphere Reserve",
+    countryId: "indonesia",
+    lat: -5.3242,
+    lng: 123.5824,
+    tagline: "UNESCO World Biosphere Reefs",
+    description: "An exclusive marine park offering legendary crystal-clear underwater visibility and coral gardens.",
+    coverImage: "https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?auto=format&fit=crop&w=600&q=80"
+  },
+  belitung: {
+    id: "belitung",
+    name: "Belitung Island",
+    countryId: "indonesia",
+    lat: -2.8333,
+    lng: 107.6667,
+    tagline: "Granite Boulders & Turquoise Water",
+    description: "A tranquil island famous for massive smooth granite boulders dotting white sand coastlines.",
+    coverImage: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=600&q=80"
+  },
+  banda_islands: {
+    id: "banda_islands",
+    name: "Banda Spice Islands",
+    countryId: "indonesia",
+    lat: -4.5292,
+    lng: 129.8972,
+    tagline: "The Historic Spice Islands",
+    description: "A tiny remote volcanic group once coveted as the world's sole source of nutmeg, rich in colonial history.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  sumba: {
+    id: "sumba",
+    name: "Sumba Island",
+    countryId: "indonesia",
+    lat: -9.6500,
+    lng: 120.0000,
+    tagline: "Tribal Megalithic Villages & Surfing",
+    description: "Known for its preserved Marapu tribal culture, wild horses, megalithic gravesites, and raw coastline.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  karimunjawa: {
+    id: "karimunjawa",
+    name: "Karimunjawa Archipelago",
+    countryId: "indonesia",
+    lat: -5.8500,
+    lng: 110.4333,
+    tagline: "Undisturbed Javanese Marine Park",
+    description: "A collection of 27 tropical islands offering white sand sandbars, mangrove walks, and shark sanctuaries.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  pulau_weh: {
+    id: "pulau_weh",
+    name: "Pulau Weh",
+    countryId: "indonesia",
+    lat: 5.8239,
+    lng: 95.3117,
+    tagline: "Sumatran Underwater Frontier",
+    description: "Indonesia's westernmost point, a volcanic island featuring untouched beaches, hot springs, and diving.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- SOUTH KOREA CITIES ---
+  seoul: {
+    id: "seoul",
+    name: "Seoul",
+    countryId: "south_korea",
+    lat: 37.5665,
+    lng: 126.9780,
+    tagline: "High-Tech K-Culture Hub",
+    description: "South Korea's neon-lit capital, blending high-tech subways, K-pop culture, cafes, and historic Joseon-era palaces.",
+    coverImage: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=600&q=80"
+  },
+  busan: {
+    id: "busan",
+    name: "Busan",
+    countryId: "south_korea",
+    lat: 35.1796,
+    lng: 129.0756,
+    tagline: "Scenic Coastal Beach Metropolis",
+    description: "A major port city known for its beautiful beaches, dramatic mountain backdrops, and historic cliffside temples.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  jeju: {
+    id: "jeju",
+    name: "Jeju Island",
+    countryId: "south_korea",
+    lat: 33.4996,
+    lng: 126.5312,
+    tagline: "Volcanic Island & Natural Escape",
+    description: "A gorgeous volcanic island featuring lush green landscapes, waterfalls, sandy beaches, and Mount Hallasan.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  incheon: {
+    id: "incheon",
+    name: "Incheon & Ganghwa Island",
+    countryId: "south_korea",
+    lat: 37.4563,
+    lng: 126.7052,
+    tagline: "Historic Island Gateway",
+    description: "A major port city linked to the ancient history and peaceful dolmen sites of Ganghwa Island.",
+    coverImage: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=600&q=80"
+  },
+  gyeongju: {
+    id: "gyeongju",
+    name: "Gyeongju",
+    countryId: "south_korea",
+    lat: 35.8562,
+    lng: 129.2132,
+    tagline: "Silla Kingdom Open-Air Museum",
+    description: "Known as the 'museum without walls', filled with ancient royal tombs, temples, and UNESCO ruins.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  paju: {
+    id: "paju",
+    name: "Paju & DMZ",
+    countryId: "south_korea",
+    lat: 37.7600,
+    lng: 126.7800,
+    tagline: "Border History & DMZ Gateway",
+    description: "The main gateway for historical DMZ tours overlooking the North Korean border.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  taean: {
+    id: "taean",
+    name: "Taean Peninsula",
+    countryId: "south_korea",
+    lat: 36.7456,
+    lng: 126.2978,
+    tagline: "Misty Coastal National Park",
+    description: "Features gorgeous misty morning trails, coastal flower fields, and the start of the Dongseo Trail.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  suncheon: {
+    id: "suncheon",
+    name: "Suncheon & Boseong",
+    countryId: "south_korea",
+    lat: 34.9507,
+    lng: 127.4875,
+    tagline: "UNESCO Wetlands & Green Tea Fields",
+    description: "Home of Korea's largest coastal reed bed and the picturesque Boseong green tea plantations.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  jeonju: {
+    id: "jeonju",
+    name: "Jeonju",
+    countryId: "south_korea",
+    lat: 35.8242,
+    lng: 127.1480,
+    tagline: "Bibimbap & Preserved Hanok Heritage",
+    description: "A designated slow city featuring over 700 traditional hanok houses and rich food culture.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  ulleungdo: {
+    id: "ulleungdo",
+    name: "Ulleungdo Island",
+    countryId: "south_korea",
+    lat: 37.4844,
+    lng: 130.8655,
+    tagline: "Volcanic Cliffs & Eco-Isolation",
+    description: "A pristine, car-free eco-friendly volcanic island with dramatic cliffs and rich marine culture.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  damyang: {
+    id: "damyang",
+    name: "Damyang Bamboo Forest",
+    countryId: "south_korea",
+    lat: 35.3212,
+    lng: 126.9841,
+    tagline: "Towering Bamboo Groves & Metasequoias",
+    description: "A tranquil escape featuring the lush Juknokwon bamboo gardens and metasequoia-lined walking roads.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  seoraksan: {
+    id: "seoraksan",
+    name: "Seoraksan National Park",
+    countryId: "south_korea",
+    lat: 38.1189,
+    lng: 128.4628,
+    tagline: "Majestic Peaks & Autumn Foliage",
+    description: "Korea's most beautiful mountain range, famous for dramatic rock peaks, pine forests, and cable cars.",
+    coverImage: "https://images.unsplash.com/photo-1499856138868-75586016629f?auto=format&fit=crop&w=600&q=80"
+  },
+  andong: {
+    id: "andong",
+    name: "Andong Hahoe Village",
+    countryId: "south_korea",
+    lat: 36.5392,
+    lng: 128.5198,
+    tagline: "UNESCO Preserved Joseon Clan Village",
+    description: "A living Joseon-era village known for traditional Confucian culture and heritage mask dances.",
+    coverImage: "https://images.unsplash.com/photo-1595853035070-59a39fe84de3?auto=format&fit=crop&w=600&q=80"
+  },
+  yeosu: {
+    id: "yeosu",
+    name: "Yeosu",
+    countryId: "south_korea",
+    lat: 34.7604,
+    lng: 127.6622,
+    tagline: "Scenic Marine Cable Cars & Night Views",
+    description: "A beautiful coastal city famous for romantic night seas, islands, and seafood.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  namhae: {
+    id: "namhae",
+    name: "Namhae Coast",
+    countryId: "south_korea",
+    lat: 34.8378,
+    lng: 127.8924,
+    tagline: "Treasure Island Coast & German Village",
+    description: "A beautiful island connected by bridge, featuring terraced fields and a unique German village.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  // --- VIETNAM CITIES ---
+  hanoi: {
+    id: "hanoi",
+    name: "Hanoi",
+    countryId: "vietnam",
+    lat: 21.0285,
+    lng: 105.8542,
+    tagline: "Ancient Capital & French Colonial Charm",
+    description: "Vietnam's historic capital, blending bustling old quarter alleys, quiet temples, and French colonial architecture.",
+    coverImage: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80"
+  },
+  ho_chi_minh_city: {
+    id: "ho_chi_minh_city",
+    name: "Ho Chi Minh City",
+    countryId: "vietnam",
+    lat: 10.8231,
+    lng: 106.6297,
+    tagline: "Dynamic Modern Southern Metropolis",
+    description: "A bustling economic hub featuring modern skyscraper skylines, war history tunnels, and vibrant markets.",
+    coverImage: "https://images.unsplash.com/photo-1509060464153-44667396260f?auto=format&fit=crop&w=600&q=80"
+  },
+  da_nang: {
+    id: "da_nang",
+    name: "Da Nang & Hoi An",
+    countryId: "vietnam",
+    lat: 16.0544,
+    lng: 108.2022,
+    tagline: "UNESCO Heritage Coastline",
+    description: "The gateway to the ancient romantic streets of Hoi An and the historic imperial citadel of Hue.",
+    coverImage: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=600&q=80"
+  },
+  nha_trang: {
+    id: "nha_trang",
+    name: "Nha Trang",
+    countryId: "vietnam",
+    lat: 12.2388,
+    lng: 109.1967,
+    tagline: "Vibrant Sandy Bay & Island Resorts",
+    description: "A popular coastal resort city known for beautiful beaches, diving sites, and offshore island sanctuaries.",
+    coverImage: "https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?auto=format&fit=crop&w=600&q=80"
+  },
+  phu_quoc: {
+    id: "phu_quoc",
+    name: "Phu Quoc Island",
+    countryId: "vietnam",
+    lat: 10.2899,
+    lng: 103.9840,
+    tagline: "Tropical White Sand Island Paradise",
+    description: "A beautiful island paradise featuring white sand beaches, clear waters, and upscale luxury resorts.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  ha_long_bay: {
+    id: "ha_long_bay",
+    name: "Ha Long Bay & Lan Ha",
+    countryId: "vietnam",
+    lat: 20.9749,
+    lng: 107.0379,
+    tagline: "UNESCO Limestone Karst Archipelago",
+    description: "A spectacular bay of thousands of towering karst limestone islands and floating fishing villages.",
+    coverImage: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=600&q=80"
+  },
+  sa_pa: {
+    id: "sa_pa",
+    name: "Sa Pa",
+    countryId: "vietnam",
+    lat: 22.3364,
+    lng: 103.8438,
+    tagline: "Terraced Mountains & Ethnic Treks",
+    description: "Lies in the northern highlands, renowned for its cascading green rice terraces and ethnic minority culture.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  mekong_delta: {
+    id: "mekong_delta",
+    name: "Mekong Delta",
+    countryId: "vietnam",
+    lat: 10.0375,
+    lng: 105.7882,
+    tagline: "Riverside Delta & Floating Markets",
+    description: "A vast maze of rivers, swamps, and islands, famous for floating markets and fruit orchards.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  phong_nha: {
+    id: "phong_nha",
+    name: "Phong Nha-Ke Bang",
+    countryId: "vietnam",
+    lat: 17.5906,
+    lng: 106.2797,
+    tagline: "UNESCO Cave Kingdom & Karst Peaks",
+    description: "Home to some of the world's largest and most spectacular karst limestone cave networks.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  cao_bang: {
+    id: "cao_bang",
+    name: "Cao Bang & Ban Gioc",
+    countryId: "vietnam",
+    lat: 22.6689,
+    lng: 106.2647,
+    tagline: "Frontier Karst Waterfalls & Lakes",
+    description: "Home of the spectacular Ban Gioc waterfall on the Chinese border, set in pristine limestone hills.",
+    coverImage: "https://images.unsplash.com/photo-1597843797221-54199c0f9947?auto=format&fit=crop&w=600&q=80"
+  },
+  ha_giang: {
+    id: "ha_giang",
+    name: "Ha Giang Karst Plateau",
+    countryId: "vietnam",
+    lat: 22.8239,
+    lng: 104.9836,
+    tagline: "Spectacular Northern Motorcycle Loop",
+    description: "Vietnam's northernmost frontier, offering majestic winding roads, deep canyons, and raw mountain beauty.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  pu_luong: {
+    id: "pu_luong",
+    name: "Pu Luong Nature Reserve",
+    countryId: "vietnam",
+    lat: 20.4608,
+    lng: 105.1582,
+    tagline: "Rural Forest & Hidden Rice Retreat",
+    description: "A tranquil nature reserve offering lush rice terrace valleys and traditional Thai ethnic villages.",
+    coverImage: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80"
+  },
+  con_dao: {
+    id: "con_dao",
+    name: "Con Dao Islands",
+    countryId: "vietnam",
+    lat: 8.6833,
+    lng: 106.6000,
+    tagline: "Secluded Untouched Marine Islands",
+    description: "A pristine archipelago featuring beautiful sandy beaches, coral reefs, and sea turtle nesting sites.",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  ba_be: {
+    id: "ba_be",
+    name: "Ba Be National Park",
+    countryId: "vietnam",
+    lat: 22.4116,
+    lng: 105.6200,
+    tagline: "Pristine Lakes & Rainforest Caves",
+    description: "Surrounds the largest natural freshwater lake in Vietnam, surrounded by rainforest hills.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  quy_nhon: {
+    id: "quy_nhon",
+    name: "Quy Nhon",
+    countryId: "vietnam",
+    lat: 13.7820,
+    lng: 109.2197,
+    tagline: "Quiet Coastal Bay & Cham Temples",
+    description: "A peaceful beach city boasting empty shores and historic ancient Cham empire towers.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
+  dak_lak: {
+    id: "dak_lak",
+    name: "Dak Lak & Lak Lake",
+    countryId: "vietnam",
+    lat: 12.6667,
+    lng: 108.0500,
+    tagline: "Central Coffee Highlands & Lakes",
+    description: "Renowned as Vietnam's coffee capital, home of scenic Lak Lake and ethnic M'nong villages.",
+    coverImage: "https://images.unsplash.com/photo-1508849789987-4e5333c12b78?auto=format&fit=crop&w=600&q=80"
+  },
+  mai_chau: {
+    id: "mai_chau",
+    name: "Mai Chau Valley",
+    countryId: "vietnam",
+    lat: 20.6278,
+    lng: 105.0817,
+    tagline: "Lush Rice Valley Ethnic Homestays",
+    description: "A peaceful valley lined with green rice fields and traditional stilt house ethnic villages.",
+    coverImage: "https://images.unsplash.com/photo-1528742589083-b406f31dc881?auto=format&fit=crop&w=600&q=80"
+  },
+  da_lat: {
+    id: "da_lat",
+    name: "Da Lat",
+    countryId: "vietnam",
+    lat: 11.9404,
+    lng: 108.4583,
+    tagline: "Cool Highland Pines & Waterfalls",
+    description: "A cool highland retreat famous for pine-forested mountains, French villas, and cascading waterfalls.",
+    coverImage: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&w=600&q=80"
+  },
+  ninh_thuan: {
+    id: "ninh_thuan",
+    name: "Ninh Thuan & Vinh Hy Bay",
+    countryId: "vietnam",
+    lat: 11.7011,
+    lng: 109.1833,
+    tagline: "Wild Cliffs & Pristine Marine Bays",
+    description: "Boasts raw, windswept coastlines, pristine fishing bays, and the exclusive Amanoi sanctuary.",
+    coverImage: "https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&w=600&q=80"
+  },
   // --- INDIA CITIES ---
   mumbai: {
     id: "mumbai",
@@ -562,6 +3059,206 @@ const SEED_CITIES = {
       description: "The historic heart of traditional Japan, filled with thousands of classical Buddhist temples, gardens, and geisha wooden teahouses.",
       coverImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80"
     },
+    osaka: {
+      id: "osaka",
+      name: "Osaka",
+      countryId: "japan",
+      lat: 34.6937,
+      lng: 135.5023,
+      tagline: "The Kitchen of Japan",
+      description: "A dynamic port city famous for its modern architecture, street food (takoyaki/okonomiyaki), and the historic Osaka Castle.",
+      coverImage: "https://images.unsplash.com/photo-1590250591823-388277259160?auto=format&fit=crop&w=600&q=80"
+    },
+    hiroshima: {
+      id: "hiroshima",
+      name: "Hiroshima",
+      countryId: "japan",
+      lat: 34.3853,
+      lng: 132.4553,
+      tagline: "City of Peace and Resiliency",
+      description: "Famous for its moving Peace Memorial Park and the iconic floating Torii gate of Itsukushima Shrine on Miyajima Island.",
+      coverImage: "https://images.unsplash.com/photo-1542640244-7e672d6cef21?auto=format&fit=crop&w=600&q=80"
+    },
+    nara: {
+      id: "nara",
+      name: "Nara",
+      countryId: "japan",
+      lat: 34.6851,
+      lng: 135.8048,
+      tagline: "Ancient Deer Sanctuary",
+      description: "Japan's first permanent capital, home to Todai-ji Temple, massive bronze Buddhas, and hundreds of freely roaming deer.",
+      coverImage: "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=600&q=80"
+    },
+    kanazawa: {
+      id: "kanazawa",
+      name: "Kanazawa",
+      countryId: "japan",
+      lat: 36.5613,
+      lng: 136.6562,
+      tagline: "Samurai Heritage & Golden Gardens",
+      description: "A historic city featuring the immaculate Kenrokuen Garden, preserved geisha and samurai quarters, and traditional gold leaf crafts.",
+      coverImage: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=80"
+    },
+    takayama: {
+      id: "takayama",
+      name: "Takayama",
+      countryId: "japan",
+      lat: 36.1408,
+      lng: 137.2521,
+      tagline: "Preserved Mountain Merchant Town",
+      description: "A beautifully preserved town in the Gifu Alps, famous for its historic wooden streets, sake breweries, and morning markets.",
+      coverImage: "https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?auto=format&fit=crop&w=600&q=80"
+    },
+    shirakawa_go: {
+      id: "shirakawa_go",
+      name: "Shirakawa-go",
+      countryId: "japan",
+      lat: 36.2562,
+      lng: 136.9061,
+      tagline: "Gassho-zukuri Thatched Village",
+      description: "A UNESCO World Heritage village famous for its traditional farmhouses with steep, thatched roofs resembling hands in prayer.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    kinosaki_onsen: {
+      id: "kinosaki_onsen",
+      name: "Kinosaki Onsen",
+      countryId: "japan",
+      lat: 35.6263,
+      lng: 134.8118,
+      tagline: "Historic Hot Spring Town",
+      description: "A charming hot spring town where visitors wear traditional yukata robes and wooden geta clogs while strolling along willow-lined canals.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    iya_valley: {
+      id: "iya_valley",
+      name: "Iya Valley",
+      countryId: "japan",
+      lat: 33.8794,
+      lng: 133.8188,
+      tagline: "Remote Mountain Hideaway",
+      description: "A deep, hidden valley in Shikoku known for its dramatic cliffs, kazurabashi (vine bridges), and secluded hot springs.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    tottori_dunes: {
+      id: "tottori_dunes",
+      name: "Tottori Sand Dunes",
+      countryId: "japan",
+      lat: 35.5411,
+      lng: 134.2303,
+      tagline: "Wind-Swept Sand Hills",
+      description: "Japan's largest sand dunes, stretching along the Sea of Japan coast and creating a stunning desert-meets-ocean landscape.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    yakushima: {
+      id: "yakushima",
+      name: "Yakushima",
+      countryId: "japan",
+      lat: 30.3444,
+      lng: 130.5122,
+      tagline: "Ancient Cedar Rainforest",
+      description: "A sub-tropical island covered in primeval mossy cedar forests, including the 7,000-year-old Jomon Sugi tree.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    gujo_hachiman: {
+      id: "gujo_hachiman",
+      name: "Gujo Hachiman",
+      countryId: "japan",
+      lat: 35.7485,
+      lng: 136.9544,
+      tagline: "The Water Castle Town",
+      description: "A picturesque riverside town famous for pristine water canals running through streets and replica food workshops.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    kumano_kodo: {
+      id: "kumano_kodo",
+      name: "Kumano Kodo",
+      countryId: "japan",
+      lat: 33.7292,
+      lng: 135.8950,
+      tagline: "Sacred Pilgrimage Mountain Trail",
+      description: "A network of ancient pilgrimage routes traversing the Kii Peninsula, leading to the grand Kumano Sanzan shrines.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    naoshima: {
+      id: "naoshima",
+      name: "Naoshima",
+      countryId: "japan",
+      lat: 34.4566,
+      lng: 133.9936,
+      tagline: "The Modern Art Island",
+      description: "A tranquil island transformed into a world-famous art gallery, boasting Tadao Ando architecture and the Yayoi Kusama pumpkin.",
+      coverImage: "https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?auto=format&fit=crop&w=600&q=80"
+    },
+    aizu_wakamatsu: {
+      id: "aizu_wakamatsu",
+      name: "Aizu-Wakamatsu",
+      countryId: "japan",
+      lat: 37.4948,
+      lng: 139.9296,
+      tagline: "The Last Samurai Stronghold",
+      description: "A historic city in Fukushima renowned for its samurai heritage, traditional lacquerware, and Tsuruga Castle.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    takaragawa_onsen: {
+      id: "takaragawa_onsen",
+      name: "Takaragawa Onsen",
+      countryId: "japan",
+      lat: 36.8459,
+      lng: 139.0494,
+      tagline: "Scenic Riverside Onsen",
+      description: "A world-renowned outdoor riverside hot spring ryokan nestled deep in the mountains of Gunma.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    lake_biwa: {
+      id: "lake_biwa",
+      name: "Lake Biwa & Omihachiman",
+      countryId: "japan",
+      lat: 35.1278,
+      lng: 136.0898,
+      tagline: "Great Freshwater Inland Sea",
+      description: "Japan's largest lake, featuring floating torii gates and the historic merchant canal district of Omihachiman.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    takeda_castle: {
+      id: "takeda_castle",
+      name: "Takeda Castle Ruins",
+      countryId: "japan",
+      lat: 35.3006,
+      lng: 134.8292,
+      tagline: "Machu Picchu of Japan",
+      description: "Breathtaking castle ruins that appear to float on a sea of clouds on misty autumn mornings.",
+      coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=600&q=80"
+    },
+    fuji: {
+      id: "fuji",
+      name: "Mount Fuji",
+      countryId: "japan",
+      lat: 35.3606,
+      lng: 138.7274,
+      tagline: "The Sacred Volcano of Japan",
+      description: "An active volcano, Japan's tallest peak, and a globally recognized symbol of physical, cultural, and spiritual beauty.",
+      coverImage: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=600&q=80"
+    },
+    hakone: {
+      id: "hakone",
+      name: "Hakone",
+      countryId: "japan",
+      lat: 35.2324,
+      lng: 139.1038,
+      tagline: "Scenic Hot Spring Resort",
+      description: "A popular mountainous resort town inside Fuji-Hakone-Izu National Park, famous for onsens and views of Mount Fuji.",
+      coverImage: "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&w=600&q=80"
+    },
+    iseshima: {
+      id: "iseshima",
+      name: "Ise-Shima",
+      countryId: "japan",
+      lat: 34.4678,
+      lng: 136.8290,
+      tagline: "Land of Sacred Shinto Shrines",
+      description: "A scenic coastal region home to Ise Jingu, Japan's most sacred Shinto shrine complex, and beautiful ocean bays.",
+      coverImage: "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&w=600&q=80"
+    },
 
     // --- USA CITIES (PREMIUM) ---
     newyork: {
@@ -583,6 +3280,66 @@ const SEED_CITIES = {
       tagline: "The Golden Gate City",
       description: "Famed for its majestic red suspension bridge, steep rolling hills, historic cable cars, and colorful Victorian architecture.",
       coverImage: "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80"
+    },
+    orlando: {
+      id: "orlando",
+      name: "Orlando",
+      countryId: "usa",
+      lat: 28.5383,
+      lng: -81.3792,
+      tagline: "Theme Park Capital",
+      description: "A sunny tourist destination famous for Walt Disney World and central Florida entertainment resorts.",
+      coverImage: "https://images.unsplash.com/photo-1597466765990-64ad1c35dafc?auto=format&fit=crop&w=600&q=80"
+    },
+    lasvegas: {
+      id: "lasvegas",
+      name: "Las Vegas",
+      countryId: "usa",
+      lat: 36.1699,
+      lng: -115.1398,
+      tagline: "The Entertainment Capital",
+      description: "Famous for the Las Vegas Strip, high energy dining, casinos, and natural red rocks nearby.",
+      coverImage: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80"
+    },
+    page: {
+      id: "page",
+      name: "Page (Grand Canyon)",
+      countryId: "usa",
+      lat: 36.9147,
+      lng: -111.4558,
+      tagline: "Canyons & Wonders",
+      description: "The gateway to the Grand Canyon, Antelope Canyon, Havasu Falls, and Lake Powell.",
+      coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80"
+    },
+    yellowstone: {
+      id: "yellowstone",
+      name: "Yellowstone",
+      countryId: "usa",
+      lat: 44.4280,
+      lng: -110.5885,
+      tagline: "Nature's Geysers & Hot Springs",
+      description: "The first national park in the world, home to Old Faithful, volcanic landscapes, and grizzly bears.",
+      coverImage: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=600&q=80"
+    },
+    yosemite: {
+      id: "yosemite",
+      name: "Yosemite",
+      countryId: "usa",
+      lat: 37.8651,
+      lng: -119.5383,
+      tagline: "Colossal Granite Cliffs",
+      description: "Famed for its giant sequoia trees, massive granite rock formations, and towering waterfalls.",
+      coverImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80"
+    },
+    niagara: {
+      id: "niagara",
+      name: "Niagara Falls",
+      countryId: "usa",
+      lat: 43.0962,
+      lng: -79.0377,
+      tagline: "Thunderous Cascades",
+      description: "One of the most famous waterfalls in the world, bordering New York and Canada.",
+      coverImage: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=600&q=80"
     },
 
     // --- EGYPT CITIES (PREMIUM) ---

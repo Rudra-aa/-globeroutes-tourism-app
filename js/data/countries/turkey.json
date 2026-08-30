@@ -1,0 +1,204 @@
+{
+  "country": "Turkey",
+  "code": "TR",
+  "currency": {
+    "code": "TRY",
+    "symbol": "₺"
+  },
+  "cities": [
+    {
+      "id": "istanbul",
+      "name": "Istanbul",
+      "bestSeason": "April - June, September - October",
+      "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+      "attractions": [
+        { "id": "tr_istanbul_hagia_sophia", "name": "Hagia Sophia", "type": "Historic Mosque", "rating": 4.9, "price": 25 },
+        { "id": "tr_istanbul_blue_mosque", "name": "Blue Mosque (Sultan Ahmed)", "type": "Ottoman Mosque", "rating": 4.8, "price": 0 },
+        { "id": "tr_istanbul_topkapi", "name": "Topkapi Palace", "type": "Ottoman Palace", "rating": 4.8, "price": 30 },
+        { "id": "tr_istanbul_grand_bazaar", "name": "Grand Bazaar", "type": "Historic Market", "rating": 4.6, "price": 0 },
+        { "id": "tr_istanbul_bosphorus", "name": "Bosphorus Strait Cruise", "type": "Waterway", "rating": 4.7, "price": 15 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_istanbul_ciragan", "name": "Çırağan Palace Kempinski", "category": "luxury", "price": 850, "rating": 4.9 },
+        { "id": "hotel_tr_istanbul_four_seasons", "name": "Four Seasons Hotel at Sultanahmet", "category": "luxury", "price": 650, "rating": 4.9 },
+        { "id": "hotel_tr_istanbul_karakoy", "name": "Karaköy Rooms", "category": "luxury", "price": 180, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "cappadocia",
+      "name": "Cappadocia",
+      "bestSeason": "April - June, September - October",
+      "coordinates": { "lat": 38.6431, "lng": 34.8286 },
+      "attractions": [
+        { "id": "tr_cappadocia_fairy_chimneys", "name": "Cappadocia Fairy Chimneys", "type": "Natural Wonder", "rating": 4.9, "price": 0 },
+        { "id": "tr_cappadocia_goreme", "name": "Göreme Open Air Museum", "type": "UNESCO Site", "rating": 4.8, "price": 12 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_cappadocia_argos", "name": "Argos in Cappadocia", "category": "luxury", "price": 450, "rating": 4.8 },
+        { "id": "hotel_tr_cappadocia_museum", "name": "Museum Hotel (Uçhisar)", "category": "luxury", "price": 350, "rating": 4.8 },
+        { "id": "hotel_tr_cappadocia_sultan_cave", "name": "Sultan Cave Suites", "category": "luxury", "price": 200, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "bodrum",
+      "name": "Bodrum",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 37.0344, "lng": 27.4305 },
+      "attractions": [
+        { "id": "tr_bodrum_castle", "name": "Bodrum Castle & Historic Harbor", "type": "Historic Castle", "rating": 4.7, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_bodrum_amanruya", "name": "Amanruya", "category": "luxury", "price": 1200, "rating": 4.9 },
+        { "id": "hotel_tr_bodrum_six_senses", "name": "Six Senses Kaplankaya", "category": "luxury", "price": 850, "rating": 4.8 },
+        { "id": "hotel_tr_bodrum_macakizi", "name": "Macakizi Hotel", "category": "luxury", "price": 600, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "antalya",
+      "name": "Antalya",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 36.8841, "lng": 30.7056 },
+      "attractions": [
+        { "id": "tr_antalya_kaleici", "name": "Antalya Old Town (Kaleiçi)", "type": "Historic Harbor", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_antalya_tuvana", "name": "Tuvana Hotel (Kaleiçi)", "category": "luxury", "price": 150, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "pamukkale",
+      "name": "Pamukkale & Hierapolis",
+      "bestSeason": "April - June, September - October",
+      "coordinates": { "lat": 37.9137, "lng": 29.1187 },
+      "attractions": [
+        { "id": "tr_pamukkale_travertines", "name": "Pamukkale Travertines & Hierapolis", "type": "Natural Site & Ruins", "rating": 4.8, "price": 20 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_pamukkale_doga", "name": "Doga Thermal Health & Spa", "category": "luxury", "price": 140, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "ephesus",
+      "name": "Ephesus & Izmir",
+      "bestSeason": "April - June, September - October",
+      "coordinates": { "lat": 37.9484, "lng": 27.3680 },
+      "attractions": [
+        { "id": "tr_ephesus_ruins", "name": "Ephesus Ancient City", "type": "Archaeological Site", "rating": 4.9, "price": 22 },
+        { "id": "tr_ephesus_sirince", "name": "Şirince Greek Village", "type": "Greek Village", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_ephesus_nisanyan", "name": "Nisanyan Hotel (Şirince)", "category": "luxury", "price": 180, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "safranbolu",
+      "name": "Safranbolu",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 41.2449, "lng": 32.6942 },
+      "attractions": [
+        { "id": "tr_safranbolu_town", "name": "Safranbolu UNESCO Ottoman Town", "type": "UNESCO Ottoman Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_safranbolu_leyla", "name": "Leyla Hanim Konagi", "category": "mid-range", "price": 90, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "amasra",
+      "name": "Amasra",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 41.7483, "lng": 32.3858 },
+      "attractions": [
+        { "id": "tr_amasra_town", "name": "Amasra Coastal Fishing Town", "type": "Coastal Fishing Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_amasra_ceyste", "name": "Ceyste Boutique Hotel", "category": "mid-range", "price": 95, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "trabzon",
+      "name": "Trabzon & Black Sea",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 41.0027, "lng": 39.7168 },
+      "attractions": [
+        { "id": "tr_trabzon_sumela", "name": "Sumela Cliffside Monastery", "type": "Cliffside Monastery", "rating": 4.8, "price": 15 },
+        { "id": "tr_trabzon_uzungol", "name": "Uzungöl Mountain Lake Village", "type": "Mountain Lake Village", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_trabzon_radisson", "name": "Radisson Blu Hotel, Trabzon", "category": "luxury", "price": 130, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "kars",
+      "name": "Kars & Ani Ruins",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 40.6019, "lng": 43.0950 },
+      "attractions": [
+        { "id": "tr_kars_ani", "name": "Ani Ghost City Ruins", "type": "Ghost City (UNESCO)", "rating": 4.8, "price": 8 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_kars_katerina", "name": "Katerina Sarayi Hotel", "category": "mid-range", "price": 110, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "mardin",
+      "name": "Mardin",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 37.3122, "lng": 40.7350 },
+      "attractions": [
+        { "id": "tr_mardin_city", "name": "Mardin Stone City", "type": "Stone City", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_mardin_izala", "name": "Izala Hotel Mardin", "category": "mid-range", "price": 120, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "mugla",
+      "name": "Muğla & Akyaka",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 37.0583, "lng": 28.3242 },
+      "attractions": [
+        { "id": "tr_mugla_akyaka", "name": "Akyaka Eco-Tourism Village", "type": "Eco-Tourism Village", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_mugla_shimal", "name": "Shimal Residence Hotel Akyaka", "category": "luxury", "price": 160, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "canakkale",
+      "name": "Çanakkale & Aegean Islands",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 40.1451, "lng": 26.4064 },
+      "attractions": [
+        { "id": "tr_canakkale_bozcaada", "name": "Bozcaada Greek-Turkish Island", "type": "Greek-Turkish Island", "rating": 4.7, "price": 0 },
+        { "id": "tr_canakkale_gokceada", "name": "Gökçeada Largest Turkish Island", "type": "Largest Turkish Island", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_canakkale_akol", "name": "Akol Hotel", "category": "mid-range", "price": 110, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "bolu",
+      "name": "Bolu & Lake Abant",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 40.7314, "lng": 31.6081 },
+      "attractions": [
+        { "id": "tr_bolu_abant", "name": "Lake Abant Mountain Lake", "type": "Mountain Lake", "rating": 4.7, "price": 5 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_bolu_abant_palace", "name": "Abant Palace Hotel", "category": "luxury", "price": 180, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "bitlis",
+      "name": "Bitlis & Ahlat Seljuk Site",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 38.3992, "lng": 42.1092 },
+      "attractions": [
+        { "id": "tr_bitlis_ahlat", "name": "Ahlat Seljuk Cemetery", "type": "Seljuk Cemetery", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_tr_bitlis_grand", "name": "Bitlis Grand Hotel", "category": "budget", "price": 70, "rating": 4.1 }
+      ]
+    }
+  ]
+}

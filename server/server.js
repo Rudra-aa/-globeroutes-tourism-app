@@ -56,6 +56,9 @@ app.get('/health', (req, res) => {
 // 2. Auth: Register new user
 app.post('/api/auth/register', async (req, res) => {
   const { name, email, password } = req.body;
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(500).json({ error: 'Database is offline' });
+  }
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'Name, email, and password are required.' });
   }
@@ -109,6 +112,9 @@ app.post('/api/auth/register', async (req, res) => {
 // 3. Auth: Login user
 app.post('/api/auth/login', async (req, res) => {
   const { email, password } = req.body;
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(500).json({ error: 'Database is offline' });
+  }
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required.' });
   }
@@ -234,6 +240,11 @@ app.post('/api/auth/google', async (req, res) => {
 
 // 5. User: Sync dynamic progress data (visited POIs and travel hops)
 app.post('/api/user/sync', async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    console.warn('Database offline: Skipping user sync.');
+    return res.status(503).json({ error: 'Database is currently offline. Sync skipped.' });
+  }
+
   const { email, visitedPois, travelHops } = req.body;
   if (!email) {
     return res.status(400).json({ error: 'User email is required to sync progress.' });
@@ -383,7 +394,7 @@ Keep responses concise and friendly.`;
 
     const response = await groqClient.chat.completions.create({
       messages: conversationContext,
-      model: 'mixtral-8x7b-32768',
+      model: 'llama-3.1-8b-instant',
       system: systemPrompt,
       max_tokens: 500,
       temperature: 0.7
@@ -437,87 +448,57 @@ app.post('/api/aura/v2/generate-trip', async (req, res) => {
   }
 });
 
-// 9.2 Aura V2: Get Route Options & OpenRouteService Integration
-app.post('/api/aura/v2/routes', async (req, res) => {
-  const { source, destination, sourceCoords, destCoords } = req.body;
-  
-  if (!source || !destination) {
-    return res.status(400).json({ error: 'Source and destination are required.' });
+// 9.1.5 Aura V2: Summarize Trip
+app.post('/api/aura/v2/summarize-trip', async (req, res) => {
+  const { tripPlan, currency } = req.body;
+
+  if (!tripPlan) {
+    return res.status(400).json({ error: 'Trip plan data is required.' });
   }
+
+  const currencySymbol = (currency && currency.symbol) ? currency.symbol : '₹';
+  const currencyCode = (currency && currency.code) ? currency.code : 'INR';
+
+  const systemPrompt = `You are Aura, a conversational AI travel planning assistant for GlobeRoutes.
+Your ONLY job is to summarize the following verified JSON trip plan into a friendly, conversational response.
+
+CRITICAL RULES:
+- Express ALL costs in ${currencyCode} using the symbol ${currencySymbol}. Do NOT invent costs.
+- Do NOT invent: places, hotels, routes, prices, timings, or transport schedules.
+- Use ONLY the data provided in the JSON. If a detail is missing, say it is not available.
+- Speak naturally, like a knowledgeable travel agent. Do not use JSON.
+- If no itinerary is available, say so clearly: "Verified itinerary data is not available for this destination yet."
+- Never use placeholder text like "Visit local attractions", "Explore famous landmarks", or "Enjoy the culture".
+- Every recommendation must be grounded in the provided data.`;
 
   try {
-    let roadDistance = calculateDistance(source, destination); // Fallback mock
-    let roadDuration = 12; // numeric hours fallback
-    let roadGeometry = null;
-
-    // Phase 4-5: OpenRouteService Integration
-    if (process.env.ORS_API_KEY && sourceCoords && destCoords) {
-      const orsUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${process.env.ORS_API_KEY}&start=${sourceCoords.lng},${sourceCoords.lat}&end=${destCoords.lng},${destCoords.lat}`;
-      try {
-        const orsRes = await fetch(orsUrl);
-        if (orsRes.ok) {
-          const orsData = await orsRes.json();
-          if (orsData.features && orsData.features.length > 0) {
-            const props = orsData.features[0].properties;
-            roadDistance = props.segments[0].distance / 1000; // raw km
-            roadDuration = props.segments[0].duration / 3600; // raw hours
-            roadGeometry = orsData.features[0].geometry; // GeoJSON geometry
-          }
-        }
-      } catch (err) {
-        console.error('ORS fetch error:', err);
-      }
+    if (!groqClient) {
+      throw new Error('Groq not configured');
     }
 
-    const distBase = calculateDistance(source, destination);
+    const response = await groqClient.chat.completions.create({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: JSON.stringify(tripPlan) }
+      ],
+      model: 'llama-3.1-8b-instant',
+      max_tokens: 800,
+      temperature: 0.3
+    });
 
-    const routes = {
-      source,
-      destination,
-      options: [
-        {
-          type: 'flight',
-          distance: distBase,
-          duration: 2.5,
-          costMin: 3500,
-          costMax: 8000,
-          frequency: 'Multiple daily',
-          comfort: 5,
-          recommended: true,
-          advantages: ['Fastest', 'Direct routes', 'Multiple options']
-        },
-        {
-          type: 'train',
-          distance: distBase * 1.1, // Train tracks usually longer
-          duration: 16.5,
-          costMin: 350,
-          costMax: 1200,
-          frequency: 'Daily',
-          comfort: 4,
-          recommended: false,
-          advantages: ['Most economical', 'Scenic route', 'Overnight options']
-        },
-        {
-          type: 'road',
-          distance: roadDistance,
-          duration: roadDuration,
-          costMin: Math.round(roadDistance * 5), // Basic fuel/toll estimate
-          costMax: Math.round(roadDistance * 8),
-          frequency: 'Always available',
-          comfort: 3,
-          recommended: false,
-          geometry: roadGeometry, // Real ORS geometry passed to frontend
-          advantages: ['Flexible timing', 'Stop anywhere', 'Scenic drives']
-        }
-      ]
-    };
-
-    res.json(routes);
+    res.json({ response: response.choices[0].message.content });
   } catch (error) {
-    console.error('Route calculation error:', error);
-    res.status(500).json({ error: 'Failed to calculate routes.' });
+    console.error('Trip summarization error:', error.message);
+    res.status(500).json({ error: 'Failed to summarize trip plan.' });
   }
 });
+
+// ── CENTRALIZED API SERVICE LAYER (Phase 1: API Foundation) ──────────────────
+app.use('/api/geocode', require('./routes/geocodeRoutes'));
+app.use('/api/routes', require('./routes/routeRoutes'));
+app.use('/api/weather', require('./routes/weatherRoutes'));
+app.use('/api/places', require('./routes/placesRoutes'));
+app.use('/api/flights', require('./routes/flightRoutes'));
 
 // 9.3 Helper Functions
 function generateItinerary(destination, duration) {
@@ -550,40 +531,26 @@ function generateBudgetBreakdown(totalBudget, duration, travelers) {
 }
 
 function getAttractionsForDestination(destination) {
-  const attractions = {
-    'goa': ['Baga Beach', 'Anjuna Beach', 'Basilica of Bom Jesus', 'Fort Aguada'],
-    'delhi': ['India Gate', 'Red Fort', 'Jama Masjid', 'Raj Ghat'],
-    'agra': ['Taj Mahal', 'Agra Fort', 'Mehtab Bagh'],
-    'jaipur': ['Hawa Mahal', 'City Palace', 'Jantar Mantar']
-  };
-  return attractions[destination.toLowerCase()] || ['Local attractions await!'];
+  return ['Local attractions await!'];
 }
 
 function getHotelSuggestions(preference, budget) {
   const hotels = {
     'luxury': [
-      { name: '5-Star Resort', price: '₹15,000/night', rating: 4.8 },
-      { name: 'Premium Palace Hotel', price: '₹12,000/night', rating: 4.7 }
+      { name: '5-Star Resort', price: '₹15,000/night', rating: 4.8 }
     ],
     'mid-range': [
-      { name: '3-Star Comfort Hotel', price: '₹4,000/night', rating: 4.3 },
-      { name: 'Midrange Inn', price: '₹3,500/night', rating: 4.2 }
+      { name: '3-Star Comfort Hotel', price: '₹4,000/night', rating: 4.3 }
     ],
     'budget': [
-      { name: 'Budget Hotel', price: '₹1,200/night', rating: 3.8 },
-      { name: 'Backpacker Hostel', price: '₹600/night', rating: 3.5 }
+      { name: 'Budget Hotel', price: '₹1,200/night', rating: 3.8 }
     ]
   };
   return hotels[preference] || hotels['mid-range'];
 }
 
 function getFoodRecommendations(destination) {
-  const food = {
-    'goa': ['Fish Curry Rice', 'Prawn Biryani', 'Sorpotel', 'Bebinca'],
-    'delhi': ['Butter Chicken', 'Chole Bhature', 'Dosa', 'Samosa'],
-    'agra': ['Petha', 'Chicken Tikka', 'Biryani']
-  };
-  return food[destination.toLowerCase()] || ['Local specialties'];
+  return ['Local specialties'];
 }
 
 function getSafetyTips(destination) {
@@ -597,25 +564,10 @@ function getSafetyTips(destination) {
 }
 
 function getBestSeason(destination) {
-  const seasons = {
-    'goa': 'November - February',
-    'delhi': 'October - March',
-    'agra': 'October - March',
-    'manali': 'June - September'
-  };
-  return seasons[destination.toLowerCase()] || 'October - March';
+  return 'October - March';
 }
 
-function calculateDistance(source, destination) {
-  // Mock distance calculation
-  const distances = {
-    'delhi-goa': 1550,
-    'mumbai-goa': 600,
-    'delhi-agra': 206
-  };
-  const key = `${source.toLowerCase()}-${destination.toLowerCase()}`;
-  return distances[key] || 800;
-}
+
 
 // 9. Aura AI: Chat endpoint (Legacy)
 app.post('/api/aura/chat', async (req, res) => {
@@ -673,66 +625,9 @@ Focus on Indian destinations. Use ₹ for prices. Be specific and practical.`;
   }
 
   // Smart fallback demo response (when Groq not configured or error)
-  const lower = message.toLowerCase();
-  const dest = lower.includes('goa') ? 'Goa' : lower.includes('manali') ? 'Manali' : lower.includes('kerala') ? 'Kerala' : lower.includes('rajasthan') ? 'Rajasthan' : lower.includes('mumbai') ? 'Mumbai' : lower.includes('delhi') ? 'Delhi' : 'Your Destination';
-
-  if (lower.includes('compare') || lower.includes('route') || (lower.includes('vs') && (lower.includes('train') || lower.includes('flight')))) {
-    return res.json({
-      type: 'comparison',
-      data: {
-        from: 'Mumbai', to: dest,
-        routes: [
-          { icon: '✈️', mode: 'Flight', cost: '₹3,500–6,000', duration: '1–2 hrs', comfort: 5, score: '9', recommended: true },
-          { icon: '🚂', mode: 'Train', cost: '₹600–2,500', duration: '8–24 hrs', comfort: 4, score: '7' },
-          { icon: '🚌', mode: 'Bus', cost: '₹400–1,200', duration: '10–18 hrs', comfort: 3, score: '5' },
-          { icon: '🚗', mode: 'Road Trip', cost: '₹1,500–3,000', duration: '6–14 hrs', comfort: 4, score: '7' }
-        ],
-        recommendation: 'For speed choose flight. For budget + experience, overnight Rajdhani is best value.'
-      }
-    });
-  }
-
-  if (lower.includes('budget') && !lower.includes('plan')) {
-    return res.json({
-      type: 'budget',
-      data: {
-        trip: `Budget for ${dest} trip`,
-        items: [
-          { icon: '🚌', label: 'Transport', amount: '₹3,500', color: '#3b82f6' },
-          { icon: '🏨', label: 'Hotels (3N)', amount: '₹4,800', color: '#8b5cf6' },
-          { icon: '🍽️', label: 'Food', amount: '₹2,400', color: '#f59e0b' },
-          { icon: '🎯', label: 'Activities', amount: '₹1,800', color: '#22c55e' },
-          { icon: '🛡️', label: 'Emergency', amount: '₹1,200', color: '#ef4444' },
-          { icon: '💎', label: 'TOTAL', amount: '₹13,700', color: '#a78bfa' }
-        ],
-        note: 'Add GROQ_API_KEY to server/.env for real AI-powered estimates.'
-      }
-    });
-  }
-
-  // Default: full trip plan
-  res.json({
-    type: 'trip_plan',
-    data: {
-      trip: { title: `${dest} Adventure`, destination: dest, duration: '4 Days / 3 Nights', from: 'Your City', totalBudget: '₹12,000–₹18,000', bestTime: 'Oct–Mar', description: `A perfectly balanced ${dest} trip — culture, nature, food, and hidden gems curated by Aura AI.` },
-      budget: { transport: '₹3,500', accommodation: '₹4,800', food: '₹2,400', activities: '₹1,800', emergency: '₹1,200', total: '₹13,700' },
-      itinerary: [
-        { title: 'Arrival & First Impressions', activities: ['Arrive by train/flight', 'Check into hotel, relax', 'Evening walk at main attraction', 'Local welcome dinner'] },
-        { title: 'Deep Explore', activities: ['Morning: Top landmark visit', 'Afternoon: Cultural experience', 'Sunset at scenic viewpoint', 'Night market exploration'] },
-        { title: 'Hidden Gems Day', activities: ['Offbeat spot only locals know', 'Local family restaurant lunch', 'Photography walk', 'Rooftop sunset cafe'] },
-        { title: 'Departure', activities: ['Souvenir shopping', 'Final breakfast at local favourite', 'Check out & depart', 'Trip memories captured!'] }
-      ],
-      hotels: [
-        { name: 'Budget Stay Inn', type: 'Guesthouse', stars: 3, price: '₹800' },
-        { name: 'Mid-range Comfort Hotel', type: 'Hotel', stars: 4, price: '₹1,800' },
-        { name: 'Luxury Resort', type: 'Resort', stars: 5, price: '₹4,500' }
-      ],
-      food: [
-        { icon: '🍛', name: 'Local Thali House', type: 'Indian', price: '₹120/meal' },
-        { icon: '☕', name: 'Breezy Cafe', type: 'Cafe', price: '₹200/meal' },
-        { icon: '🍜', name: 'Street Food Hub', type: 'Street Food', price: '₹80/meal' }
-      ]
-    }
+  return res.json({
+    type: 'general',
+    message: "I couldn't find verified information for that request right now. Try another destination or refine your query."
   });
 });
 

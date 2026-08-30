@@ -1,6 +1,200 @@
 {
-  "country": "singapore",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "Singapore",
+  "code": "SG",
+  "currency": {
+    "code": "SGD",
+    "symbol": "S$"
+  },
+  "cities": [
+    {
+      "id": "singapore_city",
+      "name": "Downtown & Marina Bay",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.2868, "lng": 103.8545 },
+      "attractions": [
+        { "id": "sg_downtown_mbs", "name": "Marina Bay Sands SkyPark", "type": "Integrated Resort", "rating": 4.8, "price": 30 },
+        { "id": "sg_downtown_gardens", "name": "Gardens by the Bay", "type": "Nature Park", "rating": 4.9, "price": 32 },
+        { "id": "sg_downtown_flyer", "name": "Singapore Flyer", "type": "Observation Wheel", "rating": 4.5, "price": 40 },
+        { "id": "sg_downtown_national_gallery", "name": "National Gallery Singapore", "type": "Art Museum", "rating": 4.6, "price": 20 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_downtown_raffles", "name": "Raffles Singapore", "category": "luxury", "price": 1500, "rating": 4.9 },
+        { "id": "hotel_sg_downtown_mbs", "name": "Marina Bay Sands", "category": "luxury", "price": 800, "rating": 4.8 },
+        { "id": "hotel_sg_downtown_ritz", "name": "The Ritz-Carlton, Millenia Singapore", "category": "luxury", "price": 750, "rating": 4.9 },
+        { "id": "hotel_sg_downtown_fullerton", "name": "The Fullerton Hotel Singapore", "category": "luxury", "price": 500, "rating": 4.8 },
+        { "id": "hotel_sg_downtown_warehouse", "name": "The Warehouse Hotel", "category": "luxury", "price": 450, "rating": 4.7 },
+        { "id": "hotel_sg_downtown_kempinski", "name": "The Capitol Kempinski Hotel", "category": "luxury", "price": 480, "rating": 4.8 },
+        { "id": "hotel_sg_downtown_naumi", "name": "Naumi Hotel Singapore", "category": "luxury", "price": 350, "rating": 4.6 },
+        { "id": "hotel_sg_downtown_qt", "name": "QT Singapore (Hotel Telegraph)", "category": "luxury", "price": 400, "rating": 4.6 },
+        { "id": "hotel_sg_downtown_pullman", "name": "Pullman Singapore Hill Street", "category": "luxury", "price": 380, "rating": 4.6 }
+      ],
+      "restaurants": [
+        { "id": "food_sg_downtown_odette", "name": "Odette (3 Michelin Stars)", "cuisine": "Modern French", "priceCategory": "$$$$" }
+      ]
+    },
+    {
+      "id": "sentosa",
+      "name": "Sentosa Island",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.2494, "lng": 103.8303 },
+      "attractions": [
+        { "id": "sg_sentosa_island", "name": "Sentosa Island & Universal Studios", "type": "Resort Island", "rating": 4.7, "price": 82 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_sentosa_capella", "name": "Capella Singapore", "category": "luxury", "price": 1200, "rating": 4.9 },
+        { "id": "hotel_sg_sentosa_raffles", "name": "Raffles Sentosa Singapore", "category": "luxury", "price": 2500, "rating": 4.9 },
+        { "id": "hotel_sg_sentosa_marriott", "name": "Marriott Luxury Collection (Hard Rock)", "category": "luxury", "price": 450, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "orchard",
+      "name": "Orchard & Tanglin",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.3048, "lng": 103.8318 },
+      "attractions": [
+        { "id": "sg_orchard_road", "name": "Orchard Road Shopping District", "type": "Shopping District", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_orchard_stregis", "name": "The St. Regis Singapore", "category": "luxury", "price": 700, "rating": 4.8 },
+        { "id": "hotel_sg_orchard_como", "name": "COMO Metropolitan Singapore", "category": "luxury", "price": 600, "rating": 4.8 },
+        { "id": "hotel_sg_orchard_mama", "name": "Mama Shelter Singapore Orchard", "category": "mid-range", "price": 280, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "chinatown",
+      "name": "Chinatown & Outram",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.2848, "lng": 103.8438 },
+      "attractions": [
+        { "id": "sg_chinatown_district", "name": "Chinatown & Buddha Tooth Relic Temple", "type": "Heritage District", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_chinatown_pickering", "name": "PARKROYAL COLLECTION Pickering", "category": "luxury", "price": 450, "rating": 4.8 },
+        { "id": "hotel_sg_chinatown_maxwell", "name": "Maxwell Reserve Singapore", "category": "luxury", "price": 400, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "little_india",
+      "name": "Little India & Rochor",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.3068, "lng": 103.8518 },
+      "attractions": [
+        { "id": "sg_little_india_district", "name": "Little India & Sri Veeramakaliamman Temple", "type": "Cultural District", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_little_india_vagabond", "name": "The Vagabond Club", "category": "mid-range", "price": 250, "rating": 4.6 },
+        { "id": "hotel_sg_little_india_owen", "name": "Owen House", "category": "mid-range", "price": 180, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "katong",
+      "name": "Katong & Joo Chiat",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.3098, "lng": 103.9024 },
+      "attractions": [
+        { "id": "sg_katong_joo_chiat", "name": "Katong & Joo Chiat Peranakan Houses", "type": "Peranakan Heritage District", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_katong_indigo", "name": "Hotel Indigo Singapore Katong", "category": "mid-range", "price": 280, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "pulau_ubin",
+      "name": "Pulau Ubin",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.4116, "lng": 103.9589 },
+      "attractions": [
+        { "id": "sg_pulau_ubin_village", "name": "Pulau Ubin Rural Kampong & Chek Jawa", "type": "Rural Island Time Capsule", "rating": 4.8, "price": 4 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_pulau_ubin_camping", "name": "Pulau Ubin Campsites & Rustic Stays", "category": "budget", "price": 20, "rating": 4.0 }
+      ]
+    },
+    {
+      "id": "tiong_bahru",
+      "name": "Tiong Bahru",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.2862, "lng": 103.8329 },
+      "attractions": [
+        { "id": "sg_tiong_bahru_estate", "name": "Tiong Bahru Art Deco Estate", "type": "Art Deco Estate", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_tiong_bahru_dorsett", "name": "Dorsett Singapore", "category": "mid-range", "price": 200, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "mandai",
+      "name": "Mandai & North",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.4043, "lng": 103.7898 },
+      "attractions": [
+        { "id": "sg_mandai_zoo", "name": "Singapore Zoo & Night Safari", "type": "Wildlife Park", "rating": 4.8, "price": 48 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_mandai_banyan_tree", "name": "Mandai Rainforest Resort by Banyan Tree", "category": "luxury", "price": 450, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "changi",
+      "name": "Changi & East Coast",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.3892, "lng": 103.9870 },
+      "attractions": [
+        { "id": "sg_changi_coastal_walk", "name": "Changi Point Coastal Walk", "type": "Coastal Boardwalk", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_changi_dorsett", "name": "Dorsett Changi City Singapore", "category": "mid-range", "price": 190, "rating": 4.4 },
+        { "id": "hotel_sg_changi_village", "name": "Village Hotel Changi", "category": "mid-range", "price": 170, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "southern_ridges",
+      "name": "Southern Ridges & Pasir Panjang",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.2785, "lng": 103.7992 },
+      "attractions": [
+        { "id": "sg_ridges_henderson_waves", "name": "Southern Ridges & Henderson Waves", "type": "Nature Walkway", "rating": 4.7, "price": 0 },
+        { "id": "sg_ridges_haw_par_villa", "name": "Haw Par Villa Bizarre Theme Park", "type": "Bizarre Theme Park", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_ridges_fort_canning", "name": "METT Singapore (Hotel Fort Canning)", "category": "luxury", "price": 350, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "kranji",
+      "name": "Kranji Countryside",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.4247, "lng": 103.7197 },
+      "attractions": [
+        { "id": "sg_kranji_countryside", "name": "Kranji Countryside Farms & Sungei Buloh", "type": "Rural Escape", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_kranji_resort", "name": "D'Kranji Farm Resort", "category": "budget", "price": 120, "rating": 4.1 }
+      ]
+    },
+    {
+      "id": "central_catchment",
+      "name": "Central Catchment & Nature",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.3530, "lng": 103.8150 },
+      "attractions": [
+        { "id": "sg_catchment_treetop_walk", "name": "MacRitchie Reservoir & TreeTop Walk", "type": "Rainforest Hiking", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_catchment_orchid", "name": "Orchid Country Club", "category": "mid-range", "price": 180, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "southern_islands",
+      "name": "Southern Islands",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 1.2185, "lng": 103.8586 },
+      "attractions": [
+        { "id": "sg_islands_lazarus", "name": "Lazarus Island & St. John's Island", "type": "Untouched Beaches", "rating": 4.7, "price": 15 }
+      ],
+      "hotels": [
+        { "id": "hotel_sg_islands_glamping", "name": "Lazarus Island Tiny Houses & Glamping", "category": "luxury", "price": 380, "rating": 4.6 }
+      ]
+    }
+  ]
 }

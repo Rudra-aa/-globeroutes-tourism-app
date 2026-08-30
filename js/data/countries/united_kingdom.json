@@ -1,6 +1,375 @@
 {
-  "country": "united_kingdom",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "United Kingdom",
+  "code": "GB",
+  "currency": {
+    "code": "GBP",
+    "symbol": "£"
+  },
+  "cities": [
+    {
+      "id": "london",
+      "name": "London",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 51.5074, "lng": -0.1278 },
+      "attractions": [
+        { "id": "uk_london_natural_history", "name": "Natural History Museum", "type": "Museum", "rating": 4.8, "price": 0 },
+        { "id": "uk_london_british_museum", "name": "British Museum", "type": "Museum", "rating": 4.8, "price": 0 },
+        { "id": "uk_london_tate_modern", "name": "Tate Modern", "type": "Art Museum", "rating": 4.7, "price": 0 },
+        { "id": "uk_london_national_gallery", "name": "National Gallery", "type": "Art Museum", "rating": 4.7, "price": 0 },
+        { "id": "uk_london_tower", "name": "Tower of London", "type": "Historic Castle", "rating": 4.8, "price": 34 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_london_savoy", "name": "The Savoy", "category": "luxury", "price": 750, "rating": 4.9 },
+        { "id": "hotel_uk_london_claridges", "name": "Claridge's", "category": "luxury", "price": 900, "rating": 4.9 },
+        { "id": "hotel_uk_london_ritz", "name": "The Ritz London", "category": "luxury", "price": 750, "rating": 4.9 },
+        { "id": "hotel_uk_london_six_senses", "name": "Six Senses London", "category": "luxury", "price": 975, "rating": 4.9 },
+        { "id": "hotel_uk_london_newman", "name": "The Newman", "category": "luxury", "price": 650, "rating": 4.7 },
+        { "id": "hotel_uk_london_waldorf", "name": "Waldorf Astoria London (Admiralty Arch)", "category": "luxury", "price": 850, "rating": 4.9 },
+        { "id": "hotel_uk_london_st_clement", "name": "St Clement", "category": "luxury", "price": 600, "rating": 4.7 },
+        { "id": "hotel_uk_london_cambridge_house", "name": "Cambridge House", "category": "luxury", "price": 800, "rating": 4.8 }
+      ],
+      "restaurants": [
+        { "id": "food_british_london_savoy_grill", "name": "Savoy Grill by Gordon Ramsay", "cuisine": "British/French", "priceCategory": "$$$$" }
+      ]
+    },
+    {
+      "id": "edinburgh",
+      "name": "Edinburgh",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 55.9533, "lng": -3.1883 },
+      "attractions": [
+        { "id": "uk_edinburgh_castle", "name": "Edinburgh Castle", "type": "Historic Castle", "rating": 4.8, "price": 20 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_edinburgh_tarka", "name": "Tarka Hotels Edinburgh", "category": "budget", "price": 75, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "manchester",
+      "name": "Manchester",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 53.4808, "lng": -2.2426 },
+      "attractions": [
+        { "id": "uk_manchester_museum", "name": "Science and Industry Museum", "type": "Museum", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_manchester_mollies", "name": "Mollie's Manchester", "category": "mid-range", "price": 150, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "birmingham",
+      "name": "Birmingham",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 52.4862, "lng": -1.8904 },
+      "attractions": [
+        { "id": "uk_birmingham_library", "name": "Library of Birmingham", "type": "Library", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_birmingham_grand", "name": "The Grand Hotel Birmingham", "category": "mid-range", "price": 140, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "windsor",
+      "name": "Windsor",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 51.4839, "lng": -0.6044 },
+      "attractions": [
+        { "id": "uk_windsor_great_park", "name": "Crown Estate, Windsor Great Park", "type": "Royal Estate", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_windsor_castle", "name": "Castle Hotel Windsor", "category": "mid-range", "price": 150, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "wiltshire",
+      "name": "Wiltshire",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 51.1789, "lng": -1.8262 },
+      "attractions": [
+        { "id": "uk_wiltshire_stonehenge", "name": "Stonehenge", "type": "Prehistoric Monument", "rating": 4.6, "price": 23 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_wiltshire_red_lion", "name": "The Red Lion Freehouse", "category": "mid-range", "price": 120, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "bath",
+      "name": "Bath",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 51.3814, "lng": -2.3574 },
+      "attractions": [
+        { "id": "uk_bath_roman_baths", "name": "Roman Baths", "type": "Ancient Site", "rating": 4.8, "price": 25 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_bath_gainsborough", "name": "The Gainsborough Bath Spa", "category": "luxury", "price": 280, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "belfast",
+      "name": "Belfast",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 54.5973, "lng": -5.9301 },
+      "attractions": [
+        { "id": "uk_belfast_titanic", "name": "Titanic Belfast", "type": "Museum", "rating": 4.7, "price": 24 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_belfast_merchant", "name": "The Merchant Hotel", "category": "luxury", "price": 220, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "causeway_coast",
+      "name": "Causeway Coast",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 55.2408, "lng": -6.5115 },
+      "attractions": [
+        { "id": "uk_causeway_coast_giants", "name": "Giant's Causeway", "type": "UNESCO Natural Site", "rating": 4.8, "price": 13 },
+        { "id": "uk_causeway_coast_bridge", "name": "Carrick-a-Rede rope bridge", "type": "Suspension Bridge", "rating": 4.7, "price": 10 },
+        { "id": "uk_causeway_coast_dark_hedges", "name": "The Dark Hedges", "type": "Scenic Road", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_causeway_coast_bushmills", "name": "Bushmills Inn", "category": "mid-range", "price": 160, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "elan_valley",
+      "name": "Elan Valley",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 52.2741, "lng": -3.6198 },
+      "attractions": [
+        { "id": "uk_elan_valley_dams", "name": "Craig Goch Dam & Reservoirs", "type": "Historic Reservoirs", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_elan_valley_hotel", "name": "Elan Valley Hotel", "category": "budget", "price": 90, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "isles_of_scilly",
+      "name": "Isles of Scilly",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 49.9143, "lng": -6.3152 },
+      "attractions": [
+        { "id": "uk_isles_of_scilly_gardens", "name": "Tresco Abbey Gardens", "type": "Subtropical Gardens", "rating": 4.8, "price": 18 },
+        { "id": "uk_isles_of_scilly_vineyard", "name": "St Martin's Vineyard", "type": "Vineyard", "rating": 4.6, "price": 15 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_isles_of_scilly_karma", "name": "Karma St. Martin's", "category": "luxury", "price": 280, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "devon",
+      "name": "Devon",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": 50.9962, "lng": -4.4811 },
+      "attractions": [
+        { "id": "uk_devon_hartland", "name": "Hartland Abbey & Gardens", "type": "Heritage House", "rating": 4.7, "price": 12 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_devon_hartland_quay", "name": "Hartland Quay Hotel", "category": "budget", "price": 95, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "skipton",
+      "name": "Skipton",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 53.9614, "lng": -2.0169 },
+      "attractions": [
+        { "id": "uk_skipton_castle", "name": "Skipton Castle", "type": "Medieval Castle", "rating": 4.7, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_skipton_devonshire", "name": "The Devonshire Arms Hotel & Spa", "category": "luxury", "price": 240, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "clare",
+      "name": "Clare",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 52.0784, "lng": 0.5806 },
+      "attractions": [
+        { "id": "uk_clare_ancient_house", "name": "Clare Ancient House & Castle Ruins", "type": "Historic Site", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_clare_bell", "name": "The Bell Hotel Clare", "category": "mid-range", "price": 110, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "isle_of_wight",
+      "name": "Isle of Wight",
+      "bestSeason": "Summer",
+      "coordinates": { "lat": 50.5951, "lng": -1.3123 },
+      "attractions": [
+        { "id": "uk_iow_blackgang_beach", "name": "Blackgang Beach", "type": "Scenic Beach", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_iow_royal", "name": "The Royal Hotel Ventnor", "category": "luxury", "price": 210, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "amberley",
+      "name": "Amberley",
+      "bestSeason": "Wednesday - Sunday",
+      "coordinates": { "lat": 50.9068, "lng": -0.5342 },
+      "attractions": [
+        { "id": "uk_amberley_museum", "name": "Amberley Museum & Heritage Centre", "type": "Industrial Museum", "rating": 4.7, "price": 14 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_amberley_castle", "name": "Amberley Castle", "category": "luxury", "price": 290, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "chinnor",
+      "name": "Chinnor",
+      "bestSeason": "Sundays & bank holidays",
+      "coordinates": { "lat": 51.6983, "lng": -0.9102 },
+      "attractions": [
+        { "id": "uk_chinnor_railway", "name": "Chinnor & Princes Risborough Railway", "type": "Heritage Railway", "rating": 4.6, "price": 12 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_chinnor_lambert", "name": "The Lambert Arms", "category": "mid-range", "price": 100, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "coruna",
+      "name": "A Coruña",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 43.3623, "lng": -8.4115 },
+      "attractions": [
+        { "id": "uk_coruna_hercules", "name": "Tower of Hercules", "type": "Roman Lighthouse", "rating": 4.8, "price": 3 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_coruna_melia", "name": "Melia Maria Pita", "category": "mid-range", "price": 140, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "st_abbs_head",
+      "name": "St Abb's Head",
+      "bestSeason": "April - September",
+      "coordinates": { "lat": 55.9167, "lng": -2.1333 },
+      "attractions": [
+        { "id": "uk_st_abbs_head_reserve", "name": "St Abb's Head Nature Reserve", "type": "Nature Reserve", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_st_abbs_craw_inn", "name": "The Craw Inn", "category": "budget", "price": 95, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "falkland",
+      "name": "Falkland",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": 56.2522, "lng": -3.2081 },
+      "attractions": [
+        { "id": "uk_falkland_palace", "name": "Falkland Palace & Gardens", "type": "Royal Palace", "rating": 4.7, "price": 13 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_falkland_covenanter", "name": "The Covenanter Hotel", "category": "mid-range", "price": 110, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "northumberland",
+      "name": "Northumberland",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 55.0135, "lng": -2.3168 },
+      "attractions": [
+        { "id": "uk_northumberland_housesteads", "name": "Housesteads Roman Fort", "type": "Roman Fort", "rating": 4.7, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_northumberland_twice_brewed", "name": "Twice Brewed Inn", "category": "mid-range", "price": 115, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "ambleside",
+      "name": "Ambleside",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 54.4328, "lng": -2.9628 },
+      "attractions": [
+        { "id": "uk_ambleside_windermere", "name": "Lake Windermere & Beatrix Potter Trails", "type": "Scenic Area", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_ambleside_rothay_manor", "name": "Rothay Manor Boutique Hotel", "category": "luxury", "price": 300, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "glasgow",
+      "name": "Glasgow",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 55.8642, "lng": -4.2518 },
+      "attractions": [
+        { "id": "uk_glasgow_kelvingrove", "name": "Kelvingrove Art Gallery and Museum", "type": "Museum", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_glasgow_art_house", "name": "Art House Hotel Glasgow", "category": "mid-range", "price": 140, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "cambridge",
+      "name": "Cambridge",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 52.2053, "lng": 0.1218 },
+      "attractions": [
+        { "id": "uk_cambridge_chapel", "name": "King's College Chapel", "type": "Gothic Chapel", "rating": 4.8, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_cambridge_hobson", "name": "The Hobson Cambridge", "category": "mid-range", "price": 180, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "bristol",
+      "name": "Bristol",
+      "bestSeason": "Spring & Summer",
+      "coordinates": { "lat": 51.4545, "lng": -2.5879 },
+      "attractions": [
+        { "id": "uk_bristol_bridge", "name": "Clifton Suspension Bridge", "type": "Suspension Bridge", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_bristol_gotham", "name": "Hotel Gotham Bristol", "category": "luxury", "price": 240, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "sherborne",
+      "name": "Sherborne",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 50.9496, "lng": -2.5186 },
+      "attractions": [
+        { "id": "uk_sherborne_abbey", "name": "Sherborne Abbey", "type": "Abbey", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_sherborne_eastbury", "name": "The Eastbury & Spa", "category": "luxury", "price": 220, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "perthshire",
+      "name": "Perthshire",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 56.4000, "lng": -3.8000 },
+      "attractions": [
+        { "id": "uk_perthshire_scone_palace", "name": "Scone Palace", "type": "Palace", "rating": 4.6, "price": 15 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_perthshire_gleneagles", "name": "Gleneagles", "category": "luxury", "price": 600, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "north_yorkshire",
+      "name": "North Yorkshire",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 54.1206, "lng": -1.6231 },
+      "attractions": [
+        { "id": "uk_north_yorkshire_fountains", "name": "Fountains Abbey", "type": "UNESCO Abbey", "rating": 4.8, "price": 16 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_north_yorkshire_grantley", "name": "Grantley Hall", "category": "luxury", "price": 600, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "portrush",
+      "name": "Portrush",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 55.2045, "lng": -6.6572 },
+      "attractions": [
+        { "id": "uk_portrush_golf", "name": "Royal Portrush Golf Club", "type": "Golf Course", "rating": 4.8, "price": 30 }
+      ],
+      "hotels": [
+        { "id": "hotel_uk_portrush_dunluce", "name": "Dunluce Lodge", "category": "luxury", "price": 400, "rating": 4.8 }
+      ]
+    }
+  ]
 }

@@ -1,6 +1,691 @@
 {
-  "country": "spain",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "Spain",
+  "code": "ES",
+  "currency": {
+    "code": "EUR",
+    "symbol": "€"
+  },
+  "cities": [
+    {
+      "id": "madrid",
+      "name": "Madrid",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 40.4168,
+        "lng": -3.7037
+      },
+      "attractions": [
+        {
+          "id": "es_prado",
+          "name": "Prado Museum",
+          "type": "Art Museum",
+          "rating": 4.8,
+          "price": 15
+        },
+        {
+          "id": "es_plaza_mayor",
+          "name": "Plaza Mayor",
+          "type": "Historic Square",
+          "rating": 4.6,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_madrid_luxury",
+          "name": "Gran Meliá Palacio de los Duques",
+          "category": "luxury",
+          "price": 450,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_madrid_mid",
+          "name": "Only YOU Boutique Hotel",
+          "category": "mid-range",
+          "price": 180,
+          "rating": 4.5
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_tapas_madrid",
+          "name": "Traditional Tapas crawl",
+          "cuisine": "Spanish",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "barcelona",
+      "name": "Barcelona",
+      "bestSeason": "May - June, September - October",
+      "coordinates": {
+        "lat": 41.3851,
+        "lng": 2.1734
+      },
+      "attractions": [
+        {
+          "id": "es_sagrada",
+          "name": "Sagrada Família",
+          "type": "Basilica",
+          "rating": 4.9,
+          "price": 26
+        },
+        {
+          "id": "es_park_guell",
+          "name": "Park Güell",
+          "type": "Public Park",
+          "rating": 4.7,
+          "price": 10
+        },
+        {
+          "id": "es_la_rambla",
+          "name": "La Rambla",
+          "type": "Historic Boulevard",
+          "rating": 4.4,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_arts_barcelona",
+          "name": "Hotel Arts Barcelona",
+          "category": "luxury",
+          "price": 550,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_nobu_barcelona",
+          "name": "Nobu Hotel Barcelona",
+          "category": "luxury",
+          "price": 420,
+          "rating": 4.7
+        },
+        {
+          "id": "hotel_el_palauet",
+          "name": "El Palauet Living Barcelona",
+          "category": "luxury",
+          "price": 650,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_barcelona_mid",
+          "name": "H10 Metropolitan",
+          "category": "mid-range",
+          "price": 160,
+          "rating": 4.5
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_paella_barcelona",
+          "name": "Seafood Paella dinner",
+          "cuisine": "Spanish",
+          "priceCategory": "$$$"
+        }
+      ]
+    },
+    {
+      "id": "seville",
+      "name": "Seville",
+      "bestSeason": "April - May, October - November",
+      "coordinates": {
+        "lat": 37.3891,
+        "lng": -5.9845
+      },
+      "attractions": [
+        {
+          "id": "es_seville_cathedral",
+          "name": "Seville Cathedral & Giralda",
+          "type": "Cathedral",
+          "rating": 4.8,
+          "price": 11
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_alfonso_xiii",
+          "name": "Hotel Alfonso XIII",
+          "category": "luxury",
+          "price": 600,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_casa_1800",
+          "name": "Hotel Casa 1800",
+          "category": "luxury",
+          "price": 280,
+          "rating": 4.7
+        },
+        {
+          "id": "hotel_seville_mid",
+          "name": "Las Casas de la Judería",
+          "category": "mid-range",
+          "price": 130,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "granada",
+      "name": "Granada",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 37.1773,
+        "lng": -3.5986
+      },
+      "attractions": [
+        {
+          "id": "es_alhambra",
+          "name": "Alhambra Palace & Fortress",
+          "type": "Palace & Fortress",
+          "rating": 4.9,
+          "price": 14
+        },
+        {
+          "id": "es_guadix_caves",
+          "name": "Barrio de Las Cuevas cave district",
+          "type": "Cave Town",
+          "rating": 4.6,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_alhambra_palace",
+          "name": "Alhambra Palace Hotel",
+          "category": "luxury",
+          "price": 260,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "marbella",
+      "name": "Marbella",
+      "bestSeason": "May - September",
+      "coordinates": {
+        "lat": 36.5099,
+        "lng": -4.8858
+      },
+      "attractions": [
+        {
+          "id": "es_costa_del_sol",
+          "name": "Costa del Sol Beaches",
+          "type": "Coastal Resort",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_marbella_club",
+          "name": "Marbella Club Hotel",
+          "category": "luxury",
+          "price": 750,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_marbella_mid",
+          "name": "Hotel Fuerte Marbella",
+          "category": "mid-range",
+          "price": 190,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "santiago_compostela",
+      "name": "Santiago de Compostela",
+      "bestSeason": "May - September",
+      "coordinates": {
+        "lat": 42.8782,
+        "lng": -8.5448
+      },
+      "attractions": [
+        {
+          "id": "es_camino_santiago",
+          "name": "Camino de Santiago Pilgrimage Route",
+          "type": "Pilgrimage Route",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_parador_santiago",
+          "name": "Parador de Santiago de Compostela",
+          "category": "luxury",
+          "price": 300,
+          "rating": 4.9
+        }
+      ]
+    },
+    {
+      "id": "ibiza",
+      "name": "Ibiza",
+      "bestSeason": "May - October",
+      "coordinates": {
+        "lat": 38.9067,
+        "lng": 1.4206
+      },
+      "attractions": [
+        {
+          "id": "es_ibiza",
+          "name": "Ibiza UNESCO Old Town & beaches",
+          "type": "Island Resort",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_six_senses_ibiza",
+          "name": "Six Senses Ibiza",
+          "category": "luxury",
+          "price": 800,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ibiza_mid",
+          "name": "OD Ocean Drive",
+          "category": "mid-range",
+          "price": 180,
+          "rating": 4.3
+        }
+      ]
+    },
+    {
+      "id": "mallorca",
+      "name": "Mallorca",
+      "bestSeason": "May - October",
+      "coordinates": {
+        "lat": 39.6953,
+        "lng": 3.0176
+      },
+      "attractions": [
+        {
+          "id": "es_mallorca_beaches",
+          "name": "Mallorca pristine coves & Serra de Tramuntana",
+          "type": "Coastal Island",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_la_residencia",
+          "name": "Belmond La Residencia (Deià)",
+          "category": "luxury",
+          "price": 900,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_cap_rocat",
+          "name": "Cap Rocat",
+          "category": "luxury",
+          "price": 1100,
+          "rating": 4.9
+        }
+      ]
+    },
+    {
+      "id": "setenil_bodegas",
+      "name": "Setenil de las Bodegas",
+      "bestSeason": "March - June, September - October",
+      "coordinates": {
+        "lat": 36.8637,
+        "lng": -5.1812
+      },
+      "attractions": [
+        {
+          "id": "es_setenil_rocks",
+          "name": "Houses built under massive rock overhangs",
+          "type": "Rock Village",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_setenil_casa",
+          "name": "Traditional Rock Cave house",
+          "category": "mid-range",
+          "price": 110,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "merida",
+      "name": "Mérida",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 38.9171,
+        "lng": -6.3444
+      },
+      "attractions": [
+        {
+          "id": "es_merida_roman",
+          "name": "Roman Theater & Temple of Diana",
+          "type": "Roman Heritage Site",
+          "rating": 4.8,
+          "price": 15
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_merida_parador",
+          "name": "Parador de Mérida",
+          "category": "luxury",
+          "price": 160,
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "id": "rio_tinto",
+      "name": "Río Tinto",
+      "bestSeason": "Year-round",
+      "coordinates": {
+        "lat": 37.6931,
+        "lng": -6.5947
+      },
+      "attractions": [
+        {
+          "id": "es_rio_tinto",
+          "name": "Martian Landscape blood-red river & mines",
+          "type": "Natural Landscape",
+          "rating": 4.6,
+          "price": 5
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_riotinto_inn",
+          "name": "Minas de Riotinto Lodge",
+          "category": "budget",
+          "price": 80,
+          "rating": 4.2
+        }
+      ]
+    },
+    {
+      "id": "cabo_gata",
+      "name": "Cabo de Gata-Níjar",
+      "bestSeason": "April - June, September - October",
+      "coordinates": {
+        "lat": 36.7214,
+        "lng": -2.2039
+      },
+      "attractions": [
+        {
+          "id": "es_cabo_gata",
+          "name": "Volcanic cliffs, pristine beaches & flamingos",
+          "type": "Natural Park",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_cabo_gata_lodge",
+          "name": "Cabo de Gata Eco-Lodge",
+          "category": "luxury",
+          "price": 280,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "catedrais_beach",
+      "name": "As Catedrais Beach",
+      "bestSeason": "May - September",
+      "coordinates": {
+        "lat": 43.5545,
+        "lng": -7.1587
+      },
+      "attractions": [
+        {
+          "id": "es_catedrais_beach",
+          "name": "30m natural rock arches",
+          "type": "Natural Beach",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ribadeo_mid",
+          "name": "Parador de Ribadeo",
+          "category": "mid-range",
+          "price": 130,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "gaztelugatxe",
+      "name": "San Juan de Gaztelugatxe",
+      "bestSeason": "April - October",
+      "coordinates": {
+        "lat": 43.4473,
+        "lng": -2.785
+      },
+      "attractions": [
+        {
+          "id": "es_gaztelugatxe",
+          "name": "241-step stone bridge island hermitage",
+          "type": "Coastal Hermitage",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_bilbao_mid",
+          "name": "Hotel Carlton Bilbao",
+          "category": "luxury",
+          "price": 180,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "cazorla",
+      "name": "Cazorla Natural Park",
+      "bestSeason": "April - June, September - October",
+      "coordinates": {
+        "lat": 37.9142,
+        "lng": -3.0039
+      },
+      "attractions": [
+        {
+          "id": "es_cazorla_park",
+          "name": "Sierra de Cazorla hiking trails & wildlife",
+          "type": "Natural Park",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_parador_cazorla",
+          "name": "Parador de Cazorla",
+          "category": "mid-range",
+          "price": 140,
+          "rating": 4.5
+        },
+        {
+          "id": "hotel_casa_rural_el_mano",
+          "name": "Casa Rural El Maño I",
+          "category": "budget",
+          "price": 90,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "coruna",
+      "name": "A Coruña",
+      "bestSeason": "May - September",
+      "coordinates": {
+        "lat": 43.3623,
+        "lng": -8.4115
+      },
+      "attractions": [
+        {
+          "id": "es_hercules_tower",
+          "name": "Tower of Hercules",
+          "type": "Historical Landmark",
+          "rating": 4.8,
+          "price": 3
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ac_coruna",
+          "name": "Melia Maria Pita",
+          "category": "mid-range",
+          "price": 140,
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "id": "oviedo",
+      "name": "Oviedo",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 43.3603,
+        "lng": -5.8448
+      },
+      "attractions": [
+        {
+          "id": "es_oviedo_cathedral",
+          "name": "Gothic Cathedral of San Salvador",
+          "type": "Historic Cathedral",
+          "rating": 4.7,
+          "price": 6
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_reconquista",
+          "name": "Eurostars Hotel de la Reconquista",
+          "category": "luxury",
+          "price": 210,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "chulilla",
+      "name": "Chulilla",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 39.6548,
+        "lng": -0.8653
+      },
+      "attractions": [
+        {
+          "id": "es_chulilla_gorge",
+          "name": "Hanging bridges gorge trail & castle ruins",
+          "type": "Adventure/Nature",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_chulilla_hostal",
+          "name": "Traditional Chulilla Hostal",
+          "category": "budget",
+          "price": 70,
+          "rating": 4.2
+        }
+      ]
+    },
+    {
+      "id": "chelva",
+      "name": "Chelva",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 39.7475,
+        "lng": -0.9991
+      },
+      "attractions": [
+        {
+          "id": "es_chelva_aqueduct",
+          "name": "1st-century Roman aqueduct & water route",
+          "type": "Historic Site",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_chelva_inn",
+          "name": "Chelva Country Inn",
+          "category": "budget",
+          "price": 80,
+          "rating": 4.3
+        }
+      ]
+    },
+    {
+      "id": "llanes",
+      "name": "Llanes",
+      "bestSeason": "June - September",
+      "coordinates": {
+        "lat": 43.4216,
+        "lng": -4.7548
+      },
+      "attractions": [
+        {
+          "id": "es_llanes_coast",
+          "name": "30 km beach & rugged mountains",
+          "type": "Scenic Coast",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_llanes_boutique",
+          "name": "Don Paco Hotel Llanes",
+          "category": "mid-range",
+          "price": 120,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "salamanca",
+      "name": "Salamanca",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": {
+        "lat": 40.9701,
+        "lng": -5.6635
+      },
+      "attractions": [
+        {
+          "id": "es_salamanca_plaza",
+          "name": "Plaza Mayor & historic university",
+          "type": "Historic Square",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_hacienda_zorita",
+          "name": "Hacienda Zorita Wine & Spa Hotel",
+          "category": "luxury",
+          "price": 280,
+          "rating": 4.8
+        }
+      ]
+    }
+  ]
 }

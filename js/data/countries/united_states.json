@@ -1,6 +1,458 @@
 {
-  "country": "united_states",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "United States",
+  "code": "US",
+  "currency": {
+    "code": "USD",
+    "symbol": "$"
+  },
+  "cities": [
+    {
+      "id": "newyork",
+      "name": "New York City",
+      "bestSeason": "September - November",
+      "coordinates": {
+        "lat": 40.7128,
+        "lng": -74.0060
+      },
+      "attractions": [
+        {
+          "id": "ny_statue",
+          "name": "Statue of Liberty",
+          "type": "Monument",
+          "rating": 4.7,
+          "price": 25
+        },
+        {
+          "id": "us_times_square",
+          "name": "Times Square",
+          "type": "Urban Landmark",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "ny_pdt",
+          "name": "Please Don't Tell (PDT) Speakeasy",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 20
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_plaza",
+          "name": "The Plaza",
+          "category": "luxury",
+          "price": 950,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_nomad_ny",
+          "name": "The NoMad Hotel",
+          "category": "luxury",
+          "price": 450,
+          "rating": 4.6
+        },
+        {
+          "id": "hotel_ace_ny",
+          "name": "Ace Hotel",
+          "category": "mid-range",
+          "price": 250,
+          "rating": 4.5
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_pizza",
+          "name": "New York Pizza slice",
+          "cuisine": "Pizza",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "sanfrancisco",
+      "name": "San Francisco",
+      "bestSeason": "September - October",
+      "coordinates": {
+        "lat": 37.7749,
+        "lng": -122.4194
+      },
+      "attractions": [
+        {
+          "id": "sf_goldengate",
+          "name": "Golden Gate Bridge",
+          "type": "Engineering Marvel",
+          "rating": 4.9,
+          "price": 0
+        },
+        {
+          "id": "sf_waveorgan",
+          "name": "The Wave Organ",
+          "type": "Hidden Gem",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_post_ranch",
+          "name": "Post Ranch Inn",
+          "category": "luxury",
+          "price": 2500,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_beverly_hills",
+          "name": "The Beverly Hills Hotel",
+          "category": "luxury",
+          "price": 1200,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ace_sf",
+          "name": "Ace Hotel",
+          "category": "mid-range",
+          "price": 220,
+          "rating": 4.4
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_cali_table",
+          "name": "California Farm-to-Table dinner",
+          "cuisine": "American",
+          "priceCategory": "$$$"
+        }
+      ]
+    },
+    {
+      "id": "orlando",
+      "name": "Orlando",
+      "bestSeason": "December - April",
+      "coordinates": {
+        "lat": 28.5383,
+        "lng": -81.3792
+      },
+      "attractions": [
+        {
+          "id": "us_disney_world",
+          "name": "Walt Disney World",
+          "type": "Theme Park",
+          "rating": 4.7,
+          "price": 130
+        },
+        {
+          "id": "us_dry_tortugas",
+          "name": "Dry Tortugas National Park",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 190
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_breakers",
+          "name": "The Breakers",
+          "category": "luxury",
+          "price": 850,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_under_canvas_fl",
+          "name": "Under Canvas Florida",
+          "category": "mid-range",
+          "price": 300,
+          "rating": 4.5
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_southern",
+          "name": "Southern Comfort Food dining",
+          "cuisine": "Southern",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "washington",
+      "name": "Washington D.C.",
+      "bestSeason": "September - November",
+      "coordinates": {
+        "lat": 38.9072,
+        "lng": -77.0369
+      },
+      "attractions": [
+        {
+          "id": "us_smithsonian",
+          "name": "Smithsonian Museums",
+          "type": "Museum Complex",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_little_washington",
+          "name": "The Inn at Little Washington",
+          "category": "luxury",
+          "price": 750,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_greenbrier",
+          "name": "The Greenbrier",
+          "category": "luxury",
+          "price": 500,
+          "rating": 4.7
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_cajun",
+          "name": "Cajun / Creole cuisine",
+          "cuisine": "Southern",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "lasvegas",
+      "name": "Las Vegas",
+      "bestSeason": "September - November",
+      "coordinates": {
+        "lat": 36.1699,
+        "lng": -115.1398
+      },
+      "attractions": [
+        {
+          "id": "us_vegas_strip",
+          "name": "Las Vegas Strip",
+          "type": "Entertainment",
+          "rating": 4.6,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_nomad_lv",
+          "name": "The NoMad Hotel Las Vegas",
+          "category": "luxury",
+          "price": 350,
+          "rating": 4.6
+        },
+        {
+          "id": "hotel_amangiri",
+          "name": "Amangiri Resort",
+          "category": "luxury",
+          "price": 3800,
+          "rating": 4.9
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_steak",
+          "name": "Vegas Steakhouse dinner",
+          "cuisine": "American",
+          "priceCategory": "$$$$"
+        }
+      ]
+    },
+    {
+      "id": "page",
+      "name": "Page",
+      "bestSeason": "March - May",
+      "coordinates": {
+        "lat": 36.9147,
+        "lng": -111.4558
+      },
+      "attractions": [
+        {
+          "id": "us_grand_canyon",
+          "name": "Grand Canyon National Park",
+          "type": "Natural Wonder",
+          "rating": 4.9,
+          "price": 35
+        },
+        {
+          "id": "us_antelope",
+          "name": "Antelope Canyon",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 75
+        },
+        {
+          "id": "us_the_wave",
+          "name": "The Wave sandstone",
+          "type": "Hidden Gem",
+          "rating": 4.9,
+          "price": 9
+        },
+        {
+          "id": "us_havasu",
+          "name": "Havasu Falls",
+          "type": "Hidden Gem",
+          "rating": 4.9,
+          "price": 125
+        },
+        {
+          "id": "us_petrified",
+          "name": "Petrified Forest National Park",
+          "type": "Natural Wonder",
+          "rating": 4.6,
+          "price": 25
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_amangiri_page",
+          "name": "Amangiri Desert Resort",
+          "category": "luxury",
+          "price": 3500,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_under_canvas_page",
+          "name": "Under Canvas Grand Canyon",
+          "category": "mid-range",
+          "price": 420,
+          "rating": 4.6
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_texmex",
+          "name": "Tex-Mex local diner",
+          "cuisine": "Mexican",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "yellowstone",
+      "name": "Yellowstone",
+      "bestSeason": "June - August",
+      "coordinates": {
+        "lat": 44.4280,
+        "lng": -110.5885
+      },
+      "attractions": [
+        {
+          "id": "us_yellowstone",
+          "name": "Yellowstone National Park",
+          "type": "Natural Wonder",
+          "rating": 4.9,
+          "price": 35
+        },
+        {
+          "id": "us_craters_moon",
+          "name": "Craters of the Moon",
+          "type": "Hidden Gem",
+          "rating": 4.5,
+          "price": 20
+        },
+        {
+          "id": "us_makoshika",
+          "name": "Makoshika State Park",
+          "type": "Hidden Gem",
+          "rating": 4.5,
+          "price": 15
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_under_canvas_yellowstone",
+          "name": "Under Canvas Yellowstone",
+          "category": "mid-range",
+          "price": 380,
+          "rating": 4.6
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_bison",
+          "name": "Yellowstone Bison Burgers",
+          "cuisine": "American",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "yosemite",
+      "name": "Yosemite",
+      "bestSeason": "June - August",
+      "coordinates": {
+        "lat": 37.8651,
+        "lng": -119.5383
+      },
+      "attractions": [
+        {
+          "id": "us_yosemite",
+          "name": "Yosemite National Park",
+          "type": "Natural Wonder",
+          "rating": 4.9,
+          "price": 35
+        },
+        {
+          "id": "us_thors_well",
+          "name": "Thor's Well",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_yosemite_lodge",
+          "name": "Yosemite Valley Lodge",
+          "category": "mid-range",
+          "price": 280,
+          "rating": 4.4
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_grill",
+          "name": "Sierra Mountain Grill",
+          "cuisine": "American",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "niagara",
+      "name": "Niagara Falls",
+      "bestSeason": "June - August",
+      "coordinates": {
+        "lat": 43.0962,
+        "lng": -79.0377
+      },
+      "attractions": [
+        {
+          "id": "us_niagara",
+          "name": "Niagara Falls",
+          "type": "Natural Wonder",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_plaza_niagara",
+          "name": "The Plaza Hotel",
+          "category": "luxury",
+          "price": 800,
+          "rating": 4.8
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_buffet",
+          "name": "Falls Buffet",
+          "cuisine": "American",
+          "priceCategory": "$$"
+        }
+      ]
+    }
+  ]
 }

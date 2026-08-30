@@ -1,6 +1,3133 @@
 {
-  "country": "india",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "India",
+  "code": "IN",
+  "currency": {
+    "code": "INR",
+    "symbol": "₹"
+  },
+  "cities": [
+    {
+      "id": "mumbai",
+      "name": "Mumbai",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 18.975,
+        "lng": 72.8258
+      },
+      "attractions": [
+        {
+          "id": "mumbai_gateway",
+          "name": "Gateway of India",
+          "type": "landmark",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "mumbai_chor_bazaar",
+          "name": "Chor Bazaar Secret Antique Nooks",
+          "type": "hidden_gem",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "mumbai_elephanta",
+          "name": "Elephanta Caves",
+          "type": "history",
+          "rating": 4.4,
+          "price": 600
+        },
+        {
+          "id": "mumbai_marine_drive",
+          "name": "Marine Drive",
+          "type": "landmark",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "mumbai_dhobi_ghat",
+          "name": "Dhobi Ghat (Mahalaxmi)",
+          "type": "hidden_gem",
+          "rating": 4.5,
+          "price": 500
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_mumbai_luxury",
+          "name": "Mumbai Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_mumbai_midrange",
+          "name": "Mumbai Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_mumbai_budget",
+          "name": "Mumbai Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_mumbai_local",
+          "name": "Mumbai Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "jaipur",
+      "name": "Jaipur",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 26.9124,
+        "lng": 75.7873
+      },
+      "attractions": [
+        {
+          "id": "jaipur_hawamahal",
+          "name": "Hawa Mahal",
+          "type": "landmark",
+          "rating": 4.6,
+          "price": 200
+        },
+        {
+          "id": "jaipur_panna_meena",
+          "name": "Panna Meena ka Kund",
+          "type": "hidden_gem",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "jaipur_amber_fort",
+          "name": "Amber Fort (Amer Fort)",
+          "type": "history",
+          "rating": 4.7,
+          "price": 1000
+        },
+        {
+          "id": "jaipur_city_palace",
+          "name": "City Palace Jaipur",
+          "type": "history",
+          "rating": 4.5,
+          "price": 700
+        },
+        {
+          "id": "jaipur_nahargarh",
+          "name": "Nahargarh Fort at Dusk",
+          "type": "history",
+          "rating": 4.6,
+          "price": 200
+        },
+        {
+          "id": "jaipur_jantar_mantar",
+          "name": "Jantar Mantar Jaipur",
+          "type": "history",
+          "rating": 4.3,
+          "price": 400
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_jaipur_luxury",
+          "name": "Jaipur Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_jaipur_midrange",
+          "name": "Jaipur Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_jaipur_budget",
+          "name": "Jaipur Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_jaipur_local",
+          "name": "Jaipur Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "agra",
+      "name": "Agra",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 27.1767,
+        "lng": 78.0081
+      },
+      "attractions": [
+        {
+          "id": "agra_tajmahal",
+          "name": "Taj Mahal",
+          "type": "landmark",
+          "rating": 4.9,
+          "price": 1100
+        },
+        {
+          "id": "agra_fort",
+          "name": "Agra Fort",
+          "type": "history",
+          "rating": 4.6,
+          "price": 650
+        },
+        {
+          "id": "agra_sheroes",
+          "name": "Sheroes Hangout",
+          "type": "hidden_gem",
+          "rating": 5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_agra_luxury",
+          "name": "Agra Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_agra_midrange",
+          "name": "Agra Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_agra_budget",
+          "name": "Agra Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_agra_local",
+          "name": "Agra Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "delhi",
+      "name": "New Delhi",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 28.6139,
+        "lng": 77.209
+      },
+      "attractions": [
+        {
+          "id": "delhi_indiagate",
+          "name": "India Gate",
+          "type": "landmark",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "delhi_qutub",
+          "name": "Qutub Minar",
+          "type": "history",
+          "rating": 4.6,
+          "price": 600
+        },
+        {
+          "id": "delhi_humayun",
+          "name": "Humayun's Tomb",
+          "type": "history",
+          "rating": 4.6,
+          "price": 600
+        },
+        {
+          "id": "delhi_lodi",
+          "name": "Lodi Garden",
+          "type": "nature",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "delhi_agrasen",
+          "name": "Agrasen ki Baoli",
+          "type": "hidden_gem",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "delhi_redfort",
+          "name": "Red Fort (Lal Qila)",
+          "type": "history",
+          "rating": 4.5,
+          "price": 600
+        },
+        {
+          "id": "delhi_lotus",
+          "name": "Lotus Temple",
+          "type": "culture",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "delhi_chandni_chowk",
+          "name": "Chandni Chowk",
+          "type": "culture",
+          "rating": 4.4,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_delhi_luxury",
+          "name": "New Delhi Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_delhi_midrange",
+          "name": "New Delhi Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_delhi_budget",
+          "name": "New Delhi Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_delhi_local",
+          "name": "New Delhi Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "varanasi",
+      "name": "Varanasi",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 25.3176,
+        "lng": 82.9739
+      },
+      "attractions": [
+        {
+          "id": "varanasi_dashashwamedh",
+          "name": "Dashashwamedh Ghat",
+          "type": "culture",
+          "rating": 4.9,
+          "price": 100
+        },
+        {
+          "id": "varanasi_kashi",
+          "name": "Kashi Vishwanath Temple",
+          "type": "culture",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "varanasi_sarnath",
+          "name": "Sarnath",
+          "type": "history",
+          "rating": 4.5,
+          "price": 40
+        },
+        {
+          "id": "varanasi_manikarnika",
+          "name": "Manikarnika Ghat",
+          "type": "culture",
+          "rating": 4.4,
+          "price": 0
+        },
+        {
+          "id": "varanasi_lalita",
+          "name": "Lalita Ghat & Nepali Temple",
+          "type": "hidden_gem",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "vaidyanath_temple",
+          "name": "Baidyanath Dham Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_varanasi_luxury",
+          "name": "Varanasi Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_varanasi_midrange",
+          "name": "Varanasi Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_varanasi_budget",
+          "name": "Varanasi Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_varanasi_local",
+          "name": "Varanasi Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "udaipur",
+      "name": "Udaipur",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 24.5854,
+        "lng": 73.7125
+      },
+      "attractions": [
+        {
+          "id": "udaipur_citypalace",
+          "name": "City Palace Udaipur",
+          "type": "history",
+          "rating": 4.7,
+          "price": 600
+        },
+        {
+          "id": "udaipur_lakepichola",
+          "name": "Lake Pichola Boat Cruise",
+          "type": "nature",
+          "rating": 4.8,
+          "price": 400
+        },
+        {
+          "id": "udaipur_bagore",
+          "name": "Bagore ki Haveli",
+          "type": "culture",
+          "rating": 4.6,
+          "price": 60
+        },
+        {
+          "id": "udaipur_neemach_mata",
+          "name": "Neemach Mata Temple Sunrise",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_udaipur_luxury",
+          "name": "Udaipur Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_udaipur_midrange",
+          "name": "Udaipur Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_udaipur_budget",
+          "name": "Udaipur Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_udaipur_local",
+          "name": "Udaipur Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "jodhpur",
+      "name": "Jodhpur",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 26.2389,
+        "lng": 73.0243
+      },
+      "attractions": [
+        {
+          "id": "jodhpur_mehrangarh",
+          "name": "Mehrangarh Fort",
+          "type": "history",
+          "rating": 4.8,
+          "price": 800
+        },
+        {
+          "id": "jodhpur_jaswant",
+          "name": "Jaswant Thada",
+          "type": "landmark",
+          "rating": 4.6,
+          "price": 30
+        },
+        {
+          "id": "jodhpur_toorji",
+          "name": "Toorji ka Jhalra Stepwell",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_jodhpur_luxury",
+          "name": "Jodhpur Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_jodhpur_midrange",
+          "name": "Jodhpur Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_jodhpur_budget",
+          "name": "Jodhpur Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_jodhpur_local",
+          "name": "Jodhpur Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "amritsar",
+      "name": "Amritsar",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 31.634,
+        "lng": 74.8723
+      },
+      "attractions": [
+        {
+          "id": "amritsar_goldentemple",
+          "name": "Golden Temple (Harmandir Sahib)",
+          "type": "culture",
+          "rating": 5,
+          "price": 0
+        },
+        {
+          "id": "amritsar_jallianwala",
+          "name": "Jallianwala Bagh",
+          "type": "history",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "amritsar_wagah",
+          "name": "Wagah Border Ceremony",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 200
+        },
+        {
+          "id": "amritsar_partition",
+          "name": "Partition Museum",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 200
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_amritsar_luxury",
+          "name": "Amritsar Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_amritsar_midrange",
+          "name": "Amritsar Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_amritsar_budget",
+          "name": "Amritsar Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_amritsar_local",
+          "name": "Amritsar Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "kolkata",
+      "name": "Kolkata",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 22.5726,
+        "lng": 88.3639
+      },
+      "attractions": [
+        {
+          "id": "kolkata_victoria",
+          "name": "Victoria Memorial",
+          "type": "landmark",
+          "rating": 4.6,
+          "price": 500
+        },
+        {
+          "id": "kolkata_howrah",
+          "name": "Howrah Bridge",
+          "type": "landmark",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "kolkata_college_st",
+          "name": "College Street Book Market",
+          "type": "culture",
+          "rating": 4.7,
+          "price": 20
+        },
+        {
+          "id": "kolkata_princep",
+          "name": "Prinsep Ghat at Dusk",
+          "type": "hidden_gem",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_kolkata_luxury",
+          "name": "Kolkata Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_kolkata_midrange",
+          "name": "Kolkata Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_kolkata_budget",
+          "name": "Kolkata Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_kolkata_local",
+          "name": "Kolkata Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "hyderabad",
+      "name": "Hyderabad",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 17.385,
+        "lng": 78.4867
+      },
+      "attractions": [
+        {
+          "id": "hyderabad_charminar",
+          "name": "Charminar",
+          "type": "landmark",
+          "rating": 4.5,
+          "price": 25
+        },
+        {
+          "id": "hyderabad_golconda",
+          "name": "Golconda Fort",
+          "type": "history",
+          "rating": 4.6,
+          "price": 500
+        },
+        {
+          "id": "hyderabad_laad",
+          "name": "Laad Bazaar & Irani Cafes",
+          "type": "culture",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "hyderabad_taramati",
+          "name": "Taramati Baradari",
+          "type": "hidden_gem",
+          "rating": 4.7,
+          "price": 10
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_hyderabad_luxury",
+          "name": "Hyderabad Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_hyderabad_midrange",
+          "name": "Hyderabad Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_hyderabad_budget",
+          "name": "Hyderabad Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_hyderabad_local",
+          "name": "Hyderabad Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "bangalore",
+      "name": "Bangalore",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 12.9716,
+        "lng": 77.5946
+      },
+      "attractions": [
+        {
+          "id": "bangalore_lalbagh",
+          "name": "Lalbagh Botanical Garden",
+          "type": "nature",
+          "rating": 4.5,
+          "price": 20
+        },
+        {
+          "id": "bangalore_iskcon",
+          "name": "ISKCON Temple Bangalore",
+          "type": "culture",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "bangalore_nandi_hills",
+          "name": "Nandi Hills",
+          "type": "hidden_gem",
+          "rating": 4.7,
+          "price": 20
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_bangalore_luxury",
+          "name": "Bangalore Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_bangalore_midrange",
+          "name": "Bangalore Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_bangalore_budget",
+          "name": "Bangalore Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_bangalore_local",
+          "name": "Bangalore Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "chennai",
+      "name": "Chennai",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 13.0827,
+        "lng": 80.2707
+      },
+      "attractions": [
+        {
+          "id": "chennai_marina",
+          "name": "Marina Beach",
+          "type": "nature",
+          "rating": 4.3,
+          "price": 0
+        },
+        {
+          "id": "chennai_kapaleeshwarar",
+          "name": "Kapaleeshwarar Temple",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "chennai_mahabalipuram",
+          "name": "Mahabalipuram Shore Temple",
+          "type": "history",
+          "rating": 4.6,
+          "price": 600
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_chennai_luxury",
+          "name": "Chennai Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_chennai_midrange",
+          "name": "Chennai Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_chennai_budget",
+          "name": "Chennai Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_chennai_local",
+          "name": "Chennai Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "mysore",
+      "name": "Mysore",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 12.2958,
+        "lng": 76.6394
+      },
+      "attractions": [
+        {
+          "id": "mysore_palace",
+          "name": "Mysore Palace (Amba Vilas)",
+          "type": "history",
+          "rating": 4.7,
+          "price": 200
+        },
+        {
+          "id": "mysore_chamundi",
+          "name": "Chamundeshwari Temple & Hill",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_mysore_luxury",
+          "name": "Mysore Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_mysore_midrange",
+          "name": "Mysore Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_mysore_budget",
+          "name": "Mysore Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_mysore_local",
+          "name": "Mysore Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "shimla",
+      "name": "Shimla",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 31.1048,
+        "lng": 77.1734
+      },
+      "attractions": [
+        {
+          "id": "shimla_toy_train",
+          "name": "Kalka–Shimla Toy Train",
+          "type": "landmark",
+          "rating": 4.8,
+          "price": 30
+        },
+        {
+          "id": "shimla_the_ridge",
+          "name": "The Ridge & Mall Road",
+          "type": "landmark",
+          "rating": 4.4,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_shimla_luxury",
+          "name": "Shimla Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_shimla_midrange",
+          "name": "Shimla Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_shimla_budget",
+          "name": "Shimla Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_shimla_local",
+          "name": "Shimla Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "leh",
+      "name": "Leh",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 34.1526,
+        "lng": 77.5771
+      },
+      "attractions": [
+        {
+          "id": "leh_pangong_lake",
+          "name": "Pangong Tso Lake",
+          "type": "nature",
+          "rating": 4.9,
+          "price": 400
+        },
+        {
+          "id": "leh_khardung_la",
+          "name": "Khardung La Pass",
+          "type": "nature",
+          "rating": 4.7,
+          "price": 50
+        },
+        {
+          "id": "leh_thiksey_monastery",
+          "name": "Thiksey Monastery",
+          "type": "culture",
+          "rating": 4.8,
+          "price": 50
+        },
+        {
+          "id": "leh_nubra_valley",
+          "name": "Nubra Valley & Bactrian Camels",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 400
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_leh_luxury",
+          "name": "Leh Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_leh_midrange",
+          "name": "Leh Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_leh_budget",
+          "name": "Leh Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_leh_local",
+          "name": "Leh Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "pondicherry",
+      "name": "Pondicherry",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 11.9416,
+        "lng": 79.8083
+      },
+      "attractions": [
+        {
+          "id": "pondi_auroville",
+          "name": "Auroville & The Matrimandir",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "pondi_french_quarter",
+          "name": "French Quarter (Ville Blanche)",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_pondicherry_luxury",
+          "name": "Pondicherry Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_pondicherry_midrange",
+          "name": "Pondicherry Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_pondicherry_budget",
+          "name": "Pondicherry Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_pondicherry_local",
+          "name": "Pondicherry Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "coorg",
+      "name": "Coorg (Kodagu)",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 12.3375,
+        "lng": 75.8069
+      },
+      "attractions": [],
+      "hotels": [
+        {
+          "id": "hotel_coorg_luxury",
+          "name": "Coorg (Kodagu) Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_coorg_midrange",
+          "name": "Coorg (Kodagu) Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_coorg_budget",
+          "name": "Coorg (Kodagu) Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_coorg_local",
+          "name": "Coorg (Kodagu) Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "hampi",
+      "name": "Hampi",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 15.335,
+        "lng": 76.46
+      },
+      "attractions": [
+        {
+          "id": "hampi_virupaksha",
+          "name": "Virupaksha Temple",
+          "type": "culture",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "hampi_vittala_temple",
+          "name": "Vittala Temple & Stone Chariot",
+          "type": "history",
+          "rating": 4.9,
+          "price": 600
+        },
+        {
+          "id": "hampi_matanga_hill",
+          "name": "Matanga Hill Sunrise",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_hampi_luxury",
+          "name": "Hampi Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_hampi_midrange",
+          "name": "Hampi Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_hampi_budget",
+          "name": "Hampi Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_hampi_local",
+          "name": "Hampi Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "darjeeling",
+      "name": "Darjeeling",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 27.036,
+        "lng": 88.2627
+      },
+      "attractions": [
+        {
+          "id": "darjeeling_tiger_hill",
+          "name": "Tiger Hill Sunrise",
+          "type": "nature",
+          "rating": 4.8,
+          "price": 50
+        },
+        {
+          "id": "darjeeling_toy_train",
+          "name": "Darjeeling Himalayan Railway",
+          "type": "landmark",
+          "rating": 4.8,
+          "price": 1210
+        },
+        {
+          "id": "darjeeling_tea_garden",
+          "name": "Happy Valley Tea Estate",
+          "type": "nature",
+          "rating": 4.7,
+          "price": 100
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_darjeeling_luxury",
+          "name": "Darjeeling Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_darjeeling_midrange",
+          "name": "Darjeeling Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_darjeeling_budget",
+          "name": "Darjeeling Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_darjeeling_local",
+          "name": "Darjeeling Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "gangtok",
+      "name": "Gangtok",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 27.3389,
+        "lng": 88.6065
+      },
+      "attractions": [
+        {
+          "id": "gangtok_rumtek",
+          "name": "Rumtek Monastery",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "gangtok_tsomgo",
+          "name": "Tsomgo (Changu) Lake",
+          "type": "nature",
+          "rating": 4.6,
+          "price": 200
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_gangtok_luxury",
+          "name": "Gangtok Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_gangtok_midrange",
+          "name": "Gangtok Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_gangtok_budget",
+          "name": "Gangtok Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_gangtok_local",
+          "name": "Gangtok Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "munnar",
+      "name": "Munnar",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 10.0889,
+        "lng": 77.0595
+      },
+      "attractions": [
+        {
+          "id": "munnar_eravikulam",
+          "name": "Eravikulam National Park",
+          "type": "nature",
+          "rating": 4.6,
+          "price": 125
+        },
+        {
+          "id": "munnar_anamudi_trek",
+          "name": "Anamudi Peak Trek",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 500
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_munnar_luxury",
+          "name": "Munnar Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_munnar_midrange",
+          "name": "Munnar Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_munnar_budget",
+          "name": "Munnar Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_munnar_local",
+          "name": "Munnar Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "alleppey",
+      "name": "Alleppey (Alappuzha)",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 9.4981,
+        "lng": 76.3388
+      },
+      "attractions": [
+        {
+          "id": "alleppey_houseboat",
+          "name": "Kerala Houseboat Backwaters",
+          "type": "nature",
+          "rating": 4.8,
+          "price": 8000
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_alleppey_luxury",
+          "name": "Alleppey (Alappuzha) Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_alleppey_midrange",
+          "name": "Alleppey (Alappuzha) Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_alleppey_budget",
+          "name": "Alleppey (Alappuzha) Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_alleppey_local",
+          "name": "Alleppey (Alappuzha) Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "jaisalmer",
+      "name": "Jaisalmer",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 26.9157,
+        "lng": 70.9083
+      },
+      "attractions": [
+        {
+          "id": "jaisalmer_fort",
+          "name": "Jaisalmer Fort (Sonar Qila)",
+          "type": "history",
+          "rating": 4.8,
+          "price": 250
+        },
+        {
+          "id": "jaisalmer_sam_dunes",
+          "name": "Sam Sand Dunes",
+          "type": "nature",
+          "rating": 4.6,
+          "price": 300
+        },
+        {
+          "id": "jaisalmer_kuldhara",
+          "name": "Kuldhara Abandoned Village",
+          "type": "hidden_gem",
+          "rating": 4.6,
+          "price": 50
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_jaisalmer_luxury",
+          "name": "Jaisalmer Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_jaisalmer_midrange",
+          "name": "Jaisalmer Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_jaisalmer_budget",
+          "name": "Jaisalmer Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_jaisalmer_local",
+          "name": "Jaisalmer Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "khajuraho",
+      "name": "Khajuraho",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 24.8318,
+        "lng": 79.9199
+      },
+      "attractions": [
+        {
+          "id": "khajuraho_western",
+          "name": "Khajuraho Western Group of Temples",
+          "type": "history",
+          "rating": 4.7,
+          "price": 600
+        },
+        {
+          "id": "khajuraho_raneh_falls",
+          "name": "Raneh Falls & Ken Gorge",
+          "type": "hidden_gem",
+          "rating": 4.8,
+          "price": 50
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_khajuraho_luxury",
+          "name": "Khajuraho Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_khajuraho_midrange",
+          "name": "Khajuraho Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_khajuraho_budget",
+          "name": "Khajuraho Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_khajuraho_local",
+          "name": "Khajuraho Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "manali",
+      "name": "Manali",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 32.2432,
+        "lng": 77.1892
+      },
+      "attractions": [
+        {
+          "id": "manali_rohtang",
+          "name": "Rohtang Pass",
+          "type": "nature",
+          "rating": 4.5,
+          "price": 50
+        },
+        {
+          "id": "manali_hampta_trek",
+          "name": "Hampta Pass Trek (4-Day)",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 3000
+        },
+        {
+          "id": "manali_hidimba",
+          "name": "Hidimba Devi Temple",
+          "type": "culture",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_manali_luxury",
+          "name": "Manali Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_manali_midrange",
+          "name": "Manali Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_manali_budget",
+          "name": "Manali Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_manali_local",
+          "name": "Manali Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "dharamsala",
+      "name": "Dharamsala & McLeod Ganj",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 32.219,
+        "lng": 76.3234
+      },
+      "attractions": [
+        {
+          "id": "dharamsala_dalai_lama",
+          "name": "Namgyal Monastery & Dalai Lama Temple",
+          "type": "culture",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "dharamsala_triund_trek",
+          "name": "Triund Trek",
+          "type": "nature",
+          "rating": 4.8,
+          "price": 50
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_dharamsala_luxury",
+          "name": "Dharamsala & McLeod Ganj Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_dharamsala_midrange",
+          "name": "Dharamsala & McLeod Ganj Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_dharamsala_budget",
+          "name": "Dharamsala & McLeod Ganj Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_dharamsala_local",
+          "name": "Dharamsala & McLeod Ganj Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "ooty",
+      "name": "Ooty (Udhagamandalam)",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 11.4102,
+        "lng": 76.695
+      },
+      "attractions": [
+        {
+          "id": "ooty_nilgiri_railway",
+          "name": "Nilgiri Mountain Railway",
+          "type": "landmark",
+          "rating": 4.8,
+          "price": 35
+        },
+        {
+          "id": "ooty_botanical_garden",
+          "name": "Government Botanical Garden",
+          "type": "nature",
+          "rating": 4.4,
+          "price": 30
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ooty_luxury",
+          "name": "Ooty (Udhagamandalam) Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ooty_midrange",
+          "name": "Ooty (Udhagamandalam) Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_ooty_budget",
+          "name": "Ooty (Udhagamandalam) Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_ooty_local",
+          "name": "Ooty (Udhagamandalam) Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "spiti",
+      "name": "Spiti Valley",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 32.2461,
+        "lng": 78.0338
+      },
+      "attractions": [
+        {
+          "id": "spiti_chandratal",
+          "name": "Chandratal Lake",
+          "type": "nature",
+          "rating": 4.9,
+          "price": 250
+        },
+        {
+          "id": "spiti_key_monastery",
+          "name": "Key Monastery (Ki Gompa)",
+          "type": "culture",
+          "rating": 4.8,
+          "price": 50
+        },
+        {
+          "id": "spiti_pin_valley",
+          "name": "Pin Valley National Park",
+          "type": "nature",
+          "rating": 4.7,
+          "price": 250
+        },
+        {
+          "id": "spiti_chicham",
+          "name": "Chicham Bridge & Cliff Village",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_spiti_luxury",
+          "name": "Spiti Valley Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_spiti_midrange",
+          "name": "Spiti Valley Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_spiti_budget",
+          "name": "Spiti Valley Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_spiti_local",
+          "name": "Spiti Valley Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "chopta",
+      "name": "Chopta & Tungnath",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 30.4832,
+        "lng": 79.2032
+      },
+      "attractions": [
+        {
+          "id": "chopta_tungnath",
+          "name": "Tungnath Temple & Chandrashila Peak",
+          "type": "culture",
+          "rating": 4.9,
+          "price": 0
+        },
+        {
+          "id": "chopta_deoria_tal",
+          "name": "Deoria Tal Lake Trek",
+          "type": "hidden_gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_chopta_luxury",
+          "name": "Chopta & Tungnath Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_chopta_midrange",
+          "name": "Chopta & Tungnath Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_chopta_budget",
+          "name": "Chopta & Tungnath Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_chopta_local",
+          "name": "Chopta & Tungnath Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "valleyofflowers",
+      "name": "Valley of Flowers",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 30.7289,
+        "lng": 79.6075
+      },
+      "attractions": [
+        {
+          "id": "vof_valley",
+          "name": "Valley of Flowers Trek",
+          "type": "nature",
+          "rating": 4.9,
+          "price": 200
+        },
+        {
+          "id": "vof_hemkund",
+          "name": "Hemkund Sahib Gurudwara",
+          "type": "culture",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_valleyofflowers_luxury",
+          "name": "Valley of Flowers Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_valleyofflowers_midrange",
+          "name": "Valley of Flowers Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_valleyofflowers_budget",
+          "name": "Valley of Flowers Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_valleyofflowers_local",
+          "name": "Valley of Flowers Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "kochi",
+      "name": "Kochi (Cochin)",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 9.9312,
+        "lng": 76.2673
+      },
+      "attractions": [
+        {
+          "id": "kochi_chinese_nets",
+          "name": "Chinese Fishing Nets at Fort Kochi",
+          "type": "landmark",
+          "rating": 4.5,
+          "price": 50
+        },
+        {
+          "id": "kochi_mattancherry",
+          "name": "Mattancherry & Paradesi Synagogue",
+          "type": "history",
+          "rating": 4.4,
+          "price": 5
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_kochi_luxury",
+          "name": "Kochi (Cochin) Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_kochi_midrange",
+          "name": "Kochi (Cochin) Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_kochi_budget",
+          "name": "Kochi (Cochin) Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_kochi_local",
+          "name": "Kochi (Cochin) Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "nainital",
+      "name": "Nainital",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 29.3919,
+        "lng": 79.4542
+      },
+      "attractions": [
+        {
+          "id": "nainital_naini_lake",
+          "name": "Naini Lake & Boat Rides",
+          "type": "nature",
+          "rating": 4.4,
+          "price": 80
+        },
+        {
+          "id": "nainital_snow_view",
+          "name": "Snow View Point & Cable Car",
+          "type": "nature",
+          "rating": 4.3,
+          "price": 280
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_nainital_luxury",
+          "name": "Nainital Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_nainital_midrange",
+          "name": "Nainital Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_nainital_budget",
+          "name": "Nainital Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_nainital_local",
+          "name": "Nainital Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "goa",
+      "name": "Goa",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 15.2993,
+        "lng": 74.124
+      },
+      "attractions": [
+        {
+          "id": "goa_bomjesus",
+          "name": "Basilica of Bom Jesus",
+          "type": "culture",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "goa_fortagauda",
+          "name": "Fort Aguada",
+          "type": "history",
+          "rating": 4.4,
+          "price": 100
+        },
+        {
+          "id": "goa_dudhsagar",
+          "name": "Dudhsagar Falls",
+          "type": "nature",
+          "rating": 4.7,
+          "price": 400
+        },
+        {
+          "id": "goa_cabo_de_rama",
+          "name": "Cabo de Rama Fort",
+          "type": "hidden_gem",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_goa_luxury",
+          "name": "Goa Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_goa_midrange",
+          "name": "Goa Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_goa_budget",
+          "name": "Goa Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_goa_local",
+          "name": "Goa Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "haridwar",
+      "name": "Haridwar",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 29.9457,
+        "lng": 78.1642
+      },
+      "attractions": [],
+      "hotels": [
+        {
+          "id": "hotel_haridwar_luxury",
+          "name": "Haridwar Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_haridwar_midrange",
+          "name": "Haridwar Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_haridwar_budget",
+          "name": "Haridwar Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_haridwar_local",
+          "name": "Haridwar Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "rishikesh",
+      "name": "Rishikesh",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 30.0869,
+        "lng": 78.2676
+      },
+      "attractions": [],
+      "hotels": [
+        {
+          "id": "hotel_rishikesh_luxury",
+          "name": "Rishikesh Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_rishikesh_midrange",
+          "name": "Rishikesh Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_rishikesh_budget",
+          "name": "Rishikesh Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_rishikesh_local",
+          "name": "Rishikesh Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "kedarnath",
+      "name": "Kedarnath",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 30.7346,
+        "lng": 79.0669
+      },
+      "attractions": [
+        {
+          "id": "kedarnath_temple",
+          "name": "Kedarnath Temple",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_kedarnath_luxury",
+          "name": "Kedarnath Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_kedarnath_midrange",
+          "name": "Kedarnath Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_kedarnath_budget",
+          "name": "Kedarnath Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_kedarnath_local",
+          "name": "Kedarnath Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "badrinath",
+      "name": "Badrinath",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 30.7433,
+        "lng": 79.4938
+      },
+      "attractions": [
+        {
+          "id": "badrinath_temple",
+          "name": "Badrinath Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_badrinath_luxury",
+          "name": "Badrinath Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_badrinath_midrange",
+          "name": "Badrinath Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_badrinath_budget",
+          "name": "Badrinath Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_badrinath_local",
+          "name": "Badrinath Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "gangotri",
+      "name": "Gangotri",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 30.9947,
+        "lng": 78.9398
+      },
+      "attractions": [
+        {
+          "id": "gangotri_temple",
+          "name": "Gangotri Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_gangotri_luxury",
+          "name": "Gangotri Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_gangotri_midrange",
+          "name": "Gangotri Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_gangotri_budget",
+          "name": "Gangotri Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_gangotri_local",
+          "name": "Gangotri Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "yamunotri",
+      "name": "Yamunotri",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 31.0146,
+        "lng": 78.4609
+      },
+      "attractions": [
+        {
+          "id": "yamunotri_temple",
+          "name": "Yamunotri Temple",
+          "type": "temple",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_yamunotri_luxury",
+          "name": "Yamunotri Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_yamunotri_midrange",
+          "name": "Yamunotri Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_yamunotri_budget",
+          "name": "Yamunotri Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_yamunotri_local",
+          "name": "Yamunotri Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "mathura",
+      "name": "Mathura",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 27.4924,
+        "lng": 77.6737
+      },
+      "attractions": [
+        {
+          "id": "mathura_krishnajanmabhoomi",
+          "name": "Shri Krishna Janmasthan Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_mathura_luxury",
+          "name": "Mathura Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_mathura_midrange",
+          "name": "Mathura Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_mathura_budget",
+          "name": "Mathura Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_mathura_local",
+          "name": "Mathura Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "vrindavan",
+      "name": "Vrindavan",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 27.5652,
+        "lng": 77.69
+      },
+      "attractions": [
+        {
+          "id": "vrindavan_bankebihari",
+          "name": "Shri Banke Bihari Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_vrindavan_luxury",
+          "name": "Vrindavan Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_vrindavan_midrange",
+          "name": "Vrindavan Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_vrindavan_budget",
+          "name": "Vrindavan Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_vrindavan_local",
+          "name": "Vrindavan Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "ayodhya",
+      "name": "Ayodhya",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 26.799,
+        "lng": 82.2042
+      },
+      "attractions": [
+        {
+          "id": "ayodhya_ramjanmabhoomi",
+          "name": "Shri Ram Janmabhoomi Mandir",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ayodhya_luxury",
+          "name": "Ayodhya Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ayodhya_midrange",
+          "name": "Ayodhya Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_ayodhya_budget",
+          "name": "Ayodhya Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_ayodhya_local",
+          "name": "Ayodhya Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "ujjain",
+      "name": "Ujjain",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 23.1765,
+        "lng": 75.7885
+      },
+      "attractions": [
+        {
+          "id": "ujjain_mahakaleshwar",
+          "name": "Mahakaleshwar Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 0
+        },
+        {
+          "id": "omkareshwar_temple",
+          "name": "Omkareshwar Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ujjain_luxury",
+          "name": "Ujjain Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ujjain_midrange",
+          "name": "Ujjain Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_ujjain_budget",
+          "name": "Ujjain Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_ujjain_local",
+          "name": "Ujjain Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "shirdi",
+      "name": "Shirdi",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 19.7645,
+        "lng": 74.4762
+      },
+      "attractions": [
+        {
+          "id": "shirdi_saibaba",
+          "name": "Sai Baba Samadhi Mandir",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_shirdi_luxury",
+          "name": "Shirdi Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_shirdi_midrange",
+          "name": "Shirdi Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_shirdi_budget",
+          "name": "Shirdi Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_shirdi_local",
+          "name": "Shirdi Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "somnath",
+      "name": "Somnath",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 20.906,
+        "lng": 70.4014
+      },
+      "attractions": [
+        {
+          "id": "somnath_temple",
+          "name": "Somnath Temple",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_somnath_luxury",
+          "name": "Somnath Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_somnath_midrange",
+          "name": "Somnath Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_somnath_budget",
+          "name": "Somnath Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_somnath_local",
+          "name": "Somnath Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "dwarka",
+      "name": "Dwarka",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 22.2394,
+        "lng": 68.9674
+      },
+      "attractions": [
+        {
+          "id": "dwarkadhish_temple",
+          "name": "Dwarkadhish Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "dwarka_nageshwar",
+          "name": "Nageshwar Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_dwarka_luxury",
+          "name": "Dwarka Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_dwarka_midrange",
+          "name": "Dwarka Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_dwarka_budget",
+          "name": "Dwarka Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_dwarka_local",
+          "name": "Dwarka Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "nashik",
+      "name": "Nashik",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 19.9975,
+        "lng": 73.7898
+      },
+      "attractions": [
+        {
+          "id": "nashik_trimbakeshwar",
+          "name": "Trimbakeshwar Shiva Temple",
+          "type": "temple",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "bhimashankar_temple",
+          "name": "Bhimashankar Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "grishneshwar_temple",
+          "name": "Grishneshwar Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_nashik_luxury",
+          "name": "Nashik Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_nashik_midrange",
+          "name": "Nashik Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_nashik_budget",
+          "name": "Nashik Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_nashik_local",
+          "name": "Nashik Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "tirupati",
+      "name": "Tirupati",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 13.6288,
+        "lng": 79.4192
+      },
+      "attractions": [
+        {
+          "id": "tirupati_balaji",
+          "name": "Tirupati Balaji (Venkateswara Temple)",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 300
+        },
+        {
+          "id": "srisailam_mallikarjuna",
+          "name": "Mallikarjuna Jyotirlinga Temple",
+          "type": "temple",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_tirupati_luxury",
+          "name": "Tirupati Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_tirupati_midrange",
+          "name": "Tirupati Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_tirupati_budget",
+          "name": "Tirupati Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_tirupati_local",
+          "name": "Tirupati Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "puri",
+      "name": "Puri",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 19.8135,
+        "lng": 85.8312
+      },
+      "attractions": [
+        {
+          "id": "puri_jagannath",
+          "name": "Jagannath Temple",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_puri_luxury",
+          "name": "Puri Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_puri_midrange",
+          "name": "Puri Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_puri_budget",
+          "name": "Puri Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_puri_local",
+          "name": "Puri Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "rameswaram",
+      "name": "Rameswaram",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 9.2876,
+        "lng": 79.3129
+      },
+      "attractions": [
+        {
+          "id": "rameswaram_ramanathaswamy",
+          "name": "Ramanathaswamy Temple",
+          "type": "temple",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_rameswaram_luxury",
+          "name": "Rameswaram Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_rameswaram_midrange",
+          "name": "Rameswaram Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_rameswaram_budget",
+          "name": "Rameswaram Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_rameswaram_local",
+          "name": "Rameswaram Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "madurai",
+      "name": "Madurai",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 9.9252,
+        "lng": 78.1198
+      },
+      "attractions": [],
+      "hotels": [
+        {
+          "id": "hotel_madurai_luxury",
+          "name": "Madurai Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_madurai_midrange",
+          "name": "Madurai Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_madurai_budget",
+          "name": "Madurai Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_madurai_local",
+          "name": "Madurai Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "kanchipuram",
+      "name": "Kanchipuram",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 12.8185,
+        "lng": 79.6947
+      },
+      "attractions": [],
+      "hotels": [
+        {
+          "id": "hotel_kanchipuram_luxury",
+          "name": "Kanchipuram Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_kanchipuram_midrange",
+          "name": "Kanchipuram Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_kanchipuram_budget",
+          "name": "Kanchipuram Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_kanchipuram_local",
+          "name": "Kanchipuram Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "pushkar",
+      "name": "Pushkar",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 26.4897,
+        "lng": 74.5511
+      },
+      "attractions": [],
+      "hotels": [
+        {
+          "id": "hotel_pushkar_luxury",
+          "name": "Pushkar Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_pushkar_midrange",
+          "name": "Pushkar Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_pushkar_budget",
+          "name": "Pushkar Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_pushkar_local",
+          "name": "Pushkar Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    },
+    {
+      "id": "katra",
+      "name": "Katra (Vaishno Devi)",
+      "bestSeason": "October - March",
+      "coordinates": {
+        "lat": 32.9915,
+        "lng": 74.931
+      },
+      "attractions": [
+        {
+          "id": "katra_vaishnodevi",
+          "name": "Mata Vaishno Devi Temple",
+          "type": "temple",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_katra_luxury",
+          "name": "Katra (Vaishno Devi) Palace Hotel",
+          "category": "luxury",
+          "price": 8500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_katra_midrange",
+          "name": "Katra (Vaishno Devi) Heritage Inn",
+          "category": "mid-range",
+          "price": 3500,
+          "rating": 4.4
+        },
+        {
+          "id": "hotel_katra_budget",
+          "name": "Katra (Vaishno Devi) Tourist Lodge",
+          "category": "budget",
+          "price": 1500,
+          "rating": 4.1
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_katra_local",
+          "name": "Katra (Vaishno Devi) Traditional Diner",
+          "cuisine": "Indian",
+          "priceCategory": "$$"
+        }
+      ]
+    }
+  ]
 }

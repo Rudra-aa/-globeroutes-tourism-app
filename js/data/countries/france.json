@@ -1,6 +1,437 @@
 {
-  "country": "france",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "France",
+  "code": "FR",
+  "currency": {
+    "code": "EUR",
+    "symbol": "€"
+  },
+  "cities": [
+    {
+      "id": "paris",
+      "name": "Paris",
+      "bestSeason": "April - June",
+      "coordinates": {
+        "lat": 48.8566,
+        "lng": 2.3522
+      },
+      "attractions": [
+        {
+          "id": "paris_eiffel",
+          "name": "Eiffel Tower",
+          "type": "Monument",
+          "rating": 4.8,
+          "price": 27
+        },
+        {
+          "id": "paris_louvre",
+          "name": "Louvre Museum",
+          "type": "Museum",
+          "rating": 4.7,
+          "price": 17
+        },
+        {
+          "id": "paris_notredame",
+          "name": "Notre-Dame Cathedral",
+          "type": "Monument",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "paris_sainte_chapelle",
+          "name": "Sainte-Chapelle",
+          "type": "Gothic Chapel",
+          "rating": 4.8,
+          "price": 12
+        },
+        {
+          "id": "paris_thermopyles",
+          "name": "Rue des Thermopyles",
+          "type": "Hidden Gem",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_crillon",
+          "name": "Hôtel de Crillon",
+          "category": "luxury",
+          "price": 1800,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_meurice",
+          "name": "Le Meurice",
+          "category": "luxury",
+          "price": 1500,
+          "rating": 4.7
+        },
+        {
+          "id": "hotel_cheval_blanc",
+          "name": "Cheval Blanc Paris",
+          "category": "luxury",
+          "price": 2500,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_grand_mazarin",
+          "name": "Le Grand Mazarin",
+          "category": "luxury",
+          "price": 650,
+          "rating": 4.6
+        },
+        {
+          "id": "hotel_chateau_fleurs",
+          "name": "Le Château des Fleurs",
+          "category": "luxury",
+          "price": 750,
+          "rating": 4.6
+        },
+        {
+          "id": "hotel_fantaisie",
+          "name": "La Fantaisie",
+          "category": "luxury",
+          "price": 500,
+          "rating": 4.5
+        },
+        {
+          "id": "hotel_barriere_vendome",
+          "name": "Maison Barrière Vendôme",
+          "category": "luxury",
+          "price": 1200,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_grand_cayre",
+          "name": "Le Grand Hôtel Cayré",
+          "category": "luxury",
+          "price": 600,
+          "rating": 4.6
+        },
+        {
+          "id": "hotel_villa_pres",
+          "name": "Villa-des-Prés",
+          "category": "luxury",
+          "price": 550,
+          "rating": 4.5
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_french_haute",
+          "name": "French Haute Cuisine dining",
+          "cuisine": "French",
+          "priceCategory": "$$$$"
+        }
+      ]
+    },
+    {
+      "id": "versailles",
+      "name": "Versailles",
+      "bestSeason": "April - June",
+      "coordinates": {
+        "lat": 48.8049,
+        "lng": 2.1343
+      },
+      "attractions": [
+        {
+          "id": "us_versailles",
+          "name": "Palace of Versailles",
+          "type": "Palace",
+          "rating": 4.8,
+          "price": 20
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_airelles_versailles",
+          "name": "Airelles Château de Versailles",
+          "category": "luxury",
+          "price": 3000,
+          "rating": 4.9
+        }
+      ]
+    },
+    {
+      "id": "normandy",
+      "name": "Normandy",
+      "bestSeason": "May - September",
+      "coordinates": {
+        "lat": 48.6361,
+        "lng": -1.5115
+      },
+      "attractions": [
+        {
+          "id": "us_mont_saint_michel",
+          "name": "Mont Saint-Michel",
+          "type": "Island Abbey",
+          "rating": 4.8,
+          "price": 15
+        },
+        {
+          "id": "us_dday_beaches",
+          "name": "D-Day Beaches",
+          "type": "Historical Site",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_relais_saint_michel",
+          "name": "Le Relais Saint-Michel",
+          "category": "mid-range",
+          "price": 220,
+          "rating": 4.3
+        }
+      ]
+    },
+    {
+      "id": "nice",
+      "name": "Nice",
+      "bestSeason": "June - September",
+      "coordinates": {
+        "lat": 43.7102,
+        "lng": 7.2620
+      },
+      "attractions": [
+        {
+          "id": "nice_promenade",
+          "name": "Promenade des Anglais",
+          "type": "Seaside Walk",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "nice_cascade",
+          "name": "Cascade de Gairaut",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "us_french_riviera",
+          "name": "French Riviera Coastline",
+          "type": "Coastal Region",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "us_sainte_agnes",
+          "name": "Sainte-Agnès medieval village",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_cap_eden_roc",
+          "name": "Hôtel du Cap-Eden-Roc",
+          "category": "luxury",
+          "price": 2000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_chevre_dor",
+          "name": "Château de la Chèvre d'Or",
+          "category": "luxury",
+          "price": 950,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_cap_estel",
+          "name": "Cap Estel Resort",
+          "category": "luxury",
+          "price": 2200,
+          "rating": 4.9
+        }
+      ],
+      "restaurants": [
+        {
+          "id": "food_provencal",
+          "name": "Provencal Seafood dinner",
+          "cuisine": "Provencal",
+          "priceCategory": "$$$"
+        }
+      ]
+    },
+    {
+      "id": "chamonix",
+      "name": "Chamonix-Mont-Blanc",
+      "bestSeason": "December - March",
+      "coordinates": {
+        "lat": 45.9227,
+        "lng": 6.8685
+      },
+      "attractions": [
+        {
+          "id": "chamonix_aiguille",
+          "name": "Aiguille du Midi Cable Car",
+          "type": "Landmark",
+          "rating": 4.9,
+          "price": 75
+        },
+        {
+          "id": "us_alps_ski",
+          "name": "Alps Ski Resort slopes",
+          "type": "Mountain Resort",
+          "rating": 4.8,
+          "price": 60
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_airelles_courchevel",
+          "name": "Les Airelles Courchevel",
+          "category": "luxury",
+          "price": 2500,
+          "rating": 4.9
+        }
+      ]
+    },
+    {
+      "id": "provence",
+      "name": "Provence",
+      "bestSeason": "June - July",
+      "coordinates": {
+        "lat": 43.8329,
+        "lng": 5.2638
+      },
+      "attractions": [
+        {
+          "id": "us_lavender_fields",
+          "name": "Provence Lavender Fields",
+          "type": "Natural Wonder",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "us_camargue",
+          "name": "The Camargue wetlands",
+          "type": "Hidden Gem",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "us_montpellier_le_vieux",
+          "name": "Chaos of Montpellier-le-Vieux",
+          "type": "Hidden Gem",
+          "rating": 4.6,
+          "price": 8
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_bastide_gordes",
+          "name": "La Bastide de Gordes",
+          "category": "luxury",
+          "price": 750,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "bordeaux",
+      "name": "Bordeaux",
+      "bestSeason": "September - October",
+      "coordinates": {
+        "lat": 44.8378,
+        "lng": -0.5792
+      },
+      "attractions": [
+        {
+          "id": "us_chambord",
+          "name": "Château de Chambord",
+          "type": "Renaissance Château",
+          "rating": 4.7,
+          "price": 15
+        },
+        {
+          "id": "us_padirac",
+          "name": "Gouffre de Padirac",
+          "type": "Hidden Gem",
+          "rating": 4.8,
+          "price": 18
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_sources_caudalie",
+          "name": "Les Sources de Caudalie",
+          "category": "luxury",
+          "price": 550,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "nancy",
+      "name": "Nancy",
+      "bestSeason": "April - October",
+      "coordinates": {
+        "lat": 48.6921,
+        "lng": 6.1844
+      },
+      "attractions": [
+        {
+          "id": "us_stanislas",
+          "name": "Place Stanislas",
+          "type": "UNESCO Square",
+          "rating": 4.8,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_reine_nancy",
+          "name": "Grand Hôtel de la Reine",
+          "category": "mid-range",
+          "price": 180,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "brittany",
+      "name": "Brittany",
+      "bestSeason": "June - September",
+      "coordinates": {
+        "lat": 48.4722,
+        "lng": -2.7667
+      },
+      "attractions": [
+        {
+          "id": "us_granit_rose",
+          "name": "Côte de Granit Rose",
+          "type": "Pink Granite Coast",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "us_gavrinis",
+          "name": "Gavrinis Neolithic Cairn",
+          "type": "Hidden Gem",
+          "rating": 4.6,
+          "price": 15
+        },
+        {
+          "id": "us_rochers_rotheneuf",
+          "name": "Rochers Sculptés de Rothéneuf",
+          "type": "Hidden Gem",
+          "rating": 4.5,
+          "price": 5
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_castelbrac",
+          "name": "Castelbrac",
+          "category": "luxury",
+          "price": 380,
+          "rating": 4.7
+        }
+      ]
+    }
+  ]
 }

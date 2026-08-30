@@ -123,7 +123,7 @@ class AuraMemory {
     const isTripIntent = tripIntents.includes(newIntent);
     const prevIsTripIntent = tripIntents.includes(prevIntent);
 
-    const text = rawInput.toLowerCase().trim();
+    const text = (rawInput || '').toLowerCase().trim();
     const isGenericStart = (newIntent === 'trip_planning' && (text === 'plan trip' || text === 'plan a trip' || text === 'start planning' || text === 'trip planner')) ||
                            (newIntent === 'route_comparison' && (text === 'compare routes' || text === 'route planner' || text === 'directions'));
 

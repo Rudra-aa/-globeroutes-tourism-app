@@ -1,6 +1,509 @@
 {
-  "country": "uae",
-  "code": "XX",
-  "currency": { "code": "XXX", "symbol": "X" },
-  "cities": []
+  "country": "United Arab Emirates",
+  "code": "AE",
+  "currency": {
+    "code": "AED",
+    "symbol": "د.إ"
+  },
+  "cities": [
+    {
+      "id": "dubai",
+      "name": "Dubai",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 25.2048,
+        "lng": 55.2708
+      },
+      "attractions": [
+        {
+          "id": "ae_dubai_burj_khalifa",
+          "name": "Burj Khalifa",
+          "type": "Skyscraper",
+          "rating": 4.8,
+          "price": 179
+        },
+        {
+          "id": "ae_dubai_mall",
+          "name": "Dubai Mall",
+          "type": "Shopping & Entertainment",
+          "rating": 4.8,
+          "price": 0
+        },
+        {
+          "id": "ae_dubai_palm_jumeirah",
+          "name": "Palm Jumeirah",
+          "type": "Artificial Island",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "ae_dubai_frame",
+          "name": "Dubai Frame",
+          "type": "Observation Deck",
+          "rating": 4.6,
+          "price": 50
+        },
+        {
+          "id": "ae_dubai_global_village",
+          "name": "Global Village",
+          "type": "Cultural Festival Park",
+          "rating": 4.7,
+          "price": 25
+        },
+        {
+          "id": "ae_dubai_marina",
+          "name": "Dubai Marina",
+          "type": "Waterfront District",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "ae_dubai_al_fahidi",
+          "name": "Al Fahidi Historical District",
+          "type": "Heritage Quarter",
+          "rating": 4.5,
+          "price": 0
+        },
+        {
+          "id": "ae_dubai_ras_al_khor",
+          "name": "Ras Al Khor Wildlife Sanctuary",
+          "type": "Wetland Reserve",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "ae_dubai_creek",
+          "name": "Dubai Creek & Old Souks",
+          "type": "Traditional Trading Hub",
+          "rating": 4.7,
+          "price": 2
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_dubai_burj_al_arab",
+          "name": "Burj Al Arab Jumeirah",
+          "category": "luxury",
+          "price": 4000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ae_dubai_atlantis_royal",
+          "name": "Atlantis The Royal",
+          "category": "luxury",
+          "price": 3000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ae_dubai_one_only_palm",
+          "name": "One&Only The Palm",
+          "category": "luxury",
+          "price": 2500,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ae_dubai_armani",
+          "name": "Armani Hotel Dubai",
+          "category": "luxury",
+          "price": 2000,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ae_dubai_raffles_palm",
+          "name": "Raffles The Palm Dubai",
+          "category": "luxury",
+          "price": 3000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ae_dubai_al_maha",
+          "name": "Al Maha Desert Resort",
+          "category": "luxury",
+          "price": 4000,
+          "rating": 4.9
+        },
+        {
+          "id": "hotel_ae_dubai_arabian_boutique",
+          "name": "Arabian Boutique Hotel",
+          "category": "mid-range",
+          "price": 500,
+          "rating": 4.6
+        },
+        {
+          "id": "hotel_ae_dubai_one_only_zaabeel",
+          "name": "One&Only One Za'abeel",
+          "category": "luxury",
+          "price": 2000,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ae_dubai_lana",
+          "name": "The Lana - Dorchester Collection",
+          "category": "luxury",
+          "price": 2000,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ae_dubai_gran_melia",
+          "name": "Gran Meliá Dubai Jumeirah",
+          "category": "luxury",
+          "price": 1500,
+          "rating": 4.7
+        }
+      ]
+    },
+    {
+      "id": "abu_dhabi",
+      "name": "Abu Dhabi",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 24.4539,
+        "lng": 54.3773
+      },
+      "attractions": [
+        {
+          "id": "ae_abu_dhabi_louvre",
+          "name": "Louvre Abu Dhabi",
+          "type": "Art Museum",
+          "rating": 4.8,
+          "price": 63
+        },
+        {
+          "id": "ae_abu_dhabi_mosque",
+          "name": "Sheikh Zayed Grand Mosque",
+          "type": "Mosque",
+          "rating": 4.9,
+          "price": 0
+        },
+        {
+          "id": "ae_abu_dhabi_ferrari_world",
+          "name": "Ferrari World Abu Dhabi",
+          "type": "Theme Park",
+          "rating": 4.7,
+          "price": 310
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_abu_dhabi_emirates_palace",
+          "name": "Emirates Palace Mandarin Oriental",
+          "category": "luxury",
+          "price": 2500,
+          "rating": 4.9
+        }
+      ]
+    },
+    {
+      "id": "al_ain",
+      "name": "Al Ain",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 24.2075,
+        "lng": 55.7447
+      },
+      "attractions": [
+        {
+          "id": "ae_al_ain_oasis",
+          "name": "Al Ain Oasis",
+          "type": "UNESCO World Heritage",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "ae_al_ain_hafeet",
+          "name": "Jebel Hafeet & Hot Springs",
+          "type": "Mountain Peak",
+          "rating": 4.7,
+          "price": 0
+        },
+        {
+          "id": "ae_al_ain_jahili_fort",
+          "name": "Al Jahili Fort",
+          "type": "Historic Fort",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_al_ain_radisson",
+          "name": "Radisson Blu Hotel Al Ain",
+          "category": "mid-range",
+          "price": 400,
+          "rating": 4.4
+        }
+      ]
+    },
+    {
+      "id": "hatta",
+      "name": "Hatta",
+      "bestSeason": "October - April",
+      "coordinates": {
+        "lat": 24.8197,
+        "lng": 56.1264
+      },
+      "attractions": [
+        {
+          "id": "ae_hatta_dam",
+          "name": "Hatta Heritage Village & Dam",
+          "type": "Mountain Heritage",
+          "rating": 4.7,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_hatta_fort",
+          "name": "JA Hatta Fort Hotel",
+          "category": "luxury",
+          "price": 700,
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "id": "sharjah",
+      "name": "Sharjah",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 25.3463,
+        "lng": 55.4209
+      },
+      "attractions": [
+        {
+          "id": "ae_sharjah_mleiha",
+          "name": "Mleiha Archaeological Centre",
+          "type": "Prehistoric Desert",
+          "rating": 4.6,
+          "price": 25
+        },
+        {
+          "id": "ae_sharjah_al_madam",
+          "name": "Al Madam Ghost Town",
+          "type": "Abandoned Village",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_sharjah_chedi",
+          "name": "The Chedi Al Bait Sharjah",
+          "category": "luxury",
+          "price": 800,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "kalba",
+      "name": "Kalba",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 25.0427,
+        "lng": 56.3541
+      },
+      "attractions": [
+        {
+          "id": "ae_kalba_reserve",
+          "name": "Kalba Conservation Reserve",
+          "type": "Mangrove Sanctuary",
+          "rating": 4.6,
+          "price": 15
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_kalba_kingfisher",
+          "name": "Kingfisher Retreat by Sharjah Collection",
+          "category": "luxury",
+          "price": 1200,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "ras_al_khaimah",
+      "name": "Ras Al Khaimah",
+      "bestSeason": "October - April",
+      "coordinates": {
+        "lat": 25.7895,
+        "lng": 55.9432
+      },
+      "attractions": [
+        {
+          "id": "ae_rak_jebel_jais",
+          "name": "Jebel Jais & World's Longest Zipline",
+          "type": "Mountain Adventure",
+          "rating": 4.8,
+          "price": 350
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_rak_janu",
+          "name": "Janu Ras Al Khaimah",
+          "category": "luxury",
+          "price": 1500,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ae_rak_armani",
+          "name": "Giorgio Armani Resort Ras Al Khaimah",
+          "category": "luxury",
+          "price": 1800,
+          "rating": 4.8
+        },
+        {
+          "id": "hotel_ae_rak_so",
+          "name": "SO/ Ras Al Khaimah",
+          "category": "luxury",
+          "price": 800,
+          "rating": 4.7
+        }
+      ]
+    },
+    {
+      "id": "fujairah",
+      "name": "Fujairah",
+      "bestSeason": "October - April",
+      "coordinates": {
+        "lat": 25.1288,
+        "lng": 56.3265
+      },
+      "attractions": [
+        {
+          "id": "ae_fujairah_fort",
+          "name": "Fujairah Fort & Al Badiyah Mosque",
+          "type": "Historic Coastal",
+          "rating": 4.6,
+          "price": 0
+        },
+        {
+          "id": "ae_fujairah_snoopy",
+          "name": "Snoopy Island snorkeling",
+          "type": "Natural Reef",
+          "rating": 4.5,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_fujairah_fairmont",
+          "name": "Fairmont Fujairah Beach Resort",
+          "category": "luxury",
+          "price": 600,
+          "rating": 4.6
+        }
+      ]
+    },
+    {
+      "id": "liwa_oasis",
+      "name": "Liwa Oasis",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 23.1311,
+        "lng": 53.7592
+      },
+      "attractions": [
+        {
+          "id": "ae_liwa_oasis_desert",
+          "name": "Liwa Oasis & Empty Quarter",
+          "type": "Desert Wilderness",
+          "rating": 4.9,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_liwa_qasr_al_sarab",
+          "name": "Qasr Al Sarab Desert Resort",
+          "category": "luxury",
+          "price": 1500,
+          "rating": 4.9
+        }
+      ]
+    },
+    {
+      "id": "al_marmoom",
+      "name": "Al Marmoom",
+      "bestSeason": "November - March",
+      "coordinates": {
+        "lat": 24.8318,
+        "lng": 55.3302
+      },
+      "attractions": [
+        {
+          "id": "ae_al_marmoom_reserve",
+          "name": "Al Marmoom Conservation Reserve & Lakes",
+          "type": "Desert Wildlife",
+          "rating": 4.6,
+          "price": 0
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_al_marmoom_bab_al_shams",
+          "name": "Bab Al Shams Desert Resort",
+          "category": "luxury",
+          "price": 1200,
+          "rating": 4.8
+        }
+      ]
+    },
+    {
+      "id": "umm_al_quwain",
+      "name": "Umm Al Quwain",
+      "bestSeason": "October - April",
+      "coordinates": {
+        "lat": 25.5647,
+        "lng": 55.5534
+      },
+      "attractions": [
+        {
+          "id": "ae_uaq_old_town",
+          "name": "Umm Al Quwain Old Town & Fort",
+          "type": "Pre-Oil UAE Heritage",
+          "rating": 4.4,
+          "price": 4
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_uaq_vida",
+          "name": "Vida Beach Resort Umm Al Quwain",
+          "category": "luxury",
+          "price": 500,
+          "rating": 4.5
+        }
+      ]
+    },
+    {
+      "id": "ajman",
+      "name": "Ajman",
+      "bestSeason": "October - April",
+      "coordinates": {
+        "lat": 25.4111,
+        "lng": 55.445
+      },
+      "attractions": [
+        {
+          "id": "ae_ajman_museum",
+          "name": "Ajman Museum & Corniche",
+          "type": "Historic Fort",
+          "rating": 4.5,
+          "price": 5
+        }
+      ],
+      "hotels": [
+        {
+          "id": "hotel_ae_ajman_saray",
+          "name": "Ajman Saray, a Luxury Collection Resort",
+          "category": "luxury",
+          "price": 600,
+          "rating": 4.6
+        }
+      ]
+    }
+  ]
 }

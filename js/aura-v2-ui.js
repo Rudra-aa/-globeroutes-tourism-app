@@ -6,12 +6,15 @@
 
 class AuraV2UI {
   constructor() {
-    this.chatWindow = document.getElementById('integratedAuraChatWindow') || document.getElementById('auraChatWindow') || this.createChatWindow();
-    this.inputBox = document.getElementById('integratedAuraInputBox') || document.getElementById('auraInputBox') || this.createInputBox();
+    this.chatWindow = document.getElementById('chatWindow') || document.getElementById('integratedAuraChatWindow') || this.createChatWindow();
+    this.inputBox = document.getElementById('auraInput') || document.getElementById('integratedAuraInputBox') || this.createInputBox();
     this.voiceBtn = null;
-    this.sendBtn = null;
+    this.sendBtn = document.getElementById('sendBtn');
     this.isListening = false;
     this.setupEventListeners();
+    setTimeout(() => {
+      this.updateDestinationPill();
+    }, 100);
   }
 
   /**
@@ -90,16 +93,16 @@ class AuraV2UI {
    * Setup event listeners
    */
   setupEventListeners() {
-    const userInput = document.getElementById('integratedAuraInput') || document.getElementById('auraUserInput') || 
+    const userInput = document.getElementById('auraInput') || document.getElementById('integratedAuraInput') || 
                       this.inputBox.querySelector('input') || this.inputBox.querySelector('textarea');
-    const sendBtn = document.getElementById('integratedAuraSendBtn') || document.getElementById('auraSendBtn') || 
+    const sendBtn = document.getElementById('sendBtn') || document.getElementById('integratedAuraSendBtn') || 
                     this.inputBox.querySelector('button:last-child');
-    const voiceBtn = document.getElementById('auraMicBtn') || document.getElementById('auraVoiceBtn') || 
-                     this.inputBox.querySelector('button:nth-child(2)');
+    const voiceBtn = document.getElementById('auraMicBtn') || document.getElementById('auraVoiceBtn');
 
     if (userInput) {
       userInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
           this.handleSendMessage();
         }
       });
@@ -122,11 +125,19 @@ class AuraV2UI {
    * Handle sending message
    */
   async handleSendMessage() {
-    const userInput = document.getElementById('integratedAuraInput') || document.getElementById('auraUserInput');
+    // if (!localStorage.getItem('globeroutes_user')) {
+    //   if (window.checkAuthSession) window.checkAuthSession();
+    //   return;
+    // }
+    const userInput = document.getElementById('auraInput') || document.getElementById('integratedAuraInput') || document.getElementById('auraUserInput');
     if (!userInput || !userInput.value.trim()) return;
 
     const message = userInput.value.trim();
     userInput.value = '';
+
+    // Hide welcome screen on first message if visible
+    const welcome = document.getElementById('welcomeScreen');
+    if (welcome) welcome.style.display = 'none';
 
     // Display user message
     this.displayUserMessage(message);
@@ -154,9 +165,50 @@ class AuraV2UI {
       if (response.suggestedActions && response.suggestedActions.length > 0) {
         this.displaySuggestedActions(response.suggestedActions);
       }
+
+      // Dynamic update of destination status pill
+      this.updateDestinationPill();
+
     } catch (error) {
       console.error('Error sending message:', error);
       this.displayAuraMessage('I encountered an error. Please try again.');
+    }
+  }
+
+  /**
+   * Handle quick action chip clicks
+   */
+  handleQuickAction(text) {
+    const userInput = document.getElementById('auraInput') || document.getElementById('integratedAuraInput') || document.getElementById('auraUserInput');
+    if (userInput) {
+      userInput.value = text;
+      this.handleSendMessage();
+    }
+  }
+
+  /**
+   * Update destination status pill dynamically
+   */
+  updateDestinationPill() {
+    const dest = window.AuraV2 && window.AuraV2.memory && window.AuraV2.memory.context ? window.AuraV2.memory.context.destination : null;
+    const destPill = document.getElementById('auraDestPill');
+    const destLabel = document.getElementById('auraDestLabel');
+    if (destLabel) {
+      if (dest) {
+        destLabel.textContent = dest;
+        if (destPill) {
+          destPill.style.color = '#a78bfa';
+          destPill.style.borderColor = 'rgba(167, 139, 250, 0.3)';
+          destPill.style.background = 'rgba(167, 139, 250, 0.08)';
+        }
+      } else {
+        destLabel.textContent = 'No destination';
+        if (destPill) {
+          destPill.style.color = 'var(--text-secondary)';
+          destPill.style.borderColor = 'rgba(255,255,255,0.06)';
+          destPill.style.background = 'rgba(255,255,255,0.03)';
+        }
+      }
     }
   }
 
@@ -165,12 +217,12 @@ class AuraV2UI {
    */
   displayUserMessage(message) {
     const msgDiv = document.createElement('div');
-    msgDiv.style.cssText = 'display:flex; gap:8px; animation: fadeIn 0.3s ease; flex-direction: row-reverse;';
+    msgDiv.style.cssText = 'display:flex; gap:10px; justify-content: flex-end; animation: fadeIn 0.3s ease; margin-bottom: 8px; width: 100%;';
     msgDiv.innerHTML = `
-      <div style="background:rgba(255,255,255,0.1); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.6rem; color:var(--text-secondary);">You</div>
-      <div style="background:rgba(139,92,246,0.15); padding:10px 12px; border-radius:12px 0 12px 12px; color:var(--text-primary); border:1px solid rgba(139,92,246,0.3); line-height:1.4;">
+      <div style="background:rgba(139,92,246,0.25); padding:10px 16px; border-radius:18px 18px 0 18px; color:var(--text-primary); border:1px solid rgba(139,92,246,0.4); line-height:1.5; font-size:0.92rem; max-width:80%; word-break: break-word;">
         ${this.escapeHtml(message)}
       </div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:2px 8px; font-size:0.65rem; font-weight:700; color:#c4b5fd; text-transform:uppercase; align-self:center; flex-shrink:0; letter-spacing: 0.05em;">YOU</div>
     `;
     this.chatWindow.appendChild(msgDiv);
     this.scrollToBottom();
@@ -181,11 +233,16 @@ class AuraV2UI {
    */
   displayAuraMessage(message) {
     if (!message) return;
+    
+    // Hide welcome screen if still present
+    const welcome = document.getElementById('welcomeScreen');
+    if (welcome) welcome.style.display = 'none';
+
     const msgDiv = document.createElement('div');
-    msgDiv.style.cssText = 'display:flex; gap:8px; animation: fadeIn 0.3s ease;';
+    msgDiv.style.cssText = 'display:flex; gap:10px; animation: fadeIn 0.3s ease; margin-bottom: 8px; width: 100%;';
     msgDiv.innerHTML = `
-      <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.7rem; color:white; box-shadow:0 2px 8px rgba(139,92,246,0.3);">✨</div>
-      <div style="background:rgba(255,255,255,0.05); padding:10px 12px; border-radius:0 12px 12px 12px; color:var(--text-primary); border:1px solid var(--border-glass); line-height:1.4;">
+      <div style="background:linear-gradient(135deg, #8b5cf6, #3b82f6); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.9rem; color:white; box-shadow:0 0 10px rgba(139,92,246,0.4);">✦</div>
+      <div style="background:rgba(255,255,255,0.05); padding:12px 16px; border-radius:18px; color:var(--text-primary); border:1px solid rgba(255,255,255,0.08); line-height:1.5; font-size:0.92rem; max-width:80%; word-break: break-word;">
         ${this.escapeHtml(message).replace(/\n/g, '<br>')}
       </div>
     `;

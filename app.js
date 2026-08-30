@@ -45,6 +45,82 @@ function getTierRepresentation(tier) {
   }
 }
 
+const loadedCountriesRegistry = new Set();
+
+async function ensureCountryDataLoaded(countryId) {
+  const cid = countryId.toLowerCase();
+  if (loadedCountriesRegistry.has(cid)) return;
+  loadedCountriesRegistry.add(cid);
+  
+  if (!window.DatasetLoader) return;
+  const data = await window.DatasetLoader.loadCountryData(cid);
+  if (!data) return;
+  
+  const currencySymbol = data.currency?.symbol || '¤';
+  
+  data.cities.forEach(city => {
+    if (window.SEED_CITIES[city.id]) {
+      window.SEED_CITIES[city.id].lat = city.coordinates.lat;
+      window.SEED_CITIES[city.id].lng = city.coordinates.lng;
+    }
+    
+    if (city.attractions) {
+      city.attractions.forEach((attr, idx) => {
+        if (window.SEED_ATTRACTIONS.some(a => a.id === attr.id)) return;
+        
+        const angle = (idx * 2 * Math.PI) / (city.attractions.length || 1);
+        const radius = 0.012;
+        const lat = city.coordinates.lat + Math.sin(angle) * radius;
+        const lng = city.coordinates.lng + Math.cos(angle) * radius;
+        
+        const rating = attr.rating || 4.5;
+        let fameTier = 'blue';
+        if (rating >= 4.8) fameTier = 'red';
+        else if (rating >= 4.7) fameTier = 'orange';
+        else if (rating >= 4.6) fameTier = 'yellow';
+        else if (rating >= 4.5) fameTier = 'green';
+        
+        const fameScore = rating >= 4.8 ? 95 : rating >= 4.7 ? 85 : rating >= 4.6 ? 75 : rating >= 4.5 ? 65 : 45;
+        
+        const isUnesco = (attr.name + ' ' + (attr.type || '')).toLowerCase().includes('unesco');
+        
+        window.SEED_ATTRACTIONS.push({
+          id: attr.id,
+          name: attr.name,
+          cityId: city.id,
+          countryId: cid,
+          lat: lat,
+          lng: lng,
+          fameScore: fameScore,
+          fameTier: fameTier,
+          category: (attr.type || 'Sight').toLowerCase().includes('temple') ? 'temple' : 'landmark',
+          tagline: attr.type || 'Sights & Landmarks',
+          description: attr.notes || `${attr.name} is a renowned ${attr.type || 'attraction'} in ${city.name}.`,
+          images: ["https://images.unsplash.com/photo-1541088966800-c0197dd311b5?auto=format&fit=crop&w=600&q=80"],
+          entryFee: attr.price === 0 ? 'Free' : `${currencySymbol}${attr.price || 10}`,
+          openingHours: '09:00 AM - 06:00 PM',
+          bestSeason: city.bestSeason || 'Year-round',
+          timeNeeded: '2 Hours',
+          isUnesco: isUnesco,
+          rating: rating,
+          reviews: []
+        });
+      });
+    }
+  });
+}
+
+function updateDashboardStats() {
+  const countriesCount = Object.keys(window.SEED_COUNTRIES || {}).length;
+  const citiesCount = Object.keys(window.SEED_CITIES || {}).length;
+  
+  const countriesEl = document.getElementById('statFlagshipCountriesCount');
+  const citiesEl = document.getElementById('statPreseededCitiesCount');
+  
+  if (countriesEl) countriesEl.textContent = countriesCount;
+  if (citiesEl) citiesEl.textContent = citiesCount + "+";
+}
+
 // --- DYNAMICALLY RESOLVE TEMPLES AND METADATA ON INITIALIZATION ---
 function initializeTemplesMetadata() {
   if (!window.SEED_ATTRACTIONS) return;
@@ -137,6 +213,17 @@ function initializeTemplesMetadata() {
 
 // --- INITIALIZE ON PAGE LOAD ---
 window.addEventListener('DOMContentLoaded', () => {
+  // Initialize dashboard stats
+  updateDashboardStats();
+
+  // Pre-load country datasets in the background
+  const countriesToPreload = ['spain', 'italy', 'united_kingdom', 'uae'];
+  countriesToPreload.forEach(cid => {
+    ensureCountryDataLoaded(cid).then(() => {
+      updateDashboardStats();
+    }).catch(err => console.error('Failed to preload country:', cid, err));
+  });
+
   // Initialize temples categories and metadata dynamically
   initializeTemplesMetadata();
 
@@ -642,7 +729,14 @@ async function payWithRazorpay() {
   switchPaymentMethod('upi');
 }
 
-// Logout functionality removed as requested
+function handleSignOut() {
+  localStorage.removeItem('globeroutes_user');
+  currentUser = null;
+  showToast('Signing you out...', 'ok');
+  setTimeout(() => {
+    window.location.reload();
+  }, 1000);
+}
 
 // Bind utilities to window
 window.toggleVis = toggleVis;
@@ -650,6 +744,7 @@ window.toggleCaptcha = toggleCaptcha;
 window.checkStrength = checkStrength;
 window.switchAuthMode = switchAuthMode;
 window.payWithRazorpay = payWithRazorpay;
+window.handleSignOut = handleSignOut;
 
 function saveUserSession() {
   if (currentUser) {
@@ -1031,24 +1126,16 @@ function toggleAutoPlot() {
 // ================= GEOSPATIAL MAP CONTROLLERS =================
 
 function initMap() {
-  // Light layer for zoomed out view (max zoom 11)
-  const lightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; CARTO',
-    subdomains: 'abcd',
-    maxZoom: 11
-  });
-
-  // Detailed OSM layer for zoomed in view (min zoom 12)
-  const detailLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  // Free, high-performance OpenStreetMap basemap layer (Zero API key required, 100% watermark-free)
+  const baseMapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    minZoom: 12,
-    maxZoom: 20
+    maxZoom: 19
   });
 
   // Standard initialization
   map = L.map('map', {
     zoomControl: false,
-    layers: [lightLayer, detailLayer]
+    layers: [baseMapLayer]
   }).setView([20.0, 10.0], 3);
   
   // Mount customized zoom tools on the bottom-right corner to clear left sidebar
@@ -1272,8 +1359,9 @@ function navigateHome() {
   clearRouteLine();
 }
 
-function navigateCountry(countryId) {
+async function navigateCountry(countryId) {
   clearRouteLine();
+  await ensureCountryDataLoaded(countryId);
   const country = window.SEED_COUNTRIES[countryId.toLowerCase()];
   if (!country) return;
   
@@ -2734,151 +2822,8 @@ function clearRoutingPlanner() {
 }
 window.clearRoutingPlanner = clearRoutingPlanner;
 
-function getRoadRoutePoints(latlng1, latlng2) {
-  const points = [];
-  const steps = 40;
-  const lat1 = latlng1.lat;
-  const lng1 = latlng1.lng;
-  const lat2 = latlng2.lat;
-  const lng2 = latlng2.lng;
-  
-  for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
-    const baseLat = lat1 + (lat2 - lat1) * t;
-    const baseLng = lng1 + (lng2 - lng1) * t;
-    // Mild road winding effect (different from train winding)
-    const offset = Math.sin(t * Math.PI * 4) * 0.015;
-    points.push([baseLat + offset, baseLng - offset]);
-  }
-  return points;
-}
-
-function getFlightArcPoints(latlng1, latlng2) {
-  const points = [];
-  const steps = 60;
-  
-  const lat1 = latlng1.lat;
-  const lng1 = latlng1.lng;
-  const lat2 = latlng2.lat;
-  const lng2 = latlng2.lng;
-  
-  const midLat = (lat1 + lat2) / 2;
-  const midLng = (lng1 + lng2) / 2;
-  
-  const dLat = lat2 - lat1;
-  const dLng = lng2 - lng1;
-  
-  const offsetScale = 0.18; // curve height factor
-  const ctrlLat = midLat - dLng * offsetScale;
-  const ctrlLng = midLng + dLat * offsetScale;
-  
-  for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
-    const lat = (1-t)*(1-t)*lat1 + 2*(1-t)*t*ctrlLat + t*t*lat2;
-    const interpolatedLng = (1-t)*(1-t)*lng1 + 2*(1-t)*t*ctrlLng + t*t*lng2;
-    points.push([lat, interpolatedLng]);
-  }
-  return points;
-}
-
-function getTrainRoutePoints(latlng1, latlng2) {
-  const points = [];
-  const steps = 40;
-  const lat1 = latlng1.lat;
-  const lng1 = latlng1.lng;
-  const lat2 = latlng2.lat;
-  const lng2 = latlng2.lng;
-  
-  for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
-    const baseLat = lat1 + (lat2 - lat1) * t;
-    const baseLng = lng1 + (lng2 - lng1) * t;
-    // Scenic winding railway effect
-    const offset = Math.sin(t * Math.PI * 3) * 0.04;
-    points.push([baseLat + offset, baseLng - offset]);
-  }
-  return points;
-}
-
-function getCountryGroup(country) {
-  if (!country) return null;
-  const c = country.toLowerCase().trim();
-  
-  // North America
-  if (c.includes("united states") || c.includes("usa") || c.includes("canada") || c.includes("mexico")) {
-    return "north_america";
-  }
-  
-  // Europe
-  const europeans = ["france", "italy", "spain", "germany", "united kingdom", "uk", "netherlands", 
-                     "belgium", "switzerland", "austria", "portugal", "greece", "poland", "sweden", 
-                     "norway", "finland", "ireland", "denmark", "croatia", "monaco", "andorra",
-                     "san marino", "vatican", "luxembourg", "czech", "slovakia", "hungary", 
-                     "romania", "bulgaria", "slovenia", "estonia", "latvia", "lithuania", "ukraine",
-                     "belarus", "moldova", "albania", "serbia", "montenegro", "kosovo", "macedonia",
-                     "bosnia", "iceland", "malta", "cyprus"];
-  for (let eur of europeans) {
-    if (c.includes(eur)) return "europe";
-  }
-  
-  // South America
-  const southAmericans = ["brazil", "argentina", "chile", "colombia", "peru", "ecuador", "venezuela", "bolivia", "paraguay", "uruguay"];
-  for (let sa of southAmericans) {
-    if (c.includes(sa)) return "south_america";
-  }
-  
-  // Isolated island nations / regions
-  const isolatedIslands = ["japan", "australia", "new zealand", "madagascar", "sri lanka", 
-                           "philippines", "taiwan", "iceland", "hawaii", "greenland", "indonesia"];
-  for (let isl of isolatedIslands) {
-    if (c.includes(isl)) return "isolated_" + isl;
-  }
-  
-  return c; // otherwise return the country name itself
-}
-
-function checkRouteFeasibility(mode, startCountry, endCountry, startLatLng, endLatLng) {
-  if (mode === 'flight') return { possible: true };
-  
-  // If countries are missing, fallback to coordinate/distance checks
-  if (!startCountry || !endCountry) {
-    const distanceMeters = startLatLng.distanceTo(endLatLng);
-    if (distanceMeters > 3500000) { // Over 3500km usually signifies oceans or massive continental separation
-      return {
-        possible: false,
-        reason: `Intercontinental travel by ${mode === 'road' ? 'Road' : 'Train'} is impossible across this distance. Please switch to Airways ✈️.`
-      };
-    }
-    return { possible: true };
-  }
-  
-  const g1 = getCountryGroup(startCountry);
-  const g2 = getCountryGroup(endCountry);
-  
-  if (g1 === g2) return { possible: true };
-  
-  // UK and Europe is possible via Channel Tunnel
-  if ((g1 === 'europe' && g2.includes('united kingdom')) || (g2 === 'europe' && g1.includes('united kingdom'))) {
-    return { possible: true };
-  }
-  
-  // If either is an isolated island, land transit is impossible
-  if (g1.startsWith("isolated_") || g2.startsWith("isolated_")) {
-    const islandName = g1.startsWith("isolated_") ? startCountry : endCountry;
-    return {
-      possible: false,
-      reason: `Land travel by ${mode === 'road' ? 'Road' : 'Train'} is impossible because ${islandName} is an island with no road or rail bridges.`
-    };
-  }
-  
-  // Different continental regions
-  return {
-    possible: false,
-    reason: `Transit by ${mode === 'road' ? 'Road' : 'Train'} is impossible between ${startCountry} and ${endCountry} due to lack of contiguous railway or road connections. Please switch to Airways ✈️.`
-  };
-}
-
-function calculateAndDisplayRoute() {
+// Route Intelligence UI Methods
+async function calculateAndDisplayRoute() {
   if (!routeStartLatLng || !routeEndLatLng) {
     showNotification("Please select both a start and destination from the autocomplete suggestions.", "warning");
     return;
@@ -2887,170 +2832,122 @@ function calculateAndDisplayRoute() {
   clearCustomRouteLine();
   clearAmenityMarkers();
   
-  const feasibility = checkRouteFeasibility(currentTravelMode, routeStartCountry, routeEndCountry, routeStartLatLng, routeEndLatLng);
-  if (!feasibility.possible) {
-    showNotification(feasibility.reason, "warning");
-    
-    activeRouteCoordinates = null;
-    if (routingControl) {
-      try {
-        routingControl.setWaypoints([]);
-      } catch (e) {}
+  const statsContainer = document.getElementById('routeStatsContainer');
+  if (statsContainer) {
+    statsContainer.innerHTML = '<div style="color:var(--text-secondary); font-size:0.8rem; padding:10px;">Querying verified route intelligence...</div>';
+    statsContainer.style.display = 'block';
+  }
+
+  try {
+    if (currentTravelMode === 'road') {
+      showNotification("Fetching verified road geometry...", "info");
+      
+      const sourceCoords = { lat: routeStartLatLng.lat, lng: routeStartLatLng.lng };
+      const destCoords = { lat: routeEndLatLng.lat, lng: routeEndLatLng.lng };
+      
+      const routeData = await window.RouteIntelligence.getRoadRoute(sourceCoords, destCoords);
+      
+      if (!routeData || !routeData.coordinates || routeData.coordinates.length === 0) {
+        throw new Error("No verified road data available.");
+      }
+
+      // GeoJSON returns [lng, lat], convert to [lat, lng] for Leaflet
+      const roadPoints = routeData.coordinates.map(p => [p[1], p[0]]);
+      
+      const roadBase = L.polyline(roadPoints, { color: '#1e3a8a', weight: 6, opacity: 0.7 });
+      const roadInner = L.polyline(roadPoints, { color: '#3b82f6', weight: 3, opacity: 0.95 });
+      
+      customRouteLine = L.featureGroup([roadBase, roadInner]).addTo(map);
+      activeRouteCoordinates = roadPoints.map(p => L.latLng(p[0], p[1]));
+      
+      const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
+      map.fitBounds(bounds, { padding: [50, 50], animate: true });
+      
+      updateRouteStats('road', routeData);
+      
+      // Plot amenities from backend Overpass integration
+      const pois = await window.RouteIntelligence.getRoutePOIs(routeData.coordinates);
+      generateAmenitiesAlongRoute(pois);
+      
+    } else if (currentTravelMode === 'flight') {
+      showNotification("Verifying airport infrastructure...", "info");
+      
+      // Get nearest airports for start and end
+      const startAirports = await window.RouteIntelligence.getNearestAirports(routeStartLatLng.lat, routeStartLatLng.lng);
+      const endAirports = await window.RouteIntelligence.getNearestAirports(routeEndLatLng.lat, routeEndLatLng.lng);
+      
+      const startNode = startAirports.length > 0 ? startAirports[0] : { airportName: "Not found", iata: "N/A", distanceFromCity: "N/A" };
+      const endNode = endAirports.length > 0 ? endAirports[0] : { airportName: "Not found", iata: "N/A", distanceFromCity: "N/A" };
+      
+      const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
+      map.fitBounds(bounds, { padding: [50, 50], animate: true });
+      
+      updateRouteStats('flight', { 
+        isVerified: false,
+        unavailable: true,
+        startNode, endNode,
+        message: 'Verified flight schedules and prices are currently unavailable.'
+      });
+      
+    } else if (currentTravelMode === 'train') {
+      showNotification("Verifying railway infrastructure...", "info");
+      
+      const startStations = await window.RouteIntelligence.getNearestStations(routeStartLatLng.lat, routeStartLatLng.lng);
+      const endStations = await window.RouteIntelligence.getNearestStations(routeEndLatLng.lat, routeEndLatLng.lng);
+      
+      const startNode = startStations.length > 0 ? startStations[0] : { stationName: "Not found", distanceFromCity: "N/A" };
+      const endNode = endStations.length > 0 ? endStations[0] : { stationName: "Not found", distanceFromCity: "N/A" };
+      
+      const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
+      map.fitBounds(bounds, { padding: [50, 50], animate: true });
+      
+      updateRouteStats('train', {
+        isVerified: false,
+        unavailable: true,
+        startNode, endNode,
+        message: 'Verified train schedules and fares are currently unavailable.'
+      });
     }
-    
-    const statsContainer = document.getElementById('routeStatsContainer');
+  } catch (err) {
+    console.error('Route Plan Error:', err);
     if (statsContainer) {
       statsContainer.innerHTML = `
         <div style="background:rgba(255, 59, 48, 0.1); border:1px solid rgba(255, 59, 48, 0.3); padding:12px; border-radius:8px; margin-top:8px; font-size:0.8rem; line-height:1.4; color:#ff453a;">
-          ⚠️ <b>Route Impossible:</b> ${feasibility.reason}
+          ⚠️ <b>Routing Failed:</b> Verified routing data is currently unavailable for this path.
         </div>
       `;
-      statsContainer.style.display = 'block';
     }
-    return;
-  }
-  
-  if (currentTravelMode === 'road') {
-    showNotification("Mapping road travel route...", "info");
-    const roadPoints = getRoadRoutePoints(routeStartLatLng, routeEndLatLng);
-    
-    // Draw solid premium blue route line with inner glowing dash
-    const roadBase = L.polyline(roadPoints, {
-      color: '#1e3a8a',
-      weight: 6,
-      opacity: 0.7
-    });
-    
-    const roadInner = L.polyline(roadPoints, {
-      color: '#3b82f6',
-      weight: 3,
-      opacity: 0.95
-    });
-    
-    customRouteLine = L.featureGroup([roadBase, roadInner]).addTo(map);
-    
-    activeRouteCoordinates = roadPoints.map(p => L.latLng(p[0], p[1]));
-    
-    const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
-    map.fitBounds(bounds, { padding: [50, 50], animate: true });
-    
-    // Road time calculation at 90 km/h (average driving speed)
-    const distanceMeters = routeStartLatLng.distanceTo(routeEndLatLng) * 1.15; // 15% winding factor
-    const timeSeconds = (distanceMeters / 1000) / 90 * 3600;
-    updateRouteStats(distanceMeters, timeSeconds);
-    generateAmenitiesAlongRoute(activeRouteCoordinates);
-    
-    if (routingControl) {
-      try {
-        routingControl.setWaypoints([routeStartLatLng, routeEndLatLng]);
-      } catch (e) {
-        console.warn("Leaflet Routing Machine failed, using simulated route:", e);
-      }
-    }
-  } else if (currentTravelMode === 'flight') {
-    if (routingControl) routingControl.setWaypoints([]); // clear road line
-    
-    showNotification("Mapping airways direct flight path...", "info");
-    const arcPoints = getFlightArcPoints(routeStartLatLng, routeEndLatLng);
-    
-    // Draw curved glowing flight path
-    customRouteLine = L.polyline(arcPoints, {
-      color: '#00f2ff',
-      weight: 4,
-      dashArray: '10, 8',
-      opacity: 0.95
-    }).addTo(map);
-    
-    activeRouteCoordinates = arcPoints.map(p => L.latLng(p[0], p[1]));
-    
-    const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
-    map.fitBounds(bounds, { padding: [50, 50], animate: true });
-    
-    // Flight time calculation at 800 km/h
-    const distanceMeters = routeStartLatLng.distanceTo(routeEndLatLng);
-    const timeSeconds = (distanceMeters / 1000) / 800 * 3600;
-    updateRouteStats(distanceMeters, timeSeconds);
-    
-  } else if (currentTravelMode === 'train') {
-    if (routingControl) routingControl.setWaypoints([]); // clear road line
-    
-    showNotification("Mapping railways winding track...", "info");
-    const trackPoints = getTrainRoutePoints(routeStartLatLng, routeEndLatLng);
-    
-    // Layered tracks styling (black outline + white/grey inner dash)
-    const trackBase = L.polyline(trackPoints, {
-      color: '#374151',
-      weight: 6,
-      opacity: 0.85
-    });
-    
-    const trackDashes = L.polyline(trackPoints, {
-      color: '#ffffff',
-      weight: 3,
-      dashArray: '8, 8',
-      opacity: 0.95
-    });
-    
-    customRouteLine = L.featureGroup([trackBase, trackDashes]).addTo(map);
-    
-    activeRouteCoordinates = trackPoints.map(p => L.latLng(p[0], p[1]));
-    
-    const bounds = L.latLngBounds([routeStartLatLng, routeEndLatLng]);
-    map.fitBounds(bounds, { padding: [50, 50], animate: true });
-    
-    // Train time calculation at 80 km/h
-    const distanceMeters = routeStartLatLng.distanceTo(routeEndLatLng) * 1.25; // 25% track winding factor
-    const timeSeconds = (distanceMeters / 1000) / 80 * 3600;
-    updateRouteStats(distanceMeters, timeSeconds);
   }
 }
 
-function generateAmenitiesAlongRoute(coords) {
+function generateAmenitiesAlongRoute(pois) {
   clearAmenityMarkers();
-  if (!coords || coords.length < 20 || currentTravelMode !== 'road') return;
+  if (!pois || !pois.length) return;
   
   const showRest = document.getElementById('toggleRestAmenities')?.checked;
   const showFuel = document.getElementById('toggleFuelAmenities')?.checked;
   const showEv = document.getElementById('toggleEvAmenities')?.checked;
   
-  const totalPoints = coords.length;
-  // Sample at 15%, 35%, 55%, 75%, and 90% of the route coordinates
-  const sampleRatios = [0.15, 0.35, 0.55, 0.75, 0.90];
+  let plotted = 0;
   
-  const restNames = ["Highway Nest & Diner", "Sethi Rest House & Motels", "Punjabi Dhaba & Rest Stops", "Golden Oasis Highway Motel", "Sai Family Rest Plaza"];
-  const fuelNames = ["Indian Oil Plaza", "HP Fuel Center", "Bharat Petroleum Outlet", "Shell Select Station", "Reliance Jio-bp Charging & Fuel"];
-  const evNames = ["TATA Power EZ EV Hub", "Jio-bp Pulse Fast EV Charger", "KIRANA EV charging point", "Zeon Supercharger", "Sunspeed Fast Charger"];
-  
-  sampleRatios.forEach((ratio, index) => {
-    const coordIndex = Math.floor(totalPoints * ratio);
-    const baseLatLng = coords[coordIndex];
-    
-    // Add offset so amenities sit on sides of the road
-    const latOffset = (Math.sin(index * 45) * 0.001);
-    const lngOffset = (Math.cos(index * 45) * 0.001);
-    
-    const lat = baseLatLng.lat + latOffset;
-    const lng = baseLatLng.lng + lngOffset;
-    const rating = (4.0 + (index % 10) / 10).toFixed(1);
-    
-    if (showRest) {
-      const name = restNames[index % restNames.length];
-      plotAmenity(lat + 0.0003, lng + 0.0003, '🏨', name, 'Rest House & Motel', rating, '#ff7a45');
-    }
-    
-    if (showFuel) {
-      const name = fuelNames[index % fuelNames.length];
-      plotAmenity(lat - 0.0003, lng + 0.0003, '⛽', name, 'Petrol Pump & Rest Stop', rating, '#ffc53d');
-    }
-    
-    if (showEv) {
-      const name = evNames[index % evNames.length];
-      plotAmenity(lat + 0.0003, lng - 0.0003, '⚡', name, 'EV Charging Hub', rating, '#52c41a');
+  pois.forEach(poi => {
+    if (poi.type === 'rest_stop' && showRest) {
+      plotAmenity(poi.lat, poi.lng, '🏨', poi.name, 'Rest Stop', '4.0', '#ff7a45');
+      plotted++;
+    } else if (poi.type === 'fuel' && showFuel) {
+      plotAmenity(poi.lat, poi.lng, '⛽', poi.name, 'Fuel Station', '4.2', '#ffc53d');
+      plotted++;
+    } else if (poi.type === 'ev_charger' && showEv) {
+      plotAmenity(poi.lat, poi.lng, '⚡', poi.name, 'EV Charging Hub', '4.5', '#52c41a');
+      plotted++;
+    } else if (poi.type === 'hospital' && (showRest || showFuel || showEv)) {
+      // Optional: plot hospitals if any toggles are on as safety
+      plotAmenity(poi.lat, poi.lng, '🏥', poi.name, 'Hospital', 'N/A', '#ff4d4f');
     }
   });
   
-  if (showRest || showFuel || showEv) {
-    showNotification("📍 Plotted highway amenities (rest stops, petrol pumps, EV chargers) along your route!", "success");
+  if (plotted > 0) {
+    showNotification(`📍 Plotted ${plotted} verified amenities along your route!`, "success");
   }
 }
 
@@ -3073,52 +2970,98 @@ function plotAmenity(lat, lng, emoji, name, type, rating, color) {
     <div style="font-family:'Inter';padding:8px;min-width:180px;background:#141923;color:white;border-radius:8px;border:1px solid rgba(255,255,255,0.1);">
       <h4 style="margin:0 0 4px 0;font-size:0.9rem;color:${color};font-weight:700;">${name}</h4>
       <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:6px;">${type}</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:0.75rem;font-weight:700;">
-        <span style="color:#ffc53d;">★ ${rating}</span>
-        <span style="color:var(--text-secondary);font-weight:normal;">• Clean Toilets & Snacks</span>
-      </div>
     </div>`;
     
   marker.bindPopup(popupContent);
   amenityMarkers.push(marker);
 }
 
-function updateRouteStats(distanceMeters, timeSeconds) {
+function updateRouteStats(mode, data) {
   const statsContainer = document.getElementById('routeStatsContainer');
   if (!statsContainer) return;
   
-  const distanceKm = (distanceMeters / 1000).toFixed(1);
-  let durationText = "";
-  
-  const hrs = Math.floor(timeSeconds / 3600);
-  const mins = Math.round((timeSeconds % 3600) / 60);
-  
-  if (hrs > 0) {
-    durationText = `${hrs} hr ${mins} min`;
-  } else {
-    durationText = `${mins} min`;
+  if (data.unavailable) {
+    let modeDetails = '';
+    if (mode === 'train') {
+      modeDetails = `
+        <div style="font-size:0.85rem; color:white; margin-bottom:4px;"><b>Departure Station:</b> ${data.startNode.stationName} <span style="color:var(--text-secondary);font-size:0.75rem;">(${data.startNode.distanceFromCity} km from city)</span></div>
+        <div style="font-size:0.85rem; color:white; margin-bottom:8px;"><b>Arrival Station:</b> ${data.endNode.stationName} <span style="color:var(--text-secondary);font-size:0.75rem;">(${data.endNode.distanceFromCity} km from city)</span></div>
+      `;
+    } else {
+      modeDetails = `
+        <div style="font-size:0.85rem; color:white; margin-bottom:4px;"><b>Origin Airport:</b> ${data.startNode.airportName} ${data.startNode.iata ? '('+data.startNode.iata+')' : ''} <span style="color:var(--text-secondary);font-size:0.75rem;">(${data.startNode.distanceFromCity} km from city)</span></div>
+        <div style="font-size:0.85rem; color:white; margin-bottom:8px;"><b>Destination Airport:</b> ${data.endNode.airportName} ${data.endNode.iata ? '('+data.endNode.iata+')' : ''} <span style="color:var(--text-secondary);font-size:0.75rem;">(${data.endNode.distanceFromCity} km from city)</span></div>
+      `;
+    }
+
+    statsContainer.innerHTML = `
+      <div style="background:rgba(255, 255, 255, 0.05); border:1px solid rgba(255, 255, 255, 0.1); padding:12px; border-radius:8px; margin-top:8px;">
+        <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:8px;">Verified Infrastructure:</div>
+        ${modeDetails}
+        <div style="font-size:0.8rem; color:#ff9f43; background:rgba(255,159,67,0.1); padding:6px; border-radius:4px; line-height:1.4;">
+          ⚠️ ${data.message}
+        </div>
+      </div>
+    `;
+    statsContainer.style.display = 'block';
+    return;
   }
   
-  let label = "Distance";
-  let modeIcon = "🚗";
-  if (currentTravelMode === 'flight') {
-    label = "Flight Distance";
-    modeIcon = "✈️";
-  } else if (currentTravelMode === 'train') {
-    label = "Rail Distance";
-    modeIcon = "🚂";
+  const hrs = Math.floor(data.durationMinutes / 60);
+  const mins = data.durationMinutes % 60;
+  const durationText = hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`;
+  
+  let highwaysHtml = '';
+  if (data.highways && data.highways.length > 0) {
+    highwaysHtml = `
+      <div style="margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:4px;">Highways:</div>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          ${data.highways.map(h => `<span style="color:#60a5fa; font-size:0.85rem; font-weight:600;">${h}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+  
+  let warningsHtml = '';
+  if (data.routeWarnings && data.routeWarnings.length > 0) {
+    warningsHtml = data.routeWarnings.map(w => `
+      <div style="margin-top:8px; font-size:0.75rem; color:#ff9f43; background:rgba(255,159,67,0.1); padding:6px; border-radius:4px;">
+        ⚠️ ${w}
+      </div>
+    `).join('');
   }
   
   statsContainer.innerHTML = `
-    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); margin-top:8px;">
-      <div>
-        <div style="font-size:0.75rem; color:var(--text-secondary);">${label}</div>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--tier-blue);">${distanceKm} km</div>
+    <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.08); margin-top:8px;">
+      
+      <div style="margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span style="font-size:0.8rem; color:var(--text-secondary);">Distance:</span> 
+        <span style="font-size:0.95rem; font-weight:700; color:white;">${data.distanceKm.toFixed(0)} km</span>
       </div>
-      <div style="text-align:right;">
-        <div style="font-size:0.75rem; color:var(--text-secondary);">${modeIcon} Est. Time</div>
-        <div style="font-size:0.95rem; font-weight:700; color:var(--tier-green);">${durationText}</div>
+      
+      <div style="margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span style="font-size:0.8rem; color:var(--text-secondary);">ETA:</span> 
+        <span style="font-size:0.95rem; font-weight:700; color:var(--tier-green);">${durationText}</span>
       </div>
+
+      <div style="margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span style="font-size:0.8rem; color:var(--text-secondary);">Provider:</span> 
+        <span style="font-size:0.85rem; font-weight:500; color:white;">${data.provider}</span>
+      </div>
+
+      <div style="margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span style="font-size:0.8rem; color:var(--text-secondary);">Confidence:</span> 
+        <span style="font-size:0.85rem; font-weight:500; color:${data.confidence === 'high' ? '#52c41a' : '#ffc53d'}; text-transform:capitalize;">${data.confidence}</span>
+      </div>
+      
+      <div style="margin-bottom:8px; display:flex; justify-content:space-between;">
+        <span style="font-size:0.8rem; color:var(--text-secondary);">Fuel Estimate:</span> 
+        <span style="font-size:0.85rem; font-weight:500; color:white;">₹${data.fuelEstimate}</span>
+      </div>
+
+      ${highwaysHtml}
+      ${warningsHtml}
     </div>
   `;
   statsContainer.style.display = 'block';
@@ -3203,7 +3146,10 @@ function openIntegratedAura() {
   const panel = document.getElementById('integratedAuraPanel');
   if (panel) {
     panel.style.display = 'flex';
-    // Ensure icon exists
+    setTimeout(() => {
+      panel.style.opacity = '1';
+      panel.style.transform = 'translateX(0)';
+    }, 10);
     if(typeof lucide !== 'undefined') lucide.createIcons();
     showNotification("Aura Assistant Ready", "info");
   }
@@ -3212,43 +3158,29 @@ window.openIntegratedAura = openIntegratedAura;
 
 function closeIntegratedAura() {
   const panel = document.getElementById('integratedAuraPanel');
-  if (panel) panel.style.display = 'none';
+  if (panel) {
+    panel.style.opacity = '0';
+    panel.style.transform = 'translateX(120%)';
+    setTimeout(() => {
+      panel.style.display = 'none';
+    }, 400);
+  }
 }
 window.closeIntegratedAura = closeIntegratedAura;
 
 function toggleExpandIntegratedAura() {
   const panel = document.getElementById('integratedAuraPanel');
-  const chatWindow = document.getElementById('integratedAuraChatWindow');
   const icon = document.getElementById('auraExpandIcon');
-  
-  if (!panel) return;
-  
-  const isExpanded = panel.style.width === '500px';
-  
-  if (isExpanded) {
-    // Collapse
-    panel.style.width = '340px';
-    panel.style.height = 'auto';
-    if(chatWindow) {
-      chatWindow.style.minHeight = '250px';
-      chatWindow.style.maxHeight = '400px';
+  if (panel) {
+    if (panel.style.width === '450px' || !panel.style.width) {
+      panel.style.width = '750px';
+      if (icon) icon.setAttribute('data-lucide', 'minimize-2');
+    } else {
+      panel.style.width = '450px';
+      if (icon) icon.setAttribute('data-lucide', 'square');
     }
-    if (icon) {
-      icon.setAttribute('data-lucide', 'maximize-2');
-    }
-  } else {
-    // Expand
-    panel.style.width = '500px';
-    if(chatWindow) {
-      chatWindow.style.minHeight = '450px';
-      chatWindow.style.maxHeight = 'calc(100vh - 250px)';
-    }
-    if (icon) {
-      icon.setAttribute('data-lucide', 'minimize-2');
-    }
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
-  
-  if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function sendIntegratedAuraQuick(text) {

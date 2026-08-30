@@ -16,6 +16,21 @@
   --text-primary: #f0f6fc;
   --text-secondary: #8b949e;
   --text-muted: #58a6ff;
+  /* Aura Glass surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-strong: rgba(255, 255, 255, 0.12);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-strong: rgba(255, 255, 255, 0.32);
+  --glass-highlight: rgba(255, 255, 255, 0.22);
+  --glass-shadow: rgba(0, 0, 0, 0.35);
+
+  /* Aura brand */
+  --aura-purple: #a78bfa;
+  --aura-blue: #60a5fa;
+  --aura-grad: linear-gradient(135deg, #a78bfa, #60a5fa);
+  --aura-grad-subtle: linear-gradient(135deg, rgba(167, 139, 250, 0.18), rgba(96, 165, 250, 0.18));
+  --aura-glow: 0 0 60px rgba(139, 92, 246, 0.3);
   
   /* Neon Fame Tiers */
   --tier-red: #ff3b30;
@@ -913,7 +928,7 @@ header.glass-header.collapsed .nav-toggle-handle i {
   gap: 24px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .pricing-grid {
     grid-template-columns: 1fr;
   }
@@ -1061,7 +1076,7 @@ header.glass-header.collapsed .nav-toggle-handle i {
 }
 
 /* Responsive adjustments */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   /* ─── App layout switches to stacked on mobile ─── */
   .app-container {
     display: flex;
@@ -1085,10 +1100,10 @@ header.glass-header.collapsed .nav-toggle-handle i {
     transition: transform 0.38s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
     overflow-y: auto;
     box-shadow: none;
-    /* Enhanced glassmorphism for the mobile drawer */
-    background: rgba(8, 12, 22, 0.88) !important;
-    backdrop-filter: blur(32px) saturate(2) !important;
-    -webkit-backdrop-filter: blur(32px) saturate(2) !important;
+    /* Optimized for mobile performance */
+    background: rgba(12, 16, 26, 0.98) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border-right: 1px solid rgba(255, 255, 255, 0.12) !important;
   }
 
@@ -1211,21 +1226,9 @@ header.glass-header.collapsed .nav-toggle-handle i {
     font-size: 1rem;
   }
 
-  /* Tighten header action buttons even more */
-  #premiumBadgeArea {
-    display: none;
-  }
-
-  /* Route planner button: icon only on mobile */
-  #toggleRoutePlannerBtn span,
+  /* Tighten header action buttons */
   #toggleRoutePlannerBtn {
-    font-size: 0;
     padding: 8px;
-    gap: 0;
-  }
-  #toggleRoutePlannerBtn i {
-    font-size: 1rem !important;
-    margin: 0;
   }
 
   /* Attraction details modal: full screen on mobile */

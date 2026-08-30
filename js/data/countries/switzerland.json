@@ -1,0 +1,255 @@
+{
+  "country": "Switzerland",
+  "code": "CH",
+  "currency": {
+    "code": "CHF",
+    "symbol": "CHF"
+  },
+  "cities": [
+    {
+      "id": "zurich",
+      "name": "Zurich",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 47.3769, "lng": 8.5417 },
+      "attractions": [
+        { "id": "ch_zurich_museum", "name": "Swiss National Museum", "type": "Museum", "rating": 4.6, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_zurich_dolder", "name": "Dolder Grand", "category": "luxury", "price": 850, "rating": 4.9 },
+        { "id": "hotel_ch_zurich_felsenegg", "name": "Felsenegg B&B (Adliswil)", "category": "mid-range", "price": 200, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "geneva",
+      "name": "Geneva",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 46.2044, "lng": 6.1432 },
+      "attractions": [
+        { "id": "ch_geneva_lake", "name": "Lake Geneva & Jet d'Eau", "type": "Lake & Fountain", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_geneva_mandarin", "name": "Mandarin Oriental Geneva", "category": "luxury", "price": 700, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "lucerne",
+      "name": "Lucerne",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 47.0502, "lng": 8.3093 },
+      "attractions": [
+        { "id": "ch_lucerne_bridge", "name": "Chapel Bridge (Kapellbrücke)", "type": "Historic Bridge", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_lucerne_honegg", "name": "Hotel Villa Honegg (Ennetbürgen)", "category": "luxury", "price": 950, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "interlaken",
+      "name": "Interlaken",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 46.6863, "lng": 7.8632 },
+      "attractions": [
+        { "id": "ch_interlaken_lakes", "name": "Interlaken & Lakes", "type": "Lake Resort", "rating": 4.7, "price": 0 },
+        { "id": "ch_interlaken_jungfrau", "name": "Jungfraujoch - Top of Europe", "type": "Top of Europe", "rating": 4.9, "price": 150 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_interlaken_victoria", "name": "Victoria-Jungfrau Grand Hotel & Spa", "category": "luxury", "price": 600, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "zermatt",
+      "name": "Zermatt",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 46.0207, "lng": 7.7491 },
+      "attractions": [
+        { "id": "ch_zermatt_matterhorn", "name": "Matterhorn", "type": "Mountain Icon", "rating": 4.9, "price": 0 },
+        { "id": "ch_zermatt_glacier_express", "name": "Glacier Express Scenic Train", "type": "Scenic Railway", "rating": 4.8, "price": 150 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_zermatt_cervo", "name": "CERVO Mountain Boutique Resort", "category": "luxury", "price": 500, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "st_moritz",
+      "name": "St. Moritz",
+      "bestSeason": "December - March",
+      "coordinates": { "lat": 46.4908, "lng": 9.8355 },
+      "attractions": [
+        { "id": "ch_st_moritz_resort", "name": "St. Moritz Luxury Ski Resort", "type": "Luxury Ski Resort", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_st_moritz_badrutt", "name": "Badrutt's Palace Hotel", "category": "luxury", "price": 1200, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "bern",
+      "name": "Bern",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 46.9480, "lng": 7.4474 },
+      "attractions": [
+        { "id": "ch_bern_old_town", "name": "Bern Old Town", "type": "UNESCO City", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_bern_bellevue", "name": "Hotel Bellevue Palace Bern", "category": "luxury", "price": 400, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "kandersteg",
+      "name": "Kandersteg & Blausee",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 46.4957, "lng": 7.6738 },
+      "attractions": [
+        { "id": "ch_kandersteg_oeschinensee", "name": "Kandersteg & Oeschinensee", "type": "Alpine Lake Village", "rating": 4.8, "price": 0 },
+        { "id": "ch_kandersteg_blausee", "name": "Blausee Nature Park", "type": "Crystal Blue Forest Lake", "rating": 4.7, "price": 8 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_kandersteg_doldenhorn", "name": "Waldhotel Doldenhorn", "category": "luxury", "price": 250, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "thun",
+      "name": "Lake Thun Region",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 46.7580, "lng": 7.6280 },
+      "attractions": [
+        { "id": "ch_thun_spiez", "name": "Spiez Lakeside Town & Castle", "type": "Fairytale Lakeside Town", "rating": 4.7, "price": 0 },
+        { "id": "ch_thun_town", "name": "Thun Old Town & Castle", "type": "Underrated Lake Town", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_thun_seepark", "name": "Congress Hotel Seepark Thun", "category": "luxury", "price": 240, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "gruyeres",
+      "name": "Gruyères & Broc",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 46.5844, "lng": 7.0819 },
+      "attractions": [
+        { "id": "ch_gruyeres_broc", "name": "Gruyères & Broc", "type": "Cheese & Chocolate Region", "rating": 4.8, "price": 15 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_gruyeres_hostellerie", "name": "Hostellerie de Gruyères", "category": "mid-range", "price": 160, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "vevey",
+      "name": "Vevey & Mont Pèlerin",
+      "bestSeason": "April - October",
+      "coordinates": { "lat": 46.4628, "lng": 6.8426 },
+      "attractions": [
+        { "id": "ch_vevey_pelerin", "name": "Vevey & Mont Pèlerin Promenade", "type": "Quiet Lakeside Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_vevey_du_lac", "name": "Grand Hotel du Lac Vevey", "category": "luxury", "price": 350, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "meiringen",
+      "name": "Meiringen & Haslital",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 46.7275, "lng": 8.1882 },
+      "attractions": [
+        { "id": "ch_meiringen_aareschlucht", "name": "Meiringen & Aareschlucht Gorge", "type": "Sherlock Holmes Country", "rating": 4.7, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_meiringen_sauvage", "name": "Parkhotel du Sauvage", "category": "mid-range", "price": 150, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "sion",
+      "name": "Sion & St. Leonard",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 46.2330, "lng": 7.3600 },
+      "attractions": [
+        { "id": "ch_sion_st_leonard", "name": "St. Leonard Underground Lake", "type": "Underground Lake", "rating": 4.6, "price": 12 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_sion_vignes", "name": "Hôtel des Vignes", "category": "mid-range", "price": 170, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "martigny",
+      "name": "Martigny & Emosson",
+      "bestSeason": "June - September",
+      "coordinates": { "lat": 46.1017, "lng": 7.0754 },
+      "attractions": [
+        { "id": "ch_martigny_emosson", "name": "Lac d'Emosson Dinosaur Footprints", "type": "Alpine Lake & Fossils", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_martigny_kb", "name": "Boutique Hotel KB Martigny", "category": "mid-range", "price": 140, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "crans_montana",
+      "name": "Crans-Montana",
+      "bestSeason": "Winter or Summer",
+      "coordinates": { "lat": 46.3090, "lng": 7.4815 },
+      "attractions": [
+        { "id": "ch_crans_montana_lanternes", "name": "Crans-Montana & Chemin des Lanternes", "type": "Alpine Resort & Lantern Walk", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_crans_whitepod", "name": "Whitepod Eco-Luxury Hotel", "category": "luxury", "price": 450, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "yverdon",
+      "name": "Yverdon-les-Bains & Grandson",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 46.7785, "lng": 6.6412 },
+      "attractions": [
+        { "id": "ch_yverdon_grandson", "name": "Yverdon-les-Bains Thermal Baths & Grandson Castle", "type": "Thermal Baths & Castles", "rating": 4.6, "price": 15 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_yverdon_bains", "name": "Grand Hôtel des Bains", "category": "luxury", "price": 220, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "turtmann",
+      "name": "Turtmann Valley",
+      "bestSeason": "July - September",
+      "coordinates": { "lat": 46.2519, "lng": 7.7011 },
+      "attractions": [
+        { "id": "ch_turtmann_lake", "name": "Turtmannsee Remote Alpine Lake", "type": "Remote Alpine Lake", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_turtmann_hotel", "name": "Hotel Turtmann", "category": "budget", "price": 95, "rating": 4.1 }
+      ]
+    },
+    {
+      "id": "schaffhausen",
+      "name": "Schaffhausen & Rhine Falls",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 47.6973, "lng": 8.6349 },
+      "attractions": [
+        { "id": "ch_schaffhausen_rhine_falls", "name": "Rhine Falls", "type": "Waterfall", "rating": 4.8, "price": 5 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_schaffhausen_bleiche", "name": "Vienna House Zur Bleiche", "category": "mid-range", "price": 160, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "andermatt",
+      "name": "Andermatt",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 46.6328, "lng": 8.5947 },
+      "attractions": [
+        { "id": "ch_andermatt_slopes", "name": "Andermatt Valley & Ski Slopes", "type": "Alpine Skiing & Scenic Valley", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_andermatt_chedi", "name": "The Chedi Andermatt", "category": "luxury", "price": 850, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "vals",
+      "name": "Vals (Graubünden)",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 46.6186, "lng": 9.1811 },
+      "attractions": [
+        { "id": "ch_vals_therme", "name": "Therme Vals Valley", "type": "Thermal Spa & Architecture Valley", "rating": 4.8, "price": 80 }
+      ],
+      "hotels": [
+        { "id": "hotel_ch_vals_7132", "name": "7132 Hotel (Therme Vals)", "category": "luxury", "price": 650, "rating": 4.9 }
+      ]
+    }
+  ]
+}

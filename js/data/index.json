@@ -9,6 +9,12 @@
     "united_kingdom": "data/countries/united_kingdom.json",
     "uae": "data/countries/uae.json",
     "thailand": "data/countries/thailand.json",
-    "singapore": "data/countries/singapore.json"
+    "singapore": "data/countries/singapore.json",
+    "germany": "data/countries/germany.json",
+    "switzerland": "data/countries/switzerland.json",
+    "turkey": "data/countries/turkey.json",
+    "indonesia": "data/countries/indonesia.json",
+    "south_korea": "data/countries/south_korea.json",
+    "vietnam": "data/countries/vietnam.json"
   }
 }

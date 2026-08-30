@@ -1,0 +1,251 @@
+{
+  "country": "Vietnam",
+  "code": "VN",
+  "currency": {
+    "code": "VND",
+    "symbol": "₫"
+  },
+  "cities": [
+    {
+      "id": "hanoi",
+      "name": "Hanoi",
+      "bestSeason": "March - April, October - November",
+      "coordinates": { "lat": 21.0285, "lng": 105.8542 },
+      "attractions": [
+        { "id": "vn_hanoi_mausoleum", "name": "Ho Chi Minh Mausoleum", "type": "Historical Monument", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_hanoi_metropole", "name": "Sofitel Legend Metropole Hanoi", "category": "luxury", "price": 8750000, "rating": 4.9 },
+        { "id": "hotel_vn_hanoi_capella", "name": "Capella Hanoi", "category": "luxury", "price": 10000000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "ho_chi_minh_city",
+      "name": "Ho Chi Minh City",
+      "bestSeason": "December - April",
+      "coordinates": { "lat": 10.8231, "lng": 106.6297 },
+      "attractions": [
+        { "id": "vn_hcmc_cuchi", "name": "Cu Chi Tunnels War Memorial", "type": "War Memorial", "rating": 4.8, "price": 120000 },
+        { "id": "vn_hcmc_benthanh", "name": "Ben Thanh Market", "type": "Historic Market", "rating": 4.5, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_hcmc_park_hyatt", "name": "Park Hyatt Saigon", "category": "luxury", "price": 7500000, "rating": 4.9 },
+        { "id": "hotel_vn_hcmc_amanaki", "name": "Amanaki Saigon Boutique Hotel", "category": "luxury", "price": 2500000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "da_nang",
+      "name": "Da Nang & Hoi An",
+      "bestSeason": "February - May",
+      "coordinates": { "lat": 16.0544, "lng": 108.2022 },
+      "attractions": [
+        { "id": "vn_danang_hoian", "name": "Hoi An Ancient Town", "type": "UNESCO Heritage Town", "rating": 4.9, "price": 120000 },
+        { "id": "vn_danang_hue", "name": "Imperial City of Hue", "type": "UNESCO Citadel", "rating": 4.8, "price": 200000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_danang_intercon", "name": "InterContinental Danang Sun Peninsula Resort", "category": "luxury", "price": 12500000, "rating": 4.9 },
+        { "id": "hotel_vn_danang_banyantree", "name": "Banyan Tree Lang Co", "category": "luxury", "price": 11250000, "rating": 4.9 },
+        { "id": "hotel_vn_danang_nestacelia", "name": "Nesta Celia Da Nang", "category": "luxury", "price": 2750000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "nha_trang",
+      "name": "Nha Trang",
+      "bestSeason": "January - August",
+      "coordinates": { "lat": 12.2388, "lng": 109.1967 },
+      "attractions": [
+        { "id": "vn_nhatrang_beaches", "name": "Nha Trang Beaches", "type": "Beach Resort", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_nhatrang_six_senses", "name": "Six Senses Ninh Van Bay", "category": "luxury", "price": 18750000, "rating": 4.9 },
+        { "id": "hotel_vn_nhatrang_voco", "name": "voco Scenia Bay Nha Trang", "category": "luxury", "price": 3000000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "phu_quoc",
+      "name": "Phu Quoc Island",
+      "bestSeason": "November - March",
+      "coordinates": { "lat": 10.2899, "lng": 103.9840 },
+      "attractions": [
+        { "id": "vn_phuquoc_beaches", "name": "Phu Quoc White Sand Beaches", "type": "Beach Resort", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_phuquoc_emerald", "name": "Emerald Boutique Hotel Phu Quoc", "category": "luxury", "price": 3250000, "rating": 4.6 },
+        { "id": "hotel_vn_phuquoc_regent", "name": "Regent Phu Quoc", "category": "luxury", "price": 11250000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "ha_long_bay",
+      "name": "Ha Long Bay & Lan Ha",
+      "bestSeason": "March - May, October - November",
+      "coordinates": { "lat": 20.9749, "lng": 107.0379 },
+      "attractions": [
+        { "id": "vn_halong_bay", "name": "Ha Long Bay UNESCO Karst Bay", "type": "UNESCO Karst Bay", "rating": 4.9, "price": 290000 },
+        { "id": "vn_halong_lan_ha", "name": "Lan Ha Bay Karst Islands", "type": "Ha Long Alternative", "rating": 4.8, "price": 80000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_halong_vinpearl", "name": "Vinpearl Resort & Spa Ha Long", "category": "luxury", "price": 3750000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "sa_pa",
+      "name": "Sa Pa",
+      "bestSeason": "March - May, September - November",
+      "coordinates": { "lat": 22.3364, "lng": 103.8438 },
+      "attractions": [
+        { "id": "vn_sapa_terraces", "name": "Sa Pa Rice Terraces", "type": "Mountain Landscape", "rating": 4.8, "price": 80000 },
+        { "id": "vn_sapa_muong_hoa", "name": "Muong Hoa Valley Ethnic Trail", "type": "Ethnic Valley", "rating": 4.7, "price": 80000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_sapa_coupole", "name": "Hotel de la Coupole - MGallery", "category": "luxury", "price": 4000000, "rating": 4.8 },
+        { "id": "hotel_vn_sapa_topas", "name": "Topas Ecolodge (Thai Nguyen)", "category": "luxury", "price": 5500000, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "mekong_delta",
+      "name": "Mekong Delta",
+      "bestSeason": "November - April",
+      "coordinates": { "lat": 10.0375, "lng": 105.7882 },
+      "attractions": [
+        { "id": "vn_mekong_delta", "name": "Mekong Delta Floating Markets & Rivers", "type": "River Delta", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_mekong_victoria", "name": "Victoria Can Tho Resort", "category": "luxury", "price": 2750000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "phong_nha",
+      "name": "Phong Nha-Ke Bang",
+      "bestSeason": "March - August",
+      "coordinates": { "lat": 17.5906, "lng": 106.2797 },
+      "attractions": [
+        { "id": "vn_phong_nha_park", "name": "Phong Nha-Ke Bang Caves & Karsts", "type": "UNESCO Cave System", "rating": 4.9, "price": 150000 },
+        { "id": "vn_phong_nha_beyond", "name": "Paradise & Dark Cave Explorations", "type": "Cave Paradise", "rating": 4.8, "price": 250000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_phongnha_lakehouse", "name": "Phong Nha Lake House Resort", "category": "mid-range", "price": 1750000, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "cao_bang",
+      "name": "Cao Bang & Ban Gioc",
+      "bestSeason": "September - November",
+      "coordinates": { "lat": 22.6689, "lng": 106.2647 },
+      "attractions": [
+        { "id": "vn_caobang_bangioc", "name": "Ban Gioc Frontier Waterfall", "type": "Frontier Waterfall", "rating": 4.9, "price": 45000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_caobang_max", "name": "Max Boutique Hotel Cao Bang", "category": "mid-range", "price": 1000000, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "ha_giang",
+      "name": "Ha Giang Karst Plateau",
+      "bestSeason": "September - November",
+      "coordinates": { "lat": 22.8239, "lng": 104.9836 },
+      "attractions": [
+        { "id": "vn_hagiang_loop", "name": "Dong Van Karst Plateau & Ma Pi Leng Pass", "type": "UNESCO Geopark", "rating": 4.9, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_hagiang_resort", "name": "H'Mong Village Resort", "category": "mid-range", "price": 2125000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "pu_luong",
+      "name": "Pu Luong Nature Reserve",
+      "bestSeason": "May & September",
+      "coordinates": { "lat": 20.4608, "lng": 105.1582 },
+      "attractions": [
+        { "id": "vn_puluong_terraces", "name": "Pu Luong Valley & Hiêu Waterfall", "type": "Rural Rice Terrace Retreat", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_puluong_retreat", "name": "Pu Luong Retreat", "category": "luxury", "price": 2375000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "con_dao",
+      "name": "Con Dao Islands",
+      "bestSeason": "October - June",
+      "coordinates": { "lat": 8.6833, "lng": 106.6000 },
+      "attractions": [
+        { "id": "vn_condao_island", "name": "Con Dao Marine Reserve & Turtle Beach", "type": "Pristine Archipelago", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_condao_six_senses", "name": "Six Senses Con Dao", "category": "luxury", "price": 21250000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "ba_be",
+      "name": "Ba Be National Park",
+      "bestSeason": "August - October",
+      "coordinates": { "lat": 22.4116, "lng": 105.6200 },
+      "attractions": [
+        { "id": "vn_babe_lake", "name": "Ba Be Freshwater Lake & Puong Cave", "type": "Freshwater Lake", "rating": 4.7, "price": 46000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_babe_homestay", "name": "Ba Be Lake View Homestay", "category": "budget", "price": 625000, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "quy_nhon",
+      "name": "Quy Nhon",
+      "bestSeason": "March - September",
+      "coordinates": { "lat": 13.7820, "lng": 109.2197 },
+      "attractions": [
+        { "id": "vn_quynhon_beaches", "name": "Quy Nhon Coastal Bays & Cham Ruins", "type": "Quiet Beach City", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_quynhon_anantara", "name": "Anantara Quy Nhon Villas", "category": "luxury", "price": 12000000, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "dak_lak",
+      "name": "Dak Lak & Lak Lake",
+      "bestSeason": "November - March",
+      "coordinates": { "lat": 12.6667, "lng": 108.0500 },
+      "attractions": [
+        { "id": "vn_daklak_lake", "name": "Lak Lake & Highlands Coffee Farms", "type": "Coffee Region & Ethnic Culture", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_daklak_dakruco", "name": "Dakruco Hotel", "category": "mid-range", "price": 1375000, "rating": 4.2 }
+      ]
+    },
+    {
+      "id": "mai_chau",
+      "name": "Mai Chau Valley",
+      "bestSeason": "October - April",
+      "coordinates": { "lat": 20.6278, "lng": 105.0817 },
+      "attractions": [
+        { "id": "vn_maichau_valley", "name": "Mai Chau White Thai Ethnic Villages", "type": "Valley Homestay Destination", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_maichau_ecolodge", "name": "Mai Chau Ecolodge", "category": "luxury", "price": 3000000, "rating": 4.6 }
+      ]
+    },
+    {
+      "id": "da_lat",
+      "name": "Da Lat",
+      "bestSeason": "December - March",
+      "coordinates": { "lat": 11.9404, "lng": 108.4583 },
+      "attractions": [
+        { "id": "vn_dalat_pongour", "name": "Pongour 7-Tier Waterfall", "type": "7-Tier Waterfall", "rating": 4.7, "price": 20000 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_dalat_anamandara", "name": "Ana Mandara Villas Dalat Resort & Spa", "category": "luxury", "price": 3250000, "rating": 4.7 },
+        { "id": "hotel_vn_muine_radisson", "name": "Radisson Resort Mui Ne", "category": "luxury", "price": 2750000, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "ninh_thuan",
+      "name": "Ninh Thuan & Vinh Hy Bay",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 11.7011, "lng": 109.1833 },
+      "attractions": [
+        { "id": "vn_ninhthuan_vinhhy", "name": "Vinh Hy Bay Coastal Sanctuary", "type": "UNESCO Karst Bay", "rating": 4.9, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_vn_ninhthuan_amanoi", "name": "Amanoi clifftop resort", "category": "luxury", "price": 27500000, "rating": 4.9 }
+      ]
+    }
+  ]
+}

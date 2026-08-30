@@ -1,0 +1,282 @@
+{
+  "country": "Germany",
+  "code": "DE",
+  "currency": {
+    "code": "EUR",
+    "symbol": "€"
+  },
+  "cities": [
+    {
+      "id": "berlin",
+      "name": "Berlin",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 52.5200, "lng": 13.4050 },
+      "attractions": [
+        { "id": "de_berlin_brandenburg", "name": "Brandenburg Gate", "type": "Historic Monument", "rating": 4.8, "price": 0 },
+        { "id": "de_berlin_wall", "name": "Berlin Wall Memorial", "type": "Historical Site", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_berlin_adlon", "name": "Hotel Adlon Kempinski", "category": "luxury", "price": 850, "rating": 4.9 },
+        { "id": "hotel_de_berlin_derome", "name": "Hotel de Rome", "category": "luxury", "price": 600, "rating": 4.8 },
+        { "id": "hotel_de_berlin_chateau_royal", "name": "Château Royal Berlin", "category": "luxury", "price": 300, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "munich",
+      "name": "Munich",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 48.1351, "lng": 11.5820 },
+      "attractions": [
+        { "id": "de_munich_marienplatz", "name": "Marienplatz & Glockenspiel", "type": "Historic Square", "rating": 4.7, "price": 0 },
+        { "id": "de_munich_oktoberfest", "name": "Oktoberfest", "type": "Cultural Festival", "rating": 4.9, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_munich_bayerischer_hof", "name": "Bayerischer Hof", "category": "luxury", "price": 750, "rating": 4.8 },
+        { "id": "hotel_de_munich_charles", "name": "The Charles Hotel", "category": "luxury", "price": 650, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "cologne",
+      "name": "Cologne",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 50.9375, "lng": 6.9603 },
+      "attractions": [
+        { "id": "de_cologne_cathedral", "name": "Cologne Cathedral", "type": "Gothic Cathedral", "rating": 4.9, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_cologne_excelsior", "name": "Excelsior Hotel Ernst", "category": "luxury", "price": 350, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "bavaria",
+      "name": "Bavarian Alps & Castles",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 47.5672, "lng": 10.9850 },
+      "attractions": [
+        { "id": "de_bavaria_neuschwanstein", "name": "Neuschwanstein Castle", "type": "Fairytale Castle", "rating": 4.8, "price": 15 },
+        { "id": "de_bavaria_berchtesgaden", "name": "Berchtesgaden & Königssee", "type": "Alpine Lake & Village", "rating": 4.8, "price": 10 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_bavaria_ameron", "name": "AMERON Neuschwanstein Alpsee Resort", "category": "luxury", "price": 250, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "heidelberg",
+      "name": "Heidelberg",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 49.3988, "lng": 8.6724 },
+      "attractions": [
+        { "id": "de_heidelberg_castle", "name": "Heidelberg Castle", "type": "Renaissance Ruins", "rating": 4.7, "price": 9 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_heidelberg_europaeischer", "name": "Hotel Europäischer Hof Heidelberg", "category": "luxury", "price": 280, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "rhineland",
+      "name": "Romantic Rhine Valley",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 50.1100, "lng": 7.3000 },
+      "attractions": [
+        { "id": "de_rhine_valley", "name": "Romantic Rhine Valley", "type": "UNESCO Landscape", "rating": 4.8, "price": 0 },
+        { "id": "de_rhineland_monreal", "name": "Monreal Riverside Village", "type": "Tiny Riverside Village", "rating": 4.6, "price": 0 },
+        { "id": "de_rhineland_bernkastel", "name": "Bernkastel-Kues Wine Village", "type": "Wine Village", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_rhineland_schoenburg", "name": "Castle Hotel Auf Schönburg", "category": "luxury", "price": 290, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "black_forest",
+      "name": "Black Forest",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 48.0500, "lng": 8.2500 },
+      "attractions": [
+        { "id": "de_black_forest", "name": "Black Forest Regional Park", "type": "Natural Region", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_black_forest_brenners", "name": "Brenners Park-Hotel & Spa (Baden-Baden)", "category": "luxury", "price": 550, "rating": 4.9 }
+      ]
+    },
+    {
+      "id": "dresden",
+      "name": "Dresden",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 51.0504, "lng": 13.7373 },
+      "attractions": [
+        { "id": "de_dresden_old_town", "name": "Dresden Old Town", "type": "Baroque City", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_dresden_gewandhaus", "name": "Gewandhaus Dresden (Autograph Collection)", "category": "luxury", "price": 200, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "monschau",
+      "name": "Monschau",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 50.5562, "lng": 6.2400 },
+      "attractions": [
+        { "id": "de_monschau_village", "name": "Monschau Half-Timbered Village", "type": "Half-Timbered Village", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_monschau_horchem", "name": "Horchem Hotel-Restaurant-Café", "category": "mid-range", "price": 130, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "freudenberg",
+      "name": "Freudenberg",
+      "bestSeason": "Winter or Spring",
+      "coordinates": { "lat": 50.8986, "lng": 7.8761 },
+      "attractions": [
+        { "id": "de_freudenberg_village", "name": "Freudenberg White Half-Timbered Village", "type": "White Half-Timbered Village", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_freudenberg_altstadt", "name": "Hotel Zur Altstadt", "category": "mid-range", "price": 120, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "esslingen",
+      "name": "Esslingen am Neckar",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 48.7408, "lng": 9.3102 },
+      "attractions": [
+        { "id": "de_esslingen_town", "name": "Esslingen Medieval Wine Town", "type": "Medieval Wine Town", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_esslingen_ecoinn", "name": "Eco Inn Hotel Esslingen", "category": "mid-range", "price": 110, "rating": 4.2 }
+      ]
+    },
+    {
+      "id": "heppenheim",
+      "name": "Heppenheim",
+      "bestSeason": "Autumn",
+      "coordinates": { "lat": 49.6417, "lng": 8.6444 },
+      "attractions": [
+        { "id": "de_heppenheim_town", "name": "Heppenheim Wine Town", "type": "Wine Town", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_heppenheim_engel", "name": "Hotel Goldener Engel", "category": "mid-range", "price": 115, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "idstein",
+      "name": "Idstein",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 50.2217, "lng": 8.2706 },
+      "attractions": [
+        { "id": "de_idstein_town", "name": "Idstein Half-Timbered Town", "type": "Detailed Half-Timbered Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_idstein_felsenkeller", "name": "Hotel Felsenkeller Idstein", "category": "mid-range", "price": 120, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "landshut",
+      "name": "Landshut",
+      "bestSeason": "Spring & Summer",
+      "coordinates": { "lat": 48.5372, "lng": 12.1524 },
+      "attractions": [
+        { "id": "de_landshut_town", "name": "Landshut Pastel Fairytale Town", "type": "Pastel Fairytale Town", "rating": 4.6, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_landshut_michel", "name": "Michel Hotel Landshut", "category": "mid-range", "price": 130, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "eltville",
+      "name": "Eltville am Rhein",
+      "bestSeason": "Spring & Summer",
+      "coordinates": { "lat": 50.0272, "lng": 8.1219 },
+      "attractions": [
+        { "id": "de_eltville_town", "name": "Eltville Riverside Wine Town", "type": "Riverside Wine Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_eltville_krone", "name": "Parkhotel Krone Eltville", "category": "mid-range", "price": 140, "rating": 4.4 }
+      ]
+    },
+    {
+      "id": "bremen",
+      "name": "Bremen Schnoor",
+      "bestSeason": "Year-round",
+      "coordinates": { "lat": 53.0759, "lng": 8.8093 },
+      "attractions": [
+        { "id": "de_bremen_schnoor", "name": "Bremen Schnoor Old Town Quarter", "type": "Old Town Quarter", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_bremen_radisson", "name": "Radisson Blu Hotel, Bremen", "category": "mid-range", "price": 150, "rating": 4.5 }
+      ]
+    },
+    {
+      "id": "swabian_alps",
+      "name": "Swabian Alps",
+      "bestSeason": "Spring & Autumn",
+      "coordinates": { "lat": 48.4064, "lng": 9.2528 },
+      "attractions": [
+        { "id": "de_swabian_lichtenstein", "name": "Schloss Lichtenstein", "type": "Neo-Gothic Castle", "rating": 4.7, "price": 12 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_swabian_heidhof", "name": "Alb Hotel Heidhof", "category": "mid-range", "price": 110, "rating": 4.3 }
+      ]
+    },
+    {
+      "id": "frankfurt",
+      "name": "Frankfurt",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 50.1109, "lng": 8.6821 },
+      "attractions": [
+        { "id": "de_frankfurt_roemerberg", "name": "Römerberg Square & Main Tower Skyline", "type": "Historic Square & Viewpoint", "rating": 4.6, "price": 9 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_frankfurt_frankfurter_hof", "name": "Steigenberger Frankfurter Hof", "category": "luxury", "price": 450, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "hamburg",
+      "name": "Hamburg",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 53.5511, "lng": 9.9937 },
+      "attractions": [
+        { "id": "de_hamburg_elbphilharmonie", "name": "Elbphilharmonie & Historic Speicherstadt", "type": "Concert Hall & UNESCO Warehouse", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_hamburg_atlantic", "name": "Hotel Atlantic Kempinski Hamburg", "category": "luxury", "price": 500, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "dinkelsbuehl",
+      "name": "Dinkelsbühl",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 49.0696, "lng": 10.3195 },
+      "attractions": [
+        { "id": "de_dinkelsbuehl_town", "name": "Dinkelsbühl Medieval Old Town", "type": "Medieval Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_dinkelsbuehl_golden_rose", "name": "Golden Rose Design Boutique Hotel & Spa", "category": "luxury", "price": 200, "rating": 4.8 }
+      ]
+    },
+    {
+      "id": "regensburg",
+      "name": "Regensburg",
+      "bestSeason": "May - September",
+      "coordinates": { "lat": 49.0134, "lng": 12.1016 },
+      "attractions": [
+        { "id": "de_regensburg_town", "name": "Regensburg Old Town & Stone Bridge", "type": "UNESCO Old Town", "rating": 4.7, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_regensburg_maximilian", "name": "Hotel Maximilian", "category": "luxury", "price": 250, "rating": 4.7 }
+      ]
+    },
+    {
+      "id": "tegernsee",
+      "name": "Tegernsee",
+      "bestSeason": "May - October",
+      "coordinates": { "lat": 47.7086, "lng": 11.7589 },
+      "attractions": [
+        { "id": "de_tegernsee_lake", "name": "Lake Tegernsee & Alpine Recreation", "type": "Alpine Lake", "rating": 4.8, "price": 0 }
+      ],
+      "hotels": [
+        { "id": "hotel_de_tegernsee_caro_selig", "name": "Caro & Selig, Tegernsee (Autograph Collection)", "category": "luxury", "price": 400, "rating": 4.8 }
+      ]
+    }
+  ]
+}
